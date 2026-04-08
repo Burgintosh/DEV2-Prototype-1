@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class cameraController : MonoBehaviour
 {
-    [SerializeField] int sens;
+    [SerializeField] float sens;
     [SerializeField] int lockVertMin, lockVertMax; // Stops from looking too far up/down and inverting the camera
     [SerializeField] bool invertY;
     [SerializeField] Transform player;
