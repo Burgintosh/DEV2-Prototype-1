@@ -6,11 +6,11 @@ public class playerController : MonoBehaviour
     [SerializeField] LayerMask ignoreLayer;
 
     [Range(1, 10)] [SerializeField] int HP;
-    [Range(3, 7)] [SerializeField] int speed;
-    [Range(2, 5)] [SerializeField] int sprintMod;
-    [Range(5, 25)] [SerializeField] int jumpSpeed;
+    [Range(3, 7)] [SerializeField] float speed;
+    [Range(2, 5)] [SerializeField] float sprintMod;
+    [Range(5, 25)] [SerializeField] float jumpSpeed;
     [Range(1, 3)] [SerializeField] int jumpMax;
-    [Range(15, 50)] [SerializeField] int gravity;
+    [Range(15, 50)] [SerializeField] float gravity;
 
     [SerializeField] int shootDamage;
     [SerializeField] int shootDist;
