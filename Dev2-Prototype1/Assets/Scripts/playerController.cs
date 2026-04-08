@@ -16,14 +16,26 @@ public class playerController : MonoBehaviour
     [SerializeField] int shootDist;
     [SerializeField] float shootRate;
 
+    [Header("Dash")]
+    [SerializeField] float dashSpeed;
+    [SerializeField] float dashTime;
+    [SerializeField] float dashCooldown;
+
     int jumpCount;
     int HPOrig;
 
     float shootTimer;
 
+    // Dash
+    float dashTimer;
+    float dashCooldownTimer;
+
+    bool isDashing;
+
+    Vector3 dashDir;
+
     Vector3 moveDir;
     Vector3 playerVel;
-  
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -34,15 +46,73 @@ public class playerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        HandleDashInput();
+        UpdateTimers();
         movement();
         sprint();
+    }
+
+    void UpdateTimers()
+    {
+        shootTimer += Time.deltaTime;
+
+        if (dashCooldownTimer > 0)
+        {
+            dashCooldownTimer -= Time.deltaTime;
+        }    
+    }
+
+    void HandleDashInput()
+    {
+        if (Input.GetButtonDown("Dash") && CanDash())
+        {
+            StartDash();
+        }
+    }
+
+    bool CanDash()
+    {
+        return !isDashing && dashCooldownTimer <= 0f;
+    }
+
+    void StartDash()
+    {
+        if(moveDir.magnitude > 0)
+        {
+            dashDir = moveDir.normalized;
+        }
+        else
+        {
+            dashDir = transform.forward;
+        }
+
+        isDashing = true;
+        dashTimer = dashTime;
+        dashCooldownTimer = dashCooldown;
+    }
+
+    void ApplyHorizontalMovement()
+    {
+        if (!isDashing)
+        {
+            controller.Move(moveDir * speed * Time.deltaTime);
+        }
+        else
+        {
+            controller.Move(dashDir * dashSpeed * Time.deltaTime);
+
+            dashTimer -= Time.deltaTime;
+
+            if(dashTimer < 0f)
+            {
+                isDashing = false;
+            }
+        }
     }
 
     void movement()
     {
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.yellow);
-
-        shootTimer += Time.deltaTime;
 
         if (controller.isGrounded)
         {
@@ -53,7 +123,7 @@ public class playerController : MonoBehaviour
         // moveDir = new Vector3(Input.GetAxis("Horizontal"),0, Input.GetAxis("Vertical")); // This works for top down games, but not first person. This movement is global based so gets weird when player rotates
         
         moveDir = Input.GetAxis("Horizontal") * transform.right + Input.GetAxis("Vertical") * transform.forward;
-        controller.Move(moveDir * speed * Time.deltaTime);
+        ApplyHorizontalMovement();
 
         jump();
         controller.Move(playerVel * Time.deltaTime);

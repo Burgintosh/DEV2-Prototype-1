@@ -118,6 +118,9 @@ MonoBehaviour:
   shootDamage: 1
   shootDist: 2
   shootRate: 0.25
+  dashSpeed: 25
+  dashTime: 0.2
+  dashCooldown: 0.5
 --- !u!143 &8108682555380180876
 CharacterController:
   m_ObjectHideFlags: 0
