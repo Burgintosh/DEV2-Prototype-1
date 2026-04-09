@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class playerController : MonoBehaviour
+public class playerController : MonoBehaviour, IDamage
 {
     [SerializeField] CharacterController controller;
     [SerializeField] LayerMask ignoreLayer;
@@ -95,11 +95,11 @@ public class playerController : MonoBehaviour
     {
         if (!isDashing)
         {
-            controller.Move(moveDir * speed * Time.deltaTime);
+            controller.Move(moveDir.normalized * speed * Time.deltaTime);
         }
         else
         {
-            controller.Move(dashDir * dashSpeed * Time.deltaTime);
+            controller.Move(dashDir.normalized * dashSpeed * Time.deltaTime);
 
             dashTimer -= Time.deltaTime;
 
@@ -113,6 +113,8 @@ public class playerController : MonoBehaviour
     void movement()
     {
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.yellow);
+
+        shootTimer += Time.deltaTime;
 
         if (controller.isGrounded)
         {
@@ -172,6 +174,17 @@ public class playerController : MonoBehaviour
             {
                 dmg.takeDamage(shootDamage);
             }
+        }
+    }
+
+    public void takeDamage(int amount)
+    {
+        HP -= amount; // do NOT destroy your player
+
+        if (HP <= 0)
+        {
+            // Congrat u r dedaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+            gamemanager.instance.youLose();
         }
     }
 }
