@@ -10,12 +10,12 @@ public class gamemanager : MonoBehaviour
 
     [SerializeField] GameObject menuActive;
     [SerializeField] GameObject menuPause;
-    [SerializeField] GameObject menuLose;
+    [SerializeField] GameObject menuRespawn;
     [SerializeField] GameObject menuWin;
+    [SerializeField] GameObject menuLose;
 
-    public GameObject player;
     public bool isPaused;
-    // [SerializeField] TMP_Text text; // Not sure if I hallucinated this
+    public GameObject player;
     public playerController playerScript;
 
     float timeScaleOrig; // So we can set pause game when pause menu is up. This lets us return to the time scale when unpausing
@@ -30,7 +30,7 @@ public class gamemanager : MonoBehaviour
         timeScaleOrig = Time.timeScale;
 
         player = GameObject.FindWithTag("Player");
-        playerScript = player.GetComponent<playerController>();
+        playerScript = player.GetComponent<playerController>(); 
     }
 
     // Update is called once per frame
@@ -43,13 +43,11 @@ public class gamemanager : MonoBehaviour
                 statepause();
                 menuActive = menuPause;
                 menuActive.SetActive(true);
+
             }
-            else
+            else if(menuActive == menuPause)
             {
-                if (menuActive == menuPause)
-                {
-                    stateUnpause();
-                }
+                stateUnpause();
             }
         }
     }
@@ -84,11 +82,14 @@ public class gamemanager : MonoBehaviour
         gameGoalCount += amount;
 
         if (gameGoalCount <= 0)
-        {
+    {
             // winner winner chicken dinner
             statepause();
             menuActive = menuWin;
             menuActive.SetActive(true);
-        }
+    }
+    public void Respawn()
+    {
+
     }
 }
