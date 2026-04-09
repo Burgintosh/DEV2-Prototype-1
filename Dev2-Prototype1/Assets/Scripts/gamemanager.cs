@@ -40,7 +40,7 @@ public class gamemanager : MonoBehaviour
         {
             if (menuActive == null)
             {
-                statepause();
+                statePause();
                 menuActive = menuPause;
                 menuActive.SetActive(true);
 
@@ -52,7 +52,7 @@ public class gamemanager : MonoBehaviour
         }
     }
 
-    public void statepause()
+    public void statePause()
     {
         isPaused = true;
         Time.timeScale = 0;
@@ -82,11 +82,12 @@ public class gamemanager : MonoBehaviour
         gameGoalCount += amount;
 
         if (gameGoalCount <= 0)
-    {
+        {
             // winner winner chicken dinner
             statepause();
             menuActive = menuWin;
             menuActive.SetActive(true);
+        }
     }
     public void Respawn()
     {

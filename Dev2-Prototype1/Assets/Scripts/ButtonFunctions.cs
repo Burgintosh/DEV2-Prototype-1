@@ -5,12 +5,12 @@ public class ButtonFunctions : MonoBehaviour
 {
    public void resume()
     {
-        gamemanager.instance.UnPauseState();
+        gamemanager.instance.stateUnpause();
     }
     public void restart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        gamemanager.instance.UnPauseState();
+        gamemanager.instance.stateUnpause();
     }
     public void Quit()
     {
