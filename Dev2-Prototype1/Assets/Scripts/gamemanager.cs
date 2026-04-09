@@ -72,7 +72,7 @@ public class gamemanager : MonoBehaviour
 
     public void youLose()
     {
-        statepause();
+        statePause();
         menuActive = menuLose;
         menuActive.SetActive(true);
     }
@@ -84,7 +84,7 @@ public class gamemanager : MonoBehaviour
         if (gameGoalCount <= 0)
         {
             // winner winner chicken dinner
-            statepause();
+            statePause();
             menuActive = menuWin;
             menuActive.SetActive(true);
         }

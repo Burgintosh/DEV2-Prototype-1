@@ -86,7 +86,7 @@ MonoBehaviour:
   HP: 5
   model: {fileID: 3683249318561982863}
   agent: {fileID: 1749115945639132357}
-  bullet: {fileID: 7282455896938454635, guid: 39bb1385102558e4c90ab311f75a837c, type: 3}
+  bullet: {fileID: 7282455896938454635, guid: 93a5fec2ed07599419bb714fcf34ad3d, type: 3}
   shootRate: 0.5
   shootPos: {fileID: 731632831942219043}
   gunPivot: {fileID: 6096079266528459120}
