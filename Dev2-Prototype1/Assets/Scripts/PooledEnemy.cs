@@ -6,6 +6,7 @@ public class PooledEnemy : MonoBehaviour
     WaveManager owningWaveManager;
 
     bool removedFromWave;
+    EnemyAI enemyAI;
 
     public void Init(ObjectPoolManager _PoolManager)
     {
@@ -16,7 +17,7 @@ public class PooledEnemy : MonoBehaviour
     {
         owningWaveManager = _WaveManager;
         removedFromWave = false;
-        //ResetState();
+        ResetState();
     }
 
     public void RemoveFromWave()
@@ -33,7 +34,7 @@ public class PooledEnemy : MonoBehaviour
             owningWaveManager.NotifyEnemyRemoved(this);
         }
 
-        // ReturnToPool();
+        ReturnToPool();
     }
 
     public void ReturnToPool()
@@ -45,13 +46,16 @@ public class PooledEnemy : MonoBehaviour
             return;
         }
 
-        // ResetState();
+        ResetState();
         owningPoolManager.ReturnToPool(this);
     }
 
-    protected virtual void ResetState()
+    void ResetState()
     {
-
+        if(enemyAI != null)
+        {
+            enemyAI.ResetEnemyState();
+        }
     }
 
 }

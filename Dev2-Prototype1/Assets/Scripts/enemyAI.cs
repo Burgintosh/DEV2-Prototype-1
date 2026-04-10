@@ -5,7 +5,8 @@ using UnityEngine.AI;
 public class EnemyAI : MonoBehaviour, IDamage
 {
 
-    [SerializeField] int HP;
+    [SerializeField] int maxHP = 3;
+    int HP;
 
     [SerializeField] Renderer model; // Needed to flash model red when damaged
     [SerializeField] NavMeshAgent agent;
@@ -33,7 +34,14 @@ public class EnemyAI : MonoBehaviour, IDamage
     void Start()
     {
         colorOrig = model.material.color;
-        gamemanager.instance.updateGameGoal(1);
+        startingPos = transform.position;
+
+        if(agent != null)
+        {
+            stoppingDistOrig = agent.stoppingDistance;
+        }
+
+        HP = maxHP;
     }
 
     // Update is called once per frame
@@ -118,8 +126,17 @@ public class EnemyAI : MonoBehaviour, IDamage
 
         if(HP <= 0)
         {
-            gamemanager.instance.updateGameGoal(-1);
-            GetComponent<PooledEnemy>().RemoveFromWave();
+            PooledEnemy pooledEnemy = GetComponent<PooledEnemy>();
+
+            if(pooledEnemy != null)
+            {
+                pooledEnemy.RemoveFromWave();
+            }
+            else
+            {
+                gameObject.SetActive(false);
+            }
+
         }
         else
         {
@@ -132,5 +149,27 @@ public class EnemyAI : MonoBehaviour, IDamage
         model.material.color = Color.red;
         yield return new WaitForSeconds(0.1f);
         model.material.color = colorOrig;
+    }
+
+    public void ResetEnemyState()
+    {
+        HP = maxHP;
+        shootTimer = 0f;
+        angleToPlayer = 0f;
+        playerInRange = false;
+        playerDir = Vector3.zero;
+
+        if(model != null)
+        {
+            model.material.color = colorOrig;
+        }
+
+        if(agent != null)
+        {
+            agent.enabled = true;
+            agent.ResetPath();
+            agent.stoppingDistance = stoppingDistOrig;
+            agent.velocity = Vector3.zero;
+        }
     }
 }
