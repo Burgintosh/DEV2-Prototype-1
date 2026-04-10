@@ -253,11 +253,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e391be01c3744408b528549aea1786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretAI
-  HP: 0
+  HP: 10
+  Cost: 100
   model: {fileID: 159742247}
   agent: {fileID: 0}
   bullet: {fileID: 7282455896938454635, guid: 93a5fec2ed07599419bb714fcf34ad3d, type: 3}
-  shootRate: 0.75
+  shootRate: 0.1
   shootPos: {fileID: 1659568803}
   gunPivot: {fileID: 1082466256}
   gunRotateSpeed: 1
@@ -423,7 +424,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 262279469758687424, guid: 3cee0aa98b29ffa44ae05d35a515ff38, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 5.03937
+      value: 20.06
       objectReference: {fileID: 0}
     - target: {fileID: 262279469758687424, guid: 3cee0aa98b29ffa44ae05d35a515ff38, type: 3}
       propertyPath: m_LocalRotation.w
@@ -682,11 +683,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3454297850122813984, guid: b876f61fbbde4434d9e2508f4e651440, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.96
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 3454297850122813984, guid: b876f61fbbde4434d9e2508f4e651440, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -14.56
+      value: -14.78
       objectReference: {fileID: 0}
     - target: {fileID: 3454297850122813984, guid: b876f61fbbde4434d9e2508f4e651440, type: 3}
       propertyPath: m_LocalRotation.w
@@ -719,7 +720,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 206251657112247229, guid: b876f61fbbde4434d9e2508f4e651440, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1942287620}
   m_SourcePrefab: {fileID: 100100000, guid: b876f61fbbde4434d9e2508f4e651440, type: 3}
 --- !u!1 &1659568802
 GameObject:
@@ -849,6 +853,38 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a0f2492342c70fe4facc09ee3ed0ef35, type: 3}
+--- !u!1 &1942287612 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 206251657112247229, guid: b876f61fbbde4434d9e2508f4e651440, type: 3}
+  m_PrefabInstance: {fileID: 1541010379}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &1942287620
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1942287612}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &2022862487
 GameObject:
   m_ObjectHideFlags: 0
@@ -877,7 +913,7 @@ Transform:
   m_GameObject: {fileID: 2022862487}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2, z: 0}
+  m_LocalPosition: {x: 0, y: 1.01, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -899,7 +935,7 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
