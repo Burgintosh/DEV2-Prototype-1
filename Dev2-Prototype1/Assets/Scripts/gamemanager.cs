@@ -69,6 +69,13 @@ public class gamemanager : MonoBehaviour
         menuActive.SetActive(false);
         menuActive = null;
     }
+    
+    public void youWin()
+    {
+        statePause();
+        menuActive = menuPause;
+        menuActive.SetActive(true);
+    }
 
     public void youLose()
     {
@@ -77,18 +84,19 @@ public class gamemanager : MonoBehaviour
         menuActive.SetActive(true);
     }
 
-    public void updateGameGoal(int amount)
-    {
-        gameGoalCount += amount;
+    //public void updateGameGoal(int amount)
+    //{
+    //    gameGoalCount += amount;
 
-        if (gameGoalCount <= 0)
-        {
-            // winner winner chicken dinner
-            statePause();
-            menuActive = menuWin;
-            menuActive.SetActive(true);
-        }
-    }
+    //    if (gameGoalCount <= 0)
+    //    {
+    //        // winner winner chicken dinner
+    //        statePause();
+    //        menuActive = menuWin;
+    //        menuActive.SetActive(true);
+    //    }
+    //}
+
     public void Respawn()
     {
 
