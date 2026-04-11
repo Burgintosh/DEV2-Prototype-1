@@ -44,7 +44,7 @@ public class TurretAI : MonoBehaviour, IDamage
         enemyDir = enemyPos.position - transform.position;
         if (enemyInRange)
         {
-            rotateToTarget();
+           // rotateToTarget();
             gunRotate();
             if(shootTimer>= shootRate)
             {
@@ -91,7 +91,7 @@ public class TurretAI : MonoBehaviour, IDamage
     }
     void rotateToTarget()
     {
-        Quaternion rot = Quaternion.LookRotation(new Vector3(enemyDir.x, 0, enemyDir.z));
+        Quaternion rot = Quaternion.LookRotation(new Vector3(enemyDir.x, enemyDir.y, enemyDir.z));
         transform.rotation = Quaternion.Lerp(transform.rotation, rot, Time.deltaTime * targetFaceSpeed);
     }
 }
