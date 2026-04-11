@@ -73,7 +73,7 @@ public class gamemanager : MonoBehaviour
     public void youWin()
     {
         statePause();
-        menuActive = menuLose;
+        menuActive = menuPause;
         menuActive.SetActive(true);
     }
 
