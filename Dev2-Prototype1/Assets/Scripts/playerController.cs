@@ -29,9 +29,7 @@ public class playerController : MonoBehaviour, IDamage
     // Dash
     float dashTimer;
     float dashCooldownTimer;
-
     bool isDashing;
-
     Vector3 dashDir;
 
     Vector3 moveDir;
@@ -77,14 +75,7 @@ public class playerController : MonoBehaviour, IDamage
 
     void StartDash()
     {
-        if(moveDir.magnitude > 0)
-        {
-            dashDir = moveDir.normalized;
-        }
-        else
-        {
-            dashDir = transform.forward;
-        }
+        dashDir = Camera.main.transform.forward.normalized;
 
         isDashing = true;
         dashTimer = dashTime;
@@ -103,7 +94,7 @@ public class playerController : MonoBehaviour, IDamage
 
             dashTimer -= Time.deltaTime;
 
-            if(dashTimer < 0f)
+            if(dashTimer <= 0f)
             {
                 isDashing = false;
             }
