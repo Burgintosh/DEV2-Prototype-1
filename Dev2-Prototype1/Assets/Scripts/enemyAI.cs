@@ -55,6 +55,10 @@ public class EnemyAI : MonoBehaviour, IDamage
         {
 
         }
+        if(!canSeePlayer())
+        {
+            agent.SetDestination(gamemanager.instance.Nexus.transform.position);
+        }
     }
 
     bool canSeePlayer() // 

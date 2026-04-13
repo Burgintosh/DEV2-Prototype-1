@@ -17,6 +17,7 @@ public class gamemanager : MonoBehaviour
     public bool isPaused;
     public GameObject player;
     public playerController playerScript;
+    public GameObject Nexus;
 
     float timeScaleOrig; // So we can set pause game when pause menu is up. This lets us return to the time scale when unpausing
 

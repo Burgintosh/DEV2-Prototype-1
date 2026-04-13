@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e257e212a2ec094687ba3625d706edc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
-  HP: 5
+  maxHP: 3
   model: {fileID: 3683249318561982863}
   agent: {fileID: 1749115945639132357}
   bullet: {fileID: 7282455896938454635, guid: 93a5fec2ed07599419bb714fcf34ad3d, type: 3}
@@ -236,7 +236,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
