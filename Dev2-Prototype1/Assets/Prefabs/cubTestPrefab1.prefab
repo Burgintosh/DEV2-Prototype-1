@@ -48,9 +48,9 @@ GameObject:
   - component: {fileID: 8700967457607026333}
   - component: {fileID: 5735856753902799230}
   - component: {fileID: 3270866468831788006}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: cubTestPrefab1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -84,7 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e257e212a2ec094687ba3625d706edc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
-  HP: 5
+  maxHP: 3
   model: {fileID: 3683249318561982863}
   agent: {fileID: 1749115945639132357}
   bullet: {fileID: 7282455896938454635, guid: 93a5fec2ed07599419bb714fcf34ad3d, type: 3}
