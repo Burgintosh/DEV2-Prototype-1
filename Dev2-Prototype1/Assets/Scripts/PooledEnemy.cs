@@ -1,21 +1,31 @@
 using UnityEngine;
 
-public class PooledEnemy : MonoBehaviour
+public class PooledEnemy : PooledObject
 {
-    ObjectPoolManager owningPoolManager;
     WaveManager owningWaveManager;
 
     bool removedFromWave;
     EnemyAI enemyAI;
 
-    public void Init(ObjectPoolManager _PoolManager)
+    private void Awake()
     {
-        owningPoolManager = _PoolManager;
+        enemyAI = GetComponent<EnemyAI>();
+    }
+
+    public override void Init(ObjectPoolManager _PoolManager)
+    {
+        base.Init(_PoolManager);
     }
     
     public void OnSpawned(WaveManager _WaveManager)
     {
         owningWaveManager = _WaveManager;
+        removedFromWave = false;
+        ResetState();
+    }
+
+    public override void OnSpawned()
+    {
         removedFromWave = false;
         ResetState();
     }
@@ -37,17 +47,11 @@ public class PooledEnemy : MonoBehaviour
         ReturnToPool();
     }
 
-    public void ReturnToPool()
+    public override void OnReturnedToPool()
     {
-        if(owningPoolManager == null)
-        {
-            Debug.Log("Prefab had no owning pool manager");
-            gameObject.SetActive(false);
-            return;
-        }
-
         ResetState();
-        owningPoolManager.ReturnToPool(this);
+        owningPoolManager = null;
+        removedFromWave = false;
     }
 
     void ResetState()

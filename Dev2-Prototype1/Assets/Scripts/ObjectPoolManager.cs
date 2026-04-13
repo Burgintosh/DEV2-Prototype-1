@@ -4,7 +4,7 @@ using System.Collections.Generic;
 [System.Serializable]
 public class PoolConfig
 {
-    public GameObject enemyPrefab;
+    public GameObject prefab;
     public int initPoolSize = 10;
     public bool canExpand = true;
 }
@@ -14,9 +14,9 @@ public class ObjectPoolManager : MonoBehaviour
     [SerializeField] List<PoolConfig> poolConfigs = new List<PoolConfig>();
     [SerializeField] bool showDebugLogs = true;
 
-    Dictionary<GameObject, Queue<PooledEnemy>> pools = new Dictionary<GameObject, Queue<PooledEnemy>>();
+    Dictionary<GameObject, Queue<PooledObject>> pools = new Dictionary<GameObject, Queue<PooledObject>>();
     Dictionary<GameObject, PoolConfig> configLookup = new Dictionary<GameObject, PoolConfig>();
-    Dictionary<PooledEnemy, GameObject> instanceToPrefab = new Dictionary<PooledEnemy, GameObject>();
+    Dictionary<PooledObject, GameObject> instanceToPrefab = new Dictionary<PooledObject, GameObject>();
 
     private void Awake()
     {
@@ -31,13 +31,13 @@ public class ObjectPoolManager : MonoBehaviour
 
         foreach(PoolConfig currConfig in poolConfigs)
         {
-            if(currConfig.enemyPrefab == null)
+            if(currConfig.prefab == null)
             {
                 LogWarning("Pool config is missing an enemy prefab");
                 continue;
             }
 
-            if (configLookup.ContainsKey(currConfig.enemyPrefab))
+            if (configLookup.ContainsKey(currConfig.prefab))
             {
                 LogWarning("Duplicate pool config found for the current prefab");
                 continue;
@@ -49,12 +49,12 @@ public class ObjectPoolManager : MonoBehaviour
                 continue;
             }
 
-            configLookup.Add(currConfig.enemyPrefab, currConfig);
-            pools.Add(currConfig.enemyPrefab, new Queue<PooledEnemy>());
+            configLookup.Add(currConfig.prefab, currConfig);
+            pools.Add(currConfig.prefab, new Queue<PooledObject>());
 
             for(int i = 0; i < currConfig.initPoolSize; i++)
             {
-                CreateAndStoreInstance(currConfig.enemyPrefab);
+                CreateAndStoreInstance(currConfig.prefab);
             }
 
         }
@@ -65,17 +65,17 @@ public class ObjectPoolManager : MonoBehaviour
         GameObject obj = Instantiate(_Prefab, transform);
         obj.SetActive(false);
 
-        PooledEnemy pooledEnemy = obj.GetComponent<PooledEnemy>();
+        PooledObject pooledObject = obj.GetComponent<PooledObject>();
 
-        if(pooledEnemy == null)
+        if(pooledObject == null)
         {
-            pooledEnemy = obj.AddComponent<PooledEnemy>();
+            pooledObject = obj.AddComponent<PooledObject>();
         }
 
-        pooledEnemy.Init(this);
+        pooledObject.Init(this);
 
-        pools[_Prefab].Enqueue(pooledEnemy);
-        instanceToPrefab[pooledEnemy] = _Prefab;
+        pools[_Prefab].Enqueue(pooledObject);
+        instanceToPrefab[pooledObject] = _Prefab;
 
     }
 
@@ -84,7 +84,7 @@ public class ObjectPoolManager : MonoBehaviour
         return _Prefab != null && pools.ContainsKey(_Prefab);
     }
 
-    public PooledEnemy GetFromPool(GameObject _Prefab, Vector3 _Pos, Quaternion _Rot)
+    public PooledObject GetFromPool(GameObject _Prefab, Vector3 _Pos, Quaternion _Rot)
     {
         if(_Prefab == null)
         {
@@ -114,32 +114,32 @@ public class ObjectPoolManager : MonoBehaviour
             }
         }
 
-        PooledEnemy enemy = pools[_Prefab].Dequeue();
-        enemy.transform.position = _Pos;
-        enemy.transform.rotation = _Rot;
-        enemy.gameObject.SetActive(true);
-        return enemy;
+        PooledObject pooledObject = pools[_Prefab].Dequeue();
+        pooledObject.transform.position = _Pos;
+        pooledObject.transform.rotation = _Rot;
+        pooledObject.gameObject.SetActive(true);
+        return pooledObject;
     }
 
-    public void ReturnToPool(PooledEnemy _Enemy)
+    public void ReturnToPool(PooledObject _PooledObject)
     {
-        if(_Enemy == null)
+        if(_PooledObject == null)
         {
-            LogWarning("Tried to return null enemy to pool");
+            LogWarning("Tried to return null object to pool");
             return;
         }
 
-        if (!instanceToPrefab.ContainsKey(_Enemy))
+        if (!instanceToPrefab.ContainsKey(_PooledObject))
         {
-            LogWarning("Returned enemy is not tracked by this pool");
-            _Enemy.gameObject.SetActive(false);
+            LogWarning("Returned object is not tracked by this pool");
+            _PooledObject.gameObject.SetActive(false);
             return;
         }
 
-        GameObject prefab = instanceToPrefab[_Enemy];
-        _Enemy.gameObject.SetActive(false);
-        _Enemy.transform.SetParent(transform);
-        pools[prefab].Enqueue(_Enemy);
+        GameObject prefab = instanceToPrefab[_PooledObject];
+        _PooledObject.gameObject.SetActive(false);
+        _PooledObject.transform.SetParent(transform);
+        pools[prefab].Enqueue(_PooledObject);
 
     }
 

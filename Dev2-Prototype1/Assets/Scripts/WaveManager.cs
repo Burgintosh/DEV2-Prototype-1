@@ -137,11 +137,21 @@ public class WaveManager : MonoBehaviour
             {
 
                 Vector3 spawnPos = GetSpawnPosition(_Group);
-                PooledEnemy currEnemy = poolManager.GetFromPool(currEntry.enemyPrefab, spawnPos, Quaternion.identity);
+                PooledObject pooledObject = poolManager.GetFromPool(currEntry.enemyPrefab, spawnPos, Quaternion.identity);
+
+                if(pooledObject == null)
+                {
+                    LogWarning($"Failed to spawn from group {_Group.groupName}");
+                    activeGroupCount--;
+                    yield break;
+                }
+
+                PooledEnemy currEnemy = pooledObject as PooledEnemy;
 
                 if(currEnemy == null)
                 {
-                    LogWarning($"Failed to spawn from group {_Group.groupName}");
+                    LogWarning($"Spawned pooled object is not a PooledEnemy");
+                    pooledObject.ReturnToPool();
                     activeGroupCount--;
                     yield break;
                 }

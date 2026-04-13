@@ -186,11 +186,13 @@ GameObject:
   m_Component:
   - component: {fileID: 2237816084262804591}
   - component: {fileID: 6080281766704899873}
+  - component: {fileID: -3465002275155728172}
   - component: {fileID: 4312131226062206769}
   - component: {fileID: 4248902834305976589}
   - component: {fileID: 4468530940920182521}
   - component: {fileID: 3027433260808344558}
-  m_Layer: 0
+  - component: {fileID: 8983905101673299857}
+  m_Layer: 7
   m_Name: Turret
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -225,7 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e391be01c3744408b528549aea1786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretAI
-  HP: 10
+  maxHP: 3
   Cost: 100
   model: {fileID: 4248902834305976589}
   agent: {fileID: 0}
@@ -233,8 +235,21 @@ MonoBehaviour:
   shootRate: 1
   shootPos: {fileID: 7451700377391386237}
   gunPivot: {fileID: 2072058723889720955}
-  gunRotateSpeed: 1
-  targetFaceSpeed: 1
+  gunRotateSpeed: 3
+  targetFaceSpeed: 4
+  FOV: 360
+--- !u!114 &-3465002275155728172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6861688145272702084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1441aa63be0039049b2c3ed74be12ca8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PooledTurret
 --- !u!33 &4312131226062206769
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -336,6 +351,33 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 15
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!54 &8983905101673299857
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6861688145272702084}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7823508016725538684
 GameObject:
   m_ObjectHideFlags: 0
