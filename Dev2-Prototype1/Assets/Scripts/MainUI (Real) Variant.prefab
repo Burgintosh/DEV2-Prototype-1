@@ -363,6 +363,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2813497213221594733, guid: 6d7a32552768d674599ed8ff10dcba57, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 138214255626136216}
+    - target: {fileID: 2813497213221594733, guid: 6d7a32552768d674599ed8ff10dcba57, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Quit
+      objectReference: {fileID: 0}
     - target: {fileID: 3590356386139360164, guid: 6d7a32552768d674599ed8ff10dcba57, type: 3}
       propertyPath: m_Name
       value: MainUI (Real) Variant
@@ -383,6 +391,30 @@ PrefabInstance:
       propertyPath: currencyText
       value: 
       objectReference: {fileID: 7065199910990150697}
+    - target: {fileID: 6943758034648929470, guid: 6d7a32552768d674599ed8ff10dcba57, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 138214255626136216}
+    - target: {fileID: 6943758034648929470, guid: 6d7a32552768d674599ed8ff10dcba57, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: restart
+      objectReference: {fileID: 0}
+    - target: {fileID: 7677876743581582724, guid: 6d7a32552768d674599ed8ff10dcba57, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 138214255626136216}
+    - target: {fileID: 7677876743581582724, guid: 6d7a32552768d674599ed8ff10dcba57, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: resume
+      objectReference: {fileID: 0}
+    - target: {fileID: 7725918647846553721, guid: 6d7a32552768d674599ed8ff10dcba57, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 138214255626136216}
+    - target: {fileID: 7725918647846553721, guid: 6d7a32552768d674599ed8ff10dcba57, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: restart
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -394,6 +426,17 @@ PrefabInstance:
       addedObject: {fileID: 3459237082264506811}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d7a32552768d674599ed8ff10dcba57, type: 3}
+--- !u!114 &138214255626136216 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 23501647684105696, guid: 6d7a32552768d674599ed8ff10dcba57, type: 3}
+  m_PrefabInstance: {fileID: 123980647019929464}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 598796c7ab7da78498b448d5adb742ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonFunctions
 --- !u!114 &830698395499879000 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 738392941183403296, guid: 6d7a32552768d674599ed8ff10dcba57, type: 3}

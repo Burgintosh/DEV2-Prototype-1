@@ -860,6 +860,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2788849064710158613, guid: bb3cdca860f16d447b0c37e3c402479d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2267831453006864674}
+    - target: {fileID: 2788849064710158613, guid: bb3cdca860f16d447b0c37e3c402479d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Quit
+      objectReference: {fileID: 0}
     - target: {fileID: 3489152410520196316, guid: bb3cdca860f16d447b0c37e3c402479d, type: 3}
       propertyPath: m_Name
       value: MainUI (Real)
@@ -868,11 +876,46 @@ PrefabInstance:
       propertyPath: currencyManager
       value: 
       objectReference: {fileID: 221060957}
+    - target: {fileID: 7054141806793378758, guid: bb3cdca860f16d447b0c37e3c402479d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2267831453006864674}
+    - target: {fileID: 7054141806793378758, guid: bb3cdca860f16d447b0c37e3c402479d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: restart
+      objectReference: {fileID: 0}
+    - target: {fileID: 7678511669241222913, guid: bb3cdca860f16d447b0c37e3c402479d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2267831453006864674}
+    - target: {fileID: 7678511669241222913, guid: bb3cdca860f16d447b0c37e3c402479d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: restart
+      objectReference: {fileID: 0}
+    - target: {fileID: 7725146181508831996, guid: bb3cdca860f16d447b0c37e3c402479d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2267831453006864674}
+    - target: {fileID: 7725146181508831996, guid: bb3cdca860f16d447b0c37e3c402479d, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: resume
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bb3cdca860f16d447b0c37e3c402479d, type: 3}
+--- !u!114 &2267831453006864674 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 138214255626136216, guid: bb3cdca860f16d447b0c37e3c402479d, type: 3}
+  m_PrefabInstance: {fileID: 2267831453006864673}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 598796c7ab7da78498b448d5adb742ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ButtonFunctions
 --- !u!1001 &4096304978613961359
 PrefabInstance:
   m_ObjectHideFlags: 0
