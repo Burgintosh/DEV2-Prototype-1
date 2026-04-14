@@ -64,10 +64,10 @@ public class TurretManager : MonoBehaviour
             return null;
         }
 
-        if (!gamemanager.instance.currencyManager.TrySpendCurrency(turretPrefab.GetComponent<TurretAI>().getCost()))
-        {
-            return null;
-        }
+        //if (!gamemanager.instance.currencyManager.TrySpendCurrency(turretPrefab.GetComponent<TurretAI>().getCost()))
+        //{
+        //    return null;
+        //}
 
         turret.OnSpawned(this);
 

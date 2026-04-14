@@ -14,7 +14,7 @@ public class gamemanager : MonoBehaviour
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
 
-    [SerializeField] private TextMeshPro currencyText;
+    [SerializeField] private TextMeshProUGUI currencyText;
 
     public bool isPaused;
     public CurrencyManager currencyManager;
