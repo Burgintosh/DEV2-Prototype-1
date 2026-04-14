@@ -14,9 +14,12 @@ public class gamemanager : MonoBehaviour
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
 
+    [SerializeField] private TextMeshProUGUI currencyText;
+
     public bool isPaused;
     public GameObject player;
     public playerController playerScript;
+    public CurrencyManager currencyManager;
 
     float timeScaleOrig; // So we can set pause game when pause menu is up. This lets us return to the time scale when unpausing
 
@@ -50,6 +53,20 @@ public class gamemanager : MonoBehaviour
                 stateUnpause();
             }
         }
+    }
+
+    private void OnEnable()
+    {
+        if(currencyManager != null)
+        {
+            currencyManager.OnCurrencyChanged += UpdateUI;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (currencyManager != null)
+            currencyManager.OnCurrencyChanged -= UpdateUI;
     }
 
     public void statePause()
@@ -96,6 +113,10 @@ public class gamemanager : MonoBehaviour
     //        menuActive.SetActive(true);
     //    }
     //}
+    private void UpdateUI(int amount)
+    {
+        currencyText.text = $"${amount}";
+    }
 
     public void Respawn()
     {

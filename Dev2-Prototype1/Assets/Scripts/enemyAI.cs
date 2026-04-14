@@ -19,6 +19,8 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] int targetFaceSpeed;
     [SerializeField] int FOV;
 
+    [SerializeField] int currencyDrop;
+
     Color colorOrig;
 
     float shootTimer;
@@ -126,6 +128,7 @@ public class EnemyAI : MonoBehaviour, IDamage
 
         if(HP <= 0)
         {
+            gamemanager.instance.currencyManager.AddCurrency(currencyDrop);
             PooledEnemy pooledEnemy = GetComponent<PooledEnemy>();
 
             if(pooledEnemy != null)
