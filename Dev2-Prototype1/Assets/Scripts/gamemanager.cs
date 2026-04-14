@@ -1,6 +1,6 @@
 using UnityEngine;
 using TMPro; // Access to text stuff
-using UnityEngine.UI; // Access to UI stuff
+using UnityEngine.UI;
 
 public class gamemanager : MonoBehaviour
 {
@@ -17,6 +17,7 @@ public class gamemanager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI currencyText;
 
     public bool isPaused;
+    public Image playerHealthBar;
     public GameObject playerDamageFlash;
     public GameObject player;
     public playerController playerScript;

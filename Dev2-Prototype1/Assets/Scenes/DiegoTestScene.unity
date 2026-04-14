@@ -353,7 +353,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2035320126265444578, guid: e546c123470475b46bc1034952e3c9cd, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 31.3
+      value: 29.29
       objectReference: {fileID: 0}
     - target: {fileID: 2035320126265444578, guid: e546c123470475b46bc1034952e3c9cd, type: 3}
       propertyPath: m_LocalPosition.y
@@ -361,7 +361,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2035320126265444578, guid: e546c123470475b46bc1034952e3c9cd, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 16.3
+      value: 20.89
       objectReference: {fileID: 0}
     - target: {fileID: 2035320126265444578, guid: e546c123470475b46bc1034952e3c9cd, type: 3}
       propertyPath: m_LocalRotation.w
@@ -956,6 +956,10 @@ PrefabInstance:
       propertyPath: playerDamageFlash
       value: 
       objectReference: {fileID: 1793871904}
+    - target: {fileID: 6118124353944335978, guid: 13e3133790c107d42b65508413c558e0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 19.184082
+      objectReference: {fileID: 0}
     - target: {fileID: 7020065849617747143, guid: 13e3133790c107d42b65508413c558e0, type: 3}
       propertyPath: testBuildPoint
       value: 
