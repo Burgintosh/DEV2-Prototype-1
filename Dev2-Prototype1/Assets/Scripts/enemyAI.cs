@@ -126,6 +126,7 @@ public class EnemyAI : MonoBehaviour, IDamage
 
         if(HP <= 0)
         {
+            gamemanager.instance.currencyManager.AddCurrency(currencyDrop);
             PooledEnemy pooledEnemy = GetComponent<PooledEnemy>();
 
             if(pooledEnemy != null)
