@@ -31,11 +31,11 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] InputActionReference shootAction;
 
     [Header("Movement")]
-    [SerializeField] float acceleration = 10f;
-    [SerializeField] float airAcceleration = 2f;
-    [SerializeField] float groundFriction = 8f;
-    [SerializeField] float jumpBuffer = 0.1f;
-    [SerializeField] float airSpeedCap = 0.1f;
+    [Range(50, 200)] [SerializeField] float acceleration = 75f; // Default 75
+    [Range(100, 300)] [SerializeField] float airAcceleration = 150f; // Default 150
+    [Range(1, 30)] [SerializeField] float groundFriction = 25f; // Default 25
+    [Range(0.1f, 0.5f)] [SerializeField] float jumpBuffer = 0.4f; // Default 0.4
+    [Range(0f, 10f)] [SerializeField] float airSpeedCap = 1f; // Default 1 (0 for no cap)
 
 
 
