@@ -1,9 +1,11 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class playerController : MonoBehaviour, IDamage
 {
     [SerializeField] CharacterController controller;
     [SerializeField] LayerMask ignoreLayer;
+
 
     [Range(1, 10)] [SerializeField] int HP;
     [Range(3, 7)] [SerializeField] float speed;
@@ -21,10 +23,27 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] float dashTime;
     [SerializeField] float dashCooldown;
 
+    [Header("Input Setup (For Input System Package")]
+    [SerializeField] InputActionReference moveAction;
+    [SerializeField] InputActionReference jumpAction;
+    [SerializeField] InputActionReference sprintAction;
+    [SerializeField] InputActionReference dashAction;
+    [SerializeField] InputActionReference shootAction;
+
+    [Header("Movement")]
+    [SerializeField] float acceleration = 10f;
+    [SerializeField] float airAcceleration = 2f;
+    [SerializeField] float groundFriction = 8f;
+    [SerializeField] float jumpBuffer = 0.1f;
+    [SerializeField] float airSpeedCap = 0.1f;
+
+
+
     int jumpCount;
     int HPOrig;
 
     float shootTimer;
+    float jumpBufferTimer;
 
     // Dash
     float dashTimer;
@@ -35,13 +54,29 @@ public class playerController : MonoBehaviour, IDamage
     Vector3 moveDir;
     Vector3 playerVel;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void OnEnable()
+    {
+        moveAction.action?.Enable();
+        jumpAction.action?.Enable();
+        sprintAction.action?.Enable();
+        dashAction.action?.Enable();
+        shootAction.action?.Enable();
+    }
+
+    void OnDisable()
+    {
+        moveAction.action?.Disable();
+        jumpAction.action?.Disable();
+        sprintAction.action?.Disable();
+        dashAction.action?.Disable();
+        shootAction.action?.Disable();
+    }
+
     void Start()
     {
         HPOrig = HP;
     }
 
-    // Update is called once per frame
     void Update()
     {
         HandleDashInput();
@@ -57,12 +92,20 @@ public class playerController : MonoBehaviour, IDamage
         if (dashCooldownTimer > 0)
         {
             dashCooldownTimer -= Time.deltaTime;
-        }    
+        }
+        if (jumpBufferTimer > 0)
+        {
+            jumpBufferTimer -= Time.deltaTime;
+        }
     }
 
     void HandleDashInput()
     {
-        if (Input.GetButtonDown("Dash") && CanDash())
+        //if (Input.GetButtonDown("Dash") && CanDash())
+        //{
+        //    StartDash();
+        //}
+        if (dashAction.action.WasPressedThisFrame() && CanDash())
         {
             StartDash();
         }
@@ -80,17 +123,75 @@ public class playerController : MonoBehaviour, IDamage
         isDashing = true;
         dashTimer = dashTime;
         dashCooldownTimer = dashCooldown;
+
+        playerVel = new Vector3(dashDir.x * dashSpeed, playerVel.y, dashDir.z * dashSpeed);
+    }
+
+    void Accelerate(Vector3 wishDir, float wishSpeed, float accel) // Based off Quake movement for bhopping
+    {
+        Vector3 currentHorizontalVel = new Vector3(playerVel.x, 0, playerVel.z);
+        float currentSpeed = Vector3.Dot(currentHorizontalVel, wishDir);
+        
+        float addSpeed = wishSpeed - currentSpeed;
+        if (addSpeed <= 0)
+        {
+            return;
+        }
+
+        float accelSpeed = accel * Time.deltaTime * wishSpeed;
+        if (accelSpeed > addSpeed) accelSpeed = addSpeed;
+
+        playerVel.x += wishDir.x * accelSpeed;
+        playerVel.z += wishDir.z * accelSpeed;
+    }
+
+    void ApplyFriction()
+    {
+        Vector3 currentHorizontalVel = new Vector3(playerVel.x, 0, playerVel.z);
+        float currentSpeed = currentHorizontalVel.magnitude;
+
+        if(currentSpeed < 0.1f)
+        {
+            playerVel.x = 0;
+            playerVel.z = 0;
+            return;
+        }
+
+        float drop = currentSpeed * groundFriction * Time.deltaTime;
+        float newSpeed = currentSpeed - drop;
+        if (newSpeed < 0) newSpeed = 0;
+        newSpeed /= currentSpeed;
+
+        playerVel.x *= newSpeed;
+        playerVel.z *= newSpeed;
+
     }
 
     void ApplyHorizontalMovement()
     {
         if (!isDashing)
         {
-            controller.Move(moveDir.normalized * speed * Time.deltaTime);
+
+            Vector3 wishDir = moveDir.normalized;
+
+            if (controller.isGrounded && jumpCount == 0)
+            {
+                ApplyFriction();
+                Accelerate(wishDir, speed, acceleration);
+            }
+            else
+            {
+                Accelerate(wishDir, airSpeedCap, airAcceleration);
+            }
+
+                //controller.Move(moveDir.normalized * speed * Time.deltaTime);
         }
         else
         {
-            controller.Move(dashDir.normalized * dashSpeed * Time.deltaTime);
+            //controller.Move(dashDir.normalized * dashSpeed * Time.deltaTime);
+
+            playerVel.x = dashDir.x * dashSpeed;
+            playerVel.z = dashDir.z * dashSpeed;
 
             dashTimer -= Time.deltaTime;
 
@@ -110,20 +211,29 @@ public class playerController : MonoBehaviour, IDamage
         if (controller.isGrounded)
         {
             jumpCount = 0;
-            if(playerVel.y < 0) // Not needed but I think might make it nicer
-                playerVel.y = 0;
+            if(playerVel.y < 0)
+                playerVel.y = -2f;
         }
         // moveDir = new Vector3(Input.GetAxis("Horizontal"),0, Input.GetAxis("Vertical")); // This works for top down games, but not first person. This movement is global based so gets weird when player rotates
-        
-        moveDir = Input.GetAxis("Horizontal") * transform.right + Input.GetAxis("Vertical") * transform.forward;
-        ApplyHorizontalMovement();
+        Vector2 moveInput = moveAction.action.ReadValue<Vector2>();
+        moveDir = moveInput.x * transform.right + moveInput.y * transform.forward;
+        // moveDir = Input.GetAxis("Horizontal") * transform.right + Input.GetAxis("Vertical") * transform.forward;
 
-        jump();
-        controller.Move(playerVel * Time.deltaTime);
-        if(!controller.isGrounded) // Not needed if statement, but stops playerVel from decreasing when on the ground
+        if (!controller.isGrounded)
             playerVel.y -= gravity * Time.deltaTime;
 
-        if(Input.GetButton("Fire1") && shootTimer >= shootRate)
+        jump();
+        ApplyHorizontalMovement();
+
+        
+        controller.Move(playerVel * Time.deltaTime);
+       
+
+        //if(Input.GetButton("Fire1") && shootTimer >= shootRate)
+        //{
+        //    shoot();
+        //}
+        if(shootAction.action.IsPressed() && shootTimer >= shootRate)
         {
             shoot();
         }
@@ -131,23 +241,38 @@ public class playerController : MonoBehaviour, IDamage
 
     void sprint()
     {
-        if(Input.GetButtonDown("Sprint")) // GetButton is polling ie hold to sprint, Down and Up are toggles
+        //if(Input.GetButtonDown("Sprint")) // GetButton is polling ie hold to sprint, Down and Up are toggles
+        //{
+        //    speed *= sprintMod;
+        //}
+        //else if(Input.GetButtonUp("Sprint"))
+        //{
+        //    speed /= sprintMod;
+        //}
+        if (sprintAction.action.WasPressedThisFrame()) // GetButton is polling ie hold to sprint, Down and Up are toggles
         {
             speed *= sprintMod;
         }
-        else if(Input.GetButtonUp("Sprint"))
+        else if (sprintAction.action.WasReleasedThisFrame())
         {
-            speed /= sprintMod; // Not sure how this is different than the GetButton to do hold to sprint
+            speed /= sprintMod;
         }
     }
 
     void jump()
     {
         //jump jump
-        if(Input.GetButtonDown("Jump") && jumpCount < jumpMax)
+        if(jumpAction.action.WasPressedThisFrame() && jumpCount < jumpMax)
+        {
+            jumpBufferTimer = jumpBuffer;
+            //playerVel.y = jumpSpeed;
+            //jumpCount++;
+        }
+        if(jumpBufferTimer > 0 && controller.isGrounded) // only works for single jump
         {
             playerVel.y = jumpSpeed;
-            jumpCount++;
+            jumpCount = 1;
+            jumpBufferTimer = 0;
         }
     }
 
@@ -155,7 +280,7 @@ public class playerController : MonoBehaviour, IDamage
     {
         shootTimer = 0;
 
-        RaycastHit hit; // Basically hitscan
+        RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
         {
             Debug.Log(hit.collider.name);
@@ -174,7 +299,7 @@ public class playerController : MonoBehaviour, IDamage
 
         if (HP <= 0)
         {
-            // Congrat u r dedaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+            // Congrat u r ded
             gamemanager.instance.youLose();
         }
     }
