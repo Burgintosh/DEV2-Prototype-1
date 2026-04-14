@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class playerController : MonoBehaviour, IDamage
 {
@@ -297,10 +298,17 @@ public class playerController : MonoBehaviour, IDamage
     {
         HP -= amount; // do NOT destroy your player
 
+        StartCoroutine(damageFlash());
         if (HP <= 0)
         {
             // Congrat u r ded
             gamemanager.instance.youLose();
         }
+    }
+    IEnumerator damageFlash()
+    {
+        gamemanager.instance.playerDamageFlash.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        gamemanager.instance.playerDamageFlash.SetActive(false);
     }
 }

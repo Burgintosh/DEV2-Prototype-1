@@ -17,6 +17,7 @@ public class gamemanager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI currencyText;
 
     public bool isPaused;
+    public GameObject playerDamageFlash;
     public GameObject player;
     public playerController playerScript;
     public GameObject Nexus;
