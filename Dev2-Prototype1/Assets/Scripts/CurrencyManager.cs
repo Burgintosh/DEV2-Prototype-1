@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -26,7 +26,7 @@ public class CurrencyManager : MonoBehaviour
         currentCurrency += amount;
         OnCurrencyChanged?.Invoke(currentCurrency);
     }
-    
+
     public bool TrySpendCurrency(int amount)
     {
         if (currentCurrency < amount)

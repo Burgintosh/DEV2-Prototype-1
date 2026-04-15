@@ -6,7 +6,7 @@ public class TurretAI : MonoBehaviour, IDamage
 {
     [SerializeField] int maxHP = 3;
     int HP;
-    [SerializeField] int Cost;
+    [SerializeField] int cost;
 
     [SerializeField] Renderer model; // Needed to flash model red when damaged
     [SerializeField] NavMeshAgent agent;
@@ -260,5 +260,10 @@ public class TurretAI : MonoBehaviour, IDamage
                 gameObject.SetActive(false);
             }
         }
+    }
+
+    public int getCost()
+    {
+        return cost;
     }
 }

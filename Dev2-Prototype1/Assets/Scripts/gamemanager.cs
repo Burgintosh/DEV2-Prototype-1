@@ -19,11 +19,12 @@ public class gamemanager : MonoBehaviour
     public bool isPaused;
     public Image playerHealthBar;
     public GameObject playerDamageFlash;
+    public CurrencyManager currencyManager;
+
     public GameObject player;
     public playerController playerScript;
     public GameObject Nexus;
-    public CurrencyManager currencyManager;
-
+   
     float timeScaleOrig; // So we can set pause game when pause menu is up. This lets us return to the time scale when unpausing
 
     int gameGoalCount;
@@ -60,7 +61,7 @@ public class gamemanager : MonoBehaviour
 
     private void OnEnable()
     {
-        if(currencyManager != null)
+        if (currencyManager != null)
         {
             currencyManager.OnCurrencyChanged += UpdateUI;
         }

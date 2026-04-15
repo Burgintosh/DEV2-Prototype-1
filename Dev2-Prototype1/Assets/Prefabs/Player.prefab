@@ -121,16 +121,6 @@ MonoBehaviour:
   dashSpeed: 25
   dashTime: 0.2
   dashCooldown: 0.5
-  moveAction: {fileID: 0}
-  jumpAction: {fileID: 0}
-  sprintAction: {fileID: 0}
-  dashAction: {fileID: 0}
-  shootAction: {fileID: 0}
-  acceleration: 50
-  airAcceleration: 100
-  groundFriction: 8
-  jumpBuffer: 0.1
-  airSpeedCap: 0.1
 --- !u!143 &8108682555380180876
 CharacterController:
   m_ObjectHideFlags: 0
