@@ -15,9 +15,9 @@ TagManager:
   - Player Bullet
   - Enemy
   - Enemy Bullet
-  - 
-  - 
-  - 
+  - BuildArea
+  - Turret
+  - Obstacle
   - 
   - 
   - 

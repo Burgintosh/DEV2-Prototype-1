@@ -165,6 +165,7 @@ GameObject:
   m_Component:
   - component: {fileID: 15677698149879725}
   - component: {fileID: 3405798309347347471}
+  - component: {fileID: 1423015754300154477}
   - component: {fileID: 4060575182106954972}
   - component: {fileID: 8083583662974543037}
   - component: {fileID: 3418633649003836014}
@@ -219,6 +220,47 @@ MonoBehaviour:
   dashSpeed: 25
   dashTime: 0.2
   dashCooldown: 0.5
+  moveAction: {fileID: 0}
+  jumpAction: {fileID: 0}
+  sprintAction: {fileID: 0}
+  dashAction: {fileID: 0}
+  shootAction: {fileID: 0}
+  acceleration: 75
+  airAcceleration: 150
+  groundFriction: 25
+  jumpBuffer: 0.4
+  airSpeedCap: 1
+--- !u!114 &1423015754300154477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8496870519721792966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b79def102a80b24892fc2df198f3e01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildPlacementController
+  buildCamera: {fileID: 5281255741563342711}
+  playerPos: {fileID: 15677698149879725}
+  turretManager: {fileID: 0}
+  previewPrefab: {fileID: 0}
+  currentBuildType: 0
+  rayCastDist: 100
+  maxBuildDist: 8
+  placementRadius: 1
+  previewYOffset: 0
+  togglePreviewKey: 98
+  confirmBuildKey: 323
+  buildAreaMask:
+    serializedVersion: 2
+    m_Bits: 0
+  placementBlockMask:
+    serializedVersion: 2
+    m_Bits: 0
+  validColor: {r: 0, g: 0, b: 1, a: 1}
+  invalidColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!143 &4060575182106954972
 CharacterController:
   m_ObjectHideFlags: 0
