@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
@@ -7,22 +10,43 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] CharacterController controller;
     [SerializeField] LayerMask ignoreLayer;
 
-
+    [Header("General Stats")]
     [Range(1, 10)] [SerializeField] int HP;
-    [Range(3, 7)] [SerializeField] float speed;
-    [Range(2, 5)] [SerializeField] float sprintMod;
-    [Range(5, 25)] [SerializeField] float jumpSpeed;
-    [Range(1, 3)] [SerializeField] int jumpMax;
-    [Range(15, 50)] [SerializeField] float gravity;
+    int HPOrig;
 
-    [SerializeField] int shootDamage;
-    [SerializeField] int shootDist;
-    [SerializeField] float shootRate;
+
+    [Header("Gun")]
+    [SerializeField] List<Weapon> weapons = new List<Weapon>();
+    Weapon lastWeapon;
+    int currentWeaponIndex = 0;
+    float shootTimer;
 
     [Header("Dash")]
     [SerializeField] float dashSpeed;
     [SerializeField] float dashTime;
     [SerializeField] float dashCooldown;
+    float dashTimer;
+    float dashCooldownTimer;
+    bool isDashing;
+    Vector3 dashDir;
+
+
+    [Header("General Movement")]
+    [Range(3, 7)][SerializeField] float speed;
+    [Range(2, 5)][SerializeField] float sprintMod;
+    [Range(5, 25)][SerializeField] float jumpSpeed;
+    [Range(1, 3)][SerializeField] int jumpMax;
+    [Range(15, 50)][SerializeField] float gravity;
+    int jumpCount;
+
+    [Header("New Movement Stats")]
+    [Range(50, 200)] [SerializeField] float acceleration = 75f; // Default 75
+    [Range(100, 300)] [SerializeField] float airAcceleration = 150f; // Default 150
+    [Range(1, 30)] [SerializeField] float groundFriction = 25f; // Default 25
+    [Range(0.1f, 0.5f)] [SerializeField] float jumpBuffer = 0.4f; // Default 0.4
+    [Range(0f, 10f)] [SerializeField] float airSpeedCap = 1f; // Default 1 (0 for no cap)
+    float jumpBufferTimer;
+
 
     [Header("Input Setup (For Input System Package")]
     [SerializeField] InputActionReference moveAction;
@@ -30,30 +54,14 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] InputActionReference sprintAction;
     [SerializeField] InputActionReference dashAction;
     [SerializeField] InputActionReference shootAction;
-
-    [Header("Movement")]
-    [Range(50, 200)] [SerializeField] float acceleration = 75f; // Default 75
-    [Range(100, 300)] [SerializeField] float airAcceleration = 150f; // Default 150
-    [Range(1, 30)] [SerializeField] float groundFriction = 25f; // Default 25
-    [Range(0.1f, 0.5f)] [SerializeField] float jumpBuffer = 0.4f; // Default 0.4
-    [Range(0f, 10f)] [SerializeField] float airSpeedCap = 1f; // Default 1 (0 for no cap)
-
-
-
-    int jumpCount;
-    int HPOrig;
-
-    float shootTimer;
-    float jumpBufferTimer;
-
-    // Dash
-    float dashTimer;
-    float dashCooldownTimer;
-    bool isDashing;
-    Vector3 dashDir;
-
+    [SerializeField] InputActionReference reloadAction;
+    [SerializeField] InputActionReference Weapon1;
+    [SerializeField] InputActionReference Weapon2;
+    [SerializeField] InputActionReference Weapon3;
     Vector3 moveDir;
     Vector3 playerVel;
+
+    public event Action<Weapon> OnWeaponChanged;
 
     void OnEnable()
     {
@@ -62,6 +70,9 @@ public class playerController : MonoBehaviour, IDamage
         sprintAction.action?.Enable();
         dashAction.action?.Enable();
         shootAction.action?.Enable();
+        Weapon1.action?.Enable();
+        Weapon2.action?.Enable();
+        Weapon3.action?.Enable();
     }
 
     void OnDisable()
@@ -71,19 +82,43 @@ public class playerController : MonoBehaviour, IDamage
         sprintAction.action?.Disable();
         dashAction.action?.Disable();
         shootAction.action?.Disable();
+        Weapon1.action?.Disable();
+        Weapon2.action?.Disable();
+        Weapon3.action?.Disable();
+
     }
 
     void Start()
     {
         HPOrig = HP;
+        lastWeapon = weapons[currentWeaponIndex];
     }
 
     void Update()
     {
+        if (weapons.Count > 0 && (currentWeaponIndex == 0 || currentWeaponIndex < weapons.Count))
+            Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * weapons[currentWeaponIndex].shootDist, Color.yellow);
+
+
         HandleDashInput();
+        HandleWeaponSwitch();
         UpdateTimers();
         movement();
         sprint();
+        if (weapons.Count > 0 && shootAction.action.IsPressed() && shootTimer >= weapons[currentWeaponIndex].shootRate && weapons[currentWeaponIndex].canShoot())
+        {
+            Debug.Log("Shooting");
+            shoot();
+        }
+
+        if(weapons.Count > 0 && reloadAction.action.WasPressedThisFrame())
+        {
+            Weapon currentWeapon = weapons[currentWeaponIndex];
+            if (!currentWeapon.isReloading && currentWeapon.canReload())
+            {
+                StartCoroutine(currentWeapon.Reload());
+            }
+        }
     }
 
     void UpdateTimers()
@@ -205,9 +240,6 @@ public class playerController : MonoBehaviour, IDamage
 
     void movement()
     {
-        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.yellow);
-
-        shootTimer += Time.deltaTime;
 
         if (controller.isGrounded)
         {
@@ -228,16 +260,7 @@ public class playerController : MonoBehaviour, IDamage
 
         
         controller.Move(playerVel * Time.deltaTime);
-       
-
-        //if(Input.GetButton("Fire1") && shootTimer >= shootRate)
-        //{
-        //    shoot();
-        //}
-        if(shootAction.action.IsPressed() && shootTimer >= shootRate)
-        {
-            shoot();
-        }
+        
     }
 
     void sprint()
@@ -250,7 +273,7 @@ public class playerController : MonoBehaviour, IDamage
         //{
         //    speed /= sprintMod;
         //}
-        if (sprintAction.action.WasPressedThisFrame()) // GetButton is polling ie hold to sprint, Down and Up are toggles
+        if (sprintAction.action.WasPressedThisFrame())
         {
             speed *= sprintMod;
         }
@@ -277,21 +300,59 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
+    void HandleWeaponSwitch()
+    {
+        if (Weapon1.action != null && Weapon1.action.WasPressedThisFrame() && weapons.Count > 0 && currentWeaponIndex != 0)
+        {
+            lastWeapon = weapons[currentWeaponIndex];
+            currentWeaponIndex = 0;
+            Debug.Log("Switched to " + weapons[currentWeaponIndex].weaponName);
+        }
+        else if (Weapon2.action != null && Weapon2.action.WasPressedThisFrame() && weapons.Count > 1 && currentWeaponIndex != 1)
+        {
+            lastWeapon = weapons[currentWeaponIndex];
+            currentWeaponIndex = 1;
+            Debug.Log("Switched to " + weapons[currentWeaponIndex].weaponName);
+        }
+        else if (Weapon3.action != null && Weapon3.action.WasPressedThisFrame() && weapons.Count > 2 && currentWeaponIndex != 2)
+        {
+            lastWeapon = weapons[currentWeaponIndex];
+            currentWeaponIndex = 2;
+            Debug.Log("Switched to " + weapons[currentWeaponIndex].weaponName);
+        }
+        OnWeaponChanged?.Invoke(weapons[currentWeaponIndex]);
+    }
+
     void shoot()
     {
-        shootTimer = 0;
-
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
+        if (weapons.Count == 0 || currentWeaponIndex < 0 || currentWeaponIndex >= weapons.Count)
         {
-            Debug.Log(hit.collider.name);
-
-            IDamage dmg = hit.collider.GetComponent<IDamage>();
-            if(dmg != null)
-            {
-                dmg.takeDamage(shootDamage);
-            }
+            Debug.Log("No weapon selected! -- shoot()");
+            return;
         }
+        shootTimer = 0;
+        Weapon currentWeapon = weapons[currentWeaponIndex];
+        currentWeapon.FireWeapon();
+        //RaycastHit hit;
+        //if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, currentWeapon.shootDist, ~ignoreLayer))
+        //{
+        //    Debug.Log(hit.collider.name);
+
+        //    IDamage dmg = hit.collider.GetComponent<IDamage>();
+        //    if(dmg != null)
+        //    {
+        //        dmg.takeDamage(currentWeapon.shootDamage);
+        //    }
+        //}
+    }
+
+    public Weapon GetCurrentWeapon()
+    {
+        return weapons[currentWeaponIndex];
+    }
+    public Weapon GetLastWeapon()
+    {
+        return lastWeapon;
     }
 
     public void takeDamage(int amount)

@@ -1,7 +1,8 @@
 fileFormatVersion: 2
-guid: f717f15f191a08741986e6e8efa197ab
-DefaultImporter:
+guid: 28f0b13c7e9707746b5e0b3336181560
+NativeFormatImporter:
   externalObjects: {}
+  mainObjectFileID: 2100000
   userData: 
   assetBundleName: 
   assetBundleVariant: 
@@ -10,5 +11,5 @@ AssetOrigin:
   productId: 151980
   packageName: Untitled
   packageVersion: 1.0
-  assetPath: Assets/Downloaded/Low Poly Weapons VOL.1/Sample_Scene.unity
+  assetPath: Assets/Low Poly Weapons VOL.1/Gun_MAT.mat
   uploadId: 324403

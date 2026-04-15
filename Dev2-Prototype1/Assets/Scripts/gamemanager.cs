@@ -15,11 +15,16 @@ public class gamemanager : MonoBehaviour
     [SerializeField] GameObject menuLose;
 
     [SerializeField] private TextMeshProUGUI currencyText;
+    [SerializeField] private TextMeshProUGUI AmmoCount;
+    [SerializeField] private TextMeshProUGUI MagSize;
+
+
 
     public bool isPaused;
     public Image playerHealthBar;
     public GameObject playerDamageFlash;
     public CurrencyManager currencyManager;
+    public Weapon activeWeapon;
 
     public GameObject player;
     public playerController playerScript;
@@ -64,14 +69,20 @@ public class gamemanager : MonoBehaviour
     {
         if (currencyManager != null)
         {
-            currencyManager.OnCurrencyChanged += UpdateUI;
+            currencyManager.OnCurrencyChanged += UpdateCurrencyUI;
         }
+        playerScript.GetCurrentWeapon().OnAmmoChange += UpdateAmmoUI;
+        playerScript.OnWeaponChanged += UpdateGun;
     }
 
     private void OnDisable()
     {
         if (currencyManager != null)
-            currencyManager.OnCurrencyChanged -= UpdateUI;
+        {
+            currencyManager.OnCurrencyChanged -= UpdateCurrencyUI;
+        }
+        playerScript.GetCurrentWeapon().OnAmmoChange -= UpdateAmmoUI;
+        playerScript.OnWeaponChanged -= UpdateGun;
     }
 
     public void statePause()
@@ -118,10 +129,28 @@ public class gamemanager : MonoBehaviour
     //        menuActive.SetActive(true);
     //    }
     //}
-    private void UpdateUI(int amount)
+    private void UpdateCurrencyUI(int amount)
     {
         currencyText.text = $"${amount}";
     }
+
+    private void UpdateAmmoUI(int amount)
+    {
+        AmmoCount.text = amount.ToString();
+    }
+    //private void UpdateMagSize(Weapon weapon)
+    //{
+    //    MagSize.text = weapon.magazineSize.ToString();
+    //    UpdateAmmoUI(weapon.bulletsLeft);
+    //}
+    private void UpdateGun(Weapon weapon)
+    {
+        playerScript.GetLastWeapon().gameObject.SetActive(false);
+        playerScript.GetCurrentWeapon().gameObject.SetActive(true);
+        MagSize.text = weapon.magazineSize.ToString();
+        UpdateAmmoUI(weapon.bulletsLeft);
+    }
+    
 
     public void Respawn()
     {

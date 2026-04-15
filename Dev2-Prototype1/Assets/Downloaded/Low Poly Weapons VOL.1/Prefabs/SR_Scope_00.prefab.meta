@@ -1,7 +1,8 @@
 fileFormatVersion: 2
-guid: f717f15f191a08741986e6e8efa197ab
-DefaultImporter:
+guid: cb825447b7c1ef442a049949c3f95ba7
+NativeFormatImporter:
   externalObjects: {}
+  mainObjectFileID: 100100000
   userData: 
   assetBundleName: 
   assetBundleVariant: 
@@ -10,5 +11,5 @@ AssetOrigin:
   productId: 151980
   packageName: Untitled
   packageVersion: 1.0
-  assetPath: Assets/Downloaded/Low Poly Weapons VOL.1/Sample_Scene.unity
+  assetPath: Assets/Low Poly Weapons VOL.1/Prefabs/SR_Scope_00.prefab
   uploadId: 324403

@@ -94,6 +94,7 @@ MonoBehaviour:
   gunRotateSpeed: 3
   targetFaceSpeed: 4
   FOV: 90
+  currencyDrop: 5
 --- !u!195 &1749115945639132357
 NavMeshAgent:
   m_ObjectHideFlags: 0

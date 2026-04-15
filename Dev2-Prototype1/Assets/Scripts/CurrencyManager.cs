@@ -26,19 +26,15 @@ public class CurrencyManager : MonoBehaviour
         currentCurrency += amount;
         OnCurrencyChanged?.Invoke(currentCurrency);
     }
-
-    public bool TrySpendCurrency(int amount)
+    
+    public void SpendCurrency(int cost)
     {
-        if (currentCurrency < amount)
-        {
-            return false;
-        }
-        else
-        {
-            currentCurrency -= amount;
+            currentCurrency -= cost;
             OnCurrencyChanged?.Invoke(currentCurrency);
-            return true;
-        }
+    }
 
+    public bool canBuy(int cost)
+    { 
+        return currentCurrency >= cost;
     }
 }

@@ -22,5 +22,7 @@ public class WaveGroupData
 [System.Serializable]
 public class WaveData
 {
+
+    public int clearReward = 150;
     public List<WaveGroupData> groups = new List<WaveGroupData>();
 }

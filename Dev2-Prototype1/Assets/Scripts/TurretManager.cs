@@ -64,10 +64,13 @@ public class TurretManager : MonoBehaviour
             return null;
         }
 
-        //if (!gamemanager.instance.currencyManager.TrySpendCurrency(turretPrefab.GetComponent<TurretAI>().getCost()))
+        // Placing this in BuildPlacementController
+        //if (!gamemanager.instance.currencyManager.canBuy(turretPrefab.GetComponent<TurretAI>().getCost()))
         //{
         //    return null;
         //}
+
+        //gamemanager.instance.currencyManager.SpendCurrency(turretPrefab.GetComponent<TurretAI>().getCost());
 
         turret.OnSpawned(this);
 
@@ -127,4 +130,22 @@ public class TurretManager : MonoBehaviour
         }
     }
 
+
+    public int GetTurretCost()
+    {
+        if (turretPrefab != null)
+        {
+            TurretAI turretAIScript = turretPrefab.GetComponentInChildren<TurretAI>();
+
+            if (turretAIScript != null)
+            {
+                return turretAIScript.getCost();
+            }
+            else
+            {
+                Debug.LogWarning("TurretAI script could not be found on the prefab or its children.");
+            }
+        }
+        return 0;
+    }
 }
