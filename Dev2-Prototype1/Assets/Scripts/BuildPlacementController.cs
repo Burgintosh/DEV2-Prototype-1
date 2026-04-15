@@ -165,7 +165,11 @@ public class BuildPlacementController : MonoBehaviour
         bool withinBuildDist = IsWithinBuildDist(placementPos);
         bool overlapsBlockedObject = Physics.CheckSphere(placementPos, placementRadius, placementBlockMask, QueryTriggerInteraction.Ignore);
 
-        currentPlacementValid = buildTypeAllowed && withinBuildDist && !overlapsBlockedObject;
+        // Checking cost
+        int turretCost = turretManager.GetTurretCost();
+        bool canAfford = gamemanager.instance.currencyManager.canBuy(turretCost);
+
+        currentPlacementValid = buildTypeAllowed && withinBuildDist && !overlapsBlockedObject && canAfford;
         currentPlacementPos = placementPos;
 
         previewInstance.SetActive(true);
@@ -211,12 +215,16 @@ public class BuildPlacementController : MonoBehaviour
             return;
         }
 
+        int turretCost = turretManager.GetTurretCost();
+        gamemanager.instance.currencyManager.SpendCurrency(turretCost);
+
         Quaternion buildRotation = Quaternion.Euler(0f, currentPreviewYaw, 0f);
         PooledTurret builtTurret = turretManager.BuildTurret(currentPlacementPos, buildRotation);
 
         if(builtTurret == null)
         {
             Debug.LogWarning("[BuildPlacementController] Build failed", this);
+            gamemanager.instance.currencyManager.AddCurrency(turretCost); // Refund currency if failed
         }
     }
 

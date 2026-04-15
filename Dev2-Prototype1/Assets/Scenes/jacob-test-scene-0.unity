@@ -1315,7 +1315,7 @@ PrefabInstance:
     - target: {fileID: 4486255973349609220, guid: eed18aa22e1159243a967fc198ac02f6, type: 3}
       propertyPath: poolConfigs.Array.data[1].prefab
       value: 
-      objectReference: {fileID: 206251657112247229, guid: 22a7554c5d0c6b24dbe0233dfc1216fc, type: 3}
+      objectReference: {fileID: 3753099880414341378, guid: 92925c400ad13fa449fc4274c22a50f9, type: 3}
     - target: {fileID: 4486255973349609220, guid: eed18aa22e1159243a967fc198ac02f6, type: 3}
       propertyPath: poolConfigs.Array.data[1].canExpand
       value: 1
