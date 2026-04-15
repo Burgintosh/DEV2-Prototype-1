@@ -305,6 +305,7 @@ public class playerController : MonoBehaviour, IDamage
             gamemanager.instance.youLose();
         }
     }
+
     IEnumerator damageFlash()
     {
         gamemanager.instance.playerDamageFlash.SetActive(true);
