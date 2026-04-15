@@ -27,8 +27,8 @@ public class Nexus : MonoBehaviour, IDamage
         if(HP <= 0)
         {
             Destroy(gameObject);
+            gamemanager.instance.youLose();
         }
-        Debug.Log("NexusHit");
     }
     IEnumerator flashRed()
     {
