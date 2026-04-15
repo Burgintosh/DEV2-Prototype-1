@@ -411,7 +411,7 @@ MonoBehaviour:
   weaponName: Bennelli
   shootDamage: 3
   shootDist: 15
-  shootRate: 1.5
+  shootRate: 1
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -615,7 +615,7 @@ MonoBehaviour:
   weaponName: M1911
   shootDamage: 1
   shootDist: 50
-  shootRate: 1
+  shootRate: 0.5
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -1413,7 +1413,7 @@ MonoBehaviour:
   weaponName: M4
   shootDamage: 1
   shootDist: 100
-  shootRate: 0.7
+  shootRate: 0.25
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 8

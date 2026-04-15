@@ -38,7 +38,7 @@ public class Weapon : MonoBehaviour
     public void FireWeapon()
     {
         bulletsLeft--;
-
+        OnAmmoChange?.Invoke(bulletsLeft);
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
         {
@@ -57,10 +57,10 @@ public class Weapon : MonoBehaviour
         isReloading = true;
         // TODO Play animation n sound
         yield return new WaitForSeconds(.5f);
-        if (bulletsLeft <= magazineSize)
+        if (bulletsLeft < magazineSize)
             bulletsLeft = magazineSize;
-        else
-            bulletsLeft++; // Allow storing the one in the chamber
+        else if (bulletsLeft == magazineSize)
+            bulletsLeft = magazineSize + 1; // Changing this to bulletsLeft++ increases it by 1 for each frame it's reloading which is really funny.
         OnAmmoChange?.Invoke(bulletsLeft);
         isReloading = false;
     }
@@ -68,5 +68,9 @@ public class Weapon : MonoBehaviour
     public bool canReload()
     {
         return bulletsLeft <= magazineSize;
+    }
+    public bool canShoot()
+    {
+        return bulletsLeft > 0;
     }
 }

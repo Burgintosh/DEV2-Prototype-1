@@ -104,7 +104,7 @@ public class playerController : MonoBehaviour, IDamage
         UpdateTimers();
         movement();
         sprint();
-        if (weapons.Count > 0 && shootAction.action.IsPressed() && shootTimer >= weapons[currentWeaponIndex].shootRate)
+        if (weapons.Count > 0 && shootAction.action.IsPressed() && shootTimer >= weapons[currentWeaponIndex].shootRate && weapons[currentWeaponIndex].canShoot())
         {
             Debug.Log("Shooting");
             shoot();
@@ -327,18 +327,18 @@ public class playerController : MonoBehaviour, IDamage
         }
         shootTimer = 0;
         Weapon currentWeapon = weapons[currentWeaponIndex];
+        currentWeapon.FireWeapon();
+        //RaycastHit hit;
+        //if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, currentWeapon.shootDist, ~ignoreLayer))
+        //{
+        //    Debug.Log(hit.collider.name);
 
-        RaycastHit hit;
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, currentWeapon.shootDist, ~ignoreLayer))
-        {
-            Debug.Log(hit.collider.name);
-
-            IDamage dmg = hit.collider.GetComponent<IDamage>();
-            if(dmg != null)
-            {
-                dmg.takeDamage(currentWeapon.shootDamage);
-            }
-        }
+        //    IDamage dmg = hit.collider.GetComponent<IDamage>();
+        //    if(dmg != null)
+        //    {
+        //        dmg.takeDamage(currentWeapon.shootDamage);
+        //    }
+        //}
     }
 
     public Weapon GetCurrentWeapon()
