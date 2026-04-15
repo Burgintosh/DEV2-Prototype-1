@@ -2,14 +2,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
 
-public class WeaponStats
-{
-    public string weaponName;
-    public int shootDamage;
-    public int shootDist;
-    public float shootRate;
-}
-
 public class playerController : MonoBehaviour, IDamage
 {
     [SerializeField] CharacterController controller;
@@ -21,7 +13,7 @@ public class playerController : MonoBehaviour, IDamage
 
 
     [Header("Gun")]
-    [SerializeField] List<WeaponStats> weapons = new List<WeaponStats>();
+    [SerializeField] List<Weapon> weapons = new List<Weapon>();
     int currentWeaponIndex = 0;
     float shootTimer;
 
@@ -97,11 +89,20 @@ public class playerController : MonoBehaviour, IDamage
 
     void Update()
     {
+        if (weapons.Count > 0 && (currentWeaponIndex == 0 || currentWeaponIndex < weapons.Count))
+            Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * weapons[currentWeaponIndex].shootDist, Color.yellow);
+
+
         HandleDashInput();
         HandleWeaponSwitch();
         UpdateTimers();
         movement();
         sprint();
+        if (weapons.Count > 0 && shootAction.action.IsPressed() && shootTimer >= weapons[currentWeaponIndex].shootRate)
+        {
+            Debug.Log("Shooting");
+            shoot();
+        }
     }
 
     void UpdateTimers()
@@ -223,8 +224,6 @@ public class playerController : MonoBehaviour, IDamage
 
     void movement()
     {
-        WeaponStats currentWeapon = weapons[currentWeaponIndex];
-        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * currentWeapon.shootDist, Color.yellow);
 
         if (controller.isGrounded)
         {
@@ -245,16 +244,7 @@ public class playerController : MonoBehaviour, IDamage
 
         
         controller.Move(playerVel * Time.deltaTime);
-       
-
-        //if(Input.GetButton("Fire1") && shootTimer >= shootRate)
-        //{
-        //    shoot();
-        //}
-        if(shootAction.action.IsPressed() && shootTimer >= currentWeapon.shootRate)
-        {
-            shoot();
-        }
+        
     }
 
     void sprint()
@@ -267,7 +257,7 @@ public class playerController : MonoBehaviour, IDamage
         //{
         //    speed /= sprintMod;
         //}
-        if (sprintAction.action.WasPressedThisFrame()) // GetButton is polling ie hold to sprint, Down and Up are toggles
+        if (sprintAction.action.WasPressedThisFrame())
         {
             speed *= sprintMod;
         }
@@ -315,8 +305,13 @@ public class playerController : MonoBehaviour, IDamage
 
     void shoot()
     {
+        if (weapons.Count == 0 || currentWeaponIndex < 0 || currentWeaponIndex >= weapons.Count)
+        {
+            Debug.Log("No weapon selected! -- shoot()");
+            return;
+        }
         shootTimer = 0;
-        WeaponStats currentWeapon = weapons[currentWeaponIndex];
+        Weapon currentWeapon = weapons[currentWeaponIndex];
 
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, currentWeapon.shootDist, ~ignoreLayer))
