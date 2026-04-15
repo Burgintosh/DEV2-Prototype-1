@@ -59,7 +59,7 @@ public class Weapon : MonoBehaviour
         yield return new WaitForSeconds(.5f);
         if (bulletsLeft < magazineSize)
             bulletsLeft = magazineSize;
-        else if (bulletsLeft == magazineSize)
+        else if (bulletsLeft == magazineSize) 
             bulletsLeft = magazineSize + 1; // Changing this to bulletsLeft++ increases it by 1 for each frame it's reloading which is really funny.
         OnAmmoChange?.Invoke(bulletsLeft);
         isReloading = false;
