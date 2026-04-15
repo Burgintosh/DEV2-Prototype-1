@@ -110,9 +110,13 @@ public class playerController : MonoBehaviour, IDamage
             shoot();
         }
 
-        if(weapons.Count > 0 && reloadAction.action.IsPressed())
+        if(weapons.Count > 0 && reloadAction.action.WasPressedThisFrame())
         {
-            StartCoroutine(weapons[currentWeaponIndex].Reload());
+            Weapon currentWeapon = weapons[currentWeaponIndex];
+            if (!currentWeapon.isReloading && currentWeapon.canReload())
+            {
+                StartCoroutine(currentWeapon.Reload());
+            }
         }
     }
 

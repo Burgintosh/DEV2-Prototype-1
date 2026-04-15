@@ -60,7 +60,7 @@ public class Weapon : MonoBehaviour
         if (bulletsLeft < magazineSize)
             bulletsLeft = magazineSize;
         else if (bulletsLeft == magazineSize) 
-            bulletsLeft = magazineSize + 1; // Changing this to bulletsLeft++ increases it by 1 for each frame it's reloading which is really funny.
+            bulletsLeft = magazineSize + 1;
         OnAmmoChange?.Invoke(bulletsLeft);
         isReloading = false;
     }
