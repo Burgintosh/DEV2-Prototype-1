@@ -186,7 +186,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2237816084262804591}
   - component: {fileID: 6080281766704899873}
-  - component: {fileID: -3465002275155728172}
   - component: {fileID: 4312131226062206769}
   - component: {fileID: 4248902834305976589}
   - component: {fileID: 4468530940920182521}
@@ -238,18 +237,6 @@ MonoBehaviour:
   gunRotateSpeed: 3
   targetFaceSpeed: 4
   FOV: 360
---- !u!114 &-3465002275155728172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6861688145272702084}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1441aa63be0039049b2c3ed74be12ca8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PooledTurret
 --- !u!33 &4312131226062206769
 MeshFilter:
   m_ObjectHideFlags: 0
