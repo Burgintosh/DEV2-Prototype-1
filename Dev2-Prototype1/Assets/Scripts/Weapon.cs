@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -9,6 +11,18 @@ public class Weapon : MonoBehaviour
 
     [SerializeField] LayerMask ignoreLayer;
 
+    public float reloadTimer;
+    public int magazineSize;
+    public int bulletsLeft;
+    public bool isReloading;
+
+    public event Action<int> OnAmmoChange;
+
+    void Awake()
+    {
+        bulletsLeft = magazineSize;
+        OnAmmoChange?.Invoke(bulletsLeft);
+    }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -23,6 +37,8 @@ public class Weapon : MonoBehaviour
 
     public void FireWeapon()
     {
+        bulletsLeft--;
+
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
         {
@@ -34,5 +50,23 @@ public class Weapon : MonoBehaviour
                 dmg.takeDamage(shootDamage);
             }
         }
+    }
+
+    public IEnumerator Reload()
+    {
+        isReloading = true;
+        // TODO Play animation n sound
+        yield return new WaitForSeconds(.5f);
+        if (bulletsLeft <= magazineSize)
+            bulletsLeft = magazineSize;
+        else
+            bulletsLeft++; // Allow storing the one in the chamber
+        OnAmmoChange?.Invoke(bulletsLeft);
+        isReloading = false;
+    }
+
+    public bool canReload()
+    {
+        return bulletsLeft <= magazineSize;
     }
 }
