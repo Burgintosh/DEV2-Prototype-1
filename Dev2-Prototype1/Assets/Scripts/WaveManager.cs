@@ -10,7 +10,6 @@ public class WaveManager : MonoBehaviour
     [SerializeField] List<WaveData> waves = new List<WaveData>();
     [SerializeField] ObjectPoolManager poolManager;
     [SerializeField] WaveUIController waveUI;
-    [SerializeField] gamemanager gameManager;
 
     [SerializeField] KeyCode startWaveKey = KeyCode.J;
     [SerializeField] float timeBetweenWaves = 10f;
@@ -64,10 +63,7 @@ public class WaveManager : MonoBehaviour
 
         if(currentWaveIndex >= waves.Count)
         {
-            if(gameManager != null)
-            {
-                gameManager.youWin();
-            }
+            gamemanager.instance.youWin();
             return;
         }
 
@@ -112,12 +108,11 @@ public class WaveManager : MonoBehaviour
 
         waveInProgress = false;
 
+        gamemanager.instance.currencyManager.AddCurrency(wave.clearReward);
+
         if(currentWaveIndex >= waves.Count - 1)
         {
-            if(gameManager != null)
-            {
-                gameManager.youWin();
-            }
+            gamemanager.instance.youWin();
             yield break;
         }
 
@@ -270,11 +265,6 @@ public class WaveManager : MonoBehaviour
         if(poolManager == null)
         {
             LogWarning("Pool Manager is not assigned");
-        }
-
-        if(gameManager == null)
-        {
-            LogWarning("Game Manager is not assigned");
         }
 
         if(waves == null || waves.Count == 0)
