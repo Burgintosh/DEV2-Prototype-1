@@ -25,11 +25,14 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     float shootTimer;
     float angleToPlayer;
+    float angleToNexus;
     float stoppingDistOrig;
 
     bool playerInRange;
+    bool nexusInRange;
 
     Vector3 playerDir; // player pos - enemy pos
+    Vector3 nexusDir;
     Vector3 startingPos;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -57,7 +60,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         {
 
         }
-        if(!canSeePlayer())
+        if(!canSeePlayer() || canSeeNexus())
         {
             agent.SetDestination(gamemanager.instance.Nexus.transform.position);
         }
@@ -74,7 +77,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         RaycastHit hit;
         if (Physics.Raycast(transform.position, playerDir, out hit))
         {
-            if (hit.collider.CompareTag("Player") && angleToPlayer <= FOV)
+            if (hit.collider.CompareTag("Player") && angleToPlayer <= FOV && !canSeeNexus())
             {
                 rotateToTarget();
                 gunRotate();
@@ -116,6 +119,10 @@ public class EnemyAI : MonoBehaviour, IDamage
         {
             playerInRange = true;
         }
+        if (other.CompareTag("Nexus"))
+        {
+            nexusInRange = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -123,6 +130,10 @@ public class EnemyAI : MonoBehaviour, IDamage
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
+        }
+        if (other.CompareTag("Nexus"))
+        {
+            nexusInRange = false;
         }
     }
 
@@ -178,5 +189,33 @@ public class EnemyAI : MonoBehaviour, IDamage
             agent.stoppingDistance = stoppingDistOrig;
             agent.velocity = Vector3.zero;
         }
+    }
+    bool canSeeNexus()
+    {
+        nexusDir = gamemanager.instance.Nexus.transform.position - transform.position;
+        angleToNexus = Vector3.Angle(nexusDir, transform.forward);
+
+
+        Debug.DrawRay(transform.position, nexusDir);
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, nexusDir, out hit))
+        {
+            if (hit.collider.CompareTag("Nexus") && angleToNexus <= FOV && nexusInRange)
+            {
+                Quaternion rotBody = Quaternion.LookRotation(new Vector3(nexusDir.x, 0, nexusDir.z));
+                transform.rotation = Quaternion.Lerp(transform.rotation, rotBody, Time.deltaTime * targetFaceSpeed);
+                Quaternion rotGun = Quaternion.LookRotation(nexusDir);
+                gunPivot.rotation = Quaternion.Lerp(gunPivot.rotation, rotGun, Time.deltaTime * gunRotateSpeed);
+                // maybe add a short wait time
+                if (shootTimer >= shootRate)
+                    shoot();
+
+                agent.SetDestination(gamemanager.instance.Nexus.transform.position);
+
+                return true;
+            }
+        }
+        return false;
     }
 }
