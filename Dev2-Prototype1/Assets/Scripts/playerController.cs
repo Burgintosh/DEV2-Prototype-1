@@ -1,5 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
+
+public class WeaponStats
+{
+    public string weaponName;
+    public int shootDamage;
+    public int shootDist;
+    public float shootRate;
+}
 
 public class playerController : MonoBehaviour, IDamage
 {
@@ -12,9 +21,8 @@ public class playerController : MonoBehaviour, IDamage
 
 
     [Header("Gun")]
-    [SerializeField] int shootDamage;
-    [SerializeField] int shootDist;
-    [SerializeField] float shootRate;
+    [SerializeField] List<WeaponStats> weapons = new List<WeaponStats>();
+    int currentWeaponIndex = 0;
     float shootTimer;
 
     [Header("Dash")]
@@ -50,6 +58,9 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] InputActionReference sprintAction;
     [SerializeField] InputActionReference dashAction;
     [SerializeField] InputActionReference shootAction;
+    [SerializeField] InputActionReference Weapon1;
+    [SerializeField] InputActionReference Weapon2;
+    [SerializeField] InputActionReference Weapon3;
     Vector3 moveDir;
     Vector3 playerVel;
 
@@ -61,6 +72,9 @@ public class playerController : MonoBehaviour, IDamage
         sprintAction.action?.Enable();
         dashAction.action?.Enable();
         shootAction.action?.Enable();
+        Weapon1.action?.Enable();
+        Weapon2.action?.Enable();
+        Weapon3.action?.Enable();
     }
 
     void OnDisable()
@@ -70,6 +84,10 @@ public class playerController : MonoBehaviour, IDamage
         sprintAction.action?.Disable();
         dashAction.action?.Disable();
         shootAction.action?.Disable();
+        Weapon1.action?.Disable();
+        Weapon2.action?.Disable();
+        Weapon3.action?.Disable();
+
     }
 
     void Start()
@@ -80,6 +98,7 @@ public class playerController : MonoBehaviour, IDamage
     void Update()
     {
         HandleDashInput();
+        HandleWeaponSwitch();
         UpdateTimers();
         movement();
         sprint();
@@ -204,7 +223,8 @@ public class playerController : MonoBehaviour, IDamage
 
     void movement()
     {
-        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.yellow);
+        WeaponStats currentWeapon = weapons[currentWeaponIndex];
+        Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * currentWeapon.shootDist, Color.yellow);
 
         if (controller.isGrounded)
         {
@@ -231,7 +251,7 @@ public class playerController : MonoBehaviour, IDamage
         //{
         //    shoot();
         //}
-        if(shootAction.action.IsPressed() && shootTimer >= shootRate)
+        if(shootAction.action.IsPressed() && shootTimer >= currentWeapon.shootRate)
         {
             shoot();
         }
@@ -274,19 +294,39 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
+    void HandleWeaponSwitch()
+    {
+        if (Weapon1.action != null && Weapon1.action.WasPressedThisFrame() && weapons.Count > 0)
+        {
+            currentWeaponIndex = 0;
+            Debug.Log("Switched to " + weapons[currentWeaponIndex].weaponName);
+        }
+        else if (Weapon2.action != null && Weapon2.action.WasPressedThisFrame() && weapons.Count > 1)
+        {
+            currentWeaponIndex = 1;
+            Debug.Log("Switched to " + weapons[currentWeaponIndex].weaponName);
+        }
+        else if (Weapon3.action != null && Weapon3.action.WasPressedThisFrame() && weapons.Count > 2)
+        {
+            currentWeaponIndex = 2;
+            Debug.Log("Switched to " + weapons[currentWeaponIndex].weaponName);
+        }
+    }
+
     void shoot()
     {
         shootTimer = 0;
+        WeaponStats currentWeapon = weapons[currentWeaponIndex];
 
         RaycastHit hit;
-        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
+        if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, currentWeapon.shootDist, ~ignoreLayer))
         {
             Debug.Log(hit.collider.name);
 
             IDamage dmg = hit.collider.GetComponent<IDamage>();
             if(dmg != null)
             {
-                dmg.takeDamage(shootDamage);
+                dmg.takeDamage(currentWeapon.shootDamage);
             }
         }
     }

@@ -454,6 +454,18 @@ PrefabInstance:
       value: 2048
       objectReference: {fileID: 0}
     - target: {fileID: 3405798309347347471, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+      propertyPath: Weapon1
+      value: 
+      objectReference: {fileID: 6369141664691002748, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    - target: {fileID: 3405798309347347471, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+      propertyPath: Weapon2
+      value: 
+      objectReference: {fileID: 2590268180834388341, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    - target: {fileID: 3405798309347347471, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+      propertyPath: Weapon3
+      value: 
+      objectReference: {fileID: -9009743939945576308, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    - target: {fileID: 3405798309347347471, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: dashAction
       value: 
       objectReference: {fileID: -795880778891954074, guid: 052faaac586de48259a63d0c4782560b, type: 3}
