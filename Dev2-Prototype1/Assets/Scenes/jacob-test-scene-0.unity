@@ -211,6 +211,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &543900501 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1133962454984317051, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+  m_PrefabInstance: {fileID: 1457649401}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &594406598
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -279,6 +284,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d0534a7804b5e94b976a3de35e15598, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WaveUIController
+--- !u!1 &879864216 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4719186888421226363, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+  m_PrefabInstance: {fileID: 1457649401}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &897553719
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,6 +546,10 @@ PrefabInstance:
       propertyPath: 'weapons.Array.data[2]'
       value: 
       objectReference: {fileID: 2028979124}
+    - target: {fileID: 5281255741563342711, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+      propertyPath: field of view
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 5507525393866531731, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: shootDist
       value: 100
@@ -596,6 +610,10 @@ PrefabInstance:
       propertyPath: magazineSize
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 8007902789591347702, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+      propertyPath: muzzleEffect
+      value: 
+      objectReference: {fileID: 879864216}
     - target: {fileID: 8078799267961622350, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.305
@@ -632,6 +650,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player Lecture 2
       objectReference: {fileID: 0}
+    - target: {fileID: 8503055922083989380, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+      propertyPath: muzzleEffect
+      value: 
+      objectReference: {fileID: 543900501}
     - target: {fileID: 8562405294646908346, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: m_IsActive
       value: 0
