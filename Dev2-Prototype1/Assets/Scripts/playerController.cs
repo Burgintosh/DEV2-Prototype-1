@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class playerController : MonoBehaviour, IDamage
 {
@@ -358,10 +359,20 @@ public class playerController : MonoBehaviour, IDamage
     {
         HP -= amount; // do NOT destroy your player
 
+        StartCoroutine(FlashDamage());
+
         if (HP <= 0)
         {
             // Congrat u r ded
             gamemanager.instance.youLose();
         }
     }
+
+    IEnumerator FlashDamage()
+    {
+        gamemanager.instance.playerDamageFlashScreen.SetActive(true);
+        yield return new WaitForSeconds(0.1f);
+        gamemanager.instance.playerDamageFlashScreen.SetActive(false);
+    }
+
 }
