@@ -6,22 +6,43 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] CharacterController controller;
     [SerializeField] LayerMask ignoreLayer;
 
-
+    [Header("General Stats")]
     [Range(1, 10)] [SerializeField] int HP;
-    [Range(3, 7)] [SerializeField] float speed;
-    [Range(2, 5)] [SerializeField] float sprintMod;
-    [Range(5, 25)] [SerializeField] float jumpSpeed;
-    [Range(1, 3)] [SerializeField] int jumpMax;
-    [Range(15, 50)] [SerializeField] float gravity;
+    int HPOrig;
 
+
+    [Header("Gun")]
     [SerializeField] int shootDamage;
     [SerializeField] int shootDist;
     [SerializeField] float shootRate;
+    float shootTimer;
 
     [Header("Dash")]
     [SerializeField] float dashSpeed;
     [SerializeField] float dashTime;
     [SerializeField] float dashCooldown;
+    float dashTimer;
+    float dashCooldownTimer;
+    bool isDashing;
+    Vector3 dashDir;
+
+
+    [Header("General Movement")]
+    [Range(3, 7)][SerializeField] float speed;
+    [Range(2, 5)][SerializeField] float sprintMod;
+    [Range(5, 25)][SerializeField] float jumpSpeed;
+    [Range(1, 3)][SerializeField] int jumpMax;
+    [Range(15, 50)][SerializeField] float gravity;
+    int jumpCount;
+
+    [Header("New Movement Stats")]
+    [Range(50, 200)] [SerializeField] float acceleration = 75f; // Default 75
+    [Range(100, 300)] [SerializeField] float airAcceleration = 150f; // Default 150
+    [Range(1, 30)] [SerializeField] float groundFriction = 25f; // Default 25
+    [Range(0.1f, 0.5f)] [SerializeField] float jumpBuffer = 0.4f; // Default 0.4
+    [Range(0f, 10f)] [SerializeField] float airSpeedCap = 1f; // Default 1 (0 for no cap)
+    float jumpBufferTimer;
+
 
     [Header("Input Setup (For Input System Package")]
     [SerializeField] InputActionReference moveAction;
@@ -29,30 +50,9 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] InputActionReference sprintAction;
     [SerializeField] InputActionReference dashAction;
     [SerializeField] InputActionReference shootAction;
-
-    [Header("Movement")]
-    [Range(50, 200)] [SerializeField] float acceleration = 75f; // Default 75
-    [Range(100, 300)] [SerializeField] float airAcceleration = 150f; // Default 150
-    [Range(1, 30)] [SerializeField] float groundFriction = 25f; // Default 25
-    [Range(0.1f, 0.5f)] [SerializeField] float jumpBuffer = 0.4f; // Default 0.4
-    [Range(0f, 10f)] [SerializeField] float airSpeedCap = 1f; // Default 1 (0 for no cap)
-
-
-
-    int jumpCount;
-    int HPOrig;
-
-    float shootTimer;
-    float jumpBufferTimer;
-
-    // Dash
-    float dashTimer;
-    float dashCooldownTimer;
-    bool isDashing;
-    Vector3 dashDir;
-
     Vector3 moveDir;
     Vector3 playerVel;
+
 
     void OnEnable()
     {
@@ -205,8 +205,6 @@ public class playerController : MonoBehaviour, IDamage
     void movement()
     {
         Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * shootDist, Color.yellow);
-
-        shootTimer += Time.deltaTime;
 
         if (controller.isGrounded)
         {
