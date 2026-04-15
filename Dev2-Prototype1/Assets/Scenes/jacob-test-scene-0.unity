@@ -436,7 +436,7 @@ PrefabInstance:
     - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: previewPrefab
       value: 
-      objectReference: {fileID: 2696842684854155703, guid: 78f465af70c6f32478bbc6c7fc4dad0e, type: 3}
+      objectReference: {fileID: 338631171373570351, guid: 42dea41f286715b41aefa55bcdf6cf23, type: 3}
     - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: turretManager
       value: 
@@ -1106,7 +1106,7 @@ PrefabInstance:
     - target: {fileID: 4486255973349609220, guid: eed18aa22e1159243a967fc198ac02f6, type: 3}
       propertyPath: poolConfigs.Array.data[1].prefab
       value: 
-      objectReference: {fileID: 6861688145272702084, guid: 6675dbe99e1b8a54fb53242eefe7aafb, type: 3}
+      objectReference: {fileID: 3753099880414341378, guid: 92925c400ad13fa449fc4274c22a50f9, type: 3}
     - target: {fileID: 4486255973349609220, guid: eed18aa22e1159243a967fc198ac02f6, type: 3}
       propertyPath: poolConfigs.Array.data[1].canExpand
       value: 1
@@ -1414,6 +1414,10 @@ PrefabInstance:
       propertyPath: poolManager
       value: 
       objectReference: {fileID: 1041297500}
+    - target: {fileID: 4916466539315003835, guid: 7913509b1d7df4a42964cf0ee25d3566, type: 3}
+      propertyPath: turretPrefab
+      value: 
+      objectReference: {fileID: 3753099880414341378, guid: 92925c400ad13fa449fc4274c22a50f9, type: 3}
     - target: {fileID: 4916466539315003835, guid: 7913509b1d7df4a42964cf0ee25d3566, type: 3}
       propertyPath: testBuildPoint
       value: 
