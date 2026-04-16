@@ -107,7 +107,7 @@ MonoBehaviour:
   gunPivot: {fileID: 2059482293131066549}
   gunRotateSpeed: 2
   targetFaceSpeed: 2
-  FOV: 15
+  FOV: 30
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 384
@@ -288,7 +288,7 @@ Transform:
   m_GameObject: {fileID: 2555334488888133550}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.484, z: 0}
+  m_LocalPosition: {x: 0, y: 0.715, z: 0}
   m_LocalScale: {x: 0.41046, y: 0.70621, z: 0.17466919}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -543,7 +543,7 @@ Transform:
   m_GameObject: {fileID: 8043473134829675516}
   serializedVersion: 2
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.015001297, y: 0.63899994, z: 0.3219}
+  m_LocalPosition: {x: -0.015001297, y: 0.913, z: 0.3219}
   m_LocalScale: {x: 0.3, y: 0.23484969, z: 0.3}
   m_ConstrainProportionsScale: 0
   m_Children:
