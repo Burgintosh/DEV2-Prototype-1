@@ -254,6 +254,10 @@ PrefabInstance:
       propertyPath: ignoreLayer.m_Bits
       value: 4168
       objectReference: {fileID: 0}
+    - target: {fileID: 6331657788308475784, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+      propertyPath: m_ExcludeLayers.m_Bits
+      value: 4096
+      objectReference: {fileID: 0}
     - target: {fileID: 8496870519721792966, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: m_Name
       value: Player Lecture 2
@@ -1166,6 +1170,10 @@ PrefabInstance:
     - target: {fileID: 9083741848750086583, guid: ad3a907c76dac644abfe09f6d2bbfe64, type: 3}
       propertyPath: m_Layer
       value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 9154119898151521430, guid: ad3a907c76dac644abfe09f6d2bbfe64, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 72
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
