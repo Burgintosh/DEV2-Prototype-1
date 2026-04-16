@@ -29955,8 +29955,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6060505399673852211}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.07543, y: -2, z: -0.40854}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0.23, y: -0.187, z: 0.532}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -29964,7 +29964,7 @@ Transform:
   - {fileID: 5655503590562003613}
   - {fileID: 5452950916818715202}
   m_Father: {fileID: 8206052715208055911}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &8007902789591347702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30422,8 +30422,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7258386368018283300}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
-  m_LocalPosition: {x: 0.232, y: -0.15600002, z: 0.398}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0.169, y: -0.15600002, z: 0.398}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -30431,7 +30431,7 @@ Transform:
   - {fileID: 6333149518617520091}
   - {fileID: 4394256532165004901}
   m_Father: {fileID: 8206052715208055911}
-  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &7602495096722536013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31309,8 +31309,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8078799267961918318}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2.07543, y: -2, z: -0.40854}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0.212, y: -0.247, z: 0.571}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -31321,7 +31321,7 @@ Transform:
   - {fileID: 8078799267961622342}
   - {fileID: 6873654620030433218}
   m_Father: {fileID: 8206052715208055911}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &8503055922083989380
 MonoBehaviour:
   m_ObjectHideFlags: 0
