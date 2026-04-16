@@ -114,7 +114,7 @@ public class gamemanager : MonoBehaviour
     public void youWin()
     {
         statePause();
-        menuActive = menuPause;
+        menuActive = menuWin;
         menuActive.SetActive(true);
     }
 
