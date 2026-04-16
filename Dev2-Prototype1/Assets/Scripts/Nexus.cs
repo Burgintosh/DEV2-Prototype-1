@@ -1,5 +1,6 @@
-using UnityEngine;
+using System;
 using System.Collections;
+using UnityEngine;
 
 public class Nexus : MonoBehaviour, IDamage
 {
@@ -8,11 +9,14 @@ public class Nexus : MonoBehaviour, IDamage
     int HPOrig;
     Color colorOrig;
 
+    public event Action<int> OnNexusHPChanged;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         HPOrig = HP;
         colorOrig = model.material.color;
+        OnNexusHPChanged?.Invoke(HP);
     }
 
     // Update is called once per frame
@@ -20,9 +24,16 @@ public class Nexus : MonoBehaviour, IDamage
     {
         
     }
+
+    public int GetMaxHP()
+    {
+        return HPOrig;
+    }
     public void takeDamage(int amount)
     {
         HP -= amount;
+        OnNexusHPChanged?.Invoke(HP);
+
         if (HP <= 0)
         {
             Destroy(gameObject);

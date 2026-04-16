@@ -30,6 +30,8 @@ public class gamemanager : MonoBehaviour
     public GameObject playerDamageFlashScreen;
 
     public GameObject Nexus;
+    public Nexus nexusScript;
+    public Image NexusHPBar;
    
     float timeScaleOrig; // So we can set pause game when pause menu is up. This lets us return to the time scale when unpausing
 
@@ -45,6 +47,7 @@ public class gamemanager : MonoBehaviour
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<playerController>();
         Nexus = GameObject.FindWithTag("Nexus");
+        nexusScript = Nexus.GetComponent<Nexus>();
     }
 
     // Update is called once per frame
@@ -75,6 +78,7 @@ public class gamemanager : MonoBehaviour
         playerScript.GetCurrentWeapon().OnAmmoChange += UpdateAmmoUI;
         playerScript.OnWeaponChanged += UpdateGun;
         playerScript.OnHPChanged += UpdatePlayerHPBar;
+        nexusScript.OnNexusHPChanged += UpdateNexusHPBar;
     }
 
     private void OnDisable()
@@ -86,6 +90,7 @@ public class gamemanager : MonoBehaviour
         playerScript.GetCurrentWeapon().OnAmmoChange -= UpdateAmmoUI;
         playerScript.OnWeaponChanged -= UpdateGun;
         playerScript.OnHPChanged -= UpdatePlayerHPBar;
+        nexusScript.OnNexusHPChanged -= UpdateNexusHPBar;
     }
 
     public void statePause()
@@ -157,6 +162,11 @@ public class gamemanager : MonoBehaviour
     private void UpdatePlayerHPBar(int HP)
     {
         playerHPBar.fillAmount = (float)HP / playerScript.GetMaxHP();
+    }
+
+    private void UpdateNexusHPBar(int HP)
+    {
+        NexusHPBar.fillAmount = (float)HP / nexusScript.GetMaxHP();
     }
 
 
