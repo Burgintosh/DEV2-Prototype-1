@@ -61,7 +61,12 @@ public class playerController : MonoBehaviour, IDamage
     Vector3 moveDir;
     Vector3 playerVel;
 
+    public AudioSource jumpSound1;
+    public AudioSource jumpSound2;
+    public AudioSource jumpSound3;
+
     public event Action<Weapon> OnWeaponChanged;
+    public event Action<int> OnHPChanged;
 
     void OnEnable()
     {
@@ -92,6 +97,7 @@ public class playerController : MonoBehaviour, IDamage
     {
         HPOrig = HP;
         lastWeapon = weapons[currentWeaponIndex];
+        OnHPChanged?.Invoke(HP);
     }
 
     void Update()
@@ -105,7 +111,7 @@ public class playerController : MonoBehaviour, IDamage
         UpdateTimers();
         movement();
         sprint();
-        if (weapons.Count > 0 && shootAction.action.IsPressed() && shootTimer >= weapons[currentWeaponIndex].shootRate && weapons[currentWeaponIndex].canShoot())
+        if (weapons.Count > 0 && shootAction.action.IsPressed() && shootTimer >= weapons[currentWeaponIndex].shootRate)
         {
             Debug.Log("Shooting");
             shoot();
@@ -294,6 +300,22 @@ public class playerController : MonoBehaviour, IDamage
         }
         if(jumpBufferTimer > 0 && controller.isGrounded) // only works for single jump
         {
+            int rand = UnityEngine.Random.Range(1, 7);
+            switch (rand)
+            {
+                case 1:
+                    jumpSound1.Play();
+                    break;
+                case 2:
+                    jumpSound2.Play();
+                    break;
+                case 3:
+                    jumpSound3.Play();
+                    break;
+                default:
+                    break;
+            }
+                
             playerVel.y = jumpSpeed;
             jumpCount = 1;
             jumpBufferTimer = 0;
@@ -332,7 +354,17 @@ public class playerController : MonoBehaviour, IDamage
         }
         shootTimer = 0;
         Weapon currentWeapon = weapons[currentWeaponIndex];
-        currentWeapon.FireWeapon();
+
+        if(currentWeapon != null)
+        {
+            if(currentWeapon.canShoot())
+                currentWeapon.FireWeapon();
+            else
+            {
+                currentWeapon.GunClick();
+            }
+        }
+        
         //RaycastHit hit;
         //if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, currentWeapon.shootDist, ~ignoreLayer))
         //{
@@ -355,10 +387,19 @@ public class playerController : MonoBehaviour, IDamage
         return lastWeapon;
     }
 
+    public int GetCurrentHP()
+    {
+        return HP;
+    }
+    public int GetMaxHP()
+    {
+        return HPOrig;
+    }
+
     public void takeDamage(int amount)
     {
         HP -= amount; // do NOT destroy your player
-
+        OnHPChanged?.Invoke(HP);
         StartCoroutine(FlashDamage());
 
         if (HP <= 0)
