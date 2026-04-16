@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class TurretManager : MonoBehaviour
 {
-    [SerializeField] KeyCode testBuildKey = KeyCode.T;
+    //[SerializeField] KeyCode testBuildKey = KeyCode.T;
     [SerializeField] Transform testBuildPoint;
 
     [SerializeField] ObjectPoolManager poolManager;
@@ -12,21 +12,22 @@ public class TurretManager : MonoBehaviour
 
     List<PooledTurret> activeTurrets = new List<PooledTurret>();
 
-    void Update()
-    {
-        if (Input.GetKeyDown(testBuildKey))
-        {
-            if(testBuildPoint != null)
-            {
-                BuildTurret(testBuildPoint.position, testBuildPoint.rotation);
-            }
-            else
-            {
-                LogWarning("Test build point is not assigned");
-            }
+    // Was For Testing Purposes
+    //void Update()
+    //{
+    //    if (Input.GetKeyDown(testBuildKey))
+    //    {
+    //        if(testBuildPoint != null)
+    //        {
+    //            BuildTurret(testBuildPoint.position, testBuildPoint.rotation);
+    //        }
+    //        else
+    //        {
+    //            LogWarning("Test build point is not assigned");
+    //        }
 
-        }
-    }
+    //    }
+    //}
 
     private void Start()
     {
