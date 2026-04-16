@@ -359,7 +359,8 @@ public class playerController : MonoBehaviour, IDamage
     {
         HP -= amount; // do NOT destroy your player
 
-        StartCoroutine(damageFlash());
+        StartCoroutine(FlashDamage());
+
         if (HP <= 0)
         {
             // Congrat u r ded
@@ -367,10 +368,11 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
-    IEnumerator damageFlash()
+    IEnumerator FlashDamage()
     {
-        gamemanager.instance.playerDamageFlash.SetActive(true);
+        gamemanager.instance.playerDamageFlashScreen.SetActive(true);
         yield return new WaitForSeconds(0.1f);
-        gamemanager.instance.playerDamageFlash.SetActive(false);
+        gamemanager.instance.playerDamageFlashScreen.SetActive(false);
     }
+
 }

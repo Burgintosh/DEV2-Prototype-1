@@ -18,7 +18,7 @@ public class gamemanager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI AmmoCount;
     [SerializeField] private TextMeshProUGUI MagSize;
 
-
+    public GameObject playerDamageFlashScreen;
 
     public bool isPaused;
     public Image playerHealthBar;
