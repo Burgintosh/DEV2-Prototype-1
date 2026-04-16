@@ -365,7 +365,7 @@ MonoBehaviour:
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 0
-  currencyDrop: 1
+  currencyDrop: 5
 --- !u!33 &7836271524727554643
 MeshFilter:
   m_ObjectHideFlags: 0
