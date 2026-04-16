@@ -134,7 +134,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1299822460943222019, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
       propertyPath: poolConfigs.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1299822460943222019, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
       propertyPath: poolConfigs.Array.data[0].prefab
@@ -149,6 +149,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5818386542145438867, guid: 211c33f7fea9cee44a1ba0335b64b2e7, type: 3}
     - target: {fileID: 1299822460943222019, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
+      propertyPath: poolConfigs.Array.data[3].prefab
+      value: 
+      objectReference: {fileID: 206251657112247229, guid: 22a7554c5d0c6b24dbe0233dfc1216fc, type: 3}
+    - target: {fileID: 1299822460943222019, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
+      propertyPath: poolConfigs.Array.data[3].canExpand
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1299822460943222019, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
       propertyPath: poolConfigs.Array.data[0].initPoolSize
       value: 3
       objectReference: {fileID: 0}
@@ -158,6 +166,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1299822460943222019, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
       propertyPath: poolConfigs.Array.data[2].initPoolSize
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1299822460943222019, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
+      propertyPath: poolConfigs.Array.data[3].initPoolSize
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2354547009681762683, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
@@ -507,7 +519,7 @@ PrefabInstance:
     - target: {fileID: 3427337961618742575, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
       propertyPath: waves.Array.data[0].groups.Array.data[1].spawnEntries.Array.data[0].enemyPrefab
       value: 
-      objectReference: {fileID: 8343792541496309258, guid: e05fc7a4fa8be304fbf72feb0c743dcc, type: 3}
+      objectReference: {fileID: 206251657112247229, guid: 22a7554c5d0c6b24dbe0233dfc1216fc, type: 3}
     - target: {fileID: 3427337961618742575, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
       propertyPath: waves.Array.data[0].groups.Array.data[2].spawnEntries.Array.data[0].enemyPrefab
       value: 
@@ -1649,7 +1661,7 @@ PrefabInstance:
     - target: {fileID: 1672980606171352906, guid: d8cc697e9d2ba344da7f530280ee08d0, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 1bac9b66f16ab5d4b8ac642bb02fd3ec, type: 2}
+      objectReference: {fileID: 2100000, guid: 2c2a2b1db687e4d4d915f65f6e7c3c3b, type: 2}
     - target: {fileID: 5468722836572869568, guid: d8cc697e9d2ba344da7f530280ee08d0, type: 3}
       propertyPath: m_Name
       value: Floor
@@ -3818,6 +3830,10 @@ PrefabInstance:
     - target: {fileID: 8496870519721792966, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: m_Name
       value: Player Lecture 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8503055922083989380, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+      propertyPath: shootRate
+      value: 0.16
       objectReference: {fileID: 0}
     - target: {fileID: 8503055922083989380, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: muzzleEffect
