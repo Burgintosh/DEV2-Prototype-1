@@ -723,6 +723,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Zeppelin (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 2741008591316108993, guid: 6697c55fadabf7c4caa2e9f3d362e4ec, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4777886973646907426, guid: 6697c55fadabf7c4caa2e9f3d362e4ec, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8948147341662472619, guid: 6697c55fadabf7c4caa2e9f3d362e4ec, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15.157093
@@ -1531,6 +1539,10 @@ PrefabInstance:
     - target: {fileID: 1418558908956423061, guid: 6697c55fadabf7c4caa2e9f3d362e4ec, type: 3}
       propertyPath: m_Name
       value: Zeppelin
+      objectReference: {fileID: 0}
+    - target: {fileID: 2741008591316108993, guid: 6697c55fadabf7c4caa2e9f3d362e4ec, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8948147341662472619, guid: 6697c55fadabf7c4caa2e9f3d362e4ec, type: 3}
       propertyPath: m_LocalPosition.x
