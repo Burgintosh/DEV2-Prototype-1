@@ -56,11 +56,15 @@ public class EnemyAI : MonoBehaviour, IDamage
 
         //playerDir = gamemanager.instance.player.transform.position - transform.position; // Vile
 
-        if (playerInRange && canSeePlayer())
+        if (nexusInRange && canSeeNexus())
         {
 
         }
-        if((canSeeNexus() || !canSeePlayer()) && gamemanager.instance.Nexus != null)
+        else if (playerInRange && canSeePlayer())
+        {
+
+        }
+        else
         {
             agent.SetDestination(gamemanager.instance.Nexus.transform.position);
         }
@@ -77,7 +81,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         RaycastHit hit;
         if (Physics.Raycast(transform.position, playerDir, out hit))
         {
-            if (hit.collider.CompareTag("Player") && angleToPlayer <= FOV && !canSeeNexus())
+            if (hit.collider.CompareTag("Player") && angleToPlayer <= FOV && !nexusInRange)
             {
                 rotateToTarget();
                 gunRotate();
