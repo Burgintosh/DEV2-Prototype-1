@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -17,6 +18,9 @@ public class Weapon : MonoBehaviour
     public bool isReloading;
 
     public GameObject muzzleEffect;
+    public AudioSource shootSound;
+    public AudioSource reloadSound;
+    public AudioSource shootEmptySound;
 
     public event Action<int> OnAmmoChange;
 
@@ -25,21 +29,24 @@ public class Weapon : MonoBehaviour
         bulletsLeft = magazineSize;
         OnAmmoChange?.Invoke(bulletsLeft);
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void FireWeapon()
     {
+        AudioSource shootSound = null;
         muzzleEffect.GetComponent<ParticleSystem>().Play();
+        if (weaponName == "M1911")
+            shootSound = SoundManager.Instance.shootingSound1911;
+        else if (weaponName == "Bennelli")
+            shootSound = SoundManager.Instance.shootingSoundBennelli;
+        else if (weaponName == "M4")
+            shootSound = SoundManager.Instance.shootingSoundM4;
+
+        if(shootSound != null)
+        {
+            SoundManager.Instance.PlayWithRandomPitch(shootSound);
+        }
+
+        //shootSound.Play();
 
         bulletsLeft--;
         OnAmmoChange?.Invoke(bulletsLeft);
@@ -55,10 +62,18 @@ public class Weapon : MonoBehaviour
             }
         }
     }
+    public void GunClick()
+    {
+        SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.shootingSoundEmpty, false);
+    }
 
     public IEnumerator Reload()
     {
         isReloading = true;
+        if(weaponName == "Bennelli")
+            SoundManager.Instance.reloadSoundBennelli.Play();
+        else
+            SoundManager.Instance.reloadSound.Play();
         // TODO Play animation n sound
         yield return new WaitForSeconds(.5f);
         if (bulletsLeft < magazineSize)
