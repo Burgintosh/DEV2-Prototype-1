@@ -9,7 +9,9 @@ public class SoundManager : MonoBehaviour
     public AudioSource shootingSoundBennelli;
     public AudioSource shootingSoundM4;
     public AudioSource reloadSound;
+    public AudioSource reloadSoundBennelli;
     public AudioSource shootingSoundEmpty;
+    public AudioSource enemyShootSound;
 
     private void Awake()
     {
@@ -21,6 +23,17 @@ public class SoundManager : MonoBehaviour
         {
             Instance = this;
         }
+    }
+
+    public void PlayWithRandomPitch(AudioSource audioSource, bool oneShot = true)
+    {
+        float minPitch = 0.9f;
+        float maxPitch = 1.1f;
+        audioSource.pitch = Random.Range(minPitch, maxPitch);
+        if (oneShot)
+            audioSource.PlayOneShot(audioSource.clip);
+        else
+            audioSource.Play();
     }
 
 }

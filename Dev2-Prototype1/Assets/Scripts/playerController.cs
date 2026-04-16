@@ -61,6 +61,10 @@ public class playerController : MonoBehaviour, IDamage
     Vector3 moveDir;
     Vector3 playerVel;
 
+    public AudioSource jumpSound1;
+    public AudioSource jumpSound2;
+    public AudioSource jumpSound3;
+
     public event Action<Weapon> OnWeaponChanged;
     public event Action<int> OnHPChanged;
 
@@ -296,6 +300,22 @@ public class playerController : MonoBehaviour, IDamage
         }
         if(jumpBufferTimer > 0 && controller.isGrounded) // only works for single jump
         {
+            int rand = UnityEngine.Random.Range(1, 7);
+            switch (rand)
+            {
+                case 1:
+                    jumpSound1.Play();
+                    break;
+                case 2:
+                    jumpSound2.Play();
+                    break;
+                case 3:
+                    jumpSound3.Play();
+                    break;
+                default:
+                    break;
+            }
+                
             playerVel.y = jumpSpeed;
             jumpCount = 1;
             jumpBufferTimer = 0;

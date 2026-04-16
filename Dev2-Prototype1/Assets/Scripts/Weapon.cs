@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -31,14 +32,19 @@ public class Weapon : MonoBehaviour
 
     public void FireWeapon()
     {
+        AudioSource shootSound = null;
         muzzleEffect.GetComponent<ParticleSystem>().Play();
         if (weaponName == "M1911")
-            SoundManager.Instance.shootingSound1911.Play();
+            shootSound = SoundManager.Instance.shootingSound1911;
         else if (weaponName == "Bennelli")
-            SoundManager.Instance.shootingSoundBennelli.Play();
+            shootSound = SoundManager.Instance.shootingSoundBennelli;
         else if (weaponName == "M4")
-            SoundManager.Instance.shootingSoundM4.Play();
+            shootSound = SoundManager.Instance.shootingSoundM4;
 
+        if(shootSound != null)
+        {
+            SoundManager.Instance.PlayWithRandomPitch(shootSound);
+        }
 
         //shootSound.Play();
 
@@ -58,13 +64,16 @@ public class Weapon : MonoBehaviour
     }
     public void GunClick()
     {
-        SoundManager.Instance.shootingSoundEmpty.Play();
+        SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.shootingSoundEmpty, false);
     }
 
     public IEnumerator Reload()
     {
         isReloading = true;
-        SoundManager.Instance.reloadSound.Play();
+        if(weaponName == "Bennelli")
+            SoundManager.Instance.reloadSoundBennelli.Play();
+        else
+            SoundManager.Instance.reloadSound.Play();
         // TODO Play animation n sound
         yield return new WaitForSeconds(.5f);
         if (bulletsLeft < magazineSize)

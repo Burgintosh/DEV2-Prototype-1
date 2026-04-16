@@ -90,6 +90,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     {
         shootTimer = 0;
         if (bullet != null)
+            SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.enemyShootSound);
             Instantiate(bullet, shootPos.position, gunPivot.rotation);
     }
 
