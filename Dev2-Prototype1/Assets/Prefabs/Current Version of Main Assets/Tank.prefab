@@ -434,7 +434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e257e212a2ec094687ba3625d706edc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
-  maxHP: 46
+  maxHP: 38
   model: {fileID: 1263333910687397849}
   agent: {fileID: 3135814378302135873}
   bullet: {fileID: 8053635811223300628, guid: 5a4223247795c23459977be20dbe68a8, type: 3}
@@ -567,7 +567,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 35
+  m_Radius: 18
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6869063270973526447
 GameObject:

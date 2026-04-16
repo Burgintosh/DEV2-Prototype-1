@@ -97,7 +97,7 @@ MonoBehaviour:
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 0
-  currencyDrop: 5
+  currencyDrop: 10
 --- !u!195 &1749115945639132357
 NavMeshAgent:
   m_ObjectHideFlags: 0
