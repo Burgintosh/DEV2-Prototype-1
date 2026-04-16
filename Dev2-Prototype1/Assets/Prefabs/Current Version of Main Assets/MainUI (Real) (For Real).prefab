@@ -291,7 +291,7 @@ MonoBehaviour:
   activeWeapon: {fileID: 0}
   player: {fileID: 0}
   playerScript: {fileID: 0}
-  playerHPBar: {fileID: 5081211374268919474}
+  playerHPBar: {fileID: 4655339513024137667}
   playerDamageFlashScreen: {fileID: 1012222517022018278}
   Nexus: {fileID: 0}
 --- !u!1 &658359790126542458
