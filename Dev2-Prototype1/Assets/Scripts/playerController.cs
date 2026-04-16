@@ -61,9 +61,11 @@ public class playerController : MonoBehaviour, IDamage
     Vector3 moveDir;
     Vector3 playerVel;
 
-    public AudioSource jumpSound1;
-    public AudioSource jumpSound2;
-    public AudioSource jumpSound3;
+    //public AudioSource jumpSound1;
+    //public AudioSource jumpSound2;
+    //public AudioSource jumpSound3;
+
+    float hurtSoundTimer;
 
     public event Action<Weapon> OnWeaponChanged;
     public event Action<int> OnHPChanged;
@@ -98,6 +100,7 @@ public class playerController : MonoBehaviour, IDamage
         HPOrig = HP;
         lastWeapon = weapons[currentWeaponIndex];
         OnHPChanged?.Invoke(HP);
+        hurtSoundTimer = 5f;
     }
 
     void Update()
@@ -138,6 +141,10 @@ public class playerController : MonoBehaviour, IDamage
         if (jumpBufferTimer > 0)
         {
             jumpBufferTimer -= Time.deltaTime;
+        }
+        if(hurtSoundTimer > 0)
+        {
+            hurtSoundTimer -= Time.deltaTime;
         }
     }
 
@@ -304,13 +311,13 @@ public class playerController : MonoBehaviour, IDamage
             switch (rand)
             {
                 case 1:
-                    jumpSound1.Play();
+                    SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.playerJump1);
                     break;
                 case 2:
-                    jumpSound2.Play();
+                    SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.playerJump2);
                     break;
                 case 3:
-                    jumpSound3.Play();
+                    SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.playerJump3);
                     break;
                 default:
                     break;
@@ -400,6 +407,32 @@ public class playerController : MonoBehaviour, IDamage
     {
         HP -= amount; // do NOT destroy your player
         OnHPChanged?.Invoke(HP);
+        int rand = UnityEngine.Random.Range(1, 7);
+        if(hurtSoundTimer <= 0) { 
+            switch (rand)
+            {
+                case 1:
+                    SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.playerHurt1);
+                    break;
+                case 2:
+                    SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.playerHurt2);
+                    break;
+                case 3:
+                    SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.playerHurt3);
+                    break;
+                case 4:
+                    SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.playerHurt4);
+                    break;
+                case 5:
+                    SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.playerHurt5);
+                    break;
+                case 6:
+                    SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.playerHurt6);
+                    break;
+                default:
+                    break;
+            }
+        }
         StartCoroutine(FlashDamage());
 
         if (HP <= 0)

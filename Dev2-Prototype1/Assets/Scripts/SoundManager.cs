@@ -12,6 +12,15 @@ public class SoundManager : MonoBehaviour
     public AudioSource reloadSoundBennelli;
     public AudioSource shootingSoundEmpty;
     public AudioSource enemyShootSound;
+    public AudioSource playerJump1;
+    public AudioSource playerJump2;
+    public AudioSource playerJump3;
+    public AudioSource playerHurt1;
+    public AudioSource playerHurt2;
+    public AudioSource playerHurt3;
+    public AudioSource playerHurt4;
+    public AudioSource playerHurt5;
+    public AudioSource playerHurt6;
 
     private void Awake()
     {

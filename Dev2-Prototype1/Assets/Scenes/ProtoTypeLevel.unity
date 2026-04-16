@@ -644,6 +644,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3405798309347347471, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+      propertyPath: HP
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3405798309347347471, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: 'weapons.Array.data[0]'
       value: 
       objectReference: {fileID: 1110782}
@@ -2310,9 +2314,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tank
       objectReference: {fileID: 0}
+    - target: {fileID: 5998074046812942351, guid: 211c33f7fea9cee44a1ba0335b64b2e7, type: 3}
+      propertyPath: shootRate
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6434099000450540284, guid: 211c33f7fea9cee44a1ba0335b64b2e7, type: 3}
       propertyPath: m_IncludeLayers.m_Bits
       value: 4096
+      objectReference: {fileID: 0}
+    - target: {fileID: 7450324500996421456, guid: 211c33f7fea9cee44a1ba0335b64b2e7, type: 3}
+      propertyPath: damageRate
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7450324500996421456, guid: 211c33f7fea9cee44a1ba0335b64b2e7, type: 3}
+      propertyPath: damageAmount
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
