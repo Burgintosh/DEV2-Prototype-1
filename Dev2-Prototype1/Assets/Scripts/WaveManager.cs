@@ -21,7 +21,6 @@ public class WaveManager : MonoBehaviour
     int remainingToSpawnCount;
     int activeGroupCount;
 
-    bool waveInProgress;
     bool waitingForFirstWaveStart = true;
     bool waitingForNextWave;
     bool skipCountdownRequested;
@@ -80,7 +79,6 @@ public class WaveManager : MonoBehaviour
             yield break;
         }
 
-        waveInProgress = true;
         waitingForNextWave = false;
         skipCountdownRequested = false;
         activeEnemyCount = 0;
@@ -105,8 +103,6 @@ public class WaveManager : MonoBehaviour
             UpdateUI();
             yield return null;
         }
-
-        waveInProgress = false;
 
         gamemanager.instance.currencyManager.AddCurrency(wave.clearReward);
 

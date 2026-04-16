@@ -66,6 +66,12 @@ public class EnemyAI : MonoBehaviour, IDamage
         }
         else
         {
+            if(gamemanager.instance.Nexus == null)
+            {
+                //Debug.Log("Nexus is null or not found");
+                return;
+            }
+
             agent.SetDestination(gamemanager.instance.Nexus.transform.position);
         }
     }
