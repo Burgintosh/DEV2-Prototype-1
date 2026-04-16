@@ -17,6 +17,9 @@ public class Weapon : MonoBehaviour
     public bool isReloading;
 
     public GameObject muzzleEffect;
+    public AudioSource shootSound;
+    public AudioSource reloadSound;
+    public AudioSource shootEmptySound;
 
     public event Action<int> OnAmmoChange;
 
@@ -25,21 +28,17 @@ public class Weapon : MonoBehaviour
         bulletsLeft = magazineSize;
         OnAmmoChange?.Invoke(bulletsLeft);
     }
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void FireWeapon()
     {
         muzzleEffect.GetComponent<ParticleSystem>().Play();
+        if (weaponName == "M1911")
+            SoundManager.Instance.shootingSound1911.Play();
+        else if (weaponName == "M4")
+            SoundManager.Instance.shootingSoundM4.Play();
+
+
+        //shootSound.Play();
 
         bulletsLeft--;
         OnAmmoChange?.Invoke(bulletsLeft);
