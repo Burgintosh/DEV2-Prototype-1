@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 9167883445399768132}
   - component: {fileID: 8003466621915220402}
-  - component: {fileID: 2561312348928883419}
   - component: {fileID: 3703345238934162776}
   - component: {fileID: 6402709367965842205}
+  - component: {fileID: 2561312348928883419}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -54,27 +54,6 @@ MonoBehaviour:
   bulletSpeed: 25
   bulletDestroyTime: 3
   hitEffect: {fileID: 0}
---- !u!135 &2561312348928883419
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7282455896938454635}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!96 &3703345238934162776
 TrailRenderer:
   serializedVersion: 4
@@ -212,3 +191,24 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!135 &2561312348928883419
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7282455896938454635}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.1
+  m_Center: {x: 0, y: 0, z: 0}

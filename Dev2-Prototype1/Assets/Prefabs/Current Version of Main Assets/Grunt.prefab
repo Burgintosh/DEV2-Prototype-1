@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 114922917137143371}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.015999913, y: 0, z: 0.16600025}
-  m_LocalScale: {x: 0.15263, y: 0.12639, z: 0.47186172}
+  m_LocalPosition: {x: -0.015999913, y: 0, z: 0.222}
+  m_LocalScale: {x: 0.15263, y: 0.12639, z: 0.50534326}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 878795534196374915}
@@ -107,7 +107,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -141,8 +141,8 @@ Transform:
   m_GameObject: {fileID: 4217798991110202774}
   serializedVersion: 2
   m_LocalRotation: {x: -0.073509686, y: -0, z: -0, w: 0.99729455}
-  m_LocalPosition: {x: 0.00001001358, y: 0.218, z: 0.46759033}
-  m_LocalScale: {x: 0.57106, y: 0.13677429, z: 0.34575}
+  m_LocalPosition: {x: 0.00001001358, y: 0.203, z: 0.368}
+  m_LocalScale: {x: 0.57106, y: 0.13677429, z: 0.12418303}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7276799235959271429}
@@ -282,7 +282,7 @@ Transform:
   m_GameObject: {fileID: 5615128209932913074}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.478}
+  m_LocalPosition: {x: 0, y: 0, z: 0.532}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -362,6 +362,9 @@ MonoBehaviour:
   gunRotateSpeed: 3
   targetFaceSpeed: 4
   FOV: 180
+  ignoreLayer:
+    serializedVersion: 2
+    m_Bits: 0
   currencyDrop: 1
 --- !u!33 &7836271524727554643
 MeshFilter:
@@ -430,13 +433,13 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 3.5
+  m_Speed: 6
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 8
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 1
   m_BaseOffset: 0.5
