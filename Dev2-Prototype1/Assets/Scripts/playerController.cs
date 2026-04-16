@@ -62,6 +62,7 @@ public class playerController : MonoBehaviour, IDamage
     Vector3 playerVel;
 
     public event Action<Weapon> OnWeaponChanged;
+    public event Action<int> OnHPChanged;
 
     void OnEnable()
     {
@@ -92,6 +93,7 @@ public class playerController : MonoBehaviour, IDamage
     {
         HPOrig = HP;
         lastWeapon = weapons[currentWeaponIndex];
+        OnHPChanged?.Invoke(HP);
     }
 
     void Update()
@@ -355,10 +357,19 @@ public class playerController : MonoBehaviour, IDamage
         return lastWeapon;
     }
 
+    public int GetCurrentHP()
+    {
+        return HP;
+    }
+    public int GetMaxHP()
+    {
+        return HPOrig;
+    }
+
     public void takeDamage(int amount)
     {
         HP -= amount; // do NOT destroy your player
-
+        OnHPChanged?.Invoke(HP);
         StartCoroutine(FlashDamage());
 
         if (HP <= 0)

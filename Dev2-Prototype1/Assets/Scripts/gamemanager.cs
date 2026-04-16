@@ -18,7 +18,7 @@ public class gamemanager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI AmmoCount;
     [SerializeField] private TextMeshProUGUI MagSize;
 
-    public GameObject playerDamageFlashScreen;
+    
 
     public bool isPaused;
     public CurrencyManager currencyManager;
@@ -26,7 +26,9 @@ public class gamemanager : MonoBehaviour
 
     public GameObject player;
     public playerController playerScript;
-   
+    public Image playerHPBar;
+    public GameObject playerDamageFlashScreen;
+
     float timeScaleOrig; // So we can set pause game when pause menu is up. This lets us return to the time scale when unpausing
 
     int gameGoalCount;
@@ -39,7 +41,7 @@ public class gamemanager : MonoBehaviour
         timeScaleOrig = Time.timeScale;
 
         player = GameObject.FindWithTag("Player");
-        playerScript = player.GetComponent<playerController>(); 
+        playerScript = player.GetComponent<playerController>();
     }
 
     // Update is called once per frame
@@ -69,6 +71,7 @@ public class gamemanager : MonoBehaviour
         }
         playerScript.GetCurrentWeapon().OnAmmoChange += UpdateAmmoUI;
         playerScript.OnWeaponChanged += UpdateGun;
+        playerScript.OnHPChanged += UpdatePlayerHPBar;
     }
 
     private void OnDisable()
@@ -79,6 +82,7 @@ public class gamemanager : MonoBehaviour
         }
         playerScript.GetCurrentWeapon().OnAmmoChange -= UpdateAmmoUI;
         playerScript.OnWeaponChanged -= UpdateGun;
+        playerScript.OnHPChanged -= UpdatePlayerHPBar;
     }
 
     public void statePause()
@@ -146,7 +150,12 @@ public class gamemanager : MonoBehaviour
         MagSize.text = weapon.magazineSize.ToString();
         UpdateAmmoUI(weapon.bulletsLeft);
     }
-    
+
+    private void UpdatePlayerHPBar(int HP)
+    {
+        playerHPBar.fillAmount = (float)HP / playerScript.GetMaxHP();
+    }
+
 
     public void Respawn()
     {
