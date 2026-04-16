@@ -79,7 +79,6 @@ public class WaveManager : MonoBehaviour
             yield break;
         }
 
-        waveInProgress = true;
         waitingForNextWave = false;
         skipCountdownRequested = false;
         activeEnemyCount = 0;
@@ -104,8 +103,6 @@ public class WaveManager : MonoBehaviour
             UpdateUI();
             yield return null;
         }
-
-        waveInProgress = false;
 
         gamemanager.instance.currencyManager.AddCurrency(wave.clearReward);
 
