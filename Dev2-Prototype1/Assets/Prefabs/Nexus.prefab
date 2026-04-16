@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2376476921353970222}
   - component: {fileID: 8127899725032406040}
   - component: {fileID: 9154119898151521430}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Nexus
   m_TagString: Nexus
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 72
   m_ImplicitCom: 1
   m_ImplicitTensor: 0
   m_UseGravity: 0

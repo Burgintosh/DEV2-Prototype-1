@@ -60,7 +60,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         {
 
         }
-        if(canSeeNexus() || !canSeePlayer())
+        if((canSeeNexus() || !canSeePlayer()) && gamemanager.instance.Nexus != null)
         {
             agent.SetDestination(gamemanager.instance.Nexus.transform.position);
         }
@@ -192,6 +192,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     }
     bool canSeeNexus()
     {
+        if (gamemanager.instance.Nexus == null) return false;
         nexusDir = gamemanager.instance.Nexus.transform.position - transform.position;
         angleToNexus = Vector3.Angle(nexusDir, transform.forward);
 

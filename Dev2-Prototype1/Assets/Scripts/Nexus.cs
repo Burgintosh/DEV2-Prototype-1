@@ -23,11 +23,14 @@ public class Nexus : MonoBehaviour, IDamage
     public void takeDamage(int amount)
     {
         HP -= amount;
-        StartCoroutine(flashRed());
-        if(HP <= 0)
+        if (HP <= 0)
         {
             Destroy(gameObject);
             gamemanager.instance.youLose();
+        }
+        else
+        {
+            StartCoroutine(flashRed());
         }
     }
     IEnumerator flashRed()
