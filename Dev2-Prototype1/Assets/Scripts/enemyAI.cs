@@ -18,6 +18,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] int gunRotateSpeed;
     [SerializeField] int targetFaceSpeed;
     [SerializeField] int FOV;
+    [SerializeField] LayerMask ignoreLayer;
 
     [SerializeField] int currencyDrop;
 

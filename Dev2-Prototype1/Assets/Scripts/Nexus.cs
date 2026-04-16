@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Nexus : MonoBehaviour, IDamage
 {
-   [Range(1,100)] [SerializeField] int HP;
+   [Range(1,500)] [SerializeField] int HP;
     [SerializeField] Renderer model;
     int HPOrig;
     Color colorOrig;
