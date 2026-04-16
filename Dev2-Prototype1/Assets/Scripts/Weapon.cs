@@ -16,6 +16,8 @@ public class Weapon : MonoBehaviour
     public int bulletsLeft;
     public bool isReloading;
 
+    public GameObject muzzleEffect;
+
     public event Action<int> OnAmmoChange;
 
     void Awake()
@@ -37,6 +39,8 @@ public class Weapon : MonoBehaviour
 
     public void FireWeapon()
     {
+        muzzleEffect.GetComponent<ParticleSystem>().Play();
+
         bulletsLeft--;
         OnAmmoChange?.Invoke(bulletsLeft);
         RaycastHit hit;
