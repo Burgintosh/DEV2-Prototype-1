@@ -1,6 +1,6 @@
 using UnityEngine;
 using TMPro; // Access to text stuff
-using UnityEngine.UI;
+using UnityEngine.UI; // Access to UI stuff
 
 public class gamemanager : MonoBehaviour
 {
@@ -18,16 +18,17 @@ public class gamemanager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI AmmoCount;
     [SerializeField] private TextMeshProUGUI MagSize;
 
-    public GameObject playerDamageFlashScreen;
+    
 
     public bool isPaused;
-    public Image playerHealthBar;
-    public GameObject playerDamageFlash;
     public CurrencyManager currencyManager;
     public Weapon activeWeapon;
 
     public GameObject player;
     public playerController playerScript;
+    public Image playerHPBar;
+    public GameObject playerDamageFlashScreen;
+
     public GameObject Nexus;
    
     float timeScaleOrig; // So we can set pause game when pause menu is up. This lets us return to the time scale when unpausing
@@ -73,6 +74,7 @@ public class gamemanager : MonoBehaviour
         }
         playerScript.GetCurrentWeapon().OnAmmoChange += UpdateAmmoUI;
         playerScript.OnWeaponChanged += UpdateGun;
+        playerScript.OnHPChanged += UpdatePlayerHPBar;
     }
 
     private void OnDisable()
@@ -83,6 +85,7 @@ public class gamemanager : MonoBehaviour
         }
         playerScript.GetCurrentWeapon().OnAmmoChange -= UpdateAmmoUI;
         playerScript.OnWeaponChanged -= UpdateGun;
+        playerScript.OnHPChanged -= UpdatePlayerHPBar;
     }
 
     public void statePause()
@@ -150,7 +153,12 @@ public class gamemanager : MonoBehaviour
         MagSize.text = weapon.magazineSize.ToString();
         UpdateAmmoUI(weapon.bulletsLeft);
     }
-    
+
+    private void UpdatePlayerHPBar(int HP)
+    {
+        playerHPBar.fillAmount = (float)HP / playerScript.GetMaxHP();
+    }
+
 
     public void Respawn()
     {
