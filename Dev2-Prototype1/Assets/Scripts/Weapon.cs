@@ -34,6 +34,8 @@ public class Weapon : MonoBehaviour
         muzzleEffect.GetComponent<ParticleSystem>().Play();
         if (weaponName == "M1911")
             SoundManager.Instance.shootingSound1911.Play();
+        else if (weaponName == "Bennelli")
+            SoundManager.Instance.shootingSoundBennelli.Play();
         else if (weaponName == "M4")
             SoundManager.Instance.shootingSoundM4.Play();
 
@@ -54,10 +56,15 @@ public class Weapon : MonoBehaviour
             }
         }
     }
+    public void GunClick()
+    {
+        SoundManager.Instance.shootingSoundEmpty.Play();
+    }
 
     public IEnumerator Reload()
     {
         isReloading = true;
+        SoundManager.Instance.reloadSound.Play();
         // TODO Play animation n sound
         yield return new WaitForSeconds(.5f);
         if (bulletsLeft < magazineSize)

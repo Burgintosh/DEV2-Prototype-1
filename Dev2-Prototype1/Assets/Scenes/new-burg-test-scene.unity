@@ -731,10 +731,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundManager
   shootingSound1911: {fileID: 1315003095}
-  shootingSoundBennelli: {fileID: 0}
+  shootingSoundBennelli: {fileID: 1315003099}
   shootingSoundM4: {fileID: 1315003098}
-  reloadSound: {fileID: 0}
-  shootingEmptySound: {fileID: 0}
+  reloadSound: {fileID: 1315003101}
+  shootingSoundEmpty: {fileID: 1315003100}
 --- !u!4 &1315003097
 Transform:
   m_ObjectHideFlags: 0
@@ -858,7 +858,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 0}
+  m_Resource: {fileID: 8300000, guid: 713c45bf545b9724ab291e5547bdb1d8, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

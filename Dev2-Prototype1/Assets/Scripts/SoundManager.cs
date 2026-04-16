@@ -9,7 +9,7 @@ public class SoundManager : MonoBehaviour
     public AudioSource shootingSoundBennelli;
     public AudioSource shootingSoundM4;
     public AudioSource reloadSound;
-    public AudioSource shootingEmptySound;
+    public AudioSource shootingSoundEmpty;
 
     private void Awake()
     {
