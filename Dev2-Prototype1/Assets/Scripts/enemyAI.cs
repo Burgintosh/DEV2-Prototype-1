@@ -188,6 +188,9 @@ public class EnemyAI : MonoBehaviour, IDamage
         angleToPlayer = 0f;
         playerInRange = false;
         playerDir = Vector3.zero;
+        angleToNexus = 0f;
+        nexusInRange = false;
+        nexusDir = Vector3.zero;
 
         if(model != null)
         {
