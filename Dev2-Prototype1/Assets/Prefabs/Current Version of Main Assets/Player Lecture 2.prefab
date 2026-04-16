@@ -29855,7 +29855,7 @@ MonoBehaviour:
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 8
-  reloadTimer: 1.2
+  reloadTimer: 1.3
   magazineSize: 7
   bulletsLeft: 7
   isReloading: 0
@@ -30061,7 +30061,7 @@ MonoBehaviour:
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 8
-  reloadTimer: 0.7
+  reloadTimer: 1
   magazineSize: 7
   bulletsLeft: 7
   isReloading: 0
