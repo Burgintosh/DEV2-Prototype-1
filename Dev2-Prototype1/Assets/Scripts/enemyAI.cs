@@ -68,7 +68,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         {
             if(gamemanager.instance.Nexus == null)
             {
-                Debug.Log("Nexus is null or not found");
+                //Debug.Log("Nexus is null or not found");
                 return;
             }
 
