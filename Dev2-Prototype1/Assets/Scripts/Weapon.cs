@@ -75,7 +75,7 @@ public class Weapon : MonoBehaviour
         else
             SoundManager.Instance.reloadSound.Play();
         // TODO Play animation n sound
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(reloadTimer);
         if (bulletsLeft < magazineSize)
             bulletsLeft = magazineSize;
         else if (bulletsLeft == magazineSize) 

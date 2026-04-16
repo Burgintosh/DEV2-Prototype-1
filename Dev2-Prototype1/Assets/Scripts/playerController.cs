@@ -114,7 +114,7 @@ public class playerController : MonoBehaviour, IDamage
         UpdateTimers();
         movement();
         sprint();
-        if (weapons.Count > 0 && shootAction.action.IsPressed() && shootTimer >= weapons[currentWeaponIndex].shootRate && !gamemanager.instance.isPaused)
+        if (weapons.Count > 0 && shootAction.action.IsPressed() && shootTimer >= weapons[currentWeaponIndex].shootRate && !gamemanager.instance.isPaused && !weapons[currentWeaponIndex].isReloading)
         {
             Debug.Log("Shooting");
             shoot();
