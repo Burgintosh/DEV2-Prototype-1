@@ -362,7 +362,7 @@ Transform:
   m_GameObject: {fileID: 5062964200378589267}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.017699331, y: 0.053999778, z: 3.2129986}
+  m_LocalPosition: {x: 0.017699331, y: 0.053999778, z: 3.262}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -444,6 +444,9 @@ MonoBehaviour:
   gunRotateSpeed: 1
   targetFaceSpeed: 2
   FOV: 180
+  ignoreLayer:
+    serializedVersion: 2
+    m_Bits: 0
   currencyDrop: 25
 --- !u!195 &3135814378302135873
 NavMeshAgent:

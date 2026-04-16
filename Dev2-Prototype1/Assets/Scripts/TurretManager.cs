@@ -4,7 +4,7 @@ using UnityEngine;
 public class TurretManager : MonoBehaviour
 {
     //[SerializeField] KeyCode testBuildKey = KeyCode.T;
-    [SerializeField] Transform testBuildPoint;
+    //[SerializeField] Transform testBuildPoint;
 
     [SerializeField] ObjectPoolManager poolManager;
     [SerializeField] GameObject turretPrefab;
@@ -147,6 +147,10 @@ public class TurretManager : MonoBehaviour
                 Debug.LogWarning("TurretAI script could not be found on the prefab or its children.");
             }
         }
-        return 0;
+        else
+        {
+            Debug.Log("Turret Prefab is null");
+        }
+            return 0;
     }
 }

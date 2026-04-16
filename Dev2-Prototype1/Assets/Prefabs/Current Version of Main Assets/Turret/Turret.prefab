@@ -226,8 +226,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e391be01c3744408b528549aea1786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretAI
-  maxHP: 3
-  cost: 0
+  maxHP: 50
+  cost: 100
   model: {fileID: 4248902834305976589}
   agent: {fileID: 0}
   bullet: {fileID: 7282455896938454635, guid: 93a5fec2ed07599419bb714fcf34ad3d, type: 3}
