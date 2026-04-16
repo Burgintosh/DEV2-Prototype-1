@@ -21,7 +21,6 @@ public class WaveManager : MonoBehaviour
     int remainingToSpawnCount;
     int activeGroupCount;
 
-    bool waveInProgress;
     bool waitingForFirstWaveStart = true;
     bool waitingForNextWave;
     bool skipCountdownRequested;

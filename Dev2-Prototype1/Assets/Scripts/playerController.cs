@@ -11,7 +11,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] LayerMask ignoreLayer;
 
     [Header("General Stats")]
-    [Range(1, 10)] [SerializeField] int HP;
+    [Range(1, 200)] [SerializeField] int HP;
     int HPOrig;
 
 
