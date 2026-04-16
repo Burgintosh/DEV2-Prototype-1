@@ -18,9 +18,9 @@ public class Weapon : MonoBehaviour
     public bool isReloading;
 
     public GameObject muzzleEffect;
-    public AudioSource shootSound;
-    public AudioSource reloadSound;
-    public AudioSource shootEmptySound;
+    //public AudioSource shootSound;
+    //public AudioSource reloadSound;
+    //public AudioSource shootEmptySound;
 
     public event Action<int> OnAmmoChange;
 
