@@ -218,7 +218,7 @@ PrefabInstance:
       objectReference: {fileID: 1076965461}
     - target: {fileID: 3427337961618742575, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
       propertyPath: waves.Array.size
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3427337961618742575, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
       propertyPath: waves.Array.data[1].clearReward
@@ -2127,6 +2127,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainUI (Real) (For Real)
       objectReference: {fileID: 0}
+    - target: {fileID: 7144801996440916014, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7828719983937996581, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -3826,6 +3830,14 @@ PrefabInstance:
     - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: placementBlockMask.m_Bits
       value: 2048
+      objectReference: {fileID: 0}
+    - target: {fileID: 6060505399673852211, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7258386368018283300, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8007902789591347702, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: muzzleEffect
