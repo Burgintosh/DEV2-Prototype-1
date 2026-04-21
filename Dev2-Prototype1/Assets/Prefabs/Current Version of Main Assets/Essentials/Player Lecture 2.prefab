@@ -29860,6 +29860,7 @@ MonoBehaviour:
   bulletsLeft: 7
   isReloading: 0
   muzzleEffect: {fileID: 4719186888421226363}
+  hitEffect: {fileID: 6932662996829953957, guid: e7a64ce28a726fe42a4aaaf79064a28e, type: 3}
 --- !u!33 &3778178957668587063
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -30066,6 +30067,7 @@ MonoBehaviour:
   bulletsLeft: 7
   isReloading: 0
   muzzleEffect: {fileID: 4391853799223329727}
+  hitEffect: {fileID: 6932662996829953957, guid: e7a64ce28a726fe42a4aaaf79064a28e, type: 3}
 --- !u!1 &7580059430092462020
 GameObject:
   m_ObjectHideFlags: 0
@@ -30953,6 +30955,7 @@ MonoBehaviour:
   bulletsLeft: 30
   isReloading: 0
   muzzleEffect: {fileID: 1133962454984317051}
+  hitEffect: {fileID: 6932662996829953957, guid: e7a64ce28a726fe42a4aaaf79064a28e, type: 3}
 --- !u!33 &8078799267965013870
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -31265,6 +31268,7 @@ MonoBehaviour:
   bulletsLeft: 0
   isReloading: 0
   muzzleEffect: {fileID: 0}
+  hitEffect: {fileID: 0}
 --- !u!33 &8429014888510557377
 MeshFilter:
   m_ObjectHideFlags: 0
