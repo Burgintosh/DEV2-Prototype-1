@@ -17,6 +17,7 @@ public class Weapon : MonoBehaviour
     public bool isReloading;
 
     public GameObject muzzleEffect;
+    public ParticleSystem hitEffect;
     //public AudioSource shootSound;
     //public AudioSource reloadSound;
     //public AudioSource shootEmptySound;
@@ -52,7 +53,9 @@ public class Weapon : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, shootDist, ~ignoreLayer))
         {
-            Debug.Log(hit.collider.name);
+            //Debug.Log(hit.collider.name);
+            
+            Instantiate(hitEffect, hit.point, Quaternion.identity);
 
             IDamage dmg = hit.collider.GetComponent<IDamage>();
             if(dmg != null)
