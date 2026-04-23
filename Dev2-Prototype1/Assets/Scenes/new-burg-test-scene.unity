@@ -6916,6 +6916,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 637029589459907430, guid: 70771f180cff6a74f8e203841dcf6808, type: 3}
   m_PrefabInstance: {fileID: 1760801871}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1792886235 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4295938951047878220, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
+  m_PrefabInstance: {fileID: 1112100106}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d0534a7804b5e94b976a3de35e15598, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaveUIController
 --- !u!1 &1900573729
 GameObject:
   m_ObjectHideFlags: 0
@@ -7296,7 +7307,7 @@ PrefabInstance:
     - target: {fileID: 4566718816629061666, guid: 61cd6c333324e1b4fbb8373f3b5b2d94, type: 3}
       propertyPath: waveUI
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1792886235}
     - target: {fileID: 4566718816629061666, guid: 61cd6c333324e1b4fbb8373f3b5b2d94, type: 3}
       propertyPath: gameManager
       value: 
