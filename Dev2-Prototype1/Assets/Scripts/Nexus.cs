@@ -37,6 +37,10 @@ public class Nexus : MonoBehaviour, IDamage
         if (HP <= 0)
         {
             Destroy(gameObject);
+            //gamemanager.NexusCount--;
+            //if(gamemanager.NexusCount == 0){
+            // you lose;
+            //}
             gamemanager.instance.youLose();
         }
         else
