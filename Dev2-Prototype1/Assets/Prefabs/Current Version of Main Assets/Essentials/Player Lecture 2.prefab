@@ -31108,23 +31108,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildPlacementController
   buildCamera: {fileID: 5281255741563342711}
   playerPos: {fileID: 15677698149879725}
-  turretManager: {fileID: 4916466539315003835, guid: 7913509b1d7df4a42964cf0ee25d3566, type: 3}
   previewPrefab: {fileID: 338631171373570351, guid: 42dea41f286715b41aefa55bcdf6cf23, type: 3}
+  currencyManager: {fileID: 0}
   currentBuildType: 0
   rayCastDist: 100
   maxBuildDist: 8
   placementRadius: 1
   previewYOffset: 0
+  buildables: []
+  currBuildIndex: 0
   togglePreviewKey: 98
   confirmBuildKey: 323
   rotatePreviewKey: 114
   rotateAngle: 45
   buildAreaMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 512
   placementBlockMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2048
   validColor: {r: 0, g: 0, b: 1, a: 1}
   invalidColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!143 &4060575182106954972

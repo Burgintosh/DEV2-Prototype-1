@@ -6,8 +6,8 @@ public class BuildPlacementController : MonoBehaviour
     [Header("----- References -----")]
     [SerializeField] Camera buildCamera;
     [SerializeField] Transform playerPos;
-    [SerializeField] TurretManager turretManager;
     [SerializeField] GameObject previewPrefab;
+    [SerializeField] CurrencyManager currencyManager;
 
     [Header("----- Build Settings -----")]
     [SerializeField] BuildableType currentBuildType = BuildableType.Turret;
@@ -15,6 +15,10 @@ public class BuildPlacementController : MonoBehaviour
     [SerializeField] float maxBuildDist = 8f;
     [SerializeField] float placementRadius = 1f;
     [SerializeField] float previewYOffset = 0f;
+
+    [Header("----- Buildables -----")]
+    [SerializeField] BuildableDefinition[] buildables;
+    [SerializeField] int currBuildIndex = 0;
 
     [Header("----- Input -----")]
     [SerializeField] KeyCode togglePreviewKey = KeyCode.B;
@@ -40,6 +44,17 @@ public class BuildPlacementController : MonoBehaviour
     GameObject previewInstance;
     Renderer[] previewRenderers;
 
+    BuildableDefinition currBuildable;
+
+    private void Start()
+    {
+        if(buildables != null && buildables.Length > 0)
+        {
+            currBuildIndex = Mathf.Clamp(currBuildIndex, 0, buildables.Length - 1);
+            currBuildable = buildables[currBuildIndex];
+        }
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(togglePreviewKey))
@@ -52,6 +67,8 @@ public class BuildPlacementController : MonoBehaviour
         {
             return;
         }
+
+        HandleScrollSelection();
 
         if (Input.GetKeyDown(rotatePreviewKey))
         {
@@ -76,13 +93,46 @@ public class BuildPlacementController : MonoBehaviour
         }
     }
 
+    void HandleScrollSelection()
+    {
+        if(buildables == null  || buildables.Length == 0)
+        {
+            return;
+        }
+
+        float mouseScroll = Input.mouseScrollDelta.y;
+
+        if(mouseScroll > 0f)
+        {
+            currBuildIndex++;
+
+            if(currBuildIndex >= buildables.Length)
+            {
+                currBuildIndex = 0;
+            }
+
+            SelectBuildable(currBuildIndex);
+        }
+        else if(mouseScroll < 0f)
+        {
+            currBuildIndex--;
+
+            if(currBuildIndex < 0)
+            {
+                currBuildIndex = buildables.Length - 1;
+            }
+
+            SelectBuildable(currBuildIndex);
+        }
+    }
+
     void TogglePreviewMode()
     {
         previewModeActive = !previewModeActive;
 
         if (previewModeActive)
         {
-            CreatePreviewInstance();
+            SelectBuildable(currBuildIndex);
         }
         else
         {
@@ -90,9 +140,23 @@ public class BuildPlacementController : MonoBehaviour
         }
     }
 
+    void SelectBuildable(int _BuildIndex)
+    {
+        if(buildables == null || buildables.Length == 0)
+        {
+            return;
+        }
+
+        currBuildIndex = _BuildIndex;
+        currBuildable = buildables[currBuildIndex];
+
+        DestroyPreviewInstance();
+        CreatePreviewInstance();
+    }
+
     void CreatePreviewInstance()
     {
-        if(previewPrefab == null)
+        if (currBuildable == null || currBuildable.placedPreview == null)
         {
             Debug.LogWarning("[BuildPlacementController] Preview prefab is not assigned");
             previewModeActive = false;
@@ -104,7 +168,7 @@ public class BuildPlacementController : MonoBehaviour
             return;
         }
 
-        previewInstance = Instantiate(previewPrefab);
+        previewInstance = Instantiate(currBuildable.placedPreview);
         previewRenderers = previewInstance.GetComponentsInChildren<Renderer>();
 
         Collider[] previewColliders = previewInstance.GetComponentsInChildren<Collider>();
@@ -129,7 +193,7 @@ public class BuildPlacementController : MonoBehaviour
 
     void UpdatePreview()
     {
-        if(previewInstance == null)
+        if(previewInstance == null || currBuildable == null)
         {
             return;
         }
@@ -159,15 +223,14 @@ public class BuildPlacementController : MonoBehaviour
         }
 
         Vector3 placementPos = hit.point;
-        placementPos.y += previewYOffset;
+        placementPos.y += currBuildable.previewYOffset;
 
-        bool buildTypeAllowed = buildArea.AllowsBuildType(currentBuildType);
+        bool buildTypeAllowed = buildArea.AllowsBuildType(currBuildable.buildableType);
         bool withinBuildDist = IsWithinBuildDist(placementPos);
-        bool overlapsBlockedObject = Physics.CheckSphere(placementPos, placementRadius, placementBlockMask, QueryTriggerInteraction.Ignore);
+        bool overlapsBlockedObject = Physics.CheckSphere(placementPos, currBuildable.placementRadius, placementBlockMask, QueryTriggerInteraction.Ignore);
 
         // Checking cost
-        int turretCost = turretManager.GetTurretCost();
-        bool canAfford = gamemanager.instance.currencyManager.canBuy(turretCost);
+        bool canAfford = gamemanager.instance.currencyManager.canBuy(currBuildable.cost);
 
         currentPlacementValid = buildTypeAllowed && withinBuildDist && !overlapsBlockedObject && canAfford;
         currentPlacementPos = placementPos;
@@ -209,23 +272,40 @@ public class BuildPlacementController : MonoBehaviour
 
     void ConfirmBuild()
     {
-        if(turretManager == null)
+        if(currBuildable == null || currBuildable.placedPreview == null)
         {
             Debug.LogWarning("[BuildPlacementController] TurretManager is not assigned", this);
             return;
         }
 
-        int turretCost = turretManager.GetTurretCost();
-        gamemanager.instance.currencyManager.SpendCurrency(turretCost);
+        if(currencyManager == null)
+        {
+            Debug.LogWarning("[BuildPlacementController] CurrencyManager is not assigned", this);
+            return;
+        }
+
+        if (!currencyManager.SpendCurrency(currBuildable.cost))
+        {
+            return;
+        }
 
         Quaternion buildRotation = Quaternion.Euler(0f, currentPreviewYaw, 0f);
-        PooledTurret builtTurret = turretManager.BuildTurret(currentPlacementPos, buildRotation);
+        GameObject builtObject = Instantiate(currBuildable.placedPrefab, currentPlacementPos, buildRotation);
 
-        if(builtTurret == null)
+        if(builtObject == null)
         {
             Debug.LogWarning("[BuildPlacementController] Build failed", this);
-            gamemanager.instance.currencyManager.AddCurrency(turretCost); // Refund currency if failed
+            gamemanager.instance.currencyManager.AddCurrency(currBuildable.cost); // Refund currency if failed
+            return;
         }
+
+        PlacedBuildable placedBuildable = builtObject.GetComponent<PlacedBuildable>();
+
+        if(placedBuildable != null)
+        {
+            placedBuildable.Init(currBuildable);
+        }
+
     }
 
 }
