@@ -10,11 +10,11 @@ public class BuildPlacementController : MonoBehaviour
     [SerializeField] CurrencyManager currencyManager;
 
     [Header("----- Build Settings -----")]
-    [SerializeField] BuildableType currentBuildType = BuildableType.Turret;
+    //[SerializeField] BuildableType currentBuildType = BuildableType.Turret;
     [SerializeField] float rayCastDist = 100f;
     [SerializeField] float maxBuildDist = 8f;
-    [SerializeField] float placementRadius = 1f;
-    [SerializeField] float previewYOffset = 0f;
+    //[SerializeField] float placementRadius = 1f;
+    //[SerializeField] float previewYOffset = 0f;
 
     [Header("----- Sell Settings -----")]
     [SerializeField] float sellDist = 10f;
