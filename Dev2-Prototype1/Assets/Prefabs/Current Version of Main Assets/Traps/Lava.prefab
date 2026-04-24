@@ -146,4 +146,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlacedBuildable
   buildableType: 1
-  refundAmount: 0
+  refundAmount: 100

@@ -20,4 +20,17 @@ public class PlacedBuildable : MonoBehaviour
     {
         return refundAmount;
     }
+
+    public void Sell(CurrencyManager _CurrencyManager)
+    {
+        if(_CurrencyManager == null)
+        {
+            Debug.LogWarning("[PlacedBuildable] CurrencyManager is null, cannot sell buildable");
+            return;
+        }
+
+        _CurrencyManager.AddCurrency(refundAmount);
+        Destroy(gameObject);
+    }
+
 }

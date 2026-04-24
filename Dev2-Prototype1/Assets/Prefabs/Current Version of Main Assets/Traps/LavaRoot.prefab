@@ -145,8 +145,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a33657732ca6204bb9ed08f55b60595, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlacedBuildable
-  buildableType: 1
-  refundAmount: 0
+  buildableType: 0
+  refundAmount: 100
 --- !u!1 &5748728663981810870
 GameObject:
   m_ObjectHideFlags: 0

@@ -16,6 +16,9 @@ public class BuildPlacementController : MonoBehaviour
     [SerializeField] float placementRadius = 1f;
     [SerializeField] float previewYOffset = 0f;
 
+    [Header("----- Sell Settings -----")]
+    [SerializeField] float sellDist = 10f;
+
     [Header("----- Buildables -----")]
     [SerializeField] BuildableDefinition[] buildables;
     [SerializeField] int currBuildIndex = 0;
@@ -24,6 +27,7 @@ public class BuildPlacementController : MonoBehaviour
     [SerializeField] KeyCode togglePreviewKey = KeyCode.B;
     [SerializeField] KeyCode confirmBuildKey = KeyCode.Mouse0;
     [SerializeField] KeyCode rotatePreviewKey = KeyCode.R;
+    [SerializeField] KeyCode sellBuildKey = KeyCode.E;
     [SerializeField] float rotateAngle = 45f;
 
     [Header("----- Layers -----")]
@@ -57,6 +61,11 @@ public class BuildPlacementController : MonoBehaviour
 
     private void Update()
     {
+        if (Input.GetKeyDown(sellBuildKey))
+        {
+            TrySellBuildable();
+        }
+
         if (Input.GetKeyDown(togglePreviewKey))
         {
             currentPreviewYaw = 0;
@@ -305,7 +314,42 @@ public class BuildPlacementController : MonoBehaviour
         {
             placedBuildable.Init(currBuildable);
         }
+    }
 
+    void TrySellBuildable()
+    {
+        if(buildCamera == null)
+        {
+            Debug.LogWarning("[BuildPlacementController] Build camera is not assigned.", this);
+            return;
+        }
+
+        if(currencyManager == null)
+        {
+            Debug.LogWarning("[BuildPlacementController] CurrencyManager is not assigned", this);
+            return;
+        }
+
+        Ray ray = buildCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+
+        if(!Physics.Raycast(ray, out RaycastHit hit, sellDist, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide))
+        {
+            return;
+        }
+
+        PlacedBuildable placedBuildable = hit.collider.GetComponent<PlacedBuildable>();
+
+        if(placedBuildable == null)
+        {
+            placedBuildable = hit.collider.GetComponentInParent<PlacedBuildable>();
+        }
+
+        if(placedBuildable == null)
+        {
+            return;
+        }
+
+        placedBuildable.Sell(currencyManager);
     }
 
 }
