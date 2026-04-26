@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro; // Access to text stuff
-using UnityEngine.UI; // Access to UI stuff
+using UnityEngine.UI;
+using Unity.Properties; // Access to UI stuff
 
 public class gamemanager : MonoBehaviour
 {
@@ -8,31 +9,37 @@ public class gamemanager : MonoBehaviour
 
     public static gamemanager instance;
 
-    [SerializeField] GameObject menuActive;
+    [Header("Menus")]
+    GameObject menuActive;
     [SerializeField] GameObject menuPause;
-    [SerializeField] GameObject menuRespawn;
+    // [SerializeField] GameObject menuRespawn;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
 
+    [Header("Currency")]
+    public CurrencyManager currencyManager;
     [SerializeField] private TextMeshProUGUI currencyText;
+
+    [Header("Gun UI")]
     [SerializeField] private TextMeshProUGUI AmmoCount;
     [SerializeField] private TextMeshProUGUI MagSize;
-
     
-
-    public bool isPaused;
-    public CurrencyManager currencyManager;
-    public Weapon activeWeapon;
-
-    public GameObject player;
-    public playerController playerScript;
+    [Header("Player HP UI")]
     public Image playerHPBar;
+    public TextMeshProUGUI playerHPNum;
     public GameObject playerDamageFlashScreen;
 
+    [Header("Nexus HP UI")]
+    public Image NexusHPBar;
+
+    [Header("Public Vars (Do Not Assign)")]
+    public GameObject player;
+    public playerController playerScript;
     public GameObject Nexus;
     public Nexus nexusScript;
-    public Image NexusHPBar;
-   
+    public bool isPaused;
+    public Weapon activeWeapon;
+
     float timeScaleOrig; // So we can set pause game when pause menu is up. This lets us return to the time scale when unpausing
 
     int gameGoalCount;
@@ -162,6 +169,7 @@ public class gamemanager : MonoBehaviour
     private void UpdatePlayerHPBar(int HP)
     {
         playerHPBar.fillAmount = (float)HP / playerScript.GetMaxHP();
+        playerHPNum.text = HP.ToString();
     }
 
     private void UpdateNexusHPBar(int HP)
