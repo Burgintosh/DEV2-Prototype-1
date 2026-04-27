@@ -24,6 +24,8 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     Color colorOrig;
 
+    int currTargetNexus = -1;
+
     float shootTimer;
     float angleToPlayer;
     float angleToNexus;
@@ -48,6 +50,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         }
 
         HP = maxHP;
+        changeTarget();
     }
 
     // Update is called once per frame
@@ -56,7 +59,11 @@ public class EnemyAI : MonoBehaviour, IDamage
         shootTimer += Time.deltaTime;
 
         //playerDir = gamemanager.instance.player.transform.position - transform.position; // Vile
-
+        if (currTargetNexus == -1 || NexusManager.nexusManagerInstance.nexusList[currTargetNexus] == null)
+        {
+            changeTarget();
+            return;
+        }
         if (nexusInRange && canSeeNexus())
         {
 
@@ -65,15 +72,10 @@ public class EnemyAI : MonoBehaviour, IDamage
         {
 
         }
+
         else
         {
-            if(gamemanager.instance.Nexus == null)
-            {
-                //Debug.Log("Nexus is null or not found");
-                return;
-            }
-
-            agent.SetDestination(gamemanager.instance.Nexus.transform.position);
+            agent.SetDestination(NexusManager.nexusManagerInstance.nexusList[currTargetNexus].transform.position);
         }
     }
 
@@ -191,6 +193,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         angleToNexus = 0f;
         nexusInRange = false;
         nexusDir = Vector3.zero;
+        currTargetNexus = -1;
         if(model != null)
         {
             model.material.color = colorOrig;
@@ -206,8 +209,8 @@ public class EnemyAI : MonoBehaviour, IDamage
     }
     bool canSeeNexus()
     {
-        if (gamemanager.instance.Nexus == null) return false;
-        nexusDir = gamemanager.instance.Nexus.transform.position - transform.position;
+        if (NexusManager.nexusManagerInstance.nexusList[currTargetNexus] == null) return false;
+        nexusDir = NexusManager.nexusManagerInstance.nexusList[currTargetNexus].transform.position - transform.position;
         angleToNexus = Vector3.Angle(nexusDir, transform.forward);
 
 
@@ -226,11 +229,27 @@ public class EnemyAI : MonoBehaviour, IDamage
                 if (shootTimer >= shootRate)
                     shoot();
 
-                agent.SetDestination(gamemanager.instance.Nexus.transform.position);
+                agent.SetDestination(NexusManager.nexusManagerInstance.nexusList[currTargetNexus].transform.position);
 
                 return true;
             }
         }
         return false;
+    }
+    void changeTarget()
+    {
+        nexusInRange = false;
+        if (currTargetNexus == -1)
+        {
+            currTargetNexus = Random.Range(0, NexusManager.nexusManagerInstance.nexusList.Count);
+        }
+        else
+        {
+            currTargetNexus = 0;
+            while(NexusManager.nexusManagerInstance.nexusList[currTargetNexus] == null)
+            {
+                currTargetNexus++;
+            }
+        }
     }
 }
