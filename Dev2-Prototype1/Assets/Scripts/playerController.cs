@@ -58,6 +58,7 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] InputActionReference Weapon1;
     [SerializeField] InputActionReference Weapon2;
     [SerializeField] InputActionReference Weapon3;
+    [SerializeField] InputActionReference mWheel;
     Vector3 moveDir;
     Vector3 playerVel;
 
@@ -335,21 +336,33 @@ public class playerController : MonoBehaviour, IDamage
         {
             lastWeapon = weapons[currentWeaponIndex];
             currentWeaponIndex = 0;
-            Debug.Log("Switched to " + weapons[currentWeaponIndex].weaponName);
         }
         else if (Weapon2.action != null && Weapon2.action.WasPressedThisFrame() && weapons.Count > 1 && currentWeaponIndex != 1)
         {
             lastWeapon = weapons[currentWeaponIndex];
             currentWeaponIndex = 1;
-            Debug.Log("Switched to " + weapons[currentWeaponIndex].weaponName);
         }
         else if (Weapon3.action != null && Weapon3.action.WasPressedThisFrame() && weapons.Count > 2 && currentWeaponIndex != 2)
         {
             lastWeapon = weapons[currentWeaponIndex];
             currentWeaponIndex = 2;
-            Debug.Log("Switched to " + weapons[currentWeaponIndex].weaponName);
         }
-        OnWeaponChanged?.Invoke(weapons[currentWeaponIndex]);
+        //else if(mWheel.ReadValue<Vector2>().y > 0 && currentWeaponIndex < weapons.Count - 1)
+        //{
+        //    lastWeapon = weapons[currentWeaponIndex];
+        //    currentWeaponIndex++;
+        //}
+        //else if(Input.GetAxis("MouseScrollWheel") < 0 && currentWeaponIndex > 0)
+        //{
+        //    lastWeapon = weapons[currentWeaponIndex];
+        //    currentWeaponIndex--;
+        //}
+
+        if (lastWeapon != weapons[currentWeaponIndex])
+        {
+            Debug.Log("Switched to " + weapons[currentWeaponIndex].weaponName);
+            OnWeaponChanged?.Invoke(weapons[currentWeaponIndex]);
+        }
     }
 
     void shoot()

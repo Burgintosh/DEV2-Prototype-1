@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
+
+    public GameObject gunModel;
+
     public string weaponName;
     public int shootDamage;
     public int shootDist;
