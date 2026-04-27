@@ -9,7 +9,6 @@ public class WaveManager : MonoBehaviour
 
     [SerializeField] List<WaveData> waves = new List<WaveData>();
     [SerializeField] ObjectPoolManager poolManager;
-    [SerializeField] WaveUIController waveUI;
 
     [SerializeField] KeyCode startWaveKey = KeyCode.J;
     [SerializeField] float timeBetweenWaves = 10f;
@@ -49,10 +48,10 @@ public class WaveManager : MonoBehaviour
 
     void ShowInitialPrompt()
     {
-        if(waveUI != null)
+        if(gamemanager.instance.waveUI != null)
         {
-            waveUI.ShowPrompt($"Press {startWaveKey} To Start");
-            waveUI.ClearCountdown();
+            gamemanager.instance.waveUI.ShowPrompt($"Press {startWaveKey} To Start");
+            gamemanager.instance.waveUI.ClearCountdown();
         }
     }
 
@@ -85,12 +84,12 @@ public class WaveManager : MonoBehaviour
         activeGroupCount = wave.groups.Count;
         remainingToSpawnCount = CountRemainingEnemies(wave);
 
-        if(waveUI != null)
+        if(gamemanager.instance.waveUI != null)
         {
-            waveUI.SetWaveNumber(_WaveIndex + 1);
-            waveUI.ClearPrompt();
-            waveUI.ClearCountdown();
-            waveUI.SetRemainingEnemies(RemainingEnemiesDisplayValue());
+            gamemanager.instance.waveUI.SetWaveNumber(_WaveIndex + 1);
+            gamemanager.instance.waveUI.ClearPrompt();
+            gamemanager.instance.waveUI.ClearCountdown();
+            gamemanager.instance.waveUI.SetRemainingEnemies(RemainingEnemiesDisplayValue());
         }
 
         foreach(WaveGroupData currGroup in wave.groups)
@@ -182,9 +181,9 @@ public class WaveManager : MonoBehaviour
         waitingForNextWave = true;
         float timer = timeBetweenWaves;
 
-        if(waveUI != null)
+        if(gamemanager.instance.waveUI != null)
         {
-            waveUI.ShowPrompt($"Press {startWaveKey} To Start Next Wave");
+            gamemanager.instance.waveUI.ShowPrompt($"Press {startWaveKey} To Start Next Wave");
         }
 
         while(timer > 0f)
@@ -194,9 +193,9 @@ public class WaveManager : MonoBehaviour
                 break;
             }
 
-            if(waveUI != null)
+            if(gamemanager.instance.waveUI != null)
             {
-                waveUI.SetCountDown(timer);
+                gamemanager.instance.waveUI.SetCountDown(timer);
             }
 
             timer -= Time.deltaTime;
@@ -206,10 +205,10 @@ public class WaveManager : MonoBehaviour
         waitingForNextWave = false;
         skipCountdownRequested = false;
 
-        if (waveUI != null)
+        if (gamemanager.instance.waveUI != null)
         {
-            waveUI.ClearCountdown();
-            waveUI.ClearPrompt();
+            gamemanager.instance.waveUI.ClearCountdown();
+            gamemanager.instance.waveUI.ClearPrompt();
         }
 
         StartNextWave();
@@ -243,17 +242,17 @@ public class WaveManager : MonoBehaviour
 
     void UpdateUI()
     {
-        if (waveUI == null)
+        if (gamemanager.instance.waveUI == null)
         {
             return;
         }
 
         if(currentWaveIndex >= 0)
         {
-            waveUI.SetWaveNumber(currentWaveIndex + 1);
+            gamemanager.instance.waveUI.SetWaveNumber(currentWaveIndex + 1);
         }
 
-        waveUI.SetRemainingEnemies(RemainingEnemiesDisplayValue());
+        gamemanager.instance.waveUI.SetRemainingEnemies(RemainingEnemiesDisplayValue());
     }
 
     void ValidateSetupAsStartup()

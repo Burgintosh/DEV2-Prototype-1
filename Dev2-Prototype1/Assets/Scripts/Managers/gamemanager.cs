@@ -32,6 +32,9 @@ public class gamemanager : MonoBehaviour
     [Header("Nexus HP UI")]
     public Image NexusHPBar;
 
+    [Header("Wave UI")]
+    public WaveUIController waveUI;
+
     [Header("Public Vars (Do Not Assign)")]
     public GameObject player;
     public playerController playerScript;
