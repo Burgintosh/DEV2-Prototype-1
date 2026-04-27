@@ -289,6 +289,7 @@ MonoBehaviour:
   playerHPNum: {fileID: 5355582967044823469}
   playerDamageFlashScreen: {fileID: 1012222517022018278}
   NexusHPBar: {fileID: 6670660357296032868}
+  waveUI: {fileID: 4295938951047878220}
   player: {fileID: 0}
   playerScript: {fileID: 0}
   Nexus: {fileID: 0}
@@ -5772,7 +5773,7 @@ RectTransform:
   m_GameObject: {fileID: 8898767045897538443}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.3716593, y: 1.3716593, z: 1.3716593}
+  m_LocalScale: {x: 0.86905676, y: 0.86905676, z: 0.86905676}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4825321751960301770}
@@ -5782,7 +5783,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 162, y: -80}
+  m_AnchoredPosition: {x: 99, y: -53}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8998361765784338657
