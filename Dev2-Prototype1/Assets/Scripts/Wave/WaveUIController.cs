@@ -12,7 +12,8 @@ public class WaveUIController : MonoBehaviour
     {
         if(waveText != null)
         {
-            waveText.text = $"Wave: {_WaveNumber}";
+            waveText.text = _WaveNumber.ToString();
+            //waveText.text = $"Wave: {_WaveNumber}";
         }
     }
 
@@ -20,7 +21,8 @@ public class WaveUIController : MonoBehaviour
     {
         if(remainingEnemiesText != null)
         {
-            remainingEnemiesText.text = $"Enemies Remaining: {_Count}";
+            remainingEnemiesText.text = _Count.ToString();
+            //remainingEnemiesText.text = $"Enemies Remaining: {_Count}";
         }
     }
 
