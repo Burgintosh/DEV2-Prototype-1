@@ -15407,13 +15407,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4391853799223329727}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.011000007, y: 0.024099946, z: -0.19999999}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: 0.011000037, y: 0.024099827, z: -0.19999981}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4393901173580454345}
-  m_Father: {fileID: 6282543175583599834}
+  m_Father: {fileID: 6333149518617520091}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!198 &4482360711596359467
 ParticleSystem:
@@ -40146,20 +40146,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff9a47de7be52a943a280e622f3ac6b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
-  gunModel: {fileID: 0}
-  weaponName: Bennelli
-  shootDamage: 3
-  shootDist: 15
-  shootRate: 1
+  data: {fileID: 0}
+  audioSource: {fileID: 0}
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 8
-  reloadTimer: 1.3
-  magazineSize: 7
   bulletsLeft: 7
   isReloading: 0
-  muzzleEffect: {fileID: 4719186888421226363}
-  hitEffect: {fileID: 6932662996829953957, guid: e7a64ce28a726fe42a4aaaf79064a28e, type: 3}
 --- !u!33 &3778178957668587063
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -40264,20 +40257,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff9a47de7be52a943a280e622f3ac6b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
-  gunModel: {fileID: 0}
-  weaponName: M1911
-  shootDamage: 1
-  shootDist: 50
-  shootRate: 0.5
+  data: {fileID: 0}
+  audioSource: {fileID: 0}
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 8
-  reloadTimer: 1
-  magazineSize: 7
   bulletsLeft: 7
   isReloading: 0
-  muzzleEffect: {fileID: 1456332393372879511}
-  hitEffect: {fileID: 6932662996829953957, guid: e7a64ce28a726fe42a4aaaf79064a28e, type: 3}
 --- !u!1 &7127237533530630658
 GameObject:
   m_ObjectHideFlags: 0
@@ -40368,67 +40354,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &7258386368018283300
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6282543175583599834}
-  - component: {fileID: 7602495096722536013}
-  m_Layer: 0
-  m_Name: M1911
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &6282543175583599834
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7258386368018283300}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0.169, y: -0.15600002, z: 0.398}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7568812420417943673}
-  - {fileID: 6333149518617520091}
-  - {fileID: 4394256532165004901}
-  m_Father: {fileID: 8206052715208055911}
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!114 &7602495096722536013
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7258386368018283300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff9a47de7be52a943a280e622f3ac6b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Weapon
-  gunModel: {fileID: 0}
-  weaponName: M1911
-  shootDamage: 1
-  shootDist: 50
-  shootRate: 0.5
-  ignoreLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  reloadTimer: 1
-  magazineSize: 7
-  bulletsLeft: 7
-  isReloading: 0
-  muzzleEffect: {fileID: 4391853799223329727}
-  hitEffect: {fileID: 6932662996829953957, guid: e7a64ce28a726fe42a4aaaf79064a28e, type: 3}
 --- !u!1 &7526081066408679725
 GameObject:
   m_ObjectHideFlags: 0
@@ -40557,37 +40482,6 @@ MonoBehaviour:
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
   m_Version: 2
---- !u!1 &7580059430092462020
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7568812420417943673}
-  m_Layer: 0
-  m_Name: CINEMA_4D_Editor
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7568812420417943673
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7580059430092462020}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.026103169, y: 0.42658803, z: 0.055217247, w: 0.9023815}
-  m_LocalPosition: {x: 0.17563352, y: 0.050834212, z: -0.19299755}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 6282543175583599834}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7778577273109534470
 GameObject:
   m_ObjectHideFlags: 0
@@ -40687,6 +40581,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6333149518617520091}
+  - component: {fileID: 2349194443190377057}
   - component: {fileID: 9178341434281952089}
   - component: {fileID: 1758013740742006790}
   m_Layer: 0
@@ -40704,8 +40599,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7924787407631406756}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: 0.16900003, y: -0.15600014, z: 0.39799976}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -40713,8 +40608,28 @@ Transform:
   - {fileID: 4811752783673189162}
   - {fileID: 7233013759002280524}
   - {fileID: 2232877532015144912}
-  m_Father: {fileID: 6282543175583599834}
+  - {fileID: 4394256532165004901}
+  m_Father: {fileID: 8206052715208055911}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2349194443190377057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7924787407631406756}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff9a47de7be52a943a280e622f3ac6b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Weapon
+  data: {fileID: 0}
+  audioSource: {fileID: 0}
+  ignoreLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  bulletsLeft: 7
+  isReloading: 0
 --- !u!33 &9178341434281952089
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -40805,7 +40720,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 6282543175583599834}
+  - {fileID: 6333149518617520091}
   - {fileID: 1925845275602505066}
   - {fileID: 2175092369443743675}
   - {fileID: 8078799267961622350}
@@ -41435,20 +41350,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff9a47de7be52a943a280e622f3ac6b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
-  gunModel: {fileID: 0}
-  weaponName: M4
-  shootDamage: 1
-  shootDist: 100
-  shootRate: 0.16
+  data: {fileID: 0}
+  audioSource: {fileID: 0}
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 8
-  reloadTimer: 2
-  magazineSize: 30
   bulletsLeft: 30
   isReloading: 0
-  muzzleEffect: {fileID: 1133962454984317051}
-  hitEffect: {fileID: 6932662996829953957, guid: e7a64ce28a726fe42a4aaaf79064a28e, type: 3}
 --- !u!33 &8078799267965013870
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -41562,7 +41470,7 @@ MonoBehaviour:
     m_Bits: 8
   HP: 100
   weapons:
-  - {fileID: 7602495096722536013}
+  - {fileID: 0}
   - {fileID: 8007902789591347702}
   - {fileID: 8503055922083989380}
   dashSpeed: 25
@@ -41767,20 +41675,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff9a47de7be52a943a280e622f3ac6b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
-  gunModel: {fileID: 0}
-  weaponName: Test Weapon 1
-  shootDamage: 1
-  shootDist: 100
-  shootRate: 1
+  data: {fileID: 0}
+  audioSource: {fileID: 0}
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 8
-  reloadTimer: 1
-  magazineSize: 15
   bulletsLeft: 0
   isReloading: 0
-  muzzleEffect: {fileID: 0}
-  hitEffect: {fileID: 0}
 --- !u!33 &8429014888510557377
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -99,7 +99,12 @@ public class playerController : MonoBehaviour, IDamage
     void Start()
     {
         HPOrig = HP;
-        lastWeapon = weapons[currentWeaponIndex];
+        if(weapons[currentWeaponIndex] != null)
+        {
+            lastWeapon = weapons[currentWeaponIndex];
+            OnWeaponChanged?.Invoke(weapons[currentWeaponIndex]);
+        }
+        
         OnHPChanged?.Invoke(HP);
         hurtSoundTimer = 5f;
     }
@@ -107,7 +112,7 @@ public class playerController : MonoBehaviour, IDamage
     void Update()
     {
         if (weapons.Count > 0 && (currentWeaponIndex == 0 || currentWeaponIndex < weapons.Count))
-            Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * weapons[currentWeaponIndex].shootDist, Color.yellow);
+            Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * weapons[currentWeaponIndex].data.shootDist, Color.yellow);
 
 
         HandleDashInput();
@@ -115,7 +120,7 @@ public class playerController : MonoBehaviour, IDamage
         UpdateTimers();
         movement();
         sprint();
-        if (weapons.Count > 0 && shootAction.action.IsPressed() && shootTimer >= weapons[currentWeaponIndex].shootRate && !gamemanager.instance.isPaused && !weapons[currentWeaponIndex].isReloading)
+        if (weapons.Count > 0 && shootAction.action.IsPressed() && shootTimer >= weapons[currentWeaponIndex].data.shootRate && !gamemanager.instance.isPaused && !weapons[currentWeaponIndex].isReloading)
         {
             Debug.Log("Shooting");
             shoot();
@@ -360,7 +365,7 @@ public class playerController : MonoBehaviour, IDamage
 
         if (lastWeapon != weapons[currentWeaponIndex])
         {
-            Debug.Log("Switched to " + weapons[currentWeaponIndex].weaponName);
+            Debug.Log("Switched to " + weapons[currentWeaponIndex].data.weaponName);
             OnWeaponChanged?.Invoke(weapons[currentWeaponIndex]);
         }
     }

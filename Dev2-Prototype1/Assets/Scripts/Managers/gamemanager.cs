@@ -165,7 +165,7 @@ public class gamemanager : MonoBehaviour
     {
         playerScript.GetLastWeapon().gameObject.SetActive(false);
         playerScript.GetCurrentWeapon().gameObject.SetActive(true);
-        MagSize.text = weapon.magazineSize.ToString();
+        MagSize.text = weapon.data.magazineSize.ToString();
         UpdateAmmoUI(weapon.bulletsLeft);
     }
 
