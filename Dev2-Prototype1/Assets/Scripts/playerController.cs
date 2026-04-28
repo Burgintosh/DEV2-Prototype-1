@@ -1,11 +1,13 @@
+using NUnit.Framework.Interfaces;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections;
 
-public class playerController : MonoBehaviour, IDamage
+public class playerController : MonoBehaviour, IDamage, IPickup
 {
     [SerializeField] CharacterController controller;
     [SerializeField] LayerMask ignoreLayer;
@@ -17,9 +19,13 @@ public class playerController : MonoBehaviour, IDamage
 
     [Header("Gun")]
     [SerializeField] List<Weapon> weapons = new List<Weapon>();
-    Weapon lastWeapon;
+    private List<Weapon> weaponModels = new List<Weapon>();
+    [SerializeField] private GameObject weaponHolder;
+    private Weapon lastWeapon;
+    private Weapon currentWeapon;
     int currentWeaponIndex = 0;
     float shootTimer;
+   
 
     [Header("Dash")]
     [SerializeField] float dashSpeed;
@@ -99,10 +105,23 @@ public class playerController : MonoBehaviour, IDamage
     void Start()
     {
         HPOrig = HP;
-        if(weapons[currentWeaponIndex] != null)
+
+        for (int i = 0; i < weapons.Count; i++)
         {
-            lastWeapon = weapons[currentWeaponIndex];
-            OnWeaponChanged?.Invoke(weapons[currentWeaponIndex]);
+            Weapon newWeapon = Instantiate(weapons[i], weaponHolder.transform);
+
+            newWeapon.transform.localPosition = Vector3.zero;
+            newWeapon.transform.localRotation = Quaternion.identity;
+            newWeapon.transform.localScale = Vector3.one;
+            newWeapon.gameObject.SetActive(false);
+
+            weaponModels.Add(newWeapon);
+        }
+
+        if (weaponModels.Count > 0)
+        {
+            currentWeaponIndex = -1;
+            SwitchWeapon(0);
         }
         
         OnHPChanged?.Invoke(HP);
@@ -111,8 +130,8 @@ public class playerController : MonoBehaviour, IDamage
 
     void Update()
     {
-        if (weapons.Count > 0 && (currentWeaponIndex == 0 || currentWeaponIndex < weapons.Count))
-            Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * weapons[currentWeaponIndex].data.shootDist, Color.yellow);
+        if (weaponModels.Count > 0 && (currentWeaponIndex == 0 || currentWeaponIndex < weaponModels.Count))
+            Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * currentWeapon.data.shootDist, Color.yellow);
 
 
         HandleDashInput();
@@ -120,16 +139,16 @@ public class playerController : MonoBehaviour, IDamage
         UpdateTimers();
         movement();
         sprint();
-        if (weapons.Count > 0 && shootAction.action.IsPressed() && shootTimer >= weapons[currentWeaponIndex].data.shootRate && !gamemanager.instance.isPaused && !weapons[currentWeaponIndex].isReloading)
+        //if (currentWeapon != null && shootAction.action.IsPressed() && shootTimer >= currentWeapon.data.shootRate && !gamemanager.instance.isPaused && !currentWeapon.isReloading)
+        if (currentWeapon != null && shootAction.action.IsPressed() && shootTimer >= currentWeapon.data.shootRate && !gamemanager.instance.isPaused)
         {
             Debug.Log("Shooting");
             shoot();
         }
 
-        if(weapons.Count > 0 && reloadAction.action.WasPressedThisFrame())
+        if(currentWeapon != null && reloadAction.action.WasPressedThisFrame())
         {
-            Weapon currentWeapon = weapons[currentWeaponIndex];
-            if (!currentWeapon.isReloading && currentWeapon.canReload())
+            if (!currentWeapon.data.isReloading && currentWeapon.canReload())
             {
                 StartCoroutine(currentWeapon.Reload());
             }
@@ -337,20 +356,23 @@ public class playerController : MonoBehaviour, IDamage
 
     void HandleWeaponSwitch()
     {
-        if (Weapon1.action != null && Weapon1.action.WasPressedThisFrame() && weapons.Count > 0 && currentWeaponIndex != 0)
+        if (Weapon1.action != null && Weapon1.action.WasPressedThisFrame() && weaponModels.Count > 0 && currentWeaponIndex != 0)
         {
-            lastWeapon = weapons[currentWeaponIndex];
-            currentWeaponIndex = 0;
+            //lastWeapon = currentWeapon; // Handled in SwitchWeapon(int)
+            //currentWeaponIndex = 0;
+            SwitchWeapon(0);
         }
-        else if (Weapon2.action != null && Weapon2.action.WasPressedThisFrame() && weapons.Count > 1 && currentWeaponIndex != 1)
+        else if (Weapon2.action != null && Weapon2.action.WasPressedThisFrame() && weaponModels.Count > 1 && currentWeaponIndex != 1)
         {
-            lastWeapon = weapons[currentWeaponIndex];
-            currentWeaponIndex = 1;
+            //lastWeapon = currentWeapon; // Handled in SwitchWeapon(int)
+            //currentWeaponIndex = 1;
+            SwitchWeapon(1);
         }
-        else if (Weapon3.action != null && Weapon3.action.WasPressedThisFrame() && weapons.Count > 2 && currentWeaponIndex != 2)
+        else if (Weapon3.action != null && Weapon3.action.WasPressedThisFrame() && weaponModels.Count > 2 && currentWeaponIndex != 2)
         {
-            lastWeapon = weapons[currentWeaponIndex];
-            currentWeaponIndex = 2;
+            //lastWeapon = currentWeapon; // Handled in SwitchWeapon(int)
+            //currentWeaponIndex = 2;
+            SwitchWeapon(2);
         }
         //else if(mWheel.ReadValue<Vector2>().y > 0 && currentWeaponIndex < weapons.Count - 1)
         //{
@@ -363,22 +385,43 @@ public class playerController : MonoBehaviour, IDamage
         //    currentWeaponIndex--;
         //}
 
-        if (lastWeapon != weapons[currentWeaponIndex])
+        if (lastWeapon != weaponModels[currentWeaponIndex])
         {
-            Debug.Log("Switched to " + weapons[currentWeaponIndex].data.weaponName);
-            OnWeaponChanged?.Invoke(weapons[currentWeaponIndex]);
+            //SwitchWeapon(currentWeaponIndex);
+            //currentWeapon = weapons[currentWeaponIndex];
+            
         }
+    }
+
+    void SwitchWeapon(int newWeaponIndex)
+    {
+        if (newWeaponIndex == currentWeaponIndex) return;
+
+        for (int i = 0; i < weaponModels.Count; i++)
+        {
+            weaponModels[i].gameObject.SetActive(false);
+        }
+        //weapons[currentWeaponIndex].gameObject.SetActive(false);
+
+        lastWeapon = currentWeapon;
+        currentWeaponIndex = newWeaponIndex;
+        currentWeapon = weaponModels[newWeaponIndex];
+
+        currentWeapon.gameObject.SetActive(true);
+
+        Debug.Log("Switched to " + currentWeapon.data.weaponName);
+        OnWeaponChanged?.Invoke(currentWeapon);
+
     }
 
     void shoot()
     {
-        if (weapons.Count == 0 || currentWeaponIndex < 0 || currentWeaponIndex >= weapons.Count)
+        if (weaponModels.Count == 0 || currentWeaponIndex < 0 || currentWeaponIndex >= weaponModels.Count)
         {
             Debug.Log("No weapon selected! -- shoot()");
             return;
         }
         shootTimer = 0;
-        Weapon currentWeapon = weapons[currentWeaponIndex];
 
         if(currentWeapon != null)
         {
@@ -405,7 +448,7 @@ public class playerController : MonoBehaviour, IDamage
 
     public Weapon GetCurrentWeapon()
     {
-        return weapons[currentWeaponIndex];
+        return currentWeapon;
     }
     public Weapon GetLastWeapon()
     {
@@ -466,5 +509,16 @@ public class playerController : MonoBehaviour, IDamage
         yield return new WaitForSeconds(0.1f);
         gamemanager.instance.playerDamageFlashScreen.SetActive(false);
     }
+    public void getWeaponData(WeaponData weapon)
+    {
+        Weapon newWeapon = Instantiate(weapon.prefab.GetComponent<Weapon>(), weaponHolder.transform); // This is so stupid
 
+        newWeapon.transform.localPosition = Vector3.zero;
+        newWeapon.transform.localRotation = Quaternion.identity;
+        newWeapon.transform.localScale = Vector3.one;
+        newWeapon.gameObject.SetActive(false);
+
+        weaponModels.Add(newWeapon);
+        SwitchWeapon(weaponModels.Count - 1);
+    }
 }

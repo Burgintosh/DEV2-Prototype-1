@@ -3,6 +3,7 @@ using UnityEngine;
 [CreateAssetMenu]
 public class WeaponData : ScriptableObject
 {
+    public GameObject prefab; // Very important to assign.
     public string weaponName;
     public int shootDamage;
     public int shootDist;
@@ -10,6 +11,9 @@ public class WeaponData : ScriptableObject
 
     public int magazineSize;
     public float reloadTime;
+    public int bulletsLeft;
+    public bool isReloading;
+
 
     public AudioClip shootClip;
     public AudioClip reloadClip;
@@ -17,6 +21,7 @@ public class WeaponData : ScriptableObject
 
     //public GameObject muzzleEffect; // Not worth the effort rn, Definitely worth coming back to eventually.
     public ParticleSystem hitEffect;
+    
 
     public bool isSingleShellReload; // true = reload one bullet/shell at a time. Turns on shellReloadTime.
     public float shellReloadTime = 0.5f;

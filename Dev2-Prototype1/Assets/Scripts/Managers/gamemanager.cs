@@ -85,7 +85,7 @@ public class gamemanager : MonoBehaviour
         {
             currencyManager.OnCurrencyChanged += UpdateCurrencyUI;
         }
-        playerScript.GetCurrentWeapon().OnAmmoChange += UpdateAmmoUI;
+        //playerScript.GetCurrentWeapon().OnAmmoChange += UpdateAmmoUI;
         playerScript.OnWeaponChanged += UpdateGun;
         playerScript.OnHPChanged += UpdatePlayerHPBar;
         nexusScript.OnNexusHPChanged += UpdateNexusHPBar;
@@ -97,6 +97,11 @@ public class gamemanager : MonoBehaviour
         {
             currencyManager.OnCurrencyChanged -= UpdateCurrencyUI;
         }
+        if (activeWeapon != null)
+        {
+            activeWeapon.OnAmmoChange -= UpdateAmmoUI;
+        }
+
         playerScript.GetCurrentWeapon().OnAmmoChange -= UpdateAmmoUI;
         playerScript.OnWeaponChanged -= UpdateGun;
         playerScript.OnHPChanged -= UpdatePlayerHPBar;
@@ -163,10 +168,20 @@ public class gamemanager : MonoBehaviour
     //}
     private void UpdateGun(Weapon weapon)
     {
-        playerScript.GetLastWeapon().gameObject.SetActive(false);
-        playerScript.GetCurrentWeapon().gameObject.SetActive(true);
-        MagSize.text = weapon.data.magazineSize.ToString();
-        UpdateAmmoUI(weapon.bulletsLeft);
+
+        if (activeWeapon != null)
+            activeWeapon.OnAmmoChange -= UpdateAmmoUI;
+
+        activeWeapon = weapon;
+
+        //playerScript.GetLastWeapon().gameObject.SetActive(false);
+        //playerScript.GetCurrentWeapon().gameObject.SetActive(true);
+        if (activeWeapon != null)
+        {
+            activeWeapon.OnAmmoChange += UpdateAmmoUI;
+            MagSize.text = activeWeapon.data.magazineSize.ToString();
+            UpdateAmmoUI(activeWeapon.data.bulletsLeft);
+        }
     }
 
     private void UpdatePlayerHPBar(int HP)

@@ -17,8 +17,7 @@ public class Weapon : MonoBehaviour
 
     //public float reloadTimer;
     //public int magazineSize;
-    public int bulletsLeft;
-    public bool isReloading;
+    
 
     [SerializeField] private GameObject muzzleEffect; // Eventually move to WeaponData. Requires a bit of work though.
     //public ParticleSystem hitEffect;
@@ -30,8 +29,8 @@ public class Weapon : MonoBehaviour
 
     void Awake()
     {
-        bulletsLeft = data.magazineSize;
-        OnAmmoChange?.Invoke(bulletsLeft);
+        data.bulletsLeft = data.magazineSize;
+        OnAmmoChange?.Invoke(data.bulletsLeft);
     }
 
     public void FireWeapon()
@@ -53,8 +52,8 @@ public class Weapon : MonoBehaviour
         */
 
         //shootSound.Play();
-        if (isReloading)
-            isReloading = false; // cancel reload, primarily for shotgun.
+        if (data.isReloading)
+            data.isReloading = false; // cancel reload, primarily for shotgun.
 
         // New Logic
         if (data.shootClip != null)
@@ -64,8 +63,8 @@ public class Weapon : MonoBehaviour
             muzzleEffect.GetComponent<ParticleSystem>().Play();
             //Instantiate(muzzleEffect, transform.position, transform.rotation);
 
-        bulletsLeft--;
-        OnAmmoChange?.Invoke(bulletsLeft);
+        data.bulletsLeft--;
+        OnAmmoChange?.Invoke(data.bulletsLeft);
 
         for(int i = 0; i < data.pelletCount; i++)
         {
@@ -104,10 +103,10 @@ public class Weapon : MonoBehaviour
 
     public IEnumerator Reload()
     {
-        if (isReloading)
+        if (data.isReloading)
             yield break;
 
-        isReloading = true;
+        data.isReloading = true;
 
         if(!data.isSingleShellReload) // Normal Reloading
         {
@@ -116,18 +115,18 @@ public class Weapon : MonoBehaviour
 
             yield return new WaitForSeconds(data.reloadTime);
 
-            if (bulletsLeft <= 0)
-                bulletsLeft = data.magazineSize;
+            if (data.bulletsLeft <= 0)
+                data.bulletsLeft = data.magazineSize;
             else
-                bulletsLeft = data.magazineSize + 1;
+                data.bulletsLeft = data.magazineSize + 1;
 
-            OnAmmoChange?.Invoke(bulletsLeft);
+            OnAmmoChange?.Invoke(data.bulletsLeft);
         }
         else // Shotgun reload
         {
-            while(bulletsLeft < data.magazineSize)
+            while(data.bulletsLeft < data.magazineSize)
             {
-                if (!isReloading)
+                if (!data.isReloading)
                     yield break;
 
                 if (data.reloadClip != null)
@@ -135,12 +134,12 @@ public class Weapon : MonoBehaviour
 
                 yield return new WaitForSeconds(data.shellReloadTime);
 
-                bulletsLeft++;
-                OnAmmoChange?.Invoke(bulletsLeft);
+                data.bulletsLeft++;
+                OnAmmoChange?.Invoke(data.bulletsLeft);
             }
         }
 
-        isReloading = false;
+        data.isReloading = false;
 
         /* More old logic
         if (weaponName == "Bennelli")
@@ -153,11 +152,11 @@ public class Weapon : MonoBehaviour
 
     public bool canReload()
     {
-        return bulletsLeft <= data.magazineSize;
+        return data.bulletsLeft <= data.magazineSize;
     }
     public bool canShoot()
     {
-        return bulletsLeft > 0;
+        return data.bulletsLeft > 0;
     }
 
     private void PlayGunSound(AudioClip clip)
