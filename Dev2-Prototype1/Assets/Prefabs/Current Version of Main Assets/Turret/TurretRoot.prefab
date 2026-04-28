@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4363268748680579539}
   - component: {fileID: 8043455787364519501}
+  - component: {fileID: 1105445128194783179}
   m_Layer: 0
   m_Name: TurretRoot
   m_TagString: Untagged
@@ -45,6 +46,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1441aa63be0039049b2c3ed74be12ca8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PooledTurret
+--- !u!114 &1105445128194783179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3753099880414341378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a33657732ca6204bb9ed08f55b60595, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlacedBuildable
+  buildableType: 0
+  refundAmount: 100
 --- !u!1001 &4374379437002497750
 PrefabInstance:
   m_ObjectHideFlags: 0
