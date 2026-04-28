@@ -64,7 +64,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     [SerializeField] InputActionReference Weapon1;
     [SerializeField] InputActionReference Weapon2;
     [SerializeField] InputActionReference Weapon3;
-    [SerializeField] InputActionReference mWheel;
+    //[SerializeField] InputActionReference mWheel;
     Vector3 moveDir;
     Vector3 playerVel;
 
@@ -374,22 +374,14 @@ public class playerController : MonoBehaviour, IDamage, IPickup
             //currentWeaponIndex = 2;
             SwitchWeapon(2);
         }
-        //else if(mWheel.ReadValue<Vector2>().y > 0 && currentWeaponIndex < weapons.Count - 1)
-        //{
-        //    lastWeapon = weapons[currentWeaponIndex];
-        //    currentWeaponIndex++;
-        //}
-        //else if(Input.GetAxis("MouseScrollWheel") < 0 && currentWeaponIndex > 0)
-        //{
-        //    lastWeapon = weapons[currentWeaponIndex];
-        //    currentWeaponIndex--;
-        //}
-
-        if (lastWeapon != weaponModels[currentWeaponIndex])
+        else if (Input.GetAxis("Mouse ScrollWheel") > 0 && currentWeaponIndex < weaponModels.Count - 1)
         {
-            //SwitchWeapon(currentWeaponIndex);
-            //currentWeapon = weapons[currentWeaponIndex];
+            SwitchWeapon(currentWeaponIndex + 1);
             
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && currentWeaponIndex > 0)
+        {
+            SwitchWeapon(currentWeaponIndex - 1);
         }
     }
 

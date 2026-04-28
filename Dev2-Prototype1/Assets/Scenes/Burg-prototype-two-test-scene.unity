@@ -4062,10 +4062,6 @@ PrefabInstance:
       propertyPath: currencyManager
       value: 
       objectReference: {fileID: 201495656}
-    - target: {fileID: 5837452092982455484, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
-      propertyPath: near clip plane
-      value: 0.01
-      objectReference: {fileID: 0}
     - target: {fileID: 8496870519721792966, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: m_Name
       value: Player Lecture 2
