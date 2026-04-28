@@ -16,7 +16,6 @@ public class Nexus : MonoBehaviour, IDamage
     {
         HPOrig = HP;
         colorOrig = model.material.color;
-        GetComponent<Collider>().enabled = true;
         OnNexusHPChanged?.Invoke(HP);
         NexusManager.nexusManagerInstance.OnNexusSpawn(this);
     }
@@ -39,7 +38,6 @@ public class Nexus : MonoBehaviour, IDamage
         if (HP <= 0)
         {
             NexusManager.nexusManagerInstance.OnNexusDeath();
-            GetComponent<Collider>().enabled = false;
             Destroy(gameObject);
             
         }

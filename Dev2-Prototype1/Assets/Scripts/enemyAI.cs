@@ -133,19 +133,19 @@ public class EnemyAI : MonoBehaviour, IDamage
         {
             playerInRange = true;
         }
-        if (other.CompareTag("Nexus"))
+        if (other.CompareTag("Nexus") && other.gameObject == NexusManager.nexusManagerInstance.nexusList[currTargetNexus])
         {
             nexusInRange = true;
         }
     }
-
+    //the compare tag has to be there or the guys won't shoot at the nexus
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
         }
-        if (other.CompareTag("Nexus"))
+        if (other.CompareTag("Nexus") && NexusManager.nexusManagerInstance.nexusList[currTargetNexus])
         {
             nexusInRange = false;
         }
