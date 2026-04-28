@@ -5,12 +5,12 @@ public class SoundManager : MonoBehaviour
     // This is awful, I know. Works for now with the few sound effects there are
     public static SoundManager Instance { get; private set; }
 
-    public AudioSource shootingSound1911;
-    public AudioSource shootingSoundBennelli;
-    public AudioSource shootingSoundM4;
-    public AudioSource reloadSound;
-    public AudioSource reloadSoundBennelli;
-    public AudioSource shootingSoundEmpty;
+    //public AudioSource shootingSound1911;
+    //public AudioSource shootingSoundBennelli;
+    //public AudioSource shootingSoundM4;
+    //public AudioSource reloadSound;
+    //public AudioSource reloadSoundBennelli;
+    //public AudioSource shootingSoundEmpty;
     public AudioSource enemyShootSound;
     public AudioSource playerJump1;
     public AudioSource playerJump2;
@@ -34,13 +34,17 @@ public class SoundManager : MonoBehaviour
         }
     }
 
-    public void PlayWithRandomPitch(AudioSource audioSource, bool oneShot = true)
+    public void PlayWithRandomPitch(AudioSource audioSource, AudioClip clip = null, bool oneShot = true)
     {
         float minPitch = 0.9f;
         float maxPitch = 1.1f;
         audioSource.pitch = Random.Range(minPitch, maxPitch);
+
+        if (clip == null)
+            clip = audioSource.clip;
+
         if (oneShot)
-            audioSource.PlayOneShot(audioSource.clip);
+            audioSource.PlayOneShot(clip);
         else
             audioSource.Play();
     }
