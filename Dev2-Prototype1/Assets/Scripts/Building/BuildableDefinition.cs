@@ -11,4 +11,5 @@ public class BuildableDefinition
     public int refundAmount = 100;
     public float placementRadius = 1f;
     public float previewYOffset = 0f;
+    public BuildPlacementMode placementMode = BuildPlacementMode.Flat;
 }

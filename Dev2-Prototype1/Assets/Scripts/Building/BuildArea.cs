@@ -37,6 +37,11 @@ public class BuildArea : MonoBehaviour
         return areaCollider;
     }
 
+    public Vector3 GetSurfaceNormal()
+    {
+        return transform.forward;
+    }
+
     private void OnDrawGizmos()
     {
         if (!showDebugGizmos)

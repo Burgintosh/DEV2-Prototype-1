@@ -41,6 +41,8 @@ public class BuildPlacementController : MonoBehaviour
     float currentPreviewYaw;
 
     Vector3 currentPlacementPos;
+    Vector3 currentSurfaceNormal;
+    Quaternion currentPlacementRot;
 
     GameObject previewInstance;
     Renderer[] previewRenderers;
@@ -97,6 +99,26 @@ public class BuildPlacementController : MonoBehaviour
         {
             currentPreviewYaw -= 360f;
         }
+    }
+
+    Quaternion GetPlacementRot(Vector3 _SurfaceNormal)
+    {
+        if(currBuildable == null)
+        {
+            return Quaternion.identity;
+        }
+
+        if(currBuildable.placementMode == BuildPlacementMode.Flat)
+        {
+            return Quaternion.Euler(0f, currentPreviewYaw, 0f);
+        }
+
+        Vector3 refUp = Mathf.Abs(Vector3.Dot(_SurfaceNormal, Vector3.up)) > 0.98f ? Vector3.forward : Vector3.up;
+
+        Quaternion baseRot = Quaternion.LookRotation(_SurfaceNormal, refUp);
+        Quaternion spinRot = Quaternion.AngleAxis(currentPreviewYaw, _SurfaceNormal);
+
+        return spinRot * baseRot;
     }
 
     void HandleScrollSelection()
@@ -229,21 +251,25 @@ public class BuildPlacementController : MonoBehaviour
         }
 
         Vector3 placementPos = hit.point;
-        placementPos.y += currBuildable.previewYOffset;
+        Vector3 surfaceNormal = buildArea.GetSurfaceNormal().normalized;
+
+        placementPos += surfaceNormal * currBuildable.previewYOffset;
 
         bool buildTypeAllowed = buildArea.AllowsBuildType(currBuildable.buildableType);
         bool withinBuildDist = IsWithinBuildDist(placementPos);
-        bool overlapsBlockedObject = Physics.CheckSphere(placementPos, currBuildable.placementRadius, placementBlockMask, QueryTriggerInteraction.Ignore);
+        bool overlapsBlockedObject = IsPlacementBlocked(placementPos, hit.collider, buildArea);
 
         // Checking cost
         bool canAfford = gamemanager.instance.currencyManager.canBuy(currBuildable.cost);
 
         currentPlacementValid = buildTypeAllowed && withinBuildDist && !overlapsBlockedObject && canAfford;
         currentPlacementPos = placementPos;
+        currentSurfaceNormal = surfaceNormal;
+        currentPlacementRot = GetPlacementRot(surfaceNormal);
 
         previewInstance.SetActive(true);
         previewInstance.transform.position = placementPos;
-        previewInstance.transform.rotation = Quaternion.Euler(0f, currentPreviewYaw, 0f);
+        previewInstance.transform.rotation = currentPlacementRot;
 
         ApplyPreviewColor(currentPlacementValid ? validColor : invalidColor);
     }
@@ -256,6 +282,42 @@ public class BuildPlacementController : MonoBehaviour
         }
 
         return Vector3.Distance(playerPos.position, _PlacementPos) <= maxBuildDist;
+    }
+
+    bool IsPlacementBlocked(Vector3 _PlacementPos, Collider _HitCollider, BuildArea _CurrBuildArea)
+    {
+        Collider[] allHits = Physics.OverlapSphere(_PlacementPos, currBuildable.placementRadius, placementBlockMask, QueryTriggerInteraction.Collide);
+
+        for(int i = 0; i < allHits.Length; i++)
+        {
+            Collider currHit = allHits[i];
+
+            if(currHit == null)
+            {
+                continue;
+            }
+
+            if(currHit == _HitCollider)
+            {
+                continue;
+            }
+
+            BuildArea hitBuildArea = currHit.GetComponentInParent<BuildArea>();
+
+            if(hitBuildArea != null && hitBuildArea == _CurrBuildArea)
+            {
+                continue;
+            }
+
+            if (previewInstance != null && currHit.transform.IsChildOf(previewInstance.transform))
+            {
+                continue;
+            }
+
+            return true;
+        }
+
+        return false;
     }
 
     void ApplyPreviewColor(Color _Tint)
@@ -295,7 +357,7 @@ public class BuildPlacementController : MonoBehaviour
             return;
         }
 
-        Quaternion buildRotation = Quaternion.Euler(0f, currentPreviewYaw, 0f);
+        Quaternion buildRotation = currentPlacementRot;
         GameObject builtObject = Instantiate(currBuildable.placedPrefab, currentPlacementPos, buildRotation);
 
         if(builtObject == null)
