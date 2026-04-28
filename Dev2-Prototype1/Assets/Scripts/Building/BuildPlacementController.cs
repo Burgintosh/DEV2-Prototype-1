@@ -116,7 +116,7 @@ public class BuildPlacementController : MonoBehaviour
         Vector3 refUp = Mathf.Abs(Vector3.Dot(_SurfaceNormal, Vector3.up)) > 0.98f ? Vector3.forward : Vector3.up;
 
         Quaternion baseRot = Quaternion.LookRotation(_SurfaceNormal, refUp);
-        Quaternion spinRot = Quaternion.AngleAxis(currentPreviewYaw, _SurfaceNormal);
+        Quaternion spinRot = Quaternion.AngleAxis(currentPreviewYaw, Vector3.forward);
 
         return spinRot * baseRot;
     }
