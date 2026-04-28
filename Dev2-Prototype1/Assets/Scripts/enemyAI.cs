@@ -246,9 +246,15 @@ public class EnemyAI : MonoBehaviour, IDamage
         else
         {
             currTargetNexus = 0;
-            while(NexusManager.nexusManagerInstance.nexusList[currTargetNexus] == null)
+            while( NexusManager.nexusManagerInstance.nexusList[currTargetNexus] == null)
             {
                 currTargetNexus++;
+                if(currTargetNexus == NexusManager.nexusManagerInstance.nexusList.Count)
+                {
+                    Debug.Log("No Valid Target");
+                    currTargetNexus = 0;
+                    return;
+                }
             }
         }
     }
