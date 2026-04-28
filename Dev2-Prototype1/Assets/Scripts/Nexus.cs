@@ -48,6 +48,7 @@ public class Nexus : MonoBehaviour, IDamage
         {
             StartCoroutine(flashRed());
             HPObject.transform.localScale = new Vector3(HPScale.x, (float)HP / HPOrig, HPScale.z);
+            HPObject.transform.localPosition = new Vector3(0, -(1-HPObject.transform.localScale.y) / 2, 0);
         }
     }
     IEnumerator flashRed()
