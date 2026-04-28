@@ -12,4 +12,6 @@ public class BuildableDefinition
     public float placementRadius = 1f;
     public float previewYOffset = 0f;
     public BuildPlacementMode placementMode = BuildPlacementMode.Flat;
+    public Vector3 surfaceRotOffset;
+    public BuildSpinAxis surfaceSpinAxis = BuildSpinAxis.Forward;
 }

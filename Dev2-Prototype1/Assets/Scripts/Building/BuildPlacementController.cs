@@ -114,11 +114,33 @@ public class BuildPlacementController : MonoBehaviour
         }
 
         Vector3 refUp = Mathf.Abs(Vector3.Dot(_SurfaceNormal, Vector3.up)) > 0.98f ? Vector3.forward : Vector3.up;
-
         Quaternion baseRot = Quaternion.LookRotation(_SurfaceNormal, refUp);
-        Quaternion spinRot = Quaternion.AngleAxis(currentPreviewYaw, Vector3.forward);
+        Quaternion offsetRot = Quaternion.Euler(currBuildable.surfaceRotOffset);
+        Quaternion alignedRot = baseRot * offsetRot;
 
-        return spinRot * baseRot;
+        Vector3 localSpinAxis = Vector3.forward;
+
+        switch (currBuildable.surfaceSpinAxis)
+        {
+            case BuildSpinAxis.Up:
+                localSpinAxis = Vector3.up;
+                break;
+
+            case BuildSpinAxis.Right:
+                localSpinAxis = Vector3.right;
+                break;
+
+            case BuildSpinAxis.Forward:
+            default:
+                localSpinAxis = Vector3.forward;
+                break;
+
+        }
+
+        Vector3 worldSpinAxis = alignedRot * localSpinAxis;
+        Quaternion spinRot = Quaternion.AngleAxis(currentPreviewYaw, worldSpinAxis);
+
+        return spinRot * alignedRot;
     }
 
     void HandleScrollSelection()
@@ -177,6 +199,8 @@ public class BuildPlacementController : MonoBehaviour
 
         currBuildIndex = _BuildIndex;
         currBuildable = buildables[currBuildIndex];
+
+        currentPreviewYaw = 0;
 
         DestroyPreviewInstance();
         CreatePreviewInstance();
