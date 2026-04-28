@@ -15,7 +15,7 @@ public class WeaponData : ScriptableObject
     public AudioClip reloadClip;
     public AudioClip emptyClip;
 
-    public GameObject muzzleEffect;
+    //public GameObject muzzleEffect; // Not worth the effort rn, Definitely worth coming back to eventually.
     public ParticleSystem hitEffect;
 
     public bool isSingleShellReload; // true = reload one bullet/shell at a time. Turns on shellReloadTime.

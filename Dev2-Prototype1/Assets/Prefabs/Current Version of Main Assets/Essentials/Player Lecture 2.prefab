@@ -40154,6 +40154,7 @@ MonoBehaviour:
     m_Bits: 8
   bulletsLeft: 0
   isReloading: 0
+  muzzleEffect: {fileID: 4719186888421226363}
 --- !u!82 &4801088338392163594
 AudioSource:
   m_ObjectHideFlags: 0
@@ -40362,6 +40363,7 @@ MonoBehaviour:
     m_Bits: 8
   bulletsLeft: 0
   isReloading: 0
+  muzzleEffect: {fileID: 0}
 --- !u!1 &7127237533530630658
 GameObject:
   m_ObjectHideFlags: 0
@@ -40729,6 +40731,7 @@ MonoBehaviour:
     m_Bits: 8
   bulletsLeft: 0
   isReloading: 0
+  muzzleEffect: {fileID: 4391853799223329727}
 --- !u!82 &11479115237931818
 AudioSource:
   m_ObjectHideFlags: 0
@@ -41554,6 +41557,7 @@ MonoBehaviour:
     m_Bits: 8
   bulletsLeft: 0
   isReloading: 0
+  muzzleEffect: {fileID: 1133962454984317051}
 --- !u!82 &6272826395218715007
 AudioSource:
   m_ObjectHideFlags: 0
@@ -41976,6 +41980,7 @@ MonoBehaviour:
     m_Bits: 8
   bulletsLeft: 0
   isReloading: 0
+  muzzleEffect: {fileID: 0}
 --- !u!33 &8429014888510557377
 MeshFilter:
   m_ObjectHideFlags: 0

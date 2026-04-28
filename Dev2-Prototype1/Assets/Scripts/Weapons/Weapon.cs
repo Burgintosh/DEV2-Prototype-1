@@ -20,7 +20,7 @@ public class Weapon : MonoBehaviour
     public int bulletsLeft;
     public bool isReloading;
 
-    //public GameObject muzzleEffect;
+    [SerializeField] private GameObject muzzleEffect; // Eventually move to WeaponData. Requires a bit of work though.
     //public ParticleSystem hitEffect;
     //public AudioSource shootSound;
     //public AudioSource reloadSound;
@@ -60,8 +60,9 @@ public class Weapon : MonoBehaviour
         if (data.shootClip != null)
             PlayGunSound(data.shootClip);
 
-        if (data.muzzleEffect != null)
-            Instantiate(data.muzzleEffect, transform.position, transform.rotation);
+        if (muzzleEffect != null)
+            muzzleEffect.GetComponent<ParticleSystem>().Play();
+            //Instantiate(muzzleEffect, transform.position, transform.rotation);
 
         bulletsLeft--;
         OnAmmoChange?.Invoke(bulletsLeft);
