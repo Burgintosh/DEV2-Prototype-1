@@ -6,9 +6,11 @@ public class Nexus : MonoBehaviour, IDamage
 {
    [Range(1,500)] [SerializeField] int HP;
     [SerializeField] Renderer model;
+    [SerializeField] GameObject HPObject;
     int HPOrig;
     Color colorOrig;
 
+    Vector3 HPScale;
     public event Action<int> OnNexusHPChanged;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -17,6 +19,7 @@ public class Nexus : MonoBehaviour, IDamage
         HPOrig = HP;
         colorOrig = model.material.color;
         OnNexusHPChanged?.Invoke(HP);
+        HPScale = HPObject.transform.localScale;
         NexusManager.nexusManagerInstance.OnNexusSpawn(this);
     }
 
@@ -44,6 +47,7 @@ public class Nexus : MonoBehaviour, IDamage
         else
         {
             StartCoroutine(flashRed());
+            HPObject.transform.localScale = new Vector3(HPScale.x, (float)HP / HPOrig, HPScale.z);
         }
     }
     IEnumerator flashRed()
