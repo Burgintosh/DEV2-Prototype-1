@@ -133,7 +133,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         {
             playerInRange = true;
         }
-        if (other.CompareTag("Nexus") && other.gameObject == NexusManager.nexusManagerInstance.nexusList[currTargetNexus])
+        if (other.CompareTag("Nexus"))
         {
             nexusInRange = true;
         }
@@ -145,7 +145,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         {
             playerInRange = false;
         }
-        if (other.CompareTag("Nexus") && NexusManager.nexusManagerInstance.nexusList[currTargetNexus])
+        if (other.CompareTag("Nexus"))
         {
             nexusInRange = false;
         }
