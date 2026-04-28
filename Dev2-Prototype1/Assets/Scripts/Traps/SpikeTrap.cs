@@ -29,26 +29,26 @@ public class SpikeTrap : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log("[SpikeTrap] Awake ran", this);
+        //Debug.Log("[SpikeTrap] Awake ran", this);
 
         if(spikeVisualRoot == null)
         {
-            Debug.LogError("[SpikeTrap] spikeVisualRoot is NOT assigned", this);
+            //Debug.LogError("[SpikeTrap] spikeVisualRoot is NOT assigned", this);
             return;
         }
 
         if(spikeDownPos == null)
         {
-            Debug.LogError("[SpikeTrap] spikeDownPos is NOT assigned", this);
+            //Debug.LogError("[SpikeTrap] spikeDownPos is NOT assigned", this);
             return;
         }
 
-        Debug.Log($"[SpikeTrap] Before snap | spikeVisualRoot.localPosition = {spikeVisualRoot.localPosition}", this);
-        Debug.Log($"[SpikeTrap] Target down pos | spikeDownPos.localPosition = {spikeDownPos.localPosition}", this);
+        //Debug.Log($"[SpikeTrap] Before snap | spikeVisualRoot.localPosition = {spikeVisualRoot.localPosition}", this);
+        //Debug.Log($"[SpikeTrap] Target down pos | spikeDownPos.localPosition = {spikeDownPos.localPosition}", this);
 
         spikeVisualRoot.localPosition = spikeDownPos.localPosition;
 
-        Debug.Log($"[SpikeTrap] After snap | spikeVisualRoot.localPosition = {spikeVisualRoot.localPosition}", this);
+        //Debug.Log($"[SpikeTrap] After snap | spikeVisualRoot.localPosition = {spikeVisualRoot.localPosition}", this);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -146,7 +146,7 @@ public class SpikeTrap : MonoBehaviour
     {
         if(damageTrigger == null)
         {
-            Debug.LogWarning("[SpikeTrap] Damage trigger is not assigned", this);
+            //Debug.LogWarning("[SpikeTrap] Damage trigger is not assigned", this);
             return;
         }
 
@@ -154,13 +154,13 @@ public class SpikeTrap : MonoBehaviour
 
         Collider[] allHits = Physics.OverlapBox(damBounds.center, damBounds.extents, damageTrigger.transform.rotation, damageMask, QueryTriggerInteraction.Collide);
 
-        Debug.Log($"[SpikeTrap] Burst hit count: {allHits.Length}", this);
+        //Debug.Log($"[SpikeTrap] Burst hit count: {allHits.Length}", this);
 
         HashSet<IDamage> damTargets = new HashSet<IDamage>();
 
         for(int i = 0; i < allHits.Length; i++)
         {
-            Debug.Log($"[SpikeTrap] Hit collider: {allHits[i].name} | Layer: {LayerMask.LayerToName(allHits[i].gameObject.layer)}", this);
+            //Debug.Log($"[SpikeTrap] Hit collider: {allHits[i].name} | Layer: {LayerMask.LayerToName(allHits[i].gameObject.layer)}", this);
 
             IDamage dmg = allHits[i].GetComponent<IDamage>();
 
@@ -171,7 +171,7 @@ public class SpikeTrap : MonoBehaviour
 
             if(dmg == null)
             {
-                Debug.Log("[SpikeTrap] No IDamage found on hit collider or parent", allHits[i]);
+                //Debug.Log("[SpikeTrap] No IDamage found on hit collider or parent", allHits[i]);
                 continue;
             }
 
@@ -181,7 +181,7 @@ public class SpikeTrap : MonoBehaviour
             }
 
             damTargets.Add(dmg);
-            Debug.Log("[SpikeTrap] Damaging Target");
+            //Debug.Log("[SpikeTrap] Damaging Target");
             dmg.takeDamage(damage);
         }
     }
