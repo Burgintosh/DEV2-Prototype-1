@@ -20,6 +20,7 @@ public class Weapon : MonoBehaviour
     
 
     [SerializeField] private GameObject muzzleEffect; // Eventually move to WeaponData. Requires a bit of work though.
+    private Animator animator; 
     //public ParticleSystem hitEffect;
     //public AudioSource shootSound;
     //public AudioSource reloadSound;
@@ -31,6 +32,7 @@ public class Weapon : MonoBehaviour
     {
         data.bulletsLeft = data.magazineSize;
         OnAmmoChange?.Invoke(data.bulletsLeft);
+        animator = GetComponent<Animator>();
     }
 
     public void FireWeapon()
@@ -62,6 +64,12 @@ public class Weapon : MonoBehaviour
         if (muzzleEffect != null)
             muzzleEffect.GetComponent<ParticleSystem>().Play();
             //Instantiate(muzzleEffect, transform.position, transform.rotation);
+
+        if(animator != null)
+        {
+            animator.SetTrigger("RECOIL");
+        }
+
 
         data.bulletsLeft--;
         OnAmmoChange?.Invoke(data.bulletsLeft);
@@ -112,6 +120,11 @@ public class Weapon : MonoBehaviour
         {
             if (data.reloadClip != null)
                 PlayGunSound(data.reloadClip);
+
+            if (animator != null)
+            {
+                animator.SetTrigger("RELOAD");
+            }
 
             yield return new WaitForSeconds(data.reloadTime);
 
