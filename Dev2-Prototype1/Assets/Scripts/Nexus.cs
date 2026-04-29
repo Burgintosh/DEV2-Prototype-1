@@ -40,13 +40,13 @@ public class Nexus : MonoBehaviour, IDamage
     public void takeDamage(int amount)
     {
         HP -= amount;
-        OnNexusHPChanged?.Invoke(HP);
+        
 
         if (HP <= 0)
         {
             NexusManager.nexusManagerInstance.OnNexusDeath();
             Destroy(gameObject);
-            
+            OnNexusHPChanged?.Invoke(HP);
         }
         else
         {
