@@ -100,6 +100,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3490844265201930058}
   - component: {fileID: 4046760021975025655}
+  - component: {fileID: 6344507766155391388}
   - component: {fileID: 2170295871383520334}
   - component: {fileID: 6399251071743884640}
   - component: {fileID: 190218478808404764}
@@ -118,7 +119,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3509469523003482535}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -12.212, y: 0.55092, z: -2.73}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
@@ -126,7 +127,7 @@ Transform:
   - {fileID: 2471977877242004078}
   - {fileID: 1431214492031332353}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &4046760021975025655
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,6 +141,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::pickup
   gun: {fileID: 11400000, guid: 75192e5303ed39d42a951d3d150f753b, type: 2}
+--- !u!114 &6344507766155391388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3509469523003482535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54f4ee6e0dfd47948b5a05d3a8902b51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::rotateObject
+  model: {fileID: 3490844265201930058}
+  rotateSpeed: 50
 --- !u!135 &2170295871383520334
 SphereCollider:
   m_ObjectHideFlags: 0
