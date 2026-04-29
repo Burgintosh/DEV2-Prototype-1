@@ -190,6 +190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1241994083886186117}
   - component: {fileID: 6902145195622141728}
+  - component: {fileID: 7754359706025092125}
   - component: {fileID: 1111438808213242059}
   - component: {fileID: 918155066598468755}
   - component: {fileID: 5343818082656070573}
@@ -232,6 +233,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::pickup
   gun: {fileID: 11400000, guid: 65394cc1b96cd0b46a9565411ac4eb6a, type: 2}
+--- !u!114 &7754359706025092125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3395993022481882552}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54f4ee6e0dfd47948b5a05d3a8902b51, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::rotateObject
+  model: {fileID: 1241994083886186117}
+  rotateSpeed: 50
 --- !u!135 &1111438808213242059
 SphereCollider:
   m_ObjectHideFlags: 0

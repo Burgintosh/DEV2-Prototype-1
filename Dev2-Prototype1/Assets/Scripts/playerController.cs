@@ -50,8 +50,10 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     [Range(100, 300)] [SerializeField] float airAcceleration = 150f; // Default 150
     [Range(1, 30)] [SerializeField] float groundFriction = 25f; // Default 25
     [Range(0.1f, 0.5f)] [SerializeField] float jumpBuffer = 0.4f; // Default 0.4
+    [Range(0.1f, 0.3f)][SerializeField] float coyoteTime = 0.15f; // 0.15
     [Range(0f, 10f)] [SerializeField] float airSpeedCap = 1f; // Default 1 (0 for no cap)
     float jumpBufferTimer;
+    float coyoteTimer;
 
 
     [Header("Input Setup (For Input System Package")]
@@ -139,7 +141,6 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         HandleWeaponSwitch();
         UpdateTimers();
         movement();
-        sprint();
         //if (currentWeapon != null && shootAction.action.IsPressed() && shootTimer >= currentWeapon.data.shootRate && !gamemanager.instance.isPaused && !currentWeapon.isReloading)
         if (currentWeapon != null && shootAction.action.IsPressed() && shootTimer >= currentWeapon.data.shootRate && !gamemanager.instance.isPaused && (!currentWeapon.data.isReloading || currentWeapon.data.isSingleShellReload))
         {
@@ -175,7 +176,11 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         {
             jumpBufferTimer -= Time.deltaTime;
         }
-        if(hurtSoundTimer > 0)
+        if (coyoteTimer > 0)
+        {
+            coyoteTimer -= Time.deltaTime;
+        }
+        if (hurtSoundTimer > 0)
         {
             hurtSoundTimer -= Time.deltaTime;
         }
@@ -256,10 +261,16 @@ public class playerController : MonoBehaviour, IDamage, IPickup
 
             Vector3 wishDir = moveDir.normalized;
 
+            float currentMoveSpeed = speed;
+            if (sprintAction.action.IsPressed() && controller.isGrounded)
+            {
+                currentMoveSpeed = speed * sprintMod; // Old sprint code kept slowly increasing movement speed over time
+            }
+
             if (controller.isGrounded && jumpCount == 0)
             {
                 ApplyFriction();
-                Accelerate(wishDir, speed, acceleration);
+                Accelerate(wishDir, currentMoveSpeed, acceleration);
             }
             else
             {
@@ -290,7 +301,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         if (controller.isGrounded)
         {
             jumpCount = 0;
-            if(playerVel.y < 0)
+            coyoteTimer = coyoteTime;
+            if (playerVel.y < 0)
                 playerVel.y = -2f;
         }
         // moveDir = new Vector3(Input.GetAxis("Horizontal"),0, Input.GetAxis("Vertical")); // This works for top down games, but not first person. This movement is global based so gets weird when player rotates
@@ -309,25 +321,6 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         
     }
 
-    void sprint()
-    {
-        //if(Input.GetButtonDown("Sprint")) // GetButton is polling ie hold to sprint, Down and Up are toggles
-        //{
-        //    speed *= sprintMod;
-        //}
-        //else if(Input.GetButtonUp("Sprint"))
-        //{
-        //    speed /= sprintMod;
-        //}
-        if (sprintAction.action.WasPressedThisFrame())
-        {
-            speed *= sprintMod;
-        }
-        else if (sprintAction.action.WasReleasedThisFrame())
-        {
-            speed /= sprintMod;
-        }
-    }
 
     void jump()
     {
@@ -338,7 +331,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup
             //playerVel.y = jumpSpeed;
             //jumpCount++;
         }
-        if(jumpBufferTimer > 0 && controller.isGrounded) // only works for single jump
+        //if(jumpBufferTimer > 0 && controller.isGrounded) // only works for single jump
+        if(jumpBufferTimer > 0 && coyoteTimer > 0) // only works for single jump
         {
             int rand = UnityEngine.Random.Range(1, 7);
             switch (rand)
@@ -359,6 +353,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
             playerVel.y = jumpSpeed;
             jumpCount = 1;
             jumpBufferTimer = 0;
+            coyoteTimer = 0;
         }
     }
 
