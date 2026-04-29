@@ -38,6 +38,7 @@ public class gamemanager : MonoBehaviour
     [Header("Public Vars (Do Not Assign)")]
     public GameObject player;
     public playerController playerScript;
+    public GameObject playerSpawnPos;
     public GameObject Nexus;
     public Nexus nexusScript;
     public bool isPaused;
@@ -56,8 +57,11 @@ public class gamemanager : MonoBehaviour
 
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<playerController>();
+
         Nexus = GameObject.FindWithTag("Nexus");
         nexusScript = Nexus.GetComponent<Nexus>();
+
+        playerSpawnPos = GameObject.FindWithTag("Player Spawn Pos");
     }
 
     // Update is called once per frame
