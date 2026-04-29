@@ -476,14 +476,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6277021908130704955, guid: ac84f9ffc1470e048bb320d131178ddd, type: 3}
       propertyPath: musicTracks.Array.size
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6277021908130704955, guid: ac84f9ffc1470e048bb320d131178ddd, type: 3}
       propertyPath: musicTracks.Array.data[2].clip
       value: 
-      objectReference: {fileID: 8300000, guid: 7065a2221a540a5419fe33b9ae86b4c3, type: 3}
+      objectReference: {fileID: 8300000, guid: 3a684db2be24038429ed258447fc81ed, type: 3}
     - target: {fileID: 6277021908130704955, guid: ac84f9ffc1470e048bb320d131178ddd, type: 3}
       propertyPath: musicTracks.Array.data[2].loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277021908130704955, guid: ac84f9ffc1470e048bb320d131178ddd, type: 3}
+      propertyPath: musicTracks.Array.data[3].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 38504a2ce7481c94c90c3f82d02d7f66, type: 3}
+    - target: {fileID: 6277021908130704955, guid: ac84f9ffc1470e048bb320d131178ddd, type: 3}
+      propertyPath: musicTracks.Array.data[3].loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277021908130704955, guid: ac84f9ffc1470e048bb320d131178ddd, type: 3}
+      propertyPath: musicTracks.Array.data[4].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 103c97a356b590d4ba6fdad1333f21ef, type: 3}
+    - target: {fileID: 6277021908130704955, guid: ac84f9ffc1470e048bb320d131178ddd, type: 3}
+      propertyPath: musicTracks.Array.data[4].loop
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6277021908130704955, guid: ac84f9ffc1470e048bb320d131178ddd, type: 3}
@@ -491,8 +507,24 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6277021908130704955, guid: ac84f9ffc1470e048bb320d131178ddd, type: 3}
+      propertyPath: musicTracks.Array.data[3].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277021908130704955, guid: ac84f9ffc1470e048bb320d131178ddd, type: 3}
+      propertyPath: musicTracks.Array.data[4].volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277021908130704955, guid: ac84f9ffc1470e048bb320d131178ddd, type: 3}
       propertyPath: musicTracks.Array.data[2].musicState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277021908130704955, guid: ac84f9ffc1470e048bb320d131178ddd, type: 3}
+      propertyPath: musicTracks.Array.data[3].musicState
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277021908130704955, guid: ac84f9ffc1470e048bb320d131178ddd, type: 3}
+      propertyPath: musicTracks.Array.data[4].musicState
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

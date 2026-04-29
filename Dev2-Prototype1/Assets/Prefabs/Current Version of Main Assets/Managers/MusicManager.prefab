@@ -53,10 +53,22 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 7065a2221a540a5419fe33b9ae86b4c3, type: 3}
     volume: 1
     loop: 1
+  - musicState: 2
+    clip: {fileID: 8300000, guid: 3a684db2be24038429ed258447fc81ed, type: 3}
+    volume: 1
+    loop: 1
+  - musicState: 3
+    clip: {fileID: 8300000, guid: 38504a2ce7481c94c90c3f82d02d7f66, type: 3}
+    volume: 0.65
+    loop: 1
+  - musicState: 4
+    clip: {fileID: 8300000, guid: 103c97a356b590d4ba6fdad1333f21ef, type: 3}
+    volume: 1
+    loop: 1
   playOnStart: 1
   initMusicState: 0
   masterVol: 1
-  pauseVolMult: 0.25
+  pauseVolMult: 0.15
   fadeDur: 1
   interruptFadeDur: 0.5
   persistBetweenScenes: 0
