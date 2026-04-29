@@ -46,7 +46,7 @@ public class Nexus : MonoBehaviour, IDamage
         {
             NexusManager.nexusManagerInstance.OnNexusDeath();
             Destroy(gameObject);
-            OnNexusHPChanged?.Invoke(HP);
+            OnNexusHPChanged?.Invoke(NexusManager.nexusManagerInstance.nexusCount);
         }
         else
         {

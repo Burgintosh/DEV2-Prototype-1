@@ -196,7 +196,7 @@ public class gamemanager : MonoBehaviour
 
     private void UpdateNexusHPBar(int HP)
     {
-        NexusHPBar.fillAmount = (float)NexusManager.nexusManagerInstance.nexusCount / NexusManager.nexusManagerInstance.nexusList.Count;
+        NexusHPBar.fillAmount = (float)HP / NexusManager.nexusManagerInstance.nexusList.Count;
     }
 
 
