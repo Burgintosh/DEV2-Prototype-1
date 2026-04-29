@@ -38,6 +38,7 @@ public class gamemanager : MonoBehaviour
     [Header("Public Vars (Do Not Assign)")]
     public GameObject player;
     public playerController playerScript;
+    public GameObject playerSpawnPos;
     public GameObject Nexus;
     public Nexus nexusScript;
     public bool isPaused;
@@ -56,8 +57,11 @@ public class gamemanager : MonoBehaviour
 
         player = GameObject.FindWithTag("Player");
         playerScript = player.GetComponent<playerController>();
+
         Nexus = GameObject.FindWithTag("Nexus");
         nexusScript = Nexus.GetComponent<Nexus>();
+
+        playerSpawnPos = GameObject.FindWithTag("Player Spawn Pos");
     }
 
     // Update is called once per frame
@@ -85,7 +89,7 @@ public class gamemanager : MonoBehaviour
         {
             currencyManager.OnCurrencyChanged += UpdateCurrencyUI;
         }
-        playerScript.GetCurrentWeapon().OnAmmoChange += UpdateAmmoUI;
+        //playerScript.GetCurrentWeapon().OnAmmoChange += UpdateAmmoUI;
         playerScript.OnWeaponChanged += UpdateGun;
         playerScript.OnHPChanged += UpdatePlayerHPBar;
         nexusScript.OnNexusHPChanged += UpdateNexusHPBar;
@@ -97,6 +101,11 @@ public class gamemanager : MonoBehaviour
         {
             currencyManager.OnCurrencyChanged -= UpdateCurrencyUI;
         }
+        if (activeWeapon != null)
+        {
+            activeWeapon.OnAmmoChange -= UpdateAmmoUI;
+        }
+
         playerScript.GetCurrentWeapon().OnAmmoChange -= UpdateAmmoUI;
         playerScript.OnWeaponChanged -= UpdateGun;
         playerScript.OnHPChanged -= UpdatePlayerHPBar;
@@ -163,10 +172,20 @@ public class gamemanager : MonoBehaviour
     //}
     private void UpdateGun(Weapon weapon)
     {
-        playerScript.GetLastWeapon().gameObject.SetActive(false);
-        playerScript.GetCurrentWeapon().gameObject.SetActive(true);
-        MagSize.text = weapon.magazineSize.ToString();
-        UpdateAmmoUI(weapon.bulletsLeft);
+
+        if (activeWeapon != null)
+            activeWeapon.OnAmmoChange -= UpdateAmmoUI;
+
+        activeWeapon = weapon;
+
+        //playerScript.GetLastWeapon().gameObject.SetActive(false);
+        //playerScript.GetCurrentWeapon().gameObject.SetActive(true);
+        if (activeWeapon != null)
+        {
+            activeWeapon.OnAmmoChange += UpdateAmmoUI;
+            MagSize.text = activeWeapon.data.magazineSize.ToString();
+            UpdateAmmoUI(activeWeapon.data.bulletsLeft);
+        }
     }
 
     private void UpdatePlayerHPBar(int HP)
