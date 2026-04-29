@@ -64,7 +64,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     [SerializeField] InputActionReference Weapon1;
     [SerializeField] InputActionReference Weapon2;
     [SerializeField] InputActionReference Weapon3;
-    //[SerializeField] InputActionReference mWheel;
+    //[SerializeField] InputActionReference mWheel; // Couldn't figure this out lol
     Vector3 moveDir;
     Vector3 playerVel;
 
@@ -140,7 +140,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         movement();
         sprint();
         //if (currentWeapon != null && shootAction.action.IsPressed() && shootTimer >= currentWeapon.data.shootRate && !gamemanager.instance.isPaused && !currentWeapon.isReloading)
-        if (currentWeapon != null && shootAction.action.IsPressed() && shootTimer >= currentWeapon.data.shootRate && !gamemanager.instance.isPaused)
+        if (currentWeapon != null && shootAction.action.IsPressed() && shootTimer >= currentWeapon.data.shootRate && !gamemanager.instance.isPaused && (!currentWeapon.data.isReloading || currentWeapon.data.isSingleShellReload))
         {
             Debug.Log("Shooting");
             shoot();
