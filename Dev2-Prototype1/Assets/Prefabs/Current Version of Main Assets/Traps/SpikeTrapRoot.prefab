@@ -649,7 +649,7 @@ Transform:
   m_GameObject: {fileID: 2587697283193826710}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalPosition: {x: 0, y: 20, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1521,7 +1521,7 @@ MonoBehaviour:
   damage: 1
   attackDelay: 0.25
   cooldown: 0.25
-  moveSpeed: 24
+  moveSpeed: 60
   upHoldBuffer: 0.15
   damageMask:
     serializedVersion: 2

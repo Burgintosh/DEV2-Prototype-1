@@ -277,6 +277,13 @@ public class BuildPlacementController : MonoBehaviour
         Vector3 placementPos = hit.point;
         Vector3 surfaceNormal = buildArea.GetSurfaceNormal().normalized;
 
+        Vector3 toCam = (buildCamera.transform.position - buildArea.transform.position).normalized;
+
+        if(Vector3.Dot(surfaceNormal, toCam) > 0)
+        {
+            surfaceNormal = -surfaceNormal;
+        }
+
         placementPos += surfaceNormal * currBuildable.previewYOffset;
 
         bool buildTypeAllowed = buildArea.AllowsBuildType(currBuildable.buildableType);
@@ -364,9 +371,9 @@ public class BuildPlacementController : MonoBehaviour
 
     void ConfirmBuild()
     {
-        if(currBuildable == null || currBuildable.placedPreview == null)
+        if(currBuildable == null || currBuildable.placedPrefab == null)
         {
-            Debug.LogWarning("[BuildPlacementController] TurretManager is not assigned", this);
+            Debug.LogWarning("[BuildPlacementController] Placed prefab is not assigned", this);
             return;
         }
 
