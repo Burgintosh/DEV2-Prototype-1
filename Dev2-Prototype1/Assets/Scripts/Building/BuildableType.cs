@@ -1,6 +1,7 @@
 public enum BuildableType
 {
     Turret,
-    Trap,
-    LaneTrap
+    LaneTrap,
+    WallTrap,
+    CeilingTrap
 }

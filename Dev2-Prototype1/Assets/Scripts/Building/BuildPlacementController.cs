@@ -10,11 +10,8 @@ public class BuildPlacementController : MonoBehaviour
     [SerializeField] CurrencyManager currencyManager;
 
     [Header("----- Build Settings -----")]
-    //[SerializeField] BuildableType currentBuildType = BuildableType.Turret;
     [SerializeField] float rayCastDist = 100f;
     [SerializeField] float maxBuildDist = 8f;
-    //[SerializeField] float placementRadius = 1f;
-    //[SerializeField] float previewYOffset = 0f;
 
     [Header("----- Sell Settings -----")]
     [SerializeField] float sellDist = 10f;
@@ -44,6 +41,8 @@ public class BuildPlacementController : MonoBehaviour
     float currentPreviewYaw;
 
     Vector3 currentPlacementPos;
+    Vector3 currentSurfaceNormal;
+    Quaternion currentPlacementRot;
 
     GameObject previewInstance;
     Renderer[] previewRenderers;
@@ -102,6 +101,48 @@ public class BuildPlacementController : MonoBehaviour
         }
     }
 
+    Quaternion GetPlacementRot(Vector3 _SurfaceNormal)
+    {
+        if(currBuildable == null)
+        {
+            return Quaternion.identity;
+        }
+
+        if(currBuildable.placementMode == BuildPlacementMode.Flat)
+        {
+            return Quaternion.Euler(0f, currentPreviewYaw, 0f);
+        }
+
+        Vector3 refUp = Mathf.Abs(Vector3.Dot(_SurfaceNormal, Vector3.up)) > 0.98f ? Vector3.forward : Vector3.up;
+        Quaternion baseRot = Quaternion.LookRotation(_SurfaceNormal, refUp);
+        Quaternion offsetRot = Quaternion.Euler(currBuildable.surfaceRotOffset);
+        Quaternion alignedRot = baseRot * offsetRot;
+
+        Vector3 localSpinAxis = Vector3.forward;
+
+        switch (currBuildable.surfaceSpinAxis)
+        {
+            case BuildSpinAxis.Up:
+                localSpinAxis = Vector3.up;
+                break;
+
+            case BuildSpinAxis.Right:
+                localSpinAxis = Vector3.right;
+                break;
+
+            case BuildSpinAxis.Forward:
+            default:
+                localSpinAxis = Vector3.forward;
+                break;
+
+        }
+
+        Vector3 worldSpinAxis = alignedRot * localSpinAxis;
+        Quaternion spinRot = Quaternion.AngleAxis(currentPreviewYaw, worldSpinAxis);
+
+        return spinRot * alignedRot;
+    }
+
     void HandleScrollSelection()
     {
         if(buildables == null  || buildables.Length == 0)
@@ -158,6 +199,8 @@ public class BuildPlacementController : MonoBehaviour
 
         currBuildIndex = _BuildIndex;
         currBuildable = buildables[currBuildIndex];
+
+        currentPreviewYaw = 0;
 
         DestroyPreviewInstance();
         CreatePreviewInstance();
@@ -232,21 +275,32 @@ public class BuildPlacementController : MonoBehaviour
         }
 
         Vector3 placementPos = hit.point;
-        placementPos.y += currBuildable.previewYOffset;
+        Vector3 surfaceNormal = buildArea.GetSurfaceNormal().normalized;
+
+        Vector3 toCam = (buildCamera.transform.position - buildArea.transform.position).normalized;
+
+        if(Vector3.Dot(surfaceNormal, toCam) > 0)
+        {
+            surfaceNormal = -surfaceNormal;
+        }
+
+        placementPos += surfaceNormal * currBuildable.previewYOffset;
 
         bool buildTypeAllowed = buildArea.AllowsBuildType(currBuildable.buildableType);
         bool withinBuildDist = IsWithinBuildDist(placementPos);
-        bool overlapsBlockedObject = Physics.CheckSphere(placementPos, currBuildable.placementRadius, placementBlockMask, QueryTriggerInteraction.Ignore);
+        bool overlapsBlockedObject = IsPlacementBlocked(placementPos, hit.collider, buildArea);
 
         // Checking cost
         bool canAfford = gamemanager.instance.currencyManager.canBuy(currBuildable.cost);
 
         currentPlacementValid = buildTypeAllowed && withinBuildDist && !overlapsBlockedObject && canAfford;
         currentPlacementPos = placementPos;
+        currentSurfaceNormal = surfaceNormal;
+        currentPlacementRot = GetPlacementRot(surfaceNormal);
 
         previewInstance.SetActive(true);
         previewInstance.transform.position = placementPos;
-        previewInstance.transform.rotation = Quaternion.Euler(0f, currentPreviewYaw, 0f);
+        previewInstance.transform.rotation = currentPlacementRot;
 
         ApplyPreviewColor(currentPlacementValid ? validColor : invalidColor);
     }
@@ -259,6 +313,42 @@ public class BuildPlacementController : MonoBehaviour
         }
 
         return Vector3.Distance(playerPos.position, _PlacementPos) <= maxBuildDist;
+    }
+
+    bool IsPlacementBlocked(Vector3 _PlacementPos, Collider _HitCollider, BuildArea _CurrBuildArea)
+    {
+        Collider[] allHits = Physics.OverlapSphere(_PlacementPos, currBuildable.placementRadius, placementBlockMask, QueryTriggerInteraction.Collide);
+
+        for(int i = 0; i < allHits.Length; i++)
+        {
+            Collider currHit = allHits[i];
+
+            if(currHit == null)
+            {
+                continue;
+            }
+
+            if(currHit == _HitCollider)
+            {
+                continue;
+            }
+
+            BuildArea hitBuildArea = currHit.GetComponentInParent<BuildArea>();
+
+            if(hitBuildArea != null && hitBuildArea == _CurrBuildArea)
+            {
+                continue;
+            }
+
+            if (previewInstance != null && currHit.transform.IsChildOf(previewInstance.transform))
+            {
+                continue;
+            }
+
+            return true;
+        }
+
+        return false;
     }
 
     void ApplyPreviewColor(Color _Tint)
@@ -281,9 +371,9 @@ public class BuildPlacementController : MonoBehaviour
 
     void ConfirmBuild()
     {
-        if(currBuildable == null || currBuildable.placedPreview == null)
+        if(currBuildable == null || currBuildable.placedPrefab == null)
         {
-            Debug.LogWarning("[BuildPlacementController] TurretManager is not assigned", this);
+            Debug.LogWarning("[BuildPlacementController] Placed prefab is not assigned", this);
             return;
         }
 
@@ -298,7 +388,7 @@ public class BuildPlacementController : MonoBehaviour
             return;
         }
 
-        Quaternion buildRotation = Quaternion.Euler(0f, currentPreviewYaw, 0f);
+        Quaternion buildRotation = currentPlacementRot;
         GameObject builtObject = Instantiate(currBuildable.placedPrefab, currentPlacementPos, buildRotation);
 
         if(builtObject == null)
