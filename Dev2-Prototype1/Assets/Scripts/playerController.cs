@@ -52,6 +52,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     [Range(0.1f, 0.5f)] [SerializeField] float jumpBuffer = 0.4f; // Default 0.4
     [Range(0f, 10f)] [SerializeField] float airSpeedCap = 1f; // Default 1 (0 for no cap)
     float jumpBufferTimer;
+    private Vector3 hitNormal;
+    private bool isActuallyGrounded; // PlayerController won't let me add surfing so I'm circumventing it >:(
 
 
     [Header("Input Setup (For Input System Package")]
@@ -249,6 +251,14 @@ public class playerController : MonoBehaviour, IDamage, IPickup
 
     }
 
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        hitNormal = hit.normal;
+
+        if (hitNormal.y >= 0.7f)
+            isActuallyGrounded = true;
+    }
+
     void ApplyHorizontalMovement()
     {
         if (!isDashing)
@@ -287,38 +297,53 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     void movement()
     {
 
-        if (controller.isGrounded)
+        //if (controller.isGrounded)
+        if (isActuallyGrounded)
         {
             jumpCount = 0;
-            if(playerVel.y < 0)
+            //hitNormal = Vector3.zero;
+            if (playerVel.y < 0)
                 playerVel.y = -2f;
         }
-        // moveDir = new Vector3(Input.GetAxis("Horizontal"),0, Input.GetAxis("Vertical")); // This works for top down games, but not first person. This movement is global based so gets weird when player rotates
         Vector2 moveInput = moveAction.action.ReadValue<Vector2>();
         moveDir = moveInput.x * transform.right + moveInput.y * transform.forward;
-        // moveDir = Input.GetAxis("Horizontal") * transform.right + Input.GetAxis("Vertical") * transform.forward;
 
-        if (!controller.isGrounded)
+        //if (!controller.isGrounded)
+        if (!isActuallyGrounded)
+        {
             playerVel.y -= gravity * Time.deltaTime;
+
+            // For Surfing
+            //if(hitNormal.y < 0.9f && hitNormal.y > -0.9f)
+            //{
+            //    playerVel += hitNormal * 0.1f;
+
+            //    playerVel = Vector3.ProjectOnPlane(playerVel, hitNormal);
+            //}
+        }
 
         jump();
         ApplyHorizontalMovement();
 
-        
+        if (!isActuallyGrounded)
+        {
+            if (hitNormal.y < 0.7f && hitNormal.y > -0.9f && hitNormal != Vector3.zero)
+            {
+                playerVel = Vector3.ProjectOnPlane(playerVel, hitNormal);
+
+                playerVel += hitNormal * 0.05f;
+            }
+        }
+
+        isActuallyGrounded = false;
+        hitNormal = Vector3.zero; // Need to reset this every frame otherwise you can launch yourself into the air on an imaginary plane lmao
+
         controller.Move(playerVel * Time.deltaTime);
         
     }
 
     void sprint()
     {
-        //if(Input.GetButtonDown("Sprint")) // GetButton is polling ie hold to sprint, Down and Up are toggles
-        //{
-        //    speed *= sprintMod;
-        //}
-        //else if(Input.GetButtonUp("Sprint"))
-        //{
-        //    speed /= sprintMod;
-        //}
         if (sprintAction.action.WasPressedThisFrame())
         {
             speed *= sprintMod;
@@ -397,11 +422,10 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     {
         if (newWeaponIndex == currentWeaponIndex) return;
 
-        for (int i = 0; i < weaponModels.Count; i++)
+        for (int i = 0; i < weaponModels.Count; i++) // screw it--Everything off every time.
         {
             weaponModels[i].gameObject.SetActive(false);
         }
-        //weapons[currentWeaponIndex].gameObject.SetActive(false);
 
         lastWeapon = currentWeapon;
         currentWeaponIndex = newWeaponIndex;
@@ -432,18 +456,6 @@ public class playerController : MonoBehaviour, IDamage, IPickup
                 currentWeapon.GunClick();
             }
         }
-        
-        //RaycastHit hit;
-        //if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, currentWeapon.shootDist, ~ignoreLayer))
-        //{
-        //    Debug.Log(hit.collider.name);
-
-        //    IDamage dmg = hit.collider.GetComponent<IDamage>();
-        //    if(dmg != null)
-        //    {
-        //        dmg.takeDamage(currentWeapon.shootDamage);
-        //    }
-        //}
     }
 
     public Weapon GetCurrentWeapon()
