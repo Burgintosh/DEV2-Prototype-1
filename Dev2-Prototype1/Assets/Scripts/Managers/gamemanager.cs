@@ -198,7 +198,23 @@ public class gamemanager : MonoBehaviour
         NexusHPBar.fillAmount = (float)HP / NexusManager.nexusManagerInstance.totalNexusHealth;
     }
 
-
+    public void UpdateNexusHPBar2()
+    {
+        if (NexusManager.nexusManagerInstance.totalNexusHealth <= 0)
+        {
+            NexusManager.nexusManagerInstance.countTotalHealth();
+        }
+        NexusManager.nexusManagerInstance.checkCurrHealth();
+        if (NexusManager.nexusManagerInstance.nexusCount == 0)
+        {
+            NexusHPBar.fillAmount = 0;
+        }
+        else
+        {
+            NexusHPBar.fillAmount = (float)NexusManager.nexusManagerInstance.currNexusHealth / NexusManager.nexusManagerInstance.totalNexusHealth;
+        }
+            
+    }
     public void Respawn()
     {
 

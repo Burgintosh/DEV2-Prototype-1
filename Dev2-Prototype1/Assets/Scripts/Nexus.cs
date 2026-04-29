@@ -39,8 +39,14 @@ public class Nexus : MonoBehaviour, IDamage
     }
     public void takeDamage(int amount)
     {
+        if(HP <= 0)
+        {
+            HP = 0;
+            return;
+        }
         HP -= amount;
-        OnNexusHPChanged?.Invoke(NexusManager.nexusManagerInstance.currNexusHealth);
+        // OnNexusHPChanged?.Invoke(NexusManager.nexusManagerInstance.currNexusHealth);
+        gamemanager.instance.UpdateNexusHPBar2();
 
         if (HP <= 0)
         {
