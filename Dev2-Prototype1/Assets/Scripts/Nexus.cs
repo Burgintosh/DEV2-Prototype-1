@@ -40,13 +40,13 @@ public class Nexus : MonoBehaviour, IDamage
     public void takeDamage(int amount)
     {
         HP -= amount;
-        
+        OnNexusHPChanged?.Invoke(NexusManager.nexusManagerInstance.currNexusHealth);
 
         if (HP <= 0)
         {
             NexusManager.nexusManagerInstance.OnNexusDeath();
             Destroy(gameObject);
-            OnNexusHPChanged?.Invoke(NexusManager.nexusManagerInstance.nexusCount);
+            
         }
         else
         {
@@ -62,5 +62,8 @@ public class Nexus : MonoBehaviour, IDamage
         yield return new WaitForSeconds(0.1f);
         model.material.color = colorOrig;
         HPmodel.material.color = HPcolorOrig;
+    } public int GetCurrHP()
+    {
+        return HP;
     }
 }

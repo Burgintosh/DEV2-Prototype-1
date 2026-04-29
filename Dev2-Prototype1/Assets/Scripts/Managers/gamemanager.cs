@@ -48,7 +48,6 @@ public class gamemanager : MonoBehaviour
 
     int gameGoalCount;
 
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake() // Changing Start() to Awake() ensures this takes priority. Reserve Awake for manager types (Need this before other scripts run)
     {
@@ -196,7 +195,7 @@ public class gamemanager : MonoBehaviour
 
     private void UpdateNexusHPBar(int HP)
     {
-        NexusHPBar.fillAmount = (float)HP / NexusManager.nexusManagerInstance.nexusList.Count;
+        NexusHPBar.fillAmount = (float)HP / NexusManager.nexusManagerInstance.totalNexusHealth;
     }
 
 
