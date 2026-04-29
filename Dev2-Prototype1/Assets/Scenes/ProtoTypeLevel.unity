@@ -4105,7 +4105,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: buildables.Array.data[1].surfaceSpinAxis
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: buildables.Array.data[2].placementRadius
