@@ -105,6 +105,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     void Start()
     {
         HPOrig = HP;
+        spawnPlayer();
 
         for (int i = 0; i < weapons.Count; i++)
         {
@@ -153,6 +154,13 @@ public class playerController : MonoBehaviour, IDamage, IPickup
                 StartCoroutine(currentWeapon.Reload());
             }
         }
+    }
+
+    public void spawnPlayer()
+    {
+        controller.transform.position = gamemanager.instance.playerSpawnPos.transform.position;
+        Physics.SyncTransforms();
+        HP = HPOrig;
     }
 
     void UpdateTimers()
