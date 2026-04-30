@@ -477,7 +477,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
             return;
         }
 
-        int rand = UnityEngine.Random.Range(1, 7);
+        int rand = UnityEngine.Random.Range(1, 4);
         AudioSource jumpSound = null;
 
         switch (rand)
