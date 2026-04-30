@@ -122,6 +122,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
             newWeapon.transform.localRotation = Quaternion.identity;
             newWeapon.transform.localScale = Vector3.one;
             newWeapon.gameObject.SetActive(false);
+            newWeapon.data.isReloading = false;
 
             weaponModels.Add(newWeapon);
         }
@@ -165,6 +166,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
 
     public void spawnPlayer()
     {
+        if (gamemanager.instance.playerSpawnPos == null) return;
         controller.transform.position = gamemanager.instance.playerSpawnPos.transform.position;
         Physics.SyncTransforms();
         HP = HPOrig;
@@ -559,6 +561,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         newWeapon.transform.localRotation = Quaternion.identity;
         newWeapon.transform.localScale = Vector3.one;
         newWeapon.gameObject.SetActive(false);
+        newWeapon.data.isReloading = false;
 
         weaponModels.Add(newWeapon);
         SwitchWeapon(weaponModels.Count - 1);
