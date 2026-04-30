@@ -118,7 +118,7 @@ public class EnemyAI : MonoBehaviour, IDamage
             return;
         }
 
-        if (bullet != null)
+        if (SoundManager.Instance != null)
         {
             SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.enemyShootSound, enemyShootVol, SoundCategory.Enemy);
         }
