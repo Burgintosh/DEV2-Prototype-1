@@ -21,4 +21,12 @@ public class ButtonFunctions : MonoBehaviour
     #endif
 
     }
+    public void Settings()
+    {
+        gamemanager.instance.OpenSettings();
+    }
+    public void CloseSettings()
+    {
+        gamemanager.instance.CloseSettings();
+    }
 }
