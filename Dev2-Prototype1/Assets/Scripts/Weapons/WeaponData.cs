@@ -12,7 +12,7 @@ public class WeaponData : ScriptableObject
     public int magazineSize;
     public float reloadTime;
     public int bulletsLeft;
-    public bool isReloading;
+    public bool isReloading = false;
 
 
     public AudioClip shootClip;
@@ -27,4 +27,5 @@ public class WeaponData : ScriptableObject
     public float shellReloadTime = 0.5f;
     public int pelletCount = 1;      // shotgun = 6–12. 1 for single bullet
     public float spreadAngle = 0f;   // degrees. 0 for normal (no spread)
+    public bool canShootShotgun = true;
 }

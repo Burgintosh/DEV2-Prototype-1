@@ -6,25 +6,14 @@ public class Weapon : MonoBehaviour
 {
     public WeaponData data;
     public AudioSource audioSource;
-    //public GameObject gunModel;
-
-    //public string weaponName;
-    //public int shootDamage;
-    //public int shootDist;
-    //public float shootRate;
 
     [SerializeField] LayerMask ignoreLayer;
-
-    //public float reloadTimer;
-    //public int magazineSize;
     
 
     [SerializeField] private GameObject muzzleEffect; // Eventually move to WeaponData. Requires a bit of work though.
     private Animator animator; 
     //public ParticleSystem hitEffect;
-    //public AudioSource shootSound;
-    //public AudioSource reloadSound;
-    //public AudioSource shootEmptySound;
+
 
     public event Action<int> OnAmmoChange;
 
@@ -33,6 +22,7 @@ public class Weapon : MonoBehaviour
         data.bulletsLeft = data.magazineSize;
         OnAmmoChange?.Invoke(data.bulletsLeft);
         animator = GetComponent<Animator>();
+        data.canShootShotgun = true;
     }
 
     public void FireWeapon()
@@ -55,7 +45,7 @@ public class Weapon : MonoBehaviour
 
         //shootSound.Play();
         if (data.isReloading)
-            data.isReloading = false; // cancel reload, primarily for shotgun.
+            StopReload(); // cancel reload for shotgun.
 
         // New Logic
         if (data.shootClip != null)
@@ -68,8 +58,12 @@ public class Weapon : MonoBehaviour
         if(animator != null)
         {
             animator.SetTrigger("RECOIL");
+
+            if (data.isSingleShellReload)
+                data.canShootShotgun = false; // Animator controls when this is true. If no animator, revert to normal firerate var. This is mostly a proof of concept
         }
 
+        
 
         data.bulletsLeft--;
         OnAmmoChange?.Invoke(data.bulletsLeft);
@@ -109,59 +103,75 @@ public class Weapon : MonoBehaviour
         PlayGunSound(data.emptyClip);
     }
 
-    public IEnumerator Reload()
+    public void StartReload()
     {
-        if (data.isReloading)
-            yield break;
+        if (data.isReloading) return;
+        if (data.bulletsLeft >= data.magazineSize) return;
 
         data.isReloading = true;
+        //data.wantsToReload = true;
 
-        if(!data.isSingleShellReload) // Normal Reloading
+        if (data.isSingleShellReload)
         {
-            if (data.reloadClip != null)
-                PlayGunSound(data.reloadClip);
-
-            if (animator != null)
-            {
-                animator.SetTrigger("RELOAD");
-            }
-
-            yield return new WaitForSeconds(data.reloadTime);
-
-            if (data.bulletsLeft <= 0)
-                data.bulletsLeft = data.magazineSize;
-            else
-                data.bulletsLeft = data.magazineSize + 1;
-
-            OnAmmoChange?.Invoke(data.bulletsLeft);
+            animator.SetTrigger("RELOAD");
         }
-        else // Shotgun reload
+        else
         {
-            while(data.bulletsLeft < data.magazineSize)
-            {
-                if (!data.isReloading)
-                    yield break;
-
-                if (data.reloadClip != null)
-                    PlayGunSound(data.reloadClip);
-
-                yield return new WaitForSeconds(data.shellReloadTime);
-
-                data.bulletsLeft++;
-                OnAmmoChange?.Invoke(data.bulletsLeft);
-            }
+            StartCoroutine(MagReload());
         }
+    }
+    private IEnumerator MagReload() // This is just for mag-fed guns now
+    {
+
+
+        if (animator != null)
+        {
+
+            animator.SetTrigger("RELOAD");
+        }
+
+        yield return new WaitForSeconds(data.reloadTime);
+
+        if (data.bulletsLeft <= 0)
+            data.bulletsLeft = data.magazineSize;
+        else
+            data.bulletsLeft = data.magazineSize + 1;
+
+        OnAmmoChange?.Invoke(data.bulletsLeft);
+        
+        data.isReloading = false;
+    }
+    public void BeginShotgunReloadLoop()
+    {
+        if (!data.isSingleShellReload) return;
+
+        animator.SetTrigger("RELOADLOOP");
+        //animator.SetBool("Reloading", true);
+    }
+    public void InsertShell()
+    {
+        if (!data.isSingleShellReload) return;
+
+        data.bulletsLeft++;
+        OnAmmoChange?.Invoke(data.bulletsLeft);
+
+        if (data.bulletsLeft >= data.magazineSize || !data.isReloading)
+        {
+            StopReload();
+        }
+
+        animator.SetTrigger("RELOADLOOP");
+    }
+    public void StopReload()
+    {
+        if (!data.isReloading) return;
 
         data.isReloading = false;
 
-        /* More old logic
-        if (weaponName == "Bennelli")
-            SoundManager.Instance.reloadSoundBennelli.Play();
-        else
-            SoundManager.Instance.reloadSound.Play();
-        // TODO Play animation n sound
-        */
+        //animator.SetBool("Reloading", false);
+        animator.SetTrigger("RELOADEND");
     }
+
 
     public bool canReload()
     {
@@ -178,4 +188,11 @@ public class Weapon : MonoBehaviour
             SoundManager.Instance.PlayWithRandomPitch(audioSource, clip);
         }
     }
+    public void ReadyToFire()
+    {
+        data.canShootShotgun = true; // Only matters for Shotgun
+    }
+   
+
 }
+
