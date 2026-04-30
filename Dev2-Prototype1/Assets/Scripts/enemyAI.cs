@@ -64,7 +64,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         //playerDir = gamemanager.instance.player.transform.position - transform.position; // Vile
         if (currTargetNexus == -1 || NexusManager.nexusManagerInstance.nexusList[currTargetNexus] == null)
         {
-            changeTarget();
+            StartCoroutine(CheckTarget());
             return;
         }
         if (nexusInRange && canSeeNexus())
@@ -269,5 +269,10 @@ public class EnemyAI : MonoBehaviour, IDamage
                 }
             }
         }
+    }
+    IEnumerator CheckTarget()
+    {
+        changeTarget();
+        yield return new WaitForSeconds(0.5f);
     }
 }
