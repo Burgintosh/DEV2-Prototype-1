@@ -29,4 +29,29 @@ public class ButtonFunctions : MonoBehaviour
     {
         gamemanager.instance.CloseSettings();
     }
+
+
+    public void UpdateSensitivity(float vol)
+    {
+        cameraController camController = Camera.main.GetComponent<cameraController>();
+        if (camController != null)
+            camController.SetSensitivity(vol);
+    }
+    public void UpdateMasterVolume(float vol)
+    {
+        // For when we add Master Volume
+    }
+
+    public void UpdateMusicVolume(float vol)
+    {
+        Debug.Log($"Slider moved! New Volume is: {vol}");
+        if (MusicManager.Instance != null)
+            MusicManager.Instance.SetMasterVolume(vol);
+    }
+
+    public void UpdateSFXVolume(float vol)
+    {
+        if(MusicManager.Instance != null)
+            SoundManager.Instance.masterSFXVol = vol;
+    }
 }
