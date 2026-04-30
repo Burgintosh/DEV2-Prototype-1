@@ -189,9 +189,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 160860719}
     - target: {fileID: 3758920739068983835, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
-      propertyPath: pauseVolMult
-      value: 0.15
+      propertyPath: fadeDur
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3758920739068983835, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
+      propertyPath: pauseVolMult
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3758920739068983835, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
+      propertyPath: interruptFadeDur
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3758920739068983835, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
+      propertyPath: musicTracks.Array.data[3].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 0dc682bc721551c45bca0054a36edf85, type: 3}
     - target: {fileID: 3758920739068983835, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
       propertyPath: musicTracks.Array.data[0].volume
       value: 0.5
