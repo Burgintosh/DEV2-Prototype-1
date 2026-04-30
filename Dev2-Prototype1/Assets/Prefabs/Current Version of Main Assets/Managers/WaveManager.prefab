@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3556993888844162275
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4597669022915533956}
+  - component: {fileID: 4566718816629061666}
+  m_Layer: 0
+  m_Name: WaveManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4597669022915533956
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3556993888844162275}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4566718816629061666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3556993888844162275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0889bfb9739aaf543b307855af2a7e5b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WaveManager
+  waves:
+  - clearReward: 150
+    groups:
+    - groupName: Main Spawn
+      spawnCenterPos: {fileID: 0}
+      spawnAreaSize: 2
+      startdelay: 0
+      spawnInterval: 3
+      spawnEntries:
+      - enemyPrefab: {fileID: 8343792541496309258, guid: e05fc7a4fa8be304fbf72feb0c743dcc, type: 3}
+        count: 5
+    - groupName: MainCoverageSpawn
+      spawnCenterPos: {fileID: 0}
+      spawnAreaSize: 2
+      startdelay: 0
+      spawnInterval: 3
+      spawnEntries:
+      - enemyPrefab: {fileID: 206251657112247229, guid: 22a7554c5d0c6b24dbe0233dfc1216fc, type: 3}
+        count: 5
+    - groupName: OtherSpawn
+      spawnCenterPos: {fileID: 0}
+      spawnAreaSize: 2
+      startdelay: 0
+      spawnInterval: 1
+      spawnEntries:
+      - enemyPrefab: {fileID: 8343792541496309258, guid: e05fc7a4fa8be304fbf72feb0c743dcc, type: 3}
+        count: 9
+    - groupName: SecondSideLaneSpawnPos
+      spawnCenterPos: {fileID: 0}
+      spawnAreaSize: 2
+      startdelay: 0
+      spawnInterval: 3
+      spawnEntries:
+      - enemyPrefab: {fileID: 8343792541496309258, guid: e05fc7a4fa8be304fbf72feb0c743dcc, type: 3}
+        count: 4
+  poolManager: {fileID: 0}
+  startWaveKey: 106
+  timeBetweenWaves: 10
+  allowEarlyWaveStart: 1
+  showDebugLogs: 1

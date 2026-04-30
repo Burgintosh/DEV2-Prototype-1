@@ -14,6 +14,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] float timeBetweenWaves = 10f;
     [SerializeField] bool allowEarlyWaveStart = true;
     [SerializeField] bool showDebugLogs = true;
+    [SerializeField] bool playGameplayMusicOnFirstWave = true;
 
     int currentWaveIndex = -1;
     int activeEnemyCount;
@@ -23,6 +24,7 @@ public class WaveManager : MonoBehaviour
     bool waitingForFirstWaveStart = true;
     bool waitingForNextWave;
     bool skipCountdownRequested;
+    bool gameplayMusicStarted;
 
     private void Start()
     {
@@ -63,6 +65,11 @@ public class WaveManager : MonoBehaviour
         {
             gamemanager.instance.youWin();
             return;
+        }
+
+        if(currentWaveIndex == 0)
+        {
+            TryStartGameplayMusic();
         }
 
         StartCoroutine(StartWaveRoutine(currentWaveIndex));
@@ -332,6 +339,28 @@ public class WaveManager : MonoBehaviour
         }
 
         return true;
+    }
+
+    void TryStartGameplayMusic()
+    {
+        if (!playGameplayMusicOnFirstWave)
+        {
+            return;
+        }
+
+        if (gameplayMusicStarted)
+        {
+            return;
+        }
+
+        if(MusicManager.Instance == null)
+        {
+            LogWarning("MusicManager instance is missing. Gameplay music could not start.");
+            return;
+        }
+
+        MusicManager.Instance.PlayMusic(MusicState.Gameplay);
+        gameplayMusicStarted = true;
     }
 
     void LogWarning(string _Msg)

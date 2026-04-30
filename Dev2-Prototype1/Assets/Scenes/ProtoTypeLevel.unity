@@ -188,6 +188,10 @@ PrefabInstance:
       propertyPath: waves.Array.data[0].groups.Array.data[3].spawnCenterPos
       value: 
       objectReference: {fileID: 160860719}
+    - target: {fileID: 3758920739068983835, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
+      propertyPath: pauseVolMult
+      value: 0.15
+      objectReference: {fileID: 0}
     - target: {fileID: 5362338115484872620, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
       propertyPath: m_Name
       value: Managers (Real)

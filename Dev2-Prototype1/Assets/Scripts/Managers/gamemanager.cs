@@ -111,12 +111,17 @@ public class gamemanager : MonoBehaviour
         nexusScript.OnNexusHPChanged -= UpdateNexusHPBar;
     }
 
-    public void statePause()
+    public void statePause(bool _LowerMusic = true)
     {
         isPaused = true;
         Time.timeScale = 0;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+
+        if(_LowerMusic && MusicManager.Instance != null)
+        {
+            MusicManager.Instance.SetPausedMusicVol(true);
+        }
     }
 
     public void stateUnpause()
@@ -125,20 +130,38 @@ public class gamemanager : MonoBehaviour
         Time.timeScale = timeScaleOrig;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        if(MusicManager.Instance != null)
+        {
+            MusicManager.Instance.SetPausedMusicVol(false);
+        }
+
         menuActive.SetActive(false);
         menuActive = null;
     }
     
     public void youWin()
     {
-        statePause();
+        if(MusicManager.Instance != null)
+        {
+            MusicManager.Instance.SetPausedMusicVol(false);
+            MusicManager.Instance.PlayMusic(MusicState.Victory, true);
+        }
+
+        statePause(false);
         menuActive = menuWin;
         menuActive.SetActive(true);
     }
 
     public void youLose()
     {
-        statePause();
+        if(MusicManager.Instance != null)
+        {
+            MusicManager.Instance.SetPausedMusicVol(false);
+            MusicManager.Instance.PlayMusic(MusicState.Defeat, true);
+        }
+
+        statePause(false);
         menuActive = menuLose;
         menuActive.SetActive(true);
     }
