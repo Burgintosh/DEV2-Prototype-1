@@ -74,6 +74,11 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     //public AudioSource jumpSound2;
     //public AudioSource jumpSound3;
 
+    [Header("Sound")]
+    [Range(0f, 1f)][SerializeField] float playerJumpVol = 0.5f;
+    [Range(0f, 1f)][SerializeField] float playerHurtVol = 0.5f;
+    [Range(0f, 1f)][SerializeField] float hurtSoundCooldown = 0.15f;
+
     float hurtSoundTimer;
 
     public event Action<Weapon> OnWeaponChanged;
@@ -128,7 +133,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         }
         
         OnHPChanged?.Invoke(HP);
-        hurtSoundTimer = 5f;
+        hurtSoundTimer = 0f;
     }
 
     void Update()
@@ -335,21 +340,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         //if(jumpBufferTimer > 0 && controller.isGrounded) // only works for single jump
         if(jumpBufferTimer > 0 && coyoteTimer > 0) // only works for single jump
         {
-            int rand = UnityEngine.Random.Range(1, 7);
-            switch (rand)
-            {
-                case 1:
-                    SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.playerJump1);
-                    break;
-                case 2:
-                    SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.playerJump2);
-                    break;
-                case 3:
-                    SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.playerJump3);
-                    break;
-                default:
-                    break;
-            }
+            PlayRandomJumpSound();
                 
             playerVel.y = jumpSpeed;
             jumpCount = 1;
@@ -464,31 +455,11 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     {
         HP -= amount; // do NOT destroy your player
         OnHPChanged?.Invoke(HP);
-        int rand = UnityEngine.Random.Range(1, 7);
-        if(hurtSoundTimer <= 0) {
-            switch (rand)
-            {
-                case 1:
-                    SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.playerHurt1);
-                    break;
-                case 2:
-                    SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.playerHurt2);
-                    break;
-                case 3:
-                    SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.playerHurt3);
-                    break;
-                case 4:
-                    SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.playerHurt4);
-                    break;
-                case 5:
-                    SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.playerHurt5);
-                    break;
-                case 6:
-                    SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.playerHurt6);
-                    break;
-                default:
-                    break;
-            }
+
+        if(hurtSoundTimer <= 0) 
+        {
+            PlayRandomHurtSound();
+            hurtSoundTimer = hurtSoundCooldown;
         }
         StartCoroutine(FlashDamage());
 
@@ -497,6 +468,81 @@ public class playerController : MonoBehaviour, IDamage, IPickup
             // Congrat u r ded
             gamemanager.instance.youLose();
         }
+    }
+
+    void PlayRandomJumpSound()
+    {
+        if (SoundManager.Instance == null)
+        {
+            return;
+        }
+
+        int rand = UnityEngine.Random.Range(1, 4);
+        AudioSource jumpSound = null;
+
+        switch (rand)
+        {
+            case 1:
+                jumpSound = SoundManager.Instance.playerJump1;
+                break;
+
+            case 2:
+                jumpSound = SoundManager.Instance.playerJump2;
+                break;
+
+            case 3:
+                jumpSound = SoundManager.Instance.playerJump3;
+                break;
+        }
+
+        if(jumpSound != null)
+        {
+            SoundManager.Instance.PlayWithRandomPitch(jumpSound, playerJumpVol, SoundCategory.Player);
+        }
+    }
+
+    void PlayRandomHurtSound()
+    {
+        if(SoundManager.Instance == null)
+        {
+            return;
+        }
+
+        int rand = UnityEngine.Random.Range(1, 7);
+        AudioSource hurtSound = null;
+
+        switch (rand)
+        {
+            case 1:
+                hurtSound = SoundManager.Instance.playerHurt1;
+                break;
+
+            case 2:
+                hurtSound = SoundManager.Instance.playerHurt2;
+                break;
+
+            case 3:
+                hurtSound = SoundManager.Instance.playerHurt3;
+                break;
+
+            case 4:
+                hurtSound = SoundManager.Instance.playerHurt4;
+                break;
+
+            case 5:
+                hurtSound = SoundManager.Instance.playerHurt5;
+                break;
+
+            case 6:
+                hurtSound = SoundManager.Instance.playerHurt6;
+                break;
+        }
+
+        if(hurtSound != null)
+        {
+            SoundManager.Instance.PlayWithRandomPitch(hurtSound, playerHurtVol, SoundCategory.Player);
+        }
+
     }
 
     IEnumerator FlashDamage()

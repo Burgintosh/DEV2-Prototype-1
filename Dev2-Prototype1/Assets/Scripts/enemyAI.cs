@@ -4,6 +4,9 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour, IDamage
 {
+    [Header("Sound")]
+    [Range(0f, 1f)]
+    [SerializeField] float enemyShootVol = 0.5f;
 
     [SerializeField] int maxHP = 3;
     int HP;
@@ -109,9 +112,18 @@ public class EnemyAI : MonoBehaviour, IDamage
     void shoot()
     {
         shootTimer = 0;
-        if (bullet != null)
-            SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.enemyShootSound);
-            Instantiate(bullet, shootPos.position, gunPivot.rotation);
+
+        if(bullet == null)
+        {
+            return;
+        }
+
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.enemyShootSound, enemyShootVol, SoundCategory.Enemy);
+        }
+
+        Instantiate(bullet, shootPos.position, gunPivot.rotation);
     }
 
     void gunRotate()
