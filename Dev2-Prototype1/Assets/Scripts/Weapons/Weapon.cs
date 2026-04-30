@@ -49,7 +49,7 @@ public class Weapon : MonoBehaviour
 
         // New Logic
         if (data.shootClip != null)
-            PlayGunSound(data.shootClip);
+            PlayGunSoundWithVolume(data.shootClip, data.shootVol);
 
         if (muzzleEffect != null)
             muzzleEffect.GetComponent<ParticleSystem>().Play();
@@ -100,7 +100,7 @@ public class Weapon : MonoBehaviour
 
     public void GunClick()
     {
-        PlayGunSound(data.emptyClip);
+        PlayGunSoundWithVolume(data.emptyClip, data.emptyClickVol);
     }
 
     public void StartReload()
@@ -182,11 +182,34 @@ public class Weapon : MonoBehaviour
         return data.bulletsLeft > 0;
     }
 
-    private void PlayGunSound(AudioClip clip)
+    public void PlayGunSound(AudioClip _Clip)
     {
-        if (clip != null) {
-            SoundManager.Instance.PlayWithRandomPitch(audioSource, clip);
+        PlayGunSoundWithVolume(_Clip, data.reloadVol);
+    }
+
+    private void PlayGunSoundWithVolume(AudioClip clip, float _Volume)
+    {
+        if(clip == null)
+        {
+            return;
         }
+
+        if(audioSource == null)
+        {
+            Debug.LogWarning("Weapon is missing an AudioSource: " + data.weaponName);
+            return;
+        }
+
+        if(SoundManager.Instance == null)
+        {
+            return;
+        }
+
+        SoundManager.Instance.PlayWithRandomPitch(audioSource, clip, _Volume, SoundCategory.Weapon);
+
+        //if (clip != null) {
+        //    SoundManager.Instance.PlayWithRandomPitch(audioSource, clip);
+        //}
     }
     public void ReadyToFire()
     {
