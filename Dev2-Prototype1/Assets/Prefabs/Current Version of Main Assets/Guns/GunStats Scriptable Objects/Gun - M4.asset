@@ -16,10 +16,10 @@ MonoBehaviour:
   weaponName: M4
   shootDamage: 2
   shootDist: 1000
-  shootRate: 0.2
+  shootRate: 0.3
   magazineSize: 30
   reloadTime: 1.5
-  bulletsLeft: 12
+  bulletsLeft: 31
   isReloading: 0
   shootClip: {fileID: 8300000, guid: 61d2f4d4705f5b249bec7ffa6404151b, type: 3}
   reloadClip: {fileID: 8300000, guid: 91cdff66eae7aaa4893dcf8f3a686424, type: 3}
@@ -29,3 +29,4 @@ MonoBehaviour:
   shellReloadTime: 0.5
   pelletCount: 1
   spreadAngle: 0
+  canShootShotgun: 1

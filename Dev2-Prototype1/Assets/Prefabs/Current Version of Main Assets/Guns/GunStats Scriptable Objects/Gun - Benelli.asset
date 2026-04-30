@@ -19,7 +19,7 @@ MonoBehaviour:
   shootRate: 1
   magazineSize: 7
   reloadTime: 0
-  bulletsLeft: 5
+  bulletsLeft: 4
   isReloading: 0
   shootClip: {fileID: 8300000, guid: 713c45bf545b9724ab291e5547bdb1d8, type: 3}
   reloadClip: {fileID: 8300000, guid: f121a3bffc9f99c46833c19b281a84ae, type: 3}
@@ -29,3 +29,4 @@ MonoBehaviour:
   shellReloadTime: 0.5
   pelletCount: 6
   spreadAngle: 5
+  canShootShotgun: 1

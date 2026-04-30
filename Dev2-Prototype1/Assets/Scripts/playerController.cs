@@ -142,7 +142,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         UpdateTimers();
         movement();
         //if (currentWeapon != null && shootAction.action.IsPressed() && shootTimer >= currentWeapon.data.shootRate && !gamemanager.instance.isPaused && !currentWeapon.isReloading)
-        if (currentWeapon != null && shootAction.action.IsPressed() && shootTimer >= currentWeapon.data.shootRate && !gamemanager.instance.isPaused && (!currentWeapon.data.isReloading || currentWeapon.data.isSingleShellReload))
+        if (currentWeapon != null && shootAction.action.IsPressed() && shootTimer >= currentWeapon.data.shootRate && !gamemanager.instance.isPaused && ((!currentWeapon.data.isReloading || currentWeapon.data.isSingleShellReload) && currentWeapon.data.canShootShotgun))
         {
             Debug.Log("Shooting");
             shoot();
@@ -152,7 +152,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         {
             if (!currentWeapon.data.isReloading && currentWeapon.canReload())
             {
-                StartCoroutine(currentWeapon.Reload());
+                //StartCoroutine(currentWeapon.Reload());
+                currentWeapon.StartReload();
             }
         }
     }
@@ -464,7 +465,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         HP -= amount; // do NOT destroy your player
         OnHPChanged?.Invoke(HP);
         int rand = UnityEngine.Random.Range(1, 7);
-        if(hurtSoundTimer <= 0) { 
+        if(hurtSoundTimer <= 0) {
             switch (rand)
             {
                 case 1:
