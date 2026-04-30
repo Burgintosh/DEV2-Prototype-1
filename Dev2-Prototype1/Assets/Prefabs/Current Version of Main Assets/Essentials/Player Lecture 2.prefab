@@ -459,7 +459,7 @@ MonoBehaviour:
     placementRadius: 1.5
     previewYOffset: 0.1
     placementMode: 1
-    surfaceRotOffset: {x: 180, y: 0, z: 0}
+    surfaceRotOffset: {x: 90, y: 0, z: 0}
     surfaceSpinAxis: 0
   currBuildIndex: 0
   togglePreviewKey: 98
