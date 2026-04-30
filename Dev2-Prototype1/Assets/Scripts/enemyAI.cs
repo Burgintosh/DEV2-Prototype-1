@@ -51,7 +51,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         if(agent != null)
         {
             stoppingDistOrig = agent.stoppingDistance;
-            agent.ResetPath();
+            //agent.ResetPath();
         }
 
         HP = maxHP;
@@ -240,8 +240,8 @@ public class EnemyAI : MonoBehaviour, IDamage
         if(agent != null)
         {
             agent.enabled = true;
-            agent.ResetPath();
-            agent.stoppingDistance = stoppingDistOrig;
+            //agent.ResetPath();
+            //agent.stoppingDistance = stoppingDistOrig;
             agent.velocity = Vector3.zero;
             agent.Warp(transform.position);
         }
