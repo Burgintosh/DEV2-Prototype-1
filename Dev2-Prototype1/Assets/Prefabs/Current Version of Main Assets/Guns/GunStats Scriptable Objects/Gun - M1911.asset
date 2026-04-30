@@ -22,9 +22,11 @@ MonoBehaviour:
   bulletsLeft: 15
   isReloading: 0
   shootClip: {fileID: 8300000, guid: 6a2c4900d4c8c8b4db066ba96de348b4, type: 3}
-  reloadClip: {fileID: 8300000, guid: 91cdff66eae7aaa4893dcf8f3a686424, type: 3}
   emptyClip: {fileID: 8300000, guid: 6c357fa4beb860343a34624d66ea8c12, type: 3}
   hitEffect: {fileID: 6932662996829953957, guid: e7a64ce28a726fe42a4aaaf79064a28e, type: 3}
+  shootVol: 0.5
+  reloadVol: 0.5
+  emptyClickVol: 0.5
   isSingleShellReload: 0
   shellReloadTime: 0.5
   pelletCount: 1
