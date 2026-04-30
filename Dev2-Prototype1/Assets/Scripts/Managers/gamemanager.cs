@@ -15,6 +15,7 @@ public class gamemanager : MonoBehaviour
     // [SerializeField] GameObject menuRespawn;
     [SerializeField] GameObject menuWin;
     [SerializeField] GameObject menuLose;
+    [SerializeField] GameObject menuSetting;
 
     [Header("Currency")]
     public CurrencyManager currencyManager;
@@ -74,6 +75,10 @@ public class gamemanager : MonoBehaviour
                 menuActive = menuPause;
                 menuActive.SetActive(true);
 
+            }
+            else if (menuActive == menuSetting)
+            {
+                CloseSettings();
             }
             else if(menuActive == menuPause)
             {
@@ -139,7 +144,30 @@ public class gamemanager : MonoBehaviour
         menuActive.SetActive(false);
         menuActive = null;
     }
-    
+    public void OpenSettings()
+    {
+        if (menuActive != null)
+        {
+            menuActive.SetActive(false);
+        }
+
+        menuActive = menuSetting;
+        menuActive.SetActive(true);
+    }
+    public void CloseSettings()
+    {
+        if (menuSetting != null)
+        {
+            menuSetting.SetActive(false);
+        }
+
+        menuActive = menuPause;
+
+        if (menuActive != null)
+        {
+            menuActive.SetActive(true);
+        }
+    }
     public void youWin()
     {
         if(MusicManager.Instance != null)
