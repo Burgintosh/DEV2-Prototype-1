@@ -4,6 +4,9 @@ using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour, IDamage
 {
+    [Header("Sound")]
+    [Range(0f, 1f)]
+    [SerializeField] float enemyShootVol = 0.5f;
 
     [SerializeField] int maxHP = 3;
     int HP;
@@ -24,7 +27,10 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     Color colorOrig;
 
+    int currTargetNexus = -1;
+
     float shootTimer;
+    float afkTimer;
     float angleToPlayer;
     float angleToNexus;
     float stoppingDistOrig;
@@ -45,9 +51,11 @@ public class EnemyAI : MonoBehaviour, IDamage
         if(agent != null)
         {
             stoppingDistOrig = agent.stoppingDistance;
+            agent.ResetPath();
         }
 
         HP = maxHP;
+        changeTarget();
     }
 
     // Update is called once per frame
@@ -55,8 +63,18 @@ public class EnemyAI : MonoBehaviour, IDamage
     {
         shootTimer += Time.deltaTime;
 
-        //playerDir = gamemanager.instance.player.transform.position - transform.position; // Vile
+        if(agent.velocity.magnitude < 1)
+            afkTimer += Time.deltaTime;
+        else
+            afkTimer = 0;
 
+
+        //playerDir = gamemanager.instance.player.transform.position - transform.position; // Vile
+        if (currTargetNexus == -1 || NexusManager.nexusManagerInstance.nexusList[currTargetNexus] == null)
+        {
+            StartCoroutine(CheckTarget());
+            return;
+        }
         if (nexusInRange && canSeeNexus())
         {
 
@@ -65,15 +83,28 @@ public class EnemyAI : MonoBehaviour, IDamage
         {
 
         }
+        else if (!agent.isOnNavMesh)
+        {
+            ResetAgentToMesh();
+        }
+        //else if (!agent.pathPending && afkTimer > 5)
+        else if (afkTimer > 5)
+        {
+            Debug.Log("Before reset: " + agent.pathStatus);
+            agent.ResetPath();
+            if (!agent.SetDestination(NexusManager.nexusManagerInstance.nexusList[currTargetNexus].transform.position))
+            {
+                Debug.Log("RUH ROH RAGGY I CAN'T FIND A NEXUS");
+            }
+            Debug.Log("After Reset: " + agent.pathStatus);
+            shootTimer = 0;
+        }
         else
         {
-            if(gamemanager.instance.Nexus == null)
+            if (!agent.SetDestination(NexusManager.nexusManagerInstance.nexusList[currTargetNexus].transform.position))
             {
-                //Debug.Log("Nexus is null or not found");
-                return;
+                Debug.Log("RUH ROH RAGGY I CAN'T FIND A NEXUS but in else");
             }
-
-            agent.SetDestination(gamemanager.instance.Nexus.transform.position);
         }
     }
 
@@ -107,9 +138,18 @@ public class EnemyAI : MonoBehaviour, IDamage
     void shoot()
     {
         shootTimer = 0;
-        if (bullet != null)
-            SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.enemyShootSound);
-            Instantiate(bullet, shootPos.position, gunPivot.rotation);
+
+        if(bullet == null)
+        {
+            return;
+        }
+
+        if (SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.enemyShootSound, enemyShootVol, SoundCategory.Enemy);
+        }
+
+        Instantiate(bullet, shootPos.position, gunPivot.rotation);
     }
 
     void gunRotate()
@@ -136,7 +176,7 @@ public class EnemyAI : MonoBehaviour, IDamage
             nexusInRange = true;
         }
     }
-
+    //the compare tag has to be there or the guys won't shoot at the nexus
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -191,7 +231,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         angleToNexus = 0f;
         nexusInRange = false;
         nexusDir = Vector3.zero;
-
+        currTargetNexus = -1;
         if(model != null)
         {
             model.material.color = colorOrig;
@@ -203,12 +243,13 @@ public class EnemyAI : MonoBehaviour, IDamage
             agent.ResetPath();
             agent.stoppingDistance = stoppingDistOrig;
             agent.velocity = Vector3.zero;
+            agent.Warp(transform.position);
         }
     }
     bool canSeeNexus()
     {
-        if (gamemanager.instance.Nexus == null) return false;
-        nexusDir = gamemanager.instance.Nexus.transform.position - transform.position;
+        if (NexusManager.nexusManagerInstance.nexusList[currTargetNexus] == null) return false;
+        nexusDir = NexusManager.nexusManagerInstance.nexusList[currTargetNexus].transform.position - transform.position;
         angleToNexus = Vector3.Angle(nexusDir, transform.forward);
 
 
@@ -227,11 +268,55 @@ public class EnemyAI : MonoBehaviour, IDamage
                 if (shootTimer >= shootRate)
                     shoot();
 
-                agent.SetDestination(gamemanager.instance.Nexus.transform.position);
+                agent.SetDestination(NexusManager.nexusManagerInstance.nexusList[currTargetNexus].transform.position);
 
                 return true;
             }
         }
         return false;
+    }
+    void changeTarget()
+    {
+        nexusInRange = false;
+        if (currTargetNexus == -1)
+        {
+            currTargetNexus = Random.Range(0, NexusManager.nexusManagerInstance.nexusList.Count);
+        }
+        else
+        {
+            currTargetNexus = 0;
+            while( NexusManager.nexusManagerInstance.nexusList[currTargetNexus] == null)
+            {
+                currTargetNexus++;
+                if(currTargetNexus == NexusManager.nexusManagerInstance.nexusList.Count)
+                {
+                    Debug.Log("No Valid Target");
+                    currTargetNexus = 0;
+                    return;
+                }
+            }
+        }
+    }
+    IEnumerator CheckTarget()
+    {
+        changeTarget();
+        yield return new WaitForSeconds(0.5f);
+    }
+
+    public void ResetAgentToMesh()
+    {
+        NavMeshHit hit;
+        // Search within a small radius (typically 1-2x agent height)
+        float searchRadius = 2.0f;
+
+        if (NavMesh.SamplePosition(agent.transform.position, out hit, searchRadius, NavMesh.AllAreas))
+        {
+            // Warp the agent to the actual sampled position on the mesh
+            agent.Warp(hit.position);
+        }
+        else
+        {
+            Debug.LogWarning("No NavMesh found near agent position!");
+        }
     }
 }

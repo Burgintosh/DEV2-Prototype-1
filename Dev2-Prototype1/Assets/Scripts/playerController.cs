@@ -1,11 +1,13 @@
+using NUnit.Framework.Interfaces;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using System.Collections;
 
-public class playerController : MonoBehaviour, IDamage
+public class playerController : MonoBehaviour, IDamage, IPickup
 {
     [SerializeField] CharacterController controller;
     [SerializeField] LayerMask ignoreLayer;
@@ -17,9 +19,13 @@ public class playerController : MonoBehaviour, IDamage
 
     [Header("Gun")]
     [SerializeField] List<Weapon> weapons = new List<Weapon>();
-    Weapon lastWeapon;
+    private List<Weapon> weaponModels = new List<Weapon>();
+    [SerializeField] private GameObject weaponHolder;
+    private Weapon lastWeapon;
+    private Weapon currentWeapon;
     int currentWeaponIndex = 0;
     float shootTimer;
+   
 
     [Header("Dash")]
     [SerializeField] float dashSpeed;
@@ -44,8 +50,10 @@ public class playerController : MonoBehaviour, IDamage
     [Range(100, 300)] [SerializeField] float airAcceleration = 150f; // Default 150
     [Range(1, 30)] [SerializeField] float groundFriction = 25f; // Default 25
     [Range(0.1f, 0.5f)] [SerializeField] float jumpBuffer = 0.4f; // Default 0.4
+    [Range(0.1f, 0.3f)][SerializeField] float coyoteTime = 0.15f; // 0.15
     [Range(0f, 10f)] [SerializeField] float airSpeedCap = 1f; // Default 1 (0 for no cap)
     float jumpBufferTimer;
+    float coyoteTimer;
 
 
     [Header("Input Setup (For Input System Package")]
@@ -58,12 +66,18 @@ public class playerController : MonoBehaviour, IDamage
     [SerializeField] InputActionReference Weapon1;
     [SerializeField] InputActionReference Weapon2;
     [SerializeField] InputActionReference Weapon3;
+    //[SerializeField] InputActionReference mWheel; // Couldn't figure this out lol
     Vector3 moveDir;
     Vector3 playerVel;
 
     //public AudioSource jumpSound1;
     //public AudioSource jumpSound2;
     //public AudioSource jumpSound3;
+
+    [Header("Sound")]
+    [Range(0f, 1f)][SerializeField] float playerJumpVol = 0.5f;
+    [Range(0f, 1f)][SerializeField] float playerHurtVol = 0.5f;
+    [Range(0f, 1f)][SerializeField] float hurtSoundCooldown = 0.15f;
 
     float hurtSoundTimer;
 
@@ -98,36 +112,64 @@ public class playerController : MonoBehaviour, IDamage
     void Start()
     {
         HPOrig = HP;
-        lastWeapon = weapons[currentWeaponIndex];
+        spawnPlayer();
+
+        for (int i = 0; i < weapons.Count; i++)
+        {
+            Weapon newWeapon = Instantiate(weapons[i], weaponHolder.transform);
+
+            newWeapon.transform.localPosition = Vector3.zero;
+            newWeapon.transform.localRotation = Quaternion.identity;
+            newWeapon.transform.localScale = Vector3.one;
+            newWeapon.gameObject.SetActive(false);
+            newWeapon.data.isReloading = false;
+
+            weaponModels.Add(newWeapon);
+        }
+
+        if (weaponModels.Count > 0)
+        {
+            currentWeaponIndex = -1;
+            SwitchWeapon(0);
+        }
+        
         OnHPChanged?.Invoke(HP);
-        hurtSoundTimer = 5f;
+        hurtSoundTimer = 0f;
     }
 
     void Update()
     {
-        if (weapons.Count > 0 && (currentWeaponIndex == 0 || currentWeaponIndex < weapons.Count))
-            Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * weapons[currentWeaponIndex].shootDist, Color.yellow);
+        if (weaponModels.Count > 0 && (currentWeaponIndex == 0 || currentWeaponIndex < weaponModels.Count))
+            Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * currentWeapon.data.shootDist, Color.yellow);
 
 
         HandleDashInput();
         HandleWeaponSwitch();
         UpdateTimers();
         movement();
-        sprint();
-        if (weapons.Count > 0 && shootAction.action.IsPressed() && shootTimer >= weapons[currentWeaponIndex].shootRate && !gamemanager.instance.isPaused && !weapons[currentWeaponIndex].isReloading)
+        //if (currentWeapon != null && shootAction.action.IsPressed() && shootTimer >= currentWeapon.data.shootRate && !gamemanager.instance.isPaused && !currentWeapon.isReloading)
+        if (currentWeapon != null && shootAction.action.IsPressed() && shootTimer >= currentWeapon.data.shootRate && !gamemanager.instance.isPaused && ((!currentWeapon.data.isReloading || currentWeapon.data.isSingleShellReload) && currentWeapon.data.canShootShotgun))
         {
             Debug.Log("Shooting");
             shoot();
         }
 
-        if(weapons.Count > 0 && reloadAction.action.WasPressedThisFrame())
+        if(currentWeapon != null && reloadAction.action.WasPressedThisFrame())
         {
-            Weapon currentWeapon = weapons[currentWeaponIndex];
-            if (!currentWeapon.isReloading && currentWeapon.canReload())
+            if (!currentWeapon.data.isReloading && currentWeapon.canReload())
             {
-                StartCoroutine(currentWeapon.Reload());
+                //StartCoroutine(currentWeapon.Reload());
+                currentWeapon.StartReload();
             }
         }
+    }
+
+    public void spawnPlayer()
+    {
+        if (gamemanager.instance.playerSpawnPos == null) return;
+        controller.transform.position = gamemanager.instance.playerSpawnPos.transform.position;
+        Physics.SyncTransforms();
+        HP = HPOrig;
     }
 
     void UpdateTimers()
@@ -142,7 +184,11 @@ public class playerController : MonoBehaviour, IDamage
         {
             jumpBufferTimer -= Time.deltaTime;
         }
-        if(hurtSoundTimer > 0)
+        if (coyoteTimer > 0)
+        {
+            coyoteTimer -= Time.deltaTime;
+        }
+        if (hurtSoundTimer > 0)
         {
             hurtSoundTimer -= Time.deltaTime;
         }
@@ -223,10 +269,16 @@ public class playerController : MonoBehaviour, IDamage
 
             Vector3 wishDir = moveDir.normalized;
 
+            float currentMoveSpeed = speed;
+            if (sprintAction.action.IsPressed() && controller.isGrounded)
+            {
+                currentMoveSpeed = speed * sprintMod; // Old sprint code kept slowly increasing movement speed over time
+            }
+
             if (controller.isGrounded && jumpCount == 0)
             {
                 ApplyFriction();
-                Accelerate(wishDir, speed, acceleration);
+                Accelerate(wishDir, currentMoveSpeed, acceleration);
             }
             else
             {
@@ -257,7 +309,8 @@ public class playerController : MonoBehaviour, IDamage
         if (controller.isGrounded)
         {
             jumpCount = 0;
-            if(playerVel.y < 0)
+            coyoteTimer = coyoteTime;
+            if (playerVel.y < 0)
                 playerVel.y = -2f;
         }
         // moveDir = new Vector3(Input.GetAxis("Horizontal"),0, Input.GetAxis("Vertical")); // This works for top down games, but not first person. This movement is global based so gets weird when player rotates
@@ -276,25 +329,6 @@ public class playerController : MonoBehaviour, IDamage
         
     }
 
-    void sprint()
-    {
-        //if(Input.GetButtonDown("Sprint")) // GetButton is polling ie hold to sprint, Down and Up are toggles
-        //{
-        //    speed *= sprintMod;
-        //}
-        //else if(Input.GetButtonUp("Sprint"))
-        //{
-        //    speed /= sprintMod;
-        //}
-        if (sprintAction.action.WasPressedThisFrame())
-        {
-            speed *= sprintMod;
-        }
-        else if (sprintAction.action.WasReleasedThisFrame())
-        {
-            speed /= sprintMod;
-        }
-    }
 
     void jump()
     {
@@ -305,62 +339,78 @@ public class playerController : MonoBehaviour, IDamage
             //playerVel.y = jumpSpeed;
             //jumpCount++;
         }
-        if(jumpBufferTimer > 0 && controller.isGrounded) // only works for single jump
+        //if(jumpBufferTimer > 0 && controller.isGrounded) // only works for single jump
+        if(jumpBufferTimer > 0 && coyoteTimer > 0) // only works for single jump
         {
-            int rand = UnityEngine.Random.Range(1, 7);
-            switch (rand)
-            {
-                case 1:
-                    SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.playerJump1);
-                    break;
-                case 2:
-                    SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.playerJump2);
-                    break;
-                case 3:
-                    SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.playerJump3);
-                    break;
-                default:
-                    break;
-            }
+            PlayRandomJumpSound();
                 
             playerVel.y = jumpSpeed;
             jumpCount = 1;
             jumpBufferTimer = 0;
+            coyoteTimer = 0;
         }
     }
 
     void HandleWeaponSwitch()
     {
-        if (Weapon1.action != null && Weapon1.action.WasPressedThisFrame() && weapons.Count > 0 && currentWeaponIndex != 0)
+        if (Weapon1.action != null && Weapon1.action.WasPressedThisFrame() && weaponModels.Count > 0 && currentWeaponIndex != 0)
         {
-            lastWeapon = weapons[currentWeaponIndex];
-            currentWeaponIndex = 0;
-            Debug.Log("Switched to " + weapons[currentWeaponIndex].weaponName);
+            //lastWeapon = currentWeapon; // Handled in SwitchWeapon(int)
+            //currentWeaponIndex = 0;
+            SwitchWeapon(0);
         }
-        else if (Weapon2.action != null && Weapon2.action.WasPressedThisFrame() && weapons.Count > 1 && currentWeaponIndex != 1)
+        else if (Weapon2.action != null && Weapon2.action.WasPressedThisFrame() && weaponModels.Count > 1 && currentWeaponIndex != 1)
         {
-            lastWeapon = weapons[currentWeaponIndex];
-            currentWeaponIndex = 1;
-            Debug.Log("Switched to " + weapons[currentWeaponIndex].weaponName);
+            //lastWeapon = currentWeapon; // Handled in SwitchWeapon(int)
+            //currentWeaponIndex = 1;
+            SwitchWeapon(1);
         }
-        else if (Weapon3.action != null && Weapon3.action.WasPressedThisFrame() && weapons.Count > 2 && currentWeaponIndex != 2)
+        else if (Weapon3.action != null && Weapon3.action.WasPressedThisFrame() && weaponModels.Count > 2 && currentWeaponIndex != 2)
         {
-            lastWeapon = weapons[currentWeaponIndex];
-            currentWeaponIndex = 2;
-            Debug.Log("Switched to " + weapons[currentWeaponIndex].weaponName);
+            //lastWeapon = currentWeapon; // Handled in SwitchWeapon(int)
+            //currentWeaponIndex = 2;
+            SwitchWeapon(2);
         }
-        OnWeaponChanged?.Invoke(weapons[currentWeaponIndex]);
+        else if (Input.GetAxis("Mouse ScrollWheel") > 0 && currentWeaponIndex < weaponModels.Count - 1)
+        {
+            SwitchWeapon(currentWeaponIndex + 1);
+            
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0 && currentWeaponIndex > 0)
+        {
+            SwitchWeapon(currentWeaponIndex - 1);
+        }
+    }
+
+    void SwitchWeapon(int newWeaponIndex)
+    {
+        if (newWeaponIndex == currentWeaponIndex) return;
+
+        for (int i = 0; i < weaponModels.Count; i++)
+        {
+            weaponModels[i].gameObject.SetActive(false);
+        }
+        //weapons[currentWeaponIndex].gameObject.SetActive(false);
+
+        lastWeapon = currentWeapon;
+        currentWeaponIndex = newWeaponIndex;
+        currentWeapon = weaponModels[newWeaponIndex];
+
+        currentWeapon.gameObject.SetActive(true);
+
+        Debug.Log("Switched to " + currentWeapon.data.weaponName);
+        OnWeaponChanged?.Invoke(currentWeapon);
+
     }
 
     void shoot()
     {
-        if (weapons.Count == 0 || currentWeaponIndex < 0 || currentWeaponIndex >= weapons.Count)
+        if (weaponModels.Count == 0 || currentWeaponIndex < 0 || currentWeaponIndex >= weaponModels.Count)
         {
             Debug.Log("No weapon selected! -- shoot()");
             return;
         }
         shootTimer = 0;
-        Weapon currentWeapon = weapons[currentWeaponIndex];
 
         if(currentWeapon != null)
         {
@@ -387,7 +437,7 @@ public class playerController : MonoBehaviour, IDamage
 
     public Weapon GetCurrentWeapon()
     {
-        return weapons[currentWeaponIndex];
+        return currentWeapon;
     }
     public Weapon GetLastWeapon()
     {
@@ -407,31 +457,11 @@ public class playerController : MonoBehaviour, IDamage
     {
         HP -= amount; // do NOT destroy your player
         OnHPChanged?.Invoke(HP);
-        int rand = UnityEngine.Random.Range(1, 7);
-        if(hurtSoundTimer <= 0) { 
-            switch (rand)
-            {
-                case 1:
-                    SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.playerHurt1);
-                    break;
-                case 2:
-                    SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.playerHurt2);
-                    break;
-                case 3:
-                    SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.playerHurt3);
-                    break;
-                case 4:
-                    SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.playerHurt4);
-                    break;
-                case 5:
-                    SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.playerHurt5);
-                    break;
-                case 6:
-                    SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.playerHurt6);
-                    break;
-                default:
-                    break;
-            }
+
+        if(hurtSoundTimer <= 0) 
+        {
+            PlayRandomHurtSound();
+            hurtSoundTimer = hurtSoundCooldown;
         }
         StartCoroutine(FlashDamage());
 
@@ -442,11 +472,98 @@ public class playerController : MonoBehaviour, IDamage
         }
     }
 
+    void PlayRandomJumpSound()
+    {
+        if (SoundManager.Instance == null)
+        {
+            return;
+        }
+
+        int rand = UnityEngine.Random.Range(1, 4);
+        AudioSource jumpSound = null;
+
+        switch (rand)
+        {
+            case 1:
+                jumpSound = SoundManager.Instance.playerJump1;
+                break;
+
+            case 2:
+                jumpSound = SoundManager.Instance.playerJump2;
+                break;
+
+            case 3:
+                jumpSound = SoundManager.Instance.playerJump3;
+                break;
+        }
+
+        if(jumpSound != null)
+        {
+            SoundManager.Instance.PlayWithRandomPitch(jumpSound, playerJumpVol, SoundCategory.Player);
+        }
+    }
+
+    void PlayRandomHurtSound()
+    {
+        if(SoundManager.Instance == null)
+        {
+            return;
+        }
+
+        int rand = UnityEngine.Random.Range(1, 7);
+        AudioSource hurtSound = null;
+
+        switch (rand)
+        {
+            case 1:
+                hurtSound = SoundManager.Instance.playerHurt1;
+                break;
+
+            case 2:
+                hurtSound = SoundManager.Instance.playerHurt2;
+                break;
+
+            case 3:
+                hurtSound = SoundManager.Instance.playerHurt3;
+                break;
+
+            case 4:
+                hurtSound = SoundManager.Instance.playerHurt4;
+                break;
+
+            case 5:
+                hurtSound = SoundManager.Instance.playerHurt5;
+                break;
+
+            case 6:
+                hurtSound = SoundManager.Instance.playerHurt6;
+                break;
+        }
+
+        if(hurtSound != null)
+        {
+            SoundManager.Instance.PlayWithRandomPitch(hurtSound, playerHurtVol, SoundCategory.Player);
+        }
+
+    }
+
     IEnumerator FlashDamage()
     {
         gamemanager.instance.playerDamageFlashScreen.SetActive(true);
         yield return new WaitForSeconds(0.1f);
         gamemanager.instance.playerDamageFlashScreen.SetActive(false);
     }
+    public void getWeaponData(WeaponData weapon)
+    {
+        Weapon newWeapon = Instantiate(weapon.prefab.GetComponent<Weapon>(), weaponHolder.transform); // This is so stupid
 
+        newWeapon.transform.localPosition = Vector3.zero;
+        newWeapon.transform.localRotation = Quaternion.identity;
+        newWeapon.transform.localScale = Vector3.one;
+        newWeapon.gameObject.SetActive(false);
+        newWeapon.data.isReloading = false;
+
+        weaponModels.Add(newWeapon);
+        SwitchWeapon(weaponModels.Count - 1);
+    }
 }

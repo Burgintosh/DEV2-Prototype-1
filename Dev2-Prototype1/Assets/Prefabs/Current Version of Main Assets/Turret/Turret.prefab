@@ -234,8 +234,8 @@ MonoBehaviour:
   shootRate: 1
   shootPos: {fileID: 7451700377391386237}
   gunPivot: {fileID: 2072058723889720955}
-  gunRotateSpeed: 3
-  targetFaceSpeed: 4
+  gunRotateSpeed: 6
+  targetFaceSpeed: 6
   FOV: 360
 --- !u!33 &4312131226062206769
 MeshFilter:

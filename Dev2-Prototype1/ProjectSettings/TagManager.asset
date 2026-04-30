@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Nexus
+  - Player Spawn Pos
   layers:
   - Default
   - TransparentFX
@@ -20,8 +21,8 @@ TagManager:
   - Turret
   - Obstacle
   - Nexus
-  - 
-  - 
+  - Lane
+  - Guns
   - 
   - 
   - 
