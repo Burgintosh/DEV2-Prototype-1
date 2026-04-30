@@ -435,7 +435,7 @@ MonoBehaviour:
     buildableType: 2
     placedPrefab: {fileID: 5748728663981810870, guid: cd95805005b801b45bd8a11688798d2d, type: 3}
     placedPreview: {fileID: 2648660969215610069, guid: 4355e6c8a2190c64fa5eb021afa1004d, type: 3}
-    cost: 100
+    cost: 75
     refundAmount: 100
     placementRadius: 0.35
     previewYOffset: 0.1
@@ -446,7 +446,7 @@ MonoBehaviour:
     buildableType: 3
     placedPrefab: {fileID: 6947171205992848790, guid: 10c1470a9096d5844a5cd83bd28d13fc, type: 3}
     placedPreview: {fileID: 2094191744405732728, guid: 2f6155ec6a99a5f409a882f9cac97c67, type: 3}
-    cost: 100
+    cost: 50
     refundAmount: 100
     placementRadius: 1.5
     previewYOffset: 0.1
@@ -457,12 +457,12 @@ MonoBehaviour:
     buildableType: 2
     placedPrefab: {fileID: 7195392270888888398, guid: 0d64c4c1ca368a745810230365d4fe37, type: 3}
     placedPreview: {fileID: 6804340040020443370, guid: f4b5427b6023c1d4e88ae71a1c450f30, type: 3}
-    cost: 100
-    refundAmount: 100
+    cost: 50
+    refundAmount: 50
     placementRadius: 1.5
     previewYOffset: 0.1
     placementMode: 1
-    surfaceRotOffset: {x: 90, y: 0, z: 0}
+    surfaceRotOffset: {x: 180, y: 0, z: 0}
     surfaceSpinAxis: 0
   currBuildIndex: 0
   togglePreviewKey: 98
