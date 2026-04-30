@@ -50,6 +50,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         if(agent != null)
         {
             stoppingDistOrig = agent.stoppingDistance;
+            agent.ResetPath();
         }
 
         HP = maxHP;
@@ -75,7 +76,14 @@ public class EnemyAI : MonoBehaviour, IDamage
         {
 
         }
-
+        else if (agent.velocity.magnitude < 1 && !agent.pathPending && shootTimer > 5)
+        {
+            Debug.Log(agent.pathStatus);
+            agent.ResetPath();
+            agent.SetDestination(NexusManager.nexusManagerInstance.nexusList[currTargetNexus].transform.position);
+            Debug.Log(agent.pathStatus);
+            shootTimer = 0;
+        }
         else
         {
             agent.SetDestination(NexusManager.nexusManagerInstance.nexusList[currTargetNexus].transform.position);
@@ -217,6 +225,7 @@ public class EnemyAI : MonoBehaviour, IDamage
             agent.ResetPath();
             agent.stoppingDistance = stoppingDistOrig;
             agent.velocity = Vector3.zero;
+            agent.Warp(transform.position);
         }
     }
     bool canSeeNexus()

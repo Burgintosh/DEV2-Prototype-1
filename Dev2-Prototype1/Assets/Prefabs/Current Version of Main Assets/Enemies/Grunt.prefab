@@ -352,6 +352,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e257e212a2ec094687ba3625d706edc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
+  enemyShootVol: 0.5
   maxHP: 3
   model: {fileID: 2433404916844112132}
   agent: {fileID: -6413678226851917051}
@@ -444,7 +445,7 @@ NavMeshAgent:
   m_Height: 1
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
+  m_ObstacleAvoidanceType: 0
 --- !u!135 &3593354279601230107
 SphereCollider:
   m_ObjectHideFlags: 0
