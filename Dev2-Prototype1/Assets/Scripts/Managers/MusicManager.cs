@@ -35,7 +35,7 @@ public class MusicManager : MonoBehaviour
 
     [Header("----- Settings -----")]
     [Range(0, 1)]
-    [SerializeField] float masterVol = 1;
+    public float masterVol = 1;
     [Range(0, 1)]
     [SerializeField] float pauseVolMult = 0.25f;
     [SerializeField] float fadeDur = 1f;
@@ -236,6 +236,16 @@ public class MusicManager : MonoBehaviour
         }
 
         return null;
+    }
+
+    public void SetMasterVolume(float newVol)
+    {
+        masterVol = newVol;
+
+        if (currSong != null && currTrack != null && fadeCoroutine == null && volCoroutine == null)
+        {
+            currSong.volume = GetTargetVol(currTrack);
+        }
     }
 
 }

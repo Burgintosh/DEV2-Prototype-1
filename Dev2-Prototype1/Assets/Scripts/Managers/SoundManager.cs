@@ -17,7 +17,7 @@ public class SoundManager : MonoBehaviour
 
     [Header("----- Global SFX Volume -----")]
     [Range(0f, 1f)]
-    [SerializeField] float masterSFXVol = 1f;
+    public float masterSFXVol = 1f;
     [Range(0f, 1f)]
     [SerializeField] float playerSFXVol = 0.5f;
     [Range(0f, 1f)]
@@ -132,5 +132,10 @@ public class SoundManager : MonoBehaviour
             default:
                 return 1f;
         }
+    }
+
+    public void SetMasterVolume(float _masterSFXVol)
+    {
+        masterSFXVol = _masterSFXVol;
     }
 }
