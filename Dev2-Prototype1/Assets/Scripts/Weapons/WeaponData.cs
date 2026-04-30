@@ -16,7 +16,6 @@ public class WeaponData : ScriptableObject
 
 
     public AudioClip shootClip;
-    public AudioClip reloadClip;
     public AudioClip emptyClip;
 
     //public GameObject muzzleEffect; // Not worth the effort rn, Definitely worth coming back to eventually.
