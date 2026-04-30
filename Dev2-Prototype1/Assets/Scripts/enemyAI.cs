@@ -30,6 +30,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     int currTargetNexus = -1;
 
     float shootTimer;
+    float afkTimer;
     float angleToPlayer;
     float angleToNexus;
     float stoppingDistOrig;
@@ -62,6 +63,12 @@ public class EnemyAI : MonoBehaviour, IDamage
     {
         shootTimer += Time.deltaTime;
 
+        if(agent.velocity.magnitude < 1)
+            afkTimer += Time.deltaTime;
+        else
+            afkTimer = 0;
+
+
         //playerDir = gamemanager.instance.player.transform.position - transform.position; // Vile
         if (currTargetNexus == -1 || NexusManager.nexusManagerInstance.nexusList[currTargetNexus] == null)
         {
@@ -76,17 +83,28 @@ public class EnemyAI : MonoBehaviour, IDamage
         {
 
         }
-        else if (agent.velocity.magnitude < 1 && !agent.pathPending && shootTimer > 5)
+        else if (!agent.isOnNavMesh)
         {
-            Debug.Log(agent.pathStatus);
+            ResetAgentToMesh();
+        }
+        //else if (!agent.pathPending && afkTimer > 5)
+        else if (afkTimer > 5)
+        {
+            Debug.Log("Before reset: " + agent.pathStatus);
             agent.ResetPath();
-            agent.SetDestination(NexusManager.nexusManagerInstance.nexusList[currTargetNexus].transform.position);
-            Debug.Log(agent.pathStatus);
+            if (!agent.SetDestination(NexusManager.nexusManagerInstance.nexusList[currTargetNexus].transform.position))
+            {
+                Debug.Log("RUH ROH RAGGY I CAN'T FIND A NEXUS");
+            }
+            Debug.Log("After Reset: " + agent.pathStatus);
             shootTimer = 0;
         }
         else
         {
-            agent.SetDestination(NexusManager.nexusManagerInstance.nexusList[currTargetNexus].transform.position);
+            if (!agent.SetDestination(NexusManager.nexusManagerInstance.nexusList[currTargetNexus].transform.position))
+            {
+                Debug.Log("RUH ROH RAGGY I CAN'T FIND A NEXUS but in else");
+            }
         }
     }
 
@@ -283,5 +301,22 @@ public class EnemyAI : MonoBehaviour, IDamage
     {
         changeTarget();
         yield return new WaitForSeconds(0.5f);
+    }
+
+    public void ResetAgentToMesh()
+    {
+        NavMeshHit hit;
+        // Search within a small radius (typically 1-2x agent height)
+        float searchRadius = 2.0f;
+
+        if (NavMesh.SamplePosition(agent.transform.position, out hit, searchRadius, NavMesh.AllAreas))
+        {
+            // Warp the agent to the actual sampled position on the mesh
+            agent.Warp(hit.position);
+        }
+        else
+        {
+            Debug.LogWarning("No NavMesh found near agent position!");
+        }
     }
 }
