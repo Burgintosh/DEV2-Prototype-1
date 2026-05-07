@@ -3208,6 +3208,10 @@ PrefabInstance:
       propertyPath: buildables.Array.data[0].placementRadius
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+      propertyPath: buildables.Array.data[1].placementRadius
+      value: 1.4
+      objectReference: {fileID: 0}
     - target: {fileID: 8496870519721792966, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: m_Name
       value: Player Lecture 2 (1)
@@ -14881,6 +14885,7 @@ PrefabInstance:
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
+  - {fileID: 391601632}
   - {fileID: 220514054}
   - {fileID: 1468334059}
   - {fileID: 1630217518}
@@ -14892,7 +14897,6 @@ SceneRoots:
   - {fileID: 1515603237}
   - {fileID: 1989202691}
   - {fileID: 2106864602}
-  - {fileID: 391601632}
   - {fileID: 257125719}
   - {fileID: 914568529}
   - {fileID: 482565431}
