@@ -28,6 +28,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     Color colorOrig;
 
     int currTargetNexus = -1;
+    Nexus currTarget;
 
     float shootTimer;
     float afkTimer;
@@ -70,7 +71,7 @@ public class EnemyAI : MonoBehaviour, IDamage
 
 
         //playerDir = gamemanager.instance.player.transform.position - transform.position; // Vile
-        if (currTargetNexus == -1 || NexusManager.nexusManagerInstance.nexusList[currTargetNexus] == null)
+        if (currTargetNexus == -1 || currTarget == null)
         {
             StartCoroutine(CheckTarget());
             return;
@@ -92,7 +93,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         {
             Debug.Log("Before reset: " + agent.pathStatus);
             agent.ResetPath();
-            if (!agent.SetDestination(NexusManager.nexusManagerInstance.nexusList[currTargetNexus].transform.position))
+            if (!agent.SetDestination(currTarget.transform.position))
             {
                 Debug.Log("RUH ROH RAGGY I CAN'T FIND A NEXUS");
             }
@@ -101,7 +102,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         }
         else
         {
-            if (!agent.SetDestination(NexusManager.nexusManagerInstance.nexusList[currTargetNexus].transform.position))
+            if (!agent.SetDestination(currTarget.transform.position))
             {
                 Debug.Log("RUH ROH RAGGY I CAN'T FIND A NEXUS but in else");
             }
@@ -232,6 +233,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         nexusInRange = false;
         nexusDir = Vector3.zero;
         currTargetNexus = -1;
+        currTarget = null;
         if(model != null)
         {
             model.material.color = colorOrig;
@@ -248,8 +250,8 @@ public class EnemyAI : MonoBehaviour, IDamage
     }
     bool canSeeNexus()
     {
-        if (NexusManager.nexusManagerInstance.nexusList[currTargetNexus] == null) return false;
-        nexusDir = NexusManager.nexusManagerInstance.nexusList[currTargetNexus].transform.position - transform.position;
+        if (currTarget == null) return false;
+        nexusDir = currTarget.transform.position - transform.position;
         angleToNexus = Vector3.Angle(nexusDir, transform.forward);
 
 
@@ -268,7 +270,7 @@ public class EnemyAI : MonoBehaviour, IDamage
                 if (shootTimer >= shootRate)
                     shoot();
 
-                agent.SetDestination(NexusManager.nexusManagerInstance.nexusList[currTargetNexus].transform.position);
+                agent.SetDestination(currTarget.transform.position);
 
                 return true;
             }
@@ -281,14 +283,16 @@ public class EnemyAI : MonoBehaviour, IDamage
         if (currTargetNexus == -1)
         {
             currTargetNexus = Random.Range(0, NexusManager.nexusManagerInstance.nexusList.Count);
+            currTarget = NexusManager.nexusManagerInstance.nexusList[currTargetNexus];
         }
         else
         {
             currTargetNexus = 0;
-            while( NexusManager.nexusManagerInstance.nexusList[currTargetNexus] == null)
+            while( currTarget == null)
             {
                 currTargetNexus++;
-                if(currTargetNexus == NexusManager.nexusManagerInstance.nexusList.Count)
+                currTarget = NexusManager.nexusManagerInstance.nexusList[currTargetNexus];
+                if (currTargetNexus == NexusManager.nexusManagerInstance.nexusList.Count)
                 {
                     Debug.Log("No Valid Target");
                     currTargetNexus = 0;
