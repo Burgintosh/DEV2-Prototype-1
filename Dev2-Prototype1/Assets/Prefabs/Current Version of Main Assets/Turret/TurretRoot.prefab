@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 4363268748680579539}
   - component: {fileID: 8043455787364519501}
   - component: {fileID: 1105445128194783179}
-  m_Layer: 0
+  - component: {fileID: 2249445754199530521}
+  m_Layer: 15
   m_Name: TurretRoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -60,6 +61,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlacedBuildable
   buildableType: 0
   refundAmount: 100
+--- !u!65 &2249445754199530521
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3753099880414341378}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5.5427213, y: 3.1345057, z: 5.556673}
+  m_Center: {x: 0.0049874783, y: 1.7549844, z: -0.026371956}
 --- !u!1001 &4374379437002497750
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -68,6 +90,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4363268748680579539}
     m_Modifications:
+    - target: {fileID: 1292135288452104458, guid: 6675dbe99e1b8a54fb53242eefe7aafb, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2179917579582191154, guid: 6675dbe99e1b8a54fb53242eefe7aafb, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2237816084262804591, guid: 6675dbe99e1b8a54fb53242eefe7aafb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -112,9 +142,21 @@ PrefabInstance:
       propertyPath: cost
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 6310794483143776608, guid: 6675dbe99e1b8a54fb53242eefe7aafb, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6861688145272702084, guid: 6675dbe99e1b8a54fb53242eefe7aafb, type: 3}
       propertyPath: m_Name
       value: Turret
+      objectReference: {fileID: 0}
+    - target: {fileID: 6861688145272702084, guid: 6675dbe99e1b8a54fb53242eefe7aafb, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7823508016725538684, guid: 6675dbe99e1b8a54fb53242eefe7aafb, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
