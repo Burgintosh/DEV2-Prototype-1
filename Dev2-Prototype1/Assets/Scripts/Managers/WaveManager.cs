@@ -99,6 +99,11 @@ public class WaveManager : MonoBehaviour
             gamemanager.instance.waveUI.SetRemainingEnemies(RemainingEnemiesDisplayValue());
         }
 
+        if(wave.startTime > 0f)
+        {
+            yield return new WaitForSeconds(wave.startTime);
+        }
+
         foreach(WaveGroupData currGroup in wave.groups)
         {
             StartCoroutine(RunGroup(currGroup));
@@ -132,6 +137,11 @@ public class WaveManager : MonoBehaviour
         {
             for(int i = 0; i < currEntry.count; i++)
             {
+
+                if(currEntry.spawnDelay > 0f)
+                {
+                    yield return new WaitForSeconds(currEntry.spawnDelay);
+                }
 
                 Vector3 spawnPos = GetSpawnPosition(_Group);
                 PooledObject pooledObject = poolManager.GetFromPool(currEntry.enemyPrefab, spawnPos, Quaternion.identity);
@@ -293,6 +303,12 @@ public class WaveManager : MonoBehaviour
         if(_Wave.groups == null || _Wave.groups.Count == 0)
         {
             LogWarning("Wave has no groups");
+            return false;
+        }
+
+        if(_Wave.startTime < 0f)
+        {
+            LogWarning("Wave start time was set below 0 this is invalid");
             return false;
         }
 
