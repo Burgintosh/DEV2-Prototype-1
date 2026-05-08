@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 9022381325955164670}
   - component: {fileID: 788180954129824541}
   - component: {fileID: 4736910374064550068}
+  - component: {fileID: -745159399960498869}
   m_Layer: 15
   m_Name: Lava
   m_TagString: Untagged
@@ -48,8 +49,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98a1ca4addabea948ad7e3fa13651f5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::damage
+  ignoreTriggerCollision: 0
+  showDebugLogs: 1
   type: 2
-  rb: {fileID: 0}
+  rb: {fileID: -745159399960498869}
   damageAmount: 1
   damageRate: 0.5
   bulletSpeed: 0
@@ -147,3 +150,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlacedBuildable
   buildableType: 1
   refundAmount: 100
+--- !u!54 &-745159399960498869
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8642799769082061705}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

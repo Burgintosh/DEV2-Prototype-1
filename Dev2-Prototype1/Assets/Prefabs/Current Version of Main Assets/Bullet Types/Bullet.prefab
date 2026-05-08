@@ -47,6 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98a1ca4addabea948ad7e3fa13651f5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::damage
+  ignoreTriggerCollision: 1
+  showDebugLogs: 0
   type: 0
   rb: {fileID: 6402709367965842205}
   damageAmount: 1

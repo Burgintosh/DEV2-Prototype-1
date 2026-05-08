@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 8700967457607026333}
   - component: {fileID: 5735856753902799230}
   - component: {fileID: 3270866468831788006}
+  - component: {fileID: 1535083169401507539}
   m_Layer: 7
   m_Name: cubTestPrefab1
   m_TagString: Enemy
@@ -234,6 +235,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8df0f2bc46ec9de4f9809d37d8c55146, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PooledEnemy
+--- !u!54 &1535083169401507539
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206251657112247229}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1274335250834987393
 GameObject:
   m_ObjectHideFlags: 0
