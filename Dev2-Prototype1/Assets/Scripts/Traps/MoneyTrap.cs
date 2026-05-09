@@ -15,6 +15,9 @@ public class MoneyTrap : MonoBehaviour
     [Header("----- Refs -----")]
     [SerializeField] CurrencyManager currencyManager;
 
+    [Header("----- Debug -----")]
+    [SerializeField] bool showDebugLogs = true;
+
     Coroutine payCoroutine;
     bool isPayingOut;
 
@@ -37,12 +40,22 @@ public class MoneyTrap : MonoBehaviour
     {
         if(currencyManager != null)
         {
+            if (showDebugLogs)
+            {
+                Debug.Log("[MoneyTrap] CurrencyManager was already assigned", this);
+            }
+
             return;
         }
 
         if(gamemanager.instance != null)
         {
             currencyManager = gamemanager.instance.currencyManager;
+        }
+
+        if (showDebugLogs)
+        {
+            Debug.Log("[MoneyTrap] CurrencyManager Found!");
         }
 
     }
@@ -57,6 +70,12 @@ public class MoneyTrap : MonoBehaviour
         }
 
         payCoroutine = StartCoroutine(PayPlayerLoop());
+
+        if (showDebugLogs)
+        {
+            Debug.Log("[MoneyTrap] Started paying player. At interval: " + GetCurrentPayInterval(), this);
+        }
+
     }
 
     void StopPayingPlayer()
@@ -70,6 +89,12 @@ public class MoneyTrap : MonoBehaviour
 
         StopCoroutine(payCoroutine);
         payCoroutine = null;
+
+        if (showDebugLogs)
+        {
+            Debug.Log("[MoneyTrap] Stopping playing the player", this);
+        }
+
     }
 
     IEnumerator PayPlayerLoop()
@@ -93,7 +118,19 @@ public class MoneyTrap : MonoBehaviour
             return;
         }
 
-        currencyManager.AddCurrency(GetCurrentAmountPerPay());
+        int amountToPay = GetCurrentAmountPerPay();
+
+        if (showDebugLogs)
+        {
+            Debug.Log("[MoneyTrap] Paying player: " + amountToPay, this);
+        }
+
+        currencyManager.AddCurrency(amountToPay);
+
+        if (showDebugLogs)
+        {
+            Debug.Log("[MoneyTrap] Player currency after payout: " + currencyManager.GetCurrentCurrency(), this);
+        }
     }
 
     public int GetCurrentAmountPerPay()
