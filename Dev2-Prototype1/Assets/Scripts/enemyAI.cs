@@ -34,7 +34,7 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     Color colorOrig;
 
-    //int currTargetNexus = -1;
+    
     Nexus currTarget;
 
     float shootTimer;
@@ -78,7 +78,7 @@ public class EnemyAI : MonoBehaviour, IDamage
 
 
         //playerDir = gamemanager.instance.player.transform.position - transform.position; // Vile
-        if (/*(currTargetNexus == -1 ||*/ currTarget == null && NexusManager.nexusManagerInstance.nexusCount > 0)
+        if (currTarget == null && NexusManager.nexusManagerInstance.nexusCount > 0)
         {
             StartCoroutine(CheckTarget());
             return;
@@ -308,27 +308,6 @@ public class EnemyAI : MonoBehaviour, IDamage
         {
             agent.SetDestination(currTarget.transform.position);
         }
-        //if (currTargetNexus == -1)
-        //{
-        //    currTargetNexus = Random.Range(0, NexusManager.nexusManagerInstance.nexusList.Count);
-        //    currTarget = NexusManager.nexusManagerInstance.nexusList[currTargetNexus];
-        //}
-        //else
-        //{
-        //    currTargetNexus = 0;
-        //    currTarget = NexusManager.nexusManagerInstance.nexusList[currTargetNexus];
-        //    while ( currTarget == null)
-        //    {
-        //        currTargetNexus++;
-        //        currTarget = NexusManager.nexusManagerInstance.nexusList[currTargetNexus];
-        //        if (currTargetNexus == NexusManager.nexusManagerInstance.nexusList.Count)
-        //        {
-        //            Debug.Log("No Valid Target");
-        //            currTargetNexus = 0;
-        //            return;
-        //        }
-        //    }
-        //}
     }
     IEnumerator CheckTarget()
     {

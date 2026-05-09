@@ -2677,7 +2677,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2604031973568762010, guid: ad3a907c76dac644abfe09f6d2bbfe64, type: 3}
       propertyPath: HP
-      value: 500
+      value: 496
       objectReference: {fileID: 0}
     - target: {fileID: 9083741848750086583, guid: ad3a907c76dac644abfe09f6d2bbfe64, type: 3}
       propertyPath: m_Name
@@ -13875,7 +13875,7 @@ PrefabInstance:
     - target: {fileID: 3427337961618742575, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
       propertyPath: waves.Array.data[0].groups.Array.data[0].spawnCenterPos
       value: 
-      objectReference: {fileID: 1856498228}
+      objectReference: {fileID: 1630217518}
     - target: {fileID: 3427337961618742575, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
       propertyPath: waves.Array.data[0].groups.Array.data[1].spawnCenterPos
       value: 
