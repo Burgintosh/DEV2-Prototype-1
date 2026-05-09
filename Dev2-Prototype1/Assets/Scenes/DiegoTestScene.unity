@@ -13835,7 +13835,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3427337961618742575, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
       propertyPath: waves.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3427337961618742575, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
       propertyPath: waves.Array.data[0].startTime
@@ -13851,7 +13851,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3427337961618742575, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
       propertyPath: waves.Array.data[0].groups.Array.size
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3427337961618742575, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
       propertyPath: waves.Array.data[0].groups.Array.data[1].groupName
@@ -13892,6 +13892,10 @@ PrefabInstance:
     - target: {fileID: 3427337961618742575, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
       propertyPath: waves.Array.data[0].groups.Array.data[2].startdelay
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3427337961618742575, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
+      propertyPath: waves.Array.data[0].groups.Array.data[0].spawnInterval
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3427337961618742575, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
       propertyPath: waves.Array.data[0].groups.Array.data[3].spawnInterval
@@ -13963,15 +13967,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3427337961618742575, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
       propertyPath: waves.Array.data[0].groups.Array.data[0].spawnEntries.Array.data[0].count
-      value: 2
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3427337961618742575, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
       propertyPath: waves.Array.data[0].groups.Array.data[0].spawnEntries.Array.data[1].count
-      value: 2
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3427337961618742575, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
       propertyPath: waves.Array.data[0].groups.Array.data[0].spawnEntries.Array.data[2].count
-      value: 2
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3427337961618742575, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
       propertyPath: waves.Array.data[0].groups.Array.data[1].spawnEntries.Array.data[0].count
