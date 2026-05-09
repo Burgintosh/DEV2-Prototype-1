@@ -300,6 +300,14 @@ public class EnemyAI : MonoBehaviour, IDamage
         {
             currTarget = OrderSearch();
         }
+        if(currTarget == null)
+        {
+            Debug.Log("No Path Found");
+        }
+        else
+        {
+            agent.SetDestination(currTarget.transform.position);
+        }
         //if (currTargetNexus == -1)
         //{
         //    currTargetNexus = Random.Range(0, NexusManager.nexusManagerInstance.nexusList.Count);

@@ -98,7 +98,7 @@ MonoBehaviour:
   FOV: 90
   ignoreLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
   targetPriority: 2
   currencyDrop: 10
 --- !u!195 &1749115945639132357
@@ -190,10 +190,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 1
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
