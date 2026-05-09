@@ -126,5 +126,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildArea
   areaCollider: {fileID: 3981941440653116227}
-  allowedBuildTypes: 00000000
+  allowedBuildTypes: 0000000001000000
   showDebugGizmos: 1
