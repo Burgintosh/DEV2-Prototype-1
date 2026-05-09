@@ -28,11 +28,23 @@ public class MoneyTrap : MonoBehaviour
 
     private void OnEnable()
     {
-        StartPayingPlayer();
+        WaveManager.OnFirstWaveStart += TryStartPayingPlayer;
+
+        if (WaveManager.HasFirstWaveStarted)
+        {
+            TryStartPayingPlayer();
+
+        }else if (showDebugLogs)
+        {
+            Debug.Log("[MoneyTrap] Waiting for first wave to start", this);
+        }
+
     }
 
     private void OnDisable()
     {
+        WaveManager.OnFirstWaveStart -= TryStartPayingPlayer;
+
         StopPayingPlayer();
     }
 
@@ -58,6 +70,16 @@ public class MoneyTrap : MonoBehaviour
             Debug.Log("[MoneyTrap] CurrencyManager Found!");
         }
 
+    }
+
+    void TryStartPayingPlayer()
+    {
+        if (isPayingOut)
+        {
+            return;
+        }
+
+        StartPayingPlayer();
     }
 
     void StartPayingPlayer()
