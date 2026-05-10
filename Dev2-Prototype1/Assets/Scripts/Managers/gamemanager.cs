@@ -48,6 +48,7 @@ public class gamemanager : MonoBehaviour
     float timeScaleOrig; // So we can set pause game when pause menu is up. This lets us return to the time scale when unpausing
 
     int gameGoalCount;
+    public int currScore = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake() // Changing Start() to Awake() ensures this takes priority. Reserve Awake for manager types (Need this before other scripts run)

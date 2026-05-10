@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,6 +12,12 @@ public class EnemyAI : MonoBehaviour, IDamage
         FURTHEST,
         ORDER
     };
+    [System.Serializable]
+    public class ItemDrop
+    {
+        public GameObject itemDrop;
+        [Range(0f, 1.0f)] public float Odds;
+    }
     [Header("Sound")]
     [Range(0f, 1f)]
     [SerializeField] float enemyShootVol = 0.5f;
@@ -32,10 +39,10 @@ public class EnemyAI : MonoBehaviour, IDamage
     [SerializeField] TargetPriority targetPriority;
 
     [SerializeField] int currencyDrop;
+    [SerializeField] List<ItemDrop> DropTables = new List<ItemDrop>();
 
     Color colorOrig;
 
-    
     Nexus currTarget;
 
     float shootTimer;
@@ -205,8 +212,19 @@ public class EnemyAI : MonoBehaviour, IDamage
         if(HP <= 0)
         {
             gamemanager.instance.currencyManager.AddCurrency(currencyDrop);
+            gamemanager.instance.currScore += maxHP * 10;
             PooledEnemy pooledEnemy = GetComponent<PooledEnemy>();
-
+            if(DropTables.Count > 0)
+            {
+                for (int i = 0; i < DropTables.Count; i++)
+                {
+                    float chance = Random.Range(0, 101);
+                    if( chance >= 100.0f * DropTables[i].Odds)
+                    {
+                        Instantiate(DropTables[i].itemDrop);
+                    }
+                }
+            }
             if(pooledEnemy != null)
             {
                 pooledEnemy.RemoveFromWave();
