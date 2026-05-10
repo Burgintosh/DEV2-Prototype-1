@@ -8,6 +8,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     {
         LOWHEALTH,
         CLOSEST,
+        FURTHEST,
         ORDER
     };
     [Header("Sound")]
@@ -294,7 +295,11 @@ public class EnemyAI : MonoBehaviour, IDamage
         }
         if (targetPriority == TargetPriority.CLOSEST)
         {
-            currTarget = DistanceSearch();
+            currTarget = ClosestSearch();
+        }
+        if (targetPriority == TargetPriority.FURTHEST)
+        {
+            currTarget = FurthestSearch();
         }
         if (targetPriority == TargetPriority.ORDER)
         {
@@ -347,7 +352,7 @@ public class EnemyAI : MonoBehaviour, IDamage
 
         return Temp;
     }
-    Nexus DistanceSearch()
+    Nexus ClosestSearch()
     {
         Nexus Temp = null;
         float shortestDistance = Mathf.Infinity;
@@ -360,6 +365,25 @@ public class EnemyAI : MonoBehaviour, IDamage
                 {
                     Temp = NexusManager.nexusManagerInstance.nexusList[i];
                     shortestDistance = distance;
+                }
+            }
+        }
+
+        return Temp;
+    }
+    Nexus FurthestSearch()
+    {
+        Nexus Temp = null;
+        float furthestDistance = 0;
+        for (int i = 0; i < NexusManager.nexusManagerInstance.nexusList.Count; ++i)
+        {
+            if (NexusManager.nexusManagerInstance.nexusList[i] != null)
+            {
+                float distance = Vector3.Distance(transform.position, NexusManager.nexusManagerInstance.nexusList[i].transform.position);
+                if (distance > furthestDistance)
+                {
+                    Temp = NexusManager.nexusManagerInstance.nexusList[i];
+                    furthestDistance = distance;
                 }
             }
         }
