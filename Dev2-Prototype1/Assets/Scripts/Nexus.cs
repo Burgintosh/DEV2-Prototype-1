@@ -50,7 +50,7 @@ public class Nexus : MonoBehaviour, IDamage
 
         if (HP <= 0)
         {
-            NexusManager.nexusManagerInstance.OnNexusDeath();
+            NexusManager.nexusManagerInstance.OnNexusDeath(this);
             Destroy(gameObject);
             
         }

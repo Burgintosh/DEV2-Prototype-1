@@ -334,7 +334,7 @@ public class EnemyAI : MonoBehaviour, IDamage
     Nexus LowHealthSearch()
     {
         Nexus Temp = null;
-        int lowestHP = 501;
+        float lowestHP = Mathf.Infinity;
         for(int i = 0; i < NexusManager.nexusManagerInstance.nexusList.Count; ++i)
         {
             if (NexusManager.nexusManagerInstance.nexusList[i] != null &&
