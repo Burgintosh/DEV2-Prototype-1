@@ -49,6 +49,7 @@ public class gamemanager : MonoBehaviour
 
     int gameGoalCount;
     public int currScore = 0;
+    [SerializeField] public uint TimeBonusMax;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake() // Changing Start() to Awake() ensures this takes priority. Reserve Awake for manager types (Need this before other scripts run)
@@ -68,6 +69,7 @@ public class gamemanager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        TimeBonusMax -= 1;
         if (Input.GetButtonDown("Cancel")) // defaulted to esc key in Unity
         {
             if (menuActive == null)

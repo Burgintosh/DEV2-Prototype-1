@@ -10670,6 +10670,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 933500009180814535, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
+      propertyPath: TimeBonusMax
+      value: 10000
+      objectReference: {fileID: 0}
+    - target: {fileID: 933500009180814535, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
       propertyPath: playerSpawnPos
       value: 
       objectReference: {fileID: 898661095}

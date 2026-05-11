@@ -219,9 +219,9 @@ public class EnemyAI : MonoBehaviour, IDamage
                 for (int i = 0; i < DropTables.Count; i++)
                 {
                     float chance = Random.Range(0, 101);
-                    if( chance >= 100.0f * DropTables[i].Odds)
+                    if( chance <= 100.0f * DropTables[i].Odds)
                     {
-                        Instantiate(DropTables[i].itemDrop);
+                        Instantiate(DropTables[i].itemDrop, transform.position, Quaternion.identity);
                     }
                 }
             }

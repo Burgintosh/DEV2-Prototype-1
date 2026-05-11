@@ -103,7 +103,7 @@ MonoBehaviour:
   currencyDrop: 10
   DropTables:
   - itemDrop: {fileID: 6304703340568334801, guid: 58ac72b5e61a7c744a9a9a8546364bfd, type: 3}
-    Odds: 0
+    Odds: 1
 --- !u!195 &1749115945639132357
 NavMeshAgent:
   m_ObjectHideFlags: 0
