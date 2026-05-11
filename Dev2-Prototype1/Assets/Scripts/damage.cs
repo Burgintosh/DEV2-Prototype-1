@@ -4,6 +4,12 @@ using System.Collections.Generic; // gives us acces to Ienumerator
 
 public class damage : MonoBehaviour
 {
+    [Header("----- Slow Settings -----")]
+    [SerializeField] bool applySlow;
+    [Range(0f, 100f)]
+    [SerializeField] float slowPercent = 50f;
+    [SerializeField] float slowDuration = 3f;
+
     [Header("Collision Settings")]
     [SerializeField] bool ignoreTriggerCollision = true;
 
@@ -45,6 +51,17 @@ public class damage : MonoBehaviour
         }
 
         IDamage dmg = other.GetComponentInParent<IDamage>();
+
+        if(applySlow && type == damageType.bullet)
+        {
+            ISlowable slowable = other.GetComponentInParent<ISlowable>();
+
+            if(slowable != null)
+            {
+                DebugDam("Applying slow to " + other.name + " | Slow Percent: " + slowPercent + " | Duration: " + slowDuration);
+                slowable.ApplySlow(slowPercent, slowDuration);
+            }
+        }
 
         if (dmg != null && type != damageType.DOT)
         {
