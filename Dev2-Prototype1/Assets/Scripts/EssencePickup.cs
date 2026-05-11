@@ -20,10 +20,10 @@ public class EssencePickup : MonoBehaviour
             switch (Type)
             {
                 case EssenceType.PLAYERHEALTH:
-                    
+                    gamemanager.instance.playerScript.HealPlayer(Amount);
                     break;
                 case EssenceType.PLAYERAMMO:
-                    
+                    gamemanager.instance.playerScript.GetCurrentWeapon().StartReload();
                     break;
                 case EssenceType.UPGRADEMATERIAL:
                     break;

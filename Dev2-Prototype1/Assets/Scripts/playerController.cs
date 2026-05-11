@@ -566,4 +566,13 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         weaponModels.Add(newWeapon);
         SwitchWeapon(weaponModels.Count - 1);
     }
+    public void HealPlayer(int amount)
+    {
+        HP += amount;
+        if(HP > HPOrig)
+        {
+            HP = HPOrig;
+        }
+        OnHPChanged?.Invoke(HP);
+    }
 }
