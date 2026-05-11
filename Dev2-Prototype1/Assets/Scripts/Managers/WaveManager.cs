@@ -26,6 +26,15 @@ public class WaveManager : MonoBehaviour
     bool skipCountdownRequested;
     bool gameplayMusicStarted;
 
+    public static event System.Action OnFirstWaveStart;
+    public static bool HasFirstWaveStarted { get; set; }
+
+    private void Awake()
+    {
+        OnFirstWaveStart = null;
+        HasFirstWaveStarted = false;
+    }
+
     private void Start()
     {
         ValidateSetupAsStartup();
@@ -35,17 +44,26 @@ public class WaveManager : MonoBehaviour
 
     private void Update()
     {
-        if(waitingForFirstWaveStart && Input.GetKeyDown(startWaveKey))
+        if(Input.GetKeyDown(startWaveKey))
+        {
+            RequestStartWave();
+        }
+    }
+
+    public void RequestStartWave()
+    {
+        if (waitingForFirstWaveStart)
         {
             waitingForFirstWaveStart = false;
             StartNextWave();
             return;
         }
 
-        if(waitingForNextWave && allowEarlyWaveStart && Input.GetKeyDown(startWaveKey))
+        if(waitingForNextWave && allowEarlyWaveStart)
         {
             skipCountdownRequested = true;
         }
+
     }
 
     void ShowInitialPrompt()
@@ -69,6 +87,14 @@ public class WaveManager : MonoBehaviour
 
         if(currentWaveIndex == 0)
         {
+            HasFirstWaveStarted = true;
+            OnFirstWaveStart?.Invoke();
+
+            if (showDebugLogs)
+            {
+                Debug.Log("[WaveManager] First wave startd. Money traps can start to generate wealth", this);
+            }
+
             TryStartGameplayMusic();
         }
 
