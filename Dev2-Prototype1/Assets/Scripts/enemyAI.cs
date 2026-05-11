@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyAI : MonoBehaviour, IDamage
+public class EnemyAI : MonoBehaviour, IDamage, ISlowable
 {
     enum TargetPriority
     {
@@ -51,6 +51,12 @@ public class EnemyAI : MonoBehaviour, IDamage
     float angleToNexus;
     float stoppingDistOrig;
 
+    [Header("----- Slow Settings -----")]
+    [SerializeField] bool showSlowLogs = true;
+
+    float origAgentSpeed;
+    Coroutine slowCoroutine;
+
     bool playerInRange;
     bool nexusInRange;
 
@@ -67,6 +73,7 @@ public class EnemyAI : MonoBehaviour, IDamage
         if(agent != null)
         {
             stoppingDistOrig = agent.stoppingDistance;
+            origAgentSpeed = agent.speed;
             //agent.ResetPath();
         }
 
@@ -241,6 +248,64 @@ public class EnemyAI : MonoBehaviour, IDamage
         }
     }
 
+    public void ApplySlow(float _SlowPercent, float _SlowDuration)
+    {
+        if(agent == null)
+        {
+            return;
+        }
+
+        _SlowPercent = Mathf.Clamp(_SlowPercent, 0f, 100f);
+        _SlowDuration = Mathf.Max(0f, _SlowDuration);
+
+        if(origAgentSpeed <= 0f)
+        {
+            origAgentSpeed = agent.speed;
+        }
+
+        if(slowCoroutine != null)
+        {
+            StopCoroutine(slowCoroutine);
+        }
+
+        slowCoroutine = StartCoroutine(SlowTimer(_SlowPercent, _SlowDuration));
+    }
+
+    IEnumerator SlowTimer(float _SlowPercent, float _SlowDuration)
+    {
+        float speedMult = 1f - (_SlowPercent / 100f);
+        agent.speed = origAgentSpeed * speedMult;
+
+        if (showSlowLogs)
+        {
+            Debug.Log(gameObject.name + " slowed by " + _SlowPercent + "% for " + _SlowDuration + " seconds.", gameObject);
+        }
+
+        yield return new WaitForSeconds(_SlowDuration);
+
+        agent.speed = origAgentSpeed;
+        slowCoroutine = null;
+
+        if (showSlowLogs)
+        {
+            Debug.Log(gameObject.name + " slow ended.", gameObject);
+        }
+    }
+
+    void ResetSlowStatus()
+    {
+        if(slowCoroutine != null)
+        {
+            StopCoroutine(slowCoroutine);
+            slowCoroutine = null;
+        }
+
+        if(agent != null && origAgentSpeed > 0f)
+        {
+            agent.speed = origAgentSpeed;
+        }
+    }
+
     IEnumerator flashRed()
     {
         model.material.color = Color.red;
@@ -250,6 +315,8 @@ public class EnemyAI : MonoBehaviour, IDamage
 
     public void ResetEnemyState()
     {
+        ResetSlowStatus();
+
         HP = maxHP;
         shootTimer = 0f;
         angleToPlayer = 0f;
