@@ -384,6 +384,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98a1ca4addabea948ad7e3fa13651f5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::damage
+  applySlow: 0
+  slowPercent: 50
+  slowDuration: 3
   ignoreTriggerCollision: 1
   showDebugLogs: 0
   type: 2
@@ -585,6 +588,8 @@ MonoBehaviour:
     m_Bits: 256
   targetPriority: 1
   currencyDrop: 25
+  DropTables: []
+  showSlowLogs: 1
 --- !u!195 &3135814378302135873
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -226,9 +226,13 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
                 for (int i = 0; i < DropTables.Count; i++)
                 {
                     float chance = Random.Range(0, 101);
-                    if( chance <= 100.0f * DropTables[i].Odds)
-                    {
-                        Instantiate(DropTables[i].itemDrop, transform.position, Quaternion.identity);
+                    float toBeat = 100 - 100 * DropTables[i].Odds;
+                    Debug.Log(chance + "toBeat: " + toBeat);
+                    if ( chance >= toBeat)
+                    { 
+                        Vector3 DropOffset = Random.insideUnitSphere * 2;
+                        DropOffset.y = 0f;
+                        Instantiate(DropTables[i].itemDrop, transform.position + DropOffset, Quaternion.identity);
                     }
                 }
             }

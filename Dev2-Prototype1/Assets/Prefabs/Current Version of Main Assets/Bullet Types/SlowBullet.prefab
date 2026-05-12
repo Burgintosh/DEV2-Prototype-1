@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5099333640355973201}
   - component: {fileID: 7711329919332960454}
   - component: {fileID: 7982852778795240262}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: SlowBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}

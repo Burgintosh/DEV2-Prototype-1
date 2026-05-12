@@ -3075,6 +3075,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+      propertyPath: playerPos
+      value: 
+      objectReference: {fileID: 787346001}
+    - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+      propertyPath: buildCamera
+      value: 
+      objectReference: {fileID: 1173909530}
+    - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: currencyManager
       value: 
       objectReference: {fileID: 1415944478}
@@ -5781,6 +5789,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3fb3fd8cdf441940b894aca3a3d2fd8, type: 3}
+--- !u!4 &787346001 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 15677698149879725, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+  m_PrefabInstance: {fileID: 391601632}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &789366075
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8408,6 +8421,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 5760567178759047362, guid: f3fb3fd8cdf441940b894aca3a3d2fd8, type: 3}
   m_PrefabInstance: {fileID: 2147015516}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &1173909530 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5281255741563342711, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+  m_PrefabInstance: {fileID: 391601632}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1176809793
 PrefabInstance:
@@ -13929,7 +13947,7 @@ PrefabInstance:
       objectReference: {fileID: 1025361888}
     - target: {fileID: 3427337961618742575, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
       propertyPath: waves.Array.data[0].groups.Array.data[0].spawnEntries.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3427337961618742575, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
       propertyPath: waves.Array.data[0].groups.Array.data[1].spawnEntries.Array.size
@@ -14066,7 +14084,7 @@ PrefabInstance:
     - target: {fileID: 3427337961618742575, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
       propertyPath: waves.Array.data[0].groups.Array.data[0].spawnEntries.Array.data[2].enemyPrefab
       value: 
-      objectReference: {fileID: 8343792541496309258, guid: e05fc7a4fa8be304fbf72feb0c743dcc, type: 3}
+      objectReference: {fileID: 5818386542145438867, guid: 211c33f7fea9cee44a1ba0335b64b2e7, type: 3}
     - target: {fileID: 3427337961618742575, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
       propertyPath: waves.Array.data[0].groups.Array.data[1].spawnEntries.Array.data[0].enemyPrefab
       value: 
