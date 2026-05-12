@@ -24,6 +24,7 @@ public class damage : MonoBehaviour
 
     [SerializeField] int damageAmount;
     [SerializeField] float damageRate;
+    [SerializeField] float damageMult = 1f;
     [SerializeField] int bulletSpeed;
     [SerializeField] int bulletDestroyTime;
     [SerializeField] ParticleSystem hitEffect;
@@ -65,8 +66,11 @@ public class damage : MonoBehaviour
 
         if (dmg != null && type != damageType.DOT)
         {
-            DebugDam("Damaging " + other.name + " for " + damageAmount);
-            dmg.takeDamage(damageAmount);
+            int finalDamage = GetFinalDam();
+
+            DebugDam("Damaging " + other.name + " for " + finalDamage + " | Base Damage: " + damageAmount + " | Multiplier: " + damageMult);
+
+            dmg.takeDamage(finalDamage);
         }
 
         if (type == damageType.bullet)
@@ -112,10 +116,23 @@ public class damage : MonoBehaviour
     IEnumerator damageOther(IDamage d)
     {
         targetsToDam.Add(d);
-        DebugDam("DOT damage applied for " + damageAmount);
-        d.takeDamage(damageAmount);
+        int finalDamage = GetFinalDam();
+        DebugDam("DOT damage applied for " + finalDamage + " | Base Damage: " + damageAmount + " | Multiplier: " + damageMult);
+        d.takeDamage(finalDamage);
         yield return new WaitForSeconds(damageRate);
         targetsToDam.Remove(d);
+    }
+
+    public void SetDamMult(float _Mult)
+    {
+        damageMult = Mathf.Max(0f, _Mult);
+
+        DebugDam("Damage mult set to: " + damageMult);
+    }
+
+    int GetFinalDam()
+    {
+        return Mathf.Max(0, Mathf.RoundToInt(damageAmount * damageMult));
     }
 
     void DebugDam(string _MSG)

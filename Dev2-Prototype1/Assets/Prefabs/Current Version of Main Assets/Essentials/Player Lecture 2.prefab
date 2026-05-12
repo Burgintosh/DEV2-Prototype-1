@@ -486,6 +486,17 @@ MonoBehaviour:
     placementMode: 0
     surfaceRotOffset: {x: 0, y: 0, z: 0}
     surfaceSpinAxis: 0
+  - buildName: Damage Booster
+    buildableType: 1
+    placedPrefab: {fileID: 2920538785947085337, guid: f841da1e1112cde4a8586f0ba0b13e20, type: 3}
+    placedPreview: {fileID: 5137711495315994238, guid: 18248ee46f82e404db36248666bb5828, type: 3}
+    cost: 50
+    refundAmount: 50
+    placementRadius: 1.5
+    previewYOffset: 0.1
+    placementMode: 0
+    surfaceRotOffset: {x: 0, y: 0, z: 0}
+    surfaceSpinAxis: 0
   currBuildIndex: 0
   togglePreviewKey: 98
   confirmBuildKey: 323
