@@ -2,8 +2,13 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections.Generic;
 
-public class TurretAI : MonoBehaviour, IDamage
+public class TurretAI : MonoBehaviour, IDamage, IBuffableTower
 {
+    [Header("----- Buff Settings -----")]
+    [SerializeField] bool showBuffDebugLog = true;
+
+    float totalDamageBuffPercent;
+
     [SerializeField] int maxHP = 3;
     int HP;
     [SerializeField] int cost;
@@ -18,7 +23,6 @@ public class TurretAI : MonoBehaviour, IDamage
     [SerializeField] int gunRotateSpeed;
     [SerializeField] int targetFaceSpeed;
     [SerializeField] int FOV;
-
 
     Color colorOrig;
 
@@ -79,6 +83,11 @@ public class TurretAI : MonoBehaviour, IDamage
             shoot();
         }
 
+    }
+
+    private void OnDisable()
+    {
+        ClearDamageBuffs();
     }
 
     void AcquireTarget()
@@ -182,7 +191,26 @@ public class TurretAI : MonoBehaviour, IDamage
         shootTimer = 0;
         if(bullet != null)
         {
-            Instantiate(bullet, shootPos.position, gunPivot.rotation);
+            GameObject spawnedBullet = Instantiate(bullet, shootPos.position, gunPivot.rotation);
+
+            damage bulletDamage = spawnedBullet.GetComponent<damage>();
+
+            if(bulletDamage == null)
+            {
+                bulletDamage = spawnedBullet.GetComponentInChildren<damage>();
+            }
+
+            if(bulletDamage != null)
+            {
+                bulletDamage.SetDamMult(GetDamMult());
+
+                DebugBuff("Spawned bullet with damage multiplier of: " + GetDamMult());
+            }
+            else
+            {
+                DebugBuff("Spawned bullet has no damage script");
+            }
+
         }
     }
 
@@ -228,6 +256,7 @@ public class TurretAI : MonoBehaviour, IDamage
         enemyPos = null;
         enemyDir = Vector3.zero;
         enemiesInRange.Clear();
+        ClearDamageBuffs();
 
         if(model != null)
         {
@@ -259,6 +288,40 @@ public class TurretAI : MonoBehaviour, IDamage
             {
                 gameObject.SetActive(false);
             }
+        }
+    }
+
+    public void AddDamageBuff(float _Percent)
+    {
+        totalDamageBuffPercent += _Percent;
+        totalDamageBuffPercent = Mathf.Max(0f, totalDamageBuffPercent);
+
+        DebugBuff("Added damage buff: " + _Percent + "% | Total Damage Buff: " +  totalDamageBuffPercent + "% | Multiplier: " + GetDamMult());
+    }
+
+    public void RemoveDamageBuff(float _Percent)
+    {
+        totalDamageBuffPercent -= _Percent;
+        totalDamageBuffPercent = Mathf.Max(0f, totalDamageBuffPercent);
+
+        DebugBuff("Removed damage buff: -" + _Percent + "% | Total damage Buff: " + totalDamageBuffPercent + "% | Multiplier: " + GetDamMult());
+    }
+
+    void ClearDamageBuffs()
+    {
+        totalDamageBuffPercent = 0f;
+    }
+
+    float GetDamMult()
+    {
+        return 1f + (totalDamageBuffPercent / 100f);
+    }
+
+    void DebugBuff(string _MSG)
+    {
+        if (showBuffDebugLog)
+        {
+            Debug.Log("Turret Buff: " + gameObject.name + _MSG, gameObject);
         }
     }
 
