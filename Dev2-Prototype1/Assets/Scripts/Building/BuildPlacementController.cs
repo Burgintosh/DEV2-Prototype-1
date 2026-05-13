@@ -19,7 +19,7 @@ public class BuildPlacementController : MonoBehaviour
     [Header("----- Buildables -----")]
     [SerializeField] BuildableDefinition[] buildables;
     [SerializeField] int currBuildIndex = 0;
-    [SerializeField] BuildUIHotbar hotbarUI;
+    BuildUIHotbar hotbarUI;
 
     [Header("----- Input -----")]
     [SerializeField] KeyCode togglePreviewKey = KeyCode.B;
@@ -52,16 +52,23 @@ public class BuildPlacementController : MonoBehaviour
 
     private void Start()
     {
-        if(buildables != null && buildables.Length > 0)
+        if (buildables != null && buildables.Length > 0)
         {
             currBuildIndex = Mathf.Clamp(currBuildIndex, 0, buildables.Length - 1);
             currBuildable = buildables[currBuildIndex];
         }
 
+        if (hotbarUI == null)
+            hotbarUI = FindFirstObjectByType<BuildUIHotbar>();
+
         if (hotbarUI != null)
         {
             hotbarUI.Initialize(buildables);
             hotbarUI.SetSelectedIndex(currBuildIndex);
+        }
+        else
+        {
+            Debug.LogWarning("BuildUIHotbar is missing from the scene!");
         }
     }
 

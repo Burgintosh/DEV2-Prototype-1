@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
 
+// Programmatically gathers all buildables from the player's BuildPlacementController and puts them into a ui hotbar.
+// Mainly used for organizing the BuildSlot prefabs that contain BuildUISlot.cs.
 public class BuildUIHotbar : MonoBehaviour
 {
     [SerializeField] BuildUISlot slotPrefab;
@@ -24,7 +26,7 @@ public class BuildUIHotbar : MonoBehaviour
     }
     public void SetSelectedIndex(int index)
     {
-        for (int i = 0; i < slots.Count; i++) // sets non-active slot borders to off
+        for (int i = 0; i < slots.Count; i++) // sets non-active slot borders to off. Might be overkill to do each time? Come back here if performance is bad
         {
             bool selected = (i == index);
 
