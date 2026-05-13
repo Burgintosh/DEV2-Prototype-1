@@ -46,6 +46,7 @@ public class BuildPlacementController : MonoBehaviour
 
     GameObject previewInstance;
     Renderer[] previewRenderers;
+    BuildableRangeDisplay previewRangeDisplay;
 
     BuildableDefinition currBuildable;
 
@@ -221,7 +222,7 @@ public class BuildPlacementController : MonoBehaviour
         }
 
         previewInstance = Instantiate(currBuildable.placedPreview);
-        previewRenderers = previewInstance.GetComponentsInChildren<Renderer>();
+        previewRenderers = previewInstance.GetComponentsInChildren<Renderer>(true);
 
         Collider[] previewColliders = previewInstance.GetComponentsInChildren<Collider>();
 
@@ -229,11 +230,20 @@ public class BuildPlacementController : MonoBehaviour
         {
             previewColliders[i].enabled = false;
         }
+
+        previewRangeDisplay = previewInstance.GetComponentInChildren<BuildableRangeDisplay>(true);
+        
+        if(previewRangeDisplay != null)
+        {
+            previewRangeDisplay.ShowRange();
+        }
+
     }
 
     void DestroyPreviewInstance()
     {
         currentPlacementValid = false;
+        previewRangeDisplay = null;
 
         if(previewInstance != null)
         {
@@ -302,6 +312,11 @@ public class BuildPlacementController : MonoBehaviour
         previewInstance.transform.position = placementPos;
         previewInstance.transform.rotation = currentPlacementRot;
 
+        if(previewRangeDisplay != null)
+        {
+            previewRangeDisplay.RefreshRangeVisual();
+        }
+
         ApplyPreviewColor(currentPlacementValid ? validColor : invalidColor);
     }
 
@@ -360,6 +375,11 @@ public class BuildPlacementController : MonoBehaviour
 
         for(int i = 0; i < previewRenderers.Length; i++)
         {
+            if(previewRangeDisplay != null && previewRangeDisplay.IsRangeRend(previewRenderers[i]))
+            {
+                continue;
+            }
+
             Material currMat = previewRenderers[i].material;
 
             if (currMat.HasProperty("_Color"))
@@ -441,5 +461,4 @@ public class BuildPlacementController : MonoBehaviour
 
         placedBuildable.Sell(currencyManager);
     }
-
 }

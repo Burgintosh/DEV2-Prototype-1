@@ -186,6 +186,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2237816084262804591}
   - component: {fileID: 6080281766704899873}
+  - component: {fileID: 5262075731829062149}
   - component: {fileID: 4312131226062206769}
   - component: {fileID: 4248902834305976589}
   - component: {fileID: 4468530940920182521}
@@ -226,6 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e391be01c3744408b528549aea1786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretAI
+  showBuffDebugLog: 1
   maxHP: 50
   cost: 100
   model: {fileID: 4248902834305976589}
@@ -237,6 +239,27 @@ MonoBehaviour:
   gunRotateSpeed: 6
   targetFaceSpeed: 6
   FOV: 360
+--- !u!114 &5262075731829062149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6861688145272702084}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcdc715e35fa8224a943affee90f6925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildableRangeDisplay
+  rangeSrc: 1
+  manualRadius: 3
+  rangeCollider: {fileID: 3027433260808344558}
+  rangeColor: {r: 0, g: 0.7, b: 1, a: 0.25}
+  rangeMat: {fileID: 2100000, guid: e06ae0244c527fb4e8bdfba0e5af2426, type: 2}
+  rangeCircles: 64
+  visualYOffset: 0.05
+  selectedColliders: []
+  showInsantlyForTesting: 0
 --- !u!33 &4312131226062206769
 MeshFilter:
   m_ObjectHideFlags: 0

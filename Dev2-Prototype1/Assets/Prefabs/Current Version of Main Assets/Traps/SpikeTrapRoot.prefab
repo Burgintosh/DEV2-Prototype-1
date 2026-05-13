@@ -1370,6 +1370,7 @@ GameObject:
   - component: {fileID: 7743941834177680018}
   - component: {fileID: 6293886117308635177}
   - component: {fileID: 7868459716356836186}
+  - component: {fileID: 3992375947196804058}
   m_Layer: 11
   m_Name: SpikeTrapRoot
   m_TagString: Untagged
@@ -1540,6 +1541,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlacedBuildable
   buildableType: 3
   refundAmount: 0
+--- !u!114 &3992375947196804058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6947171205992848790}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcdc715e35fa8224a943affee90f6925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildableRangeDisplay
+  rangeSrc: 2
+  manualRadius: 3
+  rangeCollider: {fileID: 2187695392885047947}
+  rangeColor: {r: 0, g: 0.7, b: 1, a: 0.25}
+  rangeMat: {fileID: 2100000, guid: e06ae0244c527fb4e8bdfba0e5af2426, type: 2}
+  rangeCircles: 64
+  visualYOffset: 0.05
+  selectedColliders: []
+  showInsantlyForTesting: 0
 --- !u!1 &7632477437450419981
 GameObject:
   m_ObjectHideFlags: 0

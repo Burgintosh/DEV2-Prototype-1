@@ -301,6 +301,7 @@ GameObject:
   - component: {fileID: 8288778298995751960}
   - component: {fileID: 1389313197580565480}
   - component: {fileID: 5330912707198073479}
+  - component: {fileID: 2454412647451723055}
   m_Layer: 11
   m_Name: SlowTurretRoot
   m_TagString: Untagged
@@ -371,6 +372,27 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5.5427213, y: 3.1345057, z: 5.556673}
   m_Center: {x: 0.0049874783, y: 1.7549844, z: -0.026371956}
+--- !u!114 &2454412647451723055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5315801114722084613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcdc715e35fa8224a943affee90f6925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildableRangeDisplay
+  rangeSrc: 1
+  manualRadius: 3
+  rangeCollider: {fileID: 5157170492206034881}
+  rangeColor: {r: 0, g: 0.7, b: 1, a: 0.25}
+  rangeMat: {fileID: 2100000, guid: e06ae0244c527fb4e8bdfba0e5af2426, type: 2}
+  rangeCircles: 64
+  visualYOffset: 0.05
+  selectedColliders: []
+  showInsantlyForTesting: 0
 --- !u!1 &5505055125130560103
 GameObject:
   m_ObjectHideFlags: 0
@@ -383,8 +405,8 @@ GameObject:
   - component: {fileID: 8204980111875460950}
   - component: {fileID: 974711229117761486}
   - component: {fileID: 4965850855668238655}
-  - component: {fileID: 4063641827701853187}
   - component: {fileID: 5157170492206034881}
+  - component: {fileID: 4063641827701853187}
   - component: {fileID: 4417941561361292111}
   m_Layer: 0
   m_Name: Turret
@@ -421,6 +443,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e391be01c3744408b528549aea1786, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretAI
+  showBuffDebugLog: 1
   maxHP: 50
   cost: 100
   model: {fileID: 4965850855668238655}
@@ -489,6 +512,27 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!135 &5157170492206034881
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5505055125130560103}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 15
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!136 &4063641827701853187
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -511,27 +555,6 @@ CapsuleCollider:
   m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!135 &5157170492206034881
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5505055125130560103}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 15
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!54 &4417941561361292111
 Rigidbody:
