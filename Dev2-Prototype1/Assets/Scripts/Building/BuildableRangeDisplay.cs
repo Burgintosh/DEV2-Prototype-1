@@ -20,6 +20,7 @@ public class BuildableRangeDisplay : MonoBehaviour
     [SerializeField] Material rangeMat;
     [SerializeField] int rangeCircles = 64;
     [SerializeField] float visualYOffset = 0.05f;
+    [SerializeField] Transform rangeVisualAnchor;
 
     [SerializeField] Collider[] selectedColliders;
 
@@ -216,6 +217,11 @@ public class BuildableRangeDisplay : MonoBehaviour
 
     Vector3 GetRangeCenter()
     {
+        if(rangeVisualAnchor != null)
+        {
+            return rangeVisualAnchor.position;
+        }
+
         if(rangeCollider == null)
         {
             return transform.position;
@@ -240,6 +246,11 @@ public class BuildableRangeDisplay : MonoBehaviour
 
     Vector3 GetRangeUpDir()
     {
+        if(rangeVisualAnchor != null)
+        {
+            return rangeVisualAnchor.up;
+        }
+
         if(rangeCollider != null)
         {
             return rangeCollider.transform.up;
@@ -250,6 +261,11 @@ public class BuildableRangeDisplay : MonoBehaviour
 
     Quaternion GetRangeRot()
     {
+        if (rangeVisualAnchor != null)
+        {
+            return Quaternion.LookRotation(rangeVisualAnchor.forward, rangeVisualAnchor.up);
+        }
+
         if(rangeCollider != null)
         {
             return Quaternion.LookRotation(rangeCollider.transform.forward, rangeCollider.transform.up);
