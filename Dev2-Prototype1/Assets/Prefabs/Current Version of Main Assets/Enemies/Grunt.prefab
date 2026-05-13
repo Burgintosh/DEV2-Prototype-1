@@ -367,7 +367,7 @@ MonoBehaviour:
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 256
-  targetPriority: 1
+  targetPriority: 2
   currencyDrop: 5
   DropTables: []
   showSlowLogs: 1
@@ -442,7 +442,7 @@ NavMeshAgent:
   m_Acceleration: 32
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 7
+  m_StoppingDistance: 6
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 0
   m_AutoRepath: 1

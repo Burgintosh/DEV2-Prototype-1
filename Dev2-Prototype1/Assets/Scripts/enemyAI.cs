@@ -59,6 +59,7 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
 
     bool playerInRange;
     bool nexusInRange;
+    bool currentlyRetargeting;
 
     Vector3 playerDir; // player pos - enemy pos
     Vector3 nexusDir;
@@ -90,13 +91,18 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
             afkTimer += Time.deltaTime;
         else
             afkTimer = 0;
-
-
         //playerDir = gamemanager.instance.player.transform.position - transform.position; // Vile
-        if (currTarget == null && NexusManager.nexusManagerInstance.nexusCount > 0)
+        //if (agent.pathPending)
+        //{
+        //    Debug.Log(agent.hasPath);
+        //    Debug.Log(agent.pathPending);
+        //    Debug.Log(agent.remainingDistance);
+        //    Debug.Log(agent.isStopped);
+        //    Debug.Log(agent.pathStatus);
+        //}
+        if (currTarget == null && NexusManager.nexusManagerInstance.nexusCount > 0 && !currentlyRetargeting)
         {
             StartCoroutine(CheckTarget());
-            return;
         }
         if (nexusInRange && canSeeNexus())
         {
@@ -111,17 +117,17 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
             ResetAgentToMesh();
         }
         //else if (!agent.pathPending && afkTimer > 5)
-        else if (currTarget != null && afkTimer > 5)
-        {
-            //Debug.Log("Before reset: " + agent.pathStatus);
-            agent.ResetPath();
-            if (!agent.SetDestination(currTarget.transform.position))
-            {
-                Debug.Log("RUH ROH RAGGY I CAN'T FIND A NEXUS");
-            }
-            //Debug.Log("After Reset: " + agent.pathStatus);
-            shootTimer = 0;
-        }
+        //else if (currTarget != null && afkTimer > 5)
+        //{
+        //    //Debug.Log("Before reset: " + agent.pathStatus);
+        //    agent.ResetPath();
+        //    if (!agent.SetDestination(currTarget.transform.position))
+        //    {
+        //        Debug.Log("RUH ROH RAGGY I CAN'T FIND A NEXUS");
+        //    }
+        //    //Debug.Log("After Reset: " + agent.pathStatus);
+        //    shootTimer = 0;
+        //}
         else
         {
             if (currTarget != null && !agent.SetDestination(currTarget.transform.position))
@@ -377,36 +383,46 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
     void changeTarget()
     {
         nexusInRange = false;
-        
-        if(targetPriority == TargetPriority.LOWHEALTH)
+        if(NexusManager.nexusManagerInstance.nexusCount == 1)
         {
-            currTarget = LowHealthSearch();
+             currTarget = NexusManager.nexusManagerInstance.nexusList[0];
         }
-        if (targetPriority == TargetPriority.CLOSEST)
+        else
         {
-            currTarget = ClosestSearch();
-        }
-        if (targetPriority == TargetPriority.FURTHEST)
-        {
-            currTarget = FurthestSearch();
-        }
-        if (targetPriority == TargetPriority.ORDER)
-        {
-            currTarget = OrderSearch();
+            if (targetPriority == TargetPriority.LOWHEALTH)
+            {
+                currTarget = LowHealthSearch();
+            }
+            if (targetPriority == TargetPriority.CLOSEST)
+            {
+                currTarget = ClosestSearch();
+            }
+            if (targetPriority == TargetPriority.FURTHEST)
+            {
+                currTarget = FurthestSearch();
+            }
+            if (targetPriority == TargetPriority.ORDER)
+            {
+                currTarget = OrderSearch();
+            }
         }
         if(currTarget == null)
         {
             Debug.Log("No Path Found");
-        }
-        else
-        {
-            agent.SetDestination(currTarget.transform.position);
+            return;
         }
     }
     IEnumerator CheckTarget()
     {
+        currentlyRetargeting = true;
+        yield return null;
         changeTarget();
-        yield return new WaitForSeconds(0.5f);
+        if (agent.isOnNavMesh && currTarget != null)
+        {
+            yield return new WaitForSeconds(0.5f);
+            agent.SetDestination(currTarget.transform.position);
+        }
+        currentlyRetargeting = false;
     }
 
     public void ResetAgentToMesh()
