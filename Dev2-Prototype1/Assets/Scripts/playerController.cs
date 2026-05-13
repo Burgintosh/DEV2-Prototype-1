@@ -20,7 +20,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     [Header("Gun")]
     [SerializeField] List<Weapon> weapons = new List<Weapon>();
     private List<Weapon> weaponModels = new List<Weapon>();
-    [SerializeField] private GameObject weaponHolder;
+    [SerializeField] public GameObject weaponHolder;
+    [SerializeField] public GameObject blueprintHolder;
     private Weapon lastWeapon;
     private Weapon currentWeapon;
     int currentWeaponIndex = 0;

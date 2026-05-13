@@ -19,6 +19,7 @@ public class BuildPlacementController : MonoBehaviour
     [Header("----- Buildables -----")]
     [SerializeField] BuildableDefinition[] buildables;
     [SerializeField] int currBuildIndex = 0;
+    [SerializeField] BuildUIHotbar hotbarUI;
 
     [Header("----- Input -----")]
     [SerializeField] KeyCode togglePreviewKey = KeyCode.B;
@@ -55,6 +56,12 @@ public class BuildPlacementController : MonoBehaviour
         {
             currBuildIndex = Mathf.Clamp(currBuildIndex, 0, buildables.Length - 1);
             currBuildable = buildables[currBuildIndex];
+        }
+
+        if (hotbarUI != null)
+        {
+            hotbarUI.Initialize(buildables);
+            hotbarUI.SetSelectedIndex(currBuildIndex);
         }
     }
 
@@ -188,6 +195,13 @@ public class BuildPlacementController : MonoBehaviour
         {
             DestroyPreviewInstance();
         }
+
+        if (hotbarUI != null)
+        {
+            hotbarUI.gameObject.SetActive(previewModeActive);
+        }
+        gamemanager.instance.playerScript.weaponHolder.SetActive(!previewModeActive);
+        gamemanager.instance.playerScript.blueprintHolder.SetActive(previewModeActive);
     }
 
     void SelectBuildable(int _BuildIndex)
@@ -204,6 +218,11 @@ public class BuildPlacementController : MonoBehaviour
 
         DestroyPreviewInstance();
         CreatePreviewInstance();
+
+        if (hotbarUI  != null)
+        {
+            hotbarUI.SetSelectedIndex(currBuildIndex);
+        }
     }
 
     void CreatePreviewInstance()
