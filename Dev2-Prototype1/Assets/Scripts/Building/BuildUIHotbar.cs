@@ -26,28 +26,23 @@ public class BuildUIHotbar : MonoBehaviour
     {
         for (int i = 0; i < slots.Count; i++) // sets non-active slot borders to off
         {
-            slots[i].SetSelected(i == index);
+            bool selected = (i == index);
+
+            slots[i].SetSelected(selected);
+
+            if (selected)
+                UpdateInfoText(slots[i].GetBuildable());
         }
     }
 
-    void UpdateInfoText(int index)
+    void UpdateInfoText(BuildableDefinition buildData)
     {
-        if (currBuildables == null) return;
-
-        if (index < 0 || index >= currBuildables.Length) return;
-
-        BuildableDefinition buildable = currBuildables[index];
+        if (buildData == null) return;
 
         if (towerNameText != null)
-        {
-            towerNameText.text =
-                buildable.buildName;
-        }
+            towerNameText.text = buildData.buildName;
 
         if (towerCostText != null)
-        {
-            towerCostText.text =
-                "$" + buildable.cost.ToString();
-        }
+            towerCostText.text = "$" + buildData.cost.ToString();
     }
 }

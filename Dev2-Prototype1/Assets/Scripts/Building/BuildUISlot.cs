@@ -18,4 +18,8 @@ public class BuildUISlot : MonoBehaviour
     {
         selectedBorder.SetActive(selected);
     }
+    public BuildableDefinition GetBuildable()
+    {
+        return buildable;
+    }
 }
