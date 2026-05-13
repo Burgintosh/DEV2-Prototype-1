@@ -252,7 +252,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 16383
+    m_Bits: 49151
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -412,8 +412,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b79def102a80b24892fc2df198f3e01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildPlacementController
-  buildCamera: {fileID: 0}
-  playerPos: {fileID: 0}
+  buildCamera: {fileID: 5281255741563342711}
+  playerPos: {fileID: 15677698149879725}
   previewPrefab: {fileID: 338631171373570351, guid: 42dea41f286715b41aefa55bcdf6cf23, type: 3}
   currencyManager: {fileID: 0}
   rayCastDist: 100
@@ -479,6 +479,17 @@ MonoBehaviour:
     buildableType: 1
     placedPrefab: {fileID: 5315801114722084613, guid: 14a9485bd0ab1dd4fa21cc821e5d04f4, type: 3}
     placedPreview: {fileID: 2126695132893254590, guid: 3b2dd9cb5e0c2674ca669f61d3f7d197, type: 3}
+    cost: 50
+    refundAmount: 50
+    placementRadius: 1.5
+    previewYOffset: 0.1
+    placementMode: 0
+    surfaceRotOffset: {x: 0, y: 0, z: 0}
+    surfaceSpinAxis: 0
+  - buildName: Damage Booster
+    buildableType: 1
+    placedPrefab: {fileID: 2920538785947085337, guid: f841da1e1112cde4a8586f0ba0b13e20, type: 3}
+    placedPreview: {fileID: 5137711495315994238, guid: 18248ee46f82e404db36248666bb5828, type: 3}
     cost: 50
     refundAmount: 50
     placementRadius: 1.5
