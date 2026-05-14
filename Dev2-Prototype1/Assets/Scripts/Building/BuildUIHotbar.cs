@@ -23,6 +23,8 @@ public class BuildUIHotbar : MonoBehaviour
             slot.Setup(buildables[i]);
             slots.Add(slot);
         }
+
+        gameObject.SetActive(false);
     }
     public void SetSelectedIndex(int index)
     {

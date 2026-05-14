@@ -140,7 +140,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup
 
     void Update()
     {
-        if (weaponModels.Count > 0 && (currentWeaponIndex == 0 || currentWeaponIndex < weaponModels.Count))
+        //if (weaponModels.Count > 0 && (currentWeaponIndex == 0 || currentWeaponIndex < weaponModels.Count) && currentWeapon.gameObject.activeInHierarchy)
+        if (currentWeapon != null && currentWeapon.gameObject.activeInHierarchy)
             Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * currentWeapon.data.shootDist, Color.yellow);
 
 
@@ -149,7 +150,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         UpdateTimers();
         movement();
         //if (currentWeapon != null && shootAction.action.IsPressed() && shootTimer >= currentWeapon.data.shootRate && !gamemanager.instance.isPaused && !currentWeapon.isReloading)
-        if (currentWeapon != null && shootAction.action.IsPressed() && shootTimer >= currentWeapon.data.shootRate && !gamemanager.instance.isPaused && ((!currentWeapon.data.isReloading || currentWeapon.data.isSingleShellReload) && currentWeapon.data.canShootShotgun))
+        if (currentWeapon != null && currentWeapon.gameObject.activeInHierarchy && shootAction.action.IsPressed() && shootTimer >= currentWeapon.data.shootRate && !gamemanager.instance.isPaused && ((!currentWeapon.data.isReloading || currentWeapon.data.isSingleShellReload) && currentWeapon.data.canShootShotgun))
         {
             Debug.Log("Shooting");
             shoot();
