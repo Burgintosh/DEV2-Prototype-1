@@ -19,6 +19,7 @@ public class BuildPlacementController : MonoBehaviour
     [Header("----- Buildables -----")]
     [SerializeField] BuildableDefinition[] buildables;
     [SerializeField] int currBuildIndex = 0;
+    BuildUIHotbar hotbarUI;
 
     [Header("----- Input -----")]
     [SerializeField] KeyCode togglePreviewKey = KeyCode.B;
@@ -51,10 +52,23 @@ public class BuildPlacementController : MonoBehaviour
 
     private void Start()
     {
-        if(buildables != null && buildables.Length > 0)
+        if (buildables != null && buildables.Length > 0)
         {
             currBuildIndex = Mathf.Clamp(currBuildIndex, 0, buildables.Length - 1);
             currBuildable = buildables[currBuildIndex];
+        }
+
+        if (hotbarUI == null)
+            hotbarUI = FindFirstObjectByType<BuildUIHotbar>();
+
+        if (hotbarUI != null)
+        {
+            hotbarUI.Initialize(buildables);
+            hotbarUI.SetSelectedIndex(currBuildIndex);
+        }
+        else
+        {
+            Debug.LogWarning("BuildUIHotbar is missing from the scene!");
         }
     }
 
@@ -76,7 +90,8 @@ public class BuildPlacementController : MonoBehaviour
             return;
         }
 
-        HandleScrollSelection();
+        if (IsPreviewMode()) // Added check to only allow scrolling when in preview mode, allows scrolling between builds & guns in their respective modes
+            HandleScrollSelection();
 
         if (Input.GetKeyDown(rotatePreviewKey))
         {
@@ -145,7 +160,9 @@ public class BuildPlacementController : MonoBehaviour
 
     void HandleScrollSelection()
     {
-        if(buildables == null  || buildables.Length == 0)
+        if (!IsPreviewMode()) return;
+
+        if (buildables == null  || buildables.Length == 0)
         {
             return;
         }
@@ -188,6 +205,13 @@ public class BuildPlacementController : MonoBehaviour
         {
             DestroyPreviewInstance();
         }
+
+        if (hotbarUI != null)
+        {
+            hotbarUI.gameObject.SetActive(previewModeActive);
+        }
+        gamemanager.instance.playerScript.weaponHolder.SetActive(!previewModeActive);
+        gamemanager.instance.playerScript.blueprintHolder.SetActive(previewModeActive);
     }
 
     void SelectBuildable(int _BuildIndex)
@@ -204,6 +228,11 @@ public class BuildPlacementController : MonoBehaviour
 
         DestroyPreviewInstance();
         CreatePreviewInstance();
+
+        if (hotbarUI  != null)
+        {
+            hotbarUI.SetSelectedIndex(currBuildIndex);
+        }
     }
 
     void CreatePreviewInstance()
@@ -442,4 +471,8 @@ public class BuildPlacementController : MonoBehaviour
         placedBuildable.Sell(currencyManager);
     }
 
+    public bool IsPreviewMode()
+    {
+        return previewModeActive;
+    }
 }

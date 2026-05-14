@@ -207,6 +207,25 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5760567178759047362, guid: f3fb3fd8cdf441940b894aca3a3d2fd8, type: 3}
   m_PrefabInstance: {fileID: 1232161700}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &85536325 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3407801979322835608, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
+  m_PrefabInstance: {fileID: 1149811997}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &85536328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 85536325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.ContentSizeFitter
+  m_HorizontalFit: 2
+  m_VerticalFit: 0
 --- !u!4 &91185760 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5760567178759047362, guid: f3fb3fd8cdf441940b894aca3a3d2fd8, type: 3}
@@ -1973,6 +1992,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainUI (Real) (For Real)
       objectReference: {fileID: 0}
+    - target: {fileID: 6149360822519294672, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
+      propertyPath: m_ChildAlignment
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6149360822519294672, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
+      propertyPath: m_ChildForceExpandWidth
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6149360822519294672, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
+      propertyPath: m_ChildForceExpandHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6857050095805225017, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7828719983937996581, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -2053,10 +2088,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8300453926372397461, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8300453926372397461, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8300453926372397461, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3407801979322835608, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 85536328}
   m_SourcePrefab: {fileID: 100100000, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
 --- !u!4 &1194130276 stripped
 Transform:
