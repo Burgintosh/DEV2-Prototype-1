@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3214444288350946614
 Transform:
   m_ObjectHideFlags: 0
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 2079049965331288552}
   serializedVersion: 2
   m_LocalRotation: {x: -0.3153802, y: -0, z: -0, w: 0.9489654}
-  m_LocalPosition: {x: 0.031, y: -0.223, z: 0.346}
+  m_LocalPosition: {x: 0.002, y: -0.223, z: 0.346}
   m_LocalScale: {x: 0.4, y: 0.01, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -480,6 +480,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::playerController
   controller: {fileID: 4060575182106954972}
+  buildScript: {fileID: 1423015754300154477}
   ignoreLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -612,7 +613,6 @@ MonoBehaviour:
     surfaceRotOffset: {x: 0, y: 0, z: 0}
     surfaceSpinAxis: 0
   currBuildIndex: 0
-  hotbarUI: {fileID: 0}
   togglePreviewKey: 98
   confirmBuildKey: 323
   rotatePreviewKey: 114

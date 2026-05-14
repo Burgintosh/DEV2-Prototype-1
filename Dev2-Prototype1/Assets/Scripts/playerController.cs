@@ -10,6 +10,7 @@ using UnityEngine.InputSystem;
 public class playerController : MonoBehaviour, IDamage, IPickup
 {
     [SerializeField] CharacterController controller;
+    [SerializeField] BuildPlacementController buildScript;
     [SerializeField] LayerMask ignoreLayer;
 
     [Header("General Stats")]
@@ -146,7 +147,10 @@ public class playerController : MonoBehaviour, IDamage, IPickup
 
 
         HandleDashInput();
-        HandleWeaponSwitch();
+
+        if (!buildScript.IsPreviewMode())
+            HandleWeaponSwitch();
+
         UpdateTimers();
         movement();
         //if (currentWeapon != null && shootAction.action.IsPressed() && shootTimer >= currentWeapon.data.shootRate && !gamemanager.instance.isPaused && !currentWeapon.isReloading)

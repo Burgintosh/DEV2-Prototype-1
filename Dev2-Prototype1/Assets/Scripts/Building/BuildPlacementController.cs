@@ -90,7 +90,8 @@ public class BuildPlacementController : MonoBehaviour
             return;
         }
 
-        HandleScrollSelection();
+        if (IsPreviewMode()) // Added check to only allow scrolling when in preview mode, allows scrolling between builds & guns in their respective modes
+            HandleScrollSelection();
 
         if (Input.GetKeyDown(rotatePreviewKey))
         {
@@ -159,7 +160,9 @@ public class BuildPlacementController : MonoBehaviour
 
     void HandleScrollSelection()
     {
-        if(buildables == null  || buildables.Length == 0)
+        if (!IsPreviewMode()) return;
+
+        if (buildables == null  || buildables.Length == 0)
         {
             return;
         }
@@ -468,4 +471,8 @@ public class BuildPlacementController : MonoBehaviour
         placedBuildable.Sell(currencyManager);
     }
 
+    public bool IsPreviewMode()
+    {
+        return previewModeActive;
+    }
 }
