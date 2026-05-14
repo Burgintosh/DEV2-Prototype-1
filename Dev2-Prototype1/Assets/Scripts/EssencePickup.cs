@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class EssencePickup : MonoBehaviour
 {
     enum EssenceType
@@ -26,6 +26,7 @@ public class EssencePickup : MonoBehaviour
                     gamemanager.instance.playerScript.GetCurrentWeapon().StartReload();
                     break;
                 case EssenceType.UPGRADEMATERIAL:
+                    SceneManager.LoadScene("ShowCaseLevelScene");
                     break;
                 case EssenceType.MONEY:
                     gamemanager.instance.currencyManager.AddCurrency(Amount);
