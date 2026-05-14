@@ -233,14 +233,14 @@ public class BuildPlacementController : MonoBehaviour
 
         previewRangeDisplay = previewInstance.GetComponentInChildren<BuildableRangeDisplay>(true);
         
-        if(previewRangeDisplay == null)
-        {
-            Debug.LogWarning("BuildPlacementController found no BuildableRangeDisplay on preview " + previewInstance.name, previewInstance);
-        }
-        else
-        {
-            Debug.Log("BuildPlacementController found BuildableRangeDisplay on preview " + previewInstance.name, previewRangeDisplay);
-        }
+        //if(previewRangeDisplay == null)
+        //{
+        //    Debug.LogWarning("BuildPlacementController found no BuildableRangeDisplay on preview " + previewInstance.name, previewInstance);
+        //}
+        //else
+        //{
+        //    Debug.Log("BuildPlacementController found BuildableRangeDisplay on preview " + previewInstance.name, previewRangeDisplay);
+        //}
 
         if (previewRangeDisplay != null)
         {
