@@ -441,6 +441,7 @@ GameObject:
   - component: {fileID: 15677698149879725}
   - component: {fileID: 3405798309347347471}
   - component: {fileID: 1423015754300154477}
+  - component: {fileID: 1164031155285335923}
   - component: {fileID: 4060575182106954972}
   - component: {fileID: 8083583662974543037}
   - component: {fileID: 3418633649003836014}
@@ -603,8 +604,8 @@ MonoBehaviour:
     surfaceSpinAxis: 0
   - buildName: Damage Booster
     buildableType: 1
-    placedPrefab: {fileID: 2920538785947085337, guid: f841da1e1112cde4a8586f0ba0b13e20, type: 3}
-    placedPreview: {fileID: 5137711495315994238, guid: 18248ee46f82e404db36248666bb5828, type: 3}
+    placedPrefab: {fileID: 458035499721688873, guid: f8444172520db8a4382181de3ce6d6a3, type: 3}
+    placedPreview: {fileID: 4469330818491300610, guid: 8b2235fc9a0b0674f984ff1e2e7597b9, type: 3}
     cost: 50
     refundAmount: 50
     placementRadius: 1.5
@@ -626,6 +627,26 @@ MonoBehaviour:
     m_Bits: 34816
   validColor: {r: 0, g: 0, b: 1, a: 1}
   invalidColor: {r: 1, g: 0, b: 0, a: 1}
+--- !u!114 &1164031155285335923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8496870519721792966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e22eda3be6b30164ab1768b5eec3389b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildableSelectionController
+  selectCam: {fileID: 5281255741563342711}
+  selectDist: 10
+  selectKey: 324
+  selectMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  triggerInteraction: 2
+  deselectOnTurnAway: 1
 --- !u!143 &4060575182106954972
 CharacterController:
   m_ObjectHideFlags: 0
