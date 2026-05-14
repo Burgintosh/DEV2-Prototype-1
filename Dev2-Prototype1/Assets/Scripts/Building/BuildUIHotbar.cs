@@ -14,7 +14,23 @@ public class BuildUIHotbar : MonoBehaviour
     [SerializeField] TMP_Text towerCostText;
 
     private List<BuildUISlot> slots = new List<BuildUISlot>();
+    private BuildableDefinition currentBuildable;
 
+    private void OnEnable()
+    {
+        if (gamemanager.instance != null && gamemanager.instance.currencyManager != null)
+            gamemanager.instance.currencyManager.OnCurrencyChanged += HandleCurrencyChanged;
+    }
+
+    private void OnDisable()
+    {
+        if (gamemanager.instance != null && gamemanager.instance.currencyManager != null)
+            gamemanager.instance.currencyManager.OnCurrencyChanged -= HandleCurrencyChanged;
+    }
+    private void HandleCurrencyChanged(int amount)
+    {
+        UpdateInfoText(currentBuildable);
+    }
     public void Initialize(BuildableDefinition[] buildables)
     {
         for (int i = 0; i < buildables.Length; i++)
@@ -42,11 +58,19 @@ public class BuildUIHotbar : MonoBehaviour
     void UpdateInfoText(BuildableDefinition buildData)
     {
         if (buildData == null) return;
+        currentBuildable = buildData;
 
         if (towerNameText != null)
             towerNameText.text = buildData.buildName;
 
         if (towerCostText != null)
             towerCostText.text = "$" + buildData.cost.ToString();
+
+        // Turns cost red if the player cannot afford the trap and green if they can
+        if (gamemanager.instance != null && gamemanager.instance.currencyManager != null)
+        {
+            bool canAfford = gamemanager.instance.currencyManager.canBuy(buildData.cost);
+            towerCostText.color = canAfford ? Color.green : Color.red;
+        }
     }
 }
