@@ -29,12 +29,14 @@ public class BuildUISlot : MonoBehaviour
             currentModel.transform.localPosition = Vector3.zero;
             //currentModel.transform.localRotation = Quaternion.Euler(15f, 215f, 0f);
 
-            
 
-            CenterModel(currentModel, modelContainer);
+            DisableComponents(currentModel);
+            // CenterModel(currentModel, modelContainer);
         }
     }
 
+    // Not working for the laser trap so disabling for now. Gonna come back to it later and try to make it better.
+    // I think the issue might have to do with the particle system on the hit effect but it's disabled
     private void CenterModel(GameObject model, Transform container)
     {
         // Cool stuff, takes all the meshes in the prefab and ensures the whole thing is within the ui box.
@@ -50,10 +52,7 @@ public class BuildUISlot : MonoBehaviour
 
         model.transform.position += offset;
 
-        // Removes colliders from prefabs in UI so they don't break anything
-        // I assume this is necessary, google said so but I didn't test without it
-        Collider[] colliders = model.GetComponentsInChildren<Collider>();
-        foreach (Collider col in colliders) col.enabled = false;
+        
     }
 
     public void SetSelected(bool selected)
@@ -70,5 +69,20 @@ public class BuildUISlot : MonoBehaviour
         obj.layer = LayerMask.NameToLayer("UI");
         foreach (Transform child in obj.transform)
             SetUILayerRecursively(child.gameObject);
+    }
+
+    private void DisableComponents(GameObject model)
+    {
+        MonoBehaviour[] scripts = model.GetComponentsInChildren<MonoBehaviour>();
+        foreach (MonoBehaviour script in scripts)
+                script.enabled = false;
+
+        // Removes colliders from prefabs in UI so they don't break anything
+        // I assume this is necessary, google said so but I didn't test without it
+        Collider[] colliders = model.GetComponentsInChildren<Collider>();
+        foreach (Collider col in colliders) col.enabled = false;
+
+        LineRenderer[] lines = model.GetComponentsInChildren<LineRenderer>(); // turning off the line renderer for the bounds used below
+        foreach (LineRenderer line in lines) line.enabled = false;
     }
 }
