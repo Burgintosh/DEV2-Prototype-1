@@ -294,7 +294,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcdc715e35fa8224a943affee90f6925, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildableRangeDisplay
-  rangeSrc: 0
+  rangeSrc: 1
   manualRadius: 3
   rangeCollider: {fileID: 2497581404552850265}
   rangeColor: {r: 0, g: 0.7, b: 1, a: 0.25}
