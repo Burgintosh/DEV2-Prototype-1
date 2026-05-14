@@ -1555,11 +1555,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::BuildableRangeDisplay
   rangeSrc: 2
   manualRadius: 3
-  rangeCollider: {fileID: 2187695392885047947}
+  rangeCollider: {fileID: 6645568680083978337}
   rangeColor: {r: 0, g: 0.7, b: 1, a: 0.25}
   rangeMat: {fileID: 2100000, guid: e06ae0244c527fb4e8bdfba0e5af2426, type: 2}
   rangeCircles: 64
   visualYOffset: 0.05
+  rangeVisualAnchor: {fileID: 0}
   selectedColliders: []
   showInsantlyForTesting: 0
 --- !u!1 &7632477437450419981

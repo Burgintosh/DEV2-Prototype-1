@@ -269,6 +269,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1299112143847435280}
+  - component: {fileID: 7542854044717256478}
   m_Layer: 0
   m_Name: SpikeTrapRootPreview
   m_TagString: Untagged
@@ -292,6 +293,28 @@ Transform:
   - {fileID: 222833332635507042}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7542854044717256478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2094191744405732728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcdc715e35fa8224a943affee90f6925, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildableRangeDisplay
+  rangeSrc: 2
+  manualRadius: 3
+  rangeCollider: {fileID: 5619700892229179770}
+  rangeColor: {r: 0, g: 0.7, b: 1, a: 0.25}
+  rangeMat: {fileID: 2100000, guid: e06ae0244c527fb4e8bdfba0e5af2426, type: 2}
+  rangeCircles: 64
+  visualYOffset: 0.05
+  rangeVisualAnchor: {fileID: 0}
+  selectedColliders: []
+  showInsantlyForTesting: 0
 --- !u!1 &2249873970729404645
 GameObject:
   m_ObjectHideFlags: 0
@@ -755,6 +778,7 @@ GameObject:
   - component: {fileID: 5972108348649776081}
   - component: {fileID: 8816605583075326190}
   - component: {fileID: 7265231942579096085}
+  - component: {fileID: 5619700892229179770}
   m_Layer: 0
   m_Name: SpikeTrapRoot
   m_TagString: Untagged
@@ -879,6 +903,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlacedBuildable
   buildableType: 3
   refundAmount: 0
+--- !u!65 &5619700892229179770
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4351570421611817207}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 48.725586, z: 1}
+  m_Center: {x: 0, y: 23.862791, z: 0}
 --- !u!1 &4918187685599398722
 GameObject:
   m_ObjectHideFlags: 0
