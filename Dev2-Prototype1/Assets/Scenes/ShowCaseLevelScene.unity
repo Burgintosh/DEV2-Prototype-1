@@ -559,6 +559,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainUI (Real) (For Real)
       objectReference: {fileID: 0}
+    - target: {fileID: 7546958797263017469, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 119.680176
+      objectReference: {fileID: 0}
     - target: {fileID: 7828719983937996581, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
       propertyPath: m_Pivot.x
       value: 0
