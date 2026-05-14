@@ -26,9 +26,10 @@ public class NexusManager : MonoBehaviour
         nexusList.Add(nexus);
         nexusCount++;
     }
-    public void OnNexusDeath()
+    public void OnNexusDeath(Nexus nexus)
     {
         nexusCount--;
+        nexusList.Remove(nexus);
         gamemanager.instance.UpdateNexusHPBar2();
         if(nexusCount <= 0)
         {

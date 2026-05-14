@@ -1,9 +1,23 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour, IDamage, ISlowable
 {
+    enum TargetPriority
+    {
+        LOWHEALTH,
+        CLOSEST,
+        FURTHEST,
+        ORDER
+    };
+    [System.Serializable]
+    public class ItemDrop
+    {
+        public GameObject itemDrop;
+        [Range(0f, 1.0f)] public float Odds;
+    }
     [Header("Sound")]
     [Range(0f, 1f)]
     [SerializeField] float enemyShootVol = 0.5f;
@@ -22,12 +36,14 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
     [SerializeField] int targetFaceSpeed;
     [SerializeField] int FOV;
     [SerializeField] LayerMask ignoreLayer;
+    [SerializeField] TargetPriority targetPriority;
 
     [SerializeField] int currencyDrop;
+    [SerializeField] List<ItemDrop> DropTables = new List<ItemDrop>();
 
     Color colorOrig;
 
-    int currTargetNexus = -1;
+    Nexus currTarget;
 
     float shootTimer;
     float afkTimer;
@@ -43,6 +59,7 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
 
     bool playerInRange;
     bool nexusInRange;
+    bool currentlyRetargeting;
 
     Vector3 playerDir; // player pos - enemy pos
     Vector3 nexusDir;
@@ -74,13 +91,18 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
             afkTimer += Time.deltaTime;
         else
             afkTimer = 0;
-
-
         //playerDir = gamemanager.instance.player.transform.position - transform.position; // Vile
-        if (currTargetNexus == -1 || NexusManager.nexusManagerInstance.nexusList[currTargetNexus] == null)
+        //if (agent.pathPending)
+        //{
+        //    Debug.Log(agent.hasPath);
+        //    Debug.Log(agent.pathPending);
+        //    Debug.Log(agent.remainingDistance);
+        //    Debug.Log(agent.isStopped);
+        //    Debug.Log(agent.pathStatus);
+        //}
+        if (currTarget == null && NexusManager.nexusManagerInstance.nexusCount > 0 && !currentlyRetargeting)
         {
             StartCoroutine(CheckTarget());
-            return;
         }
         if (nexusInRange && canSeeNexus())
         {
@@ -95,20 +117,20 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
             ResetAgentToMesh();
         }
         //else if (!agent.pathPending && afkTimer > 5)
-        else if (afkTimer > 5)
-        {
-            Debug.Log("Before reset: " + agent.pathStatus);
-            agent.ResetPath();
-            if (!agent.SetDestination(NexusManager.nexusManagerInstance.nexusList[currTargetNexus].transform.position))
-            {
-                Debug.Log("RUH ROH RAGGY I CAN'T FIND A NEXUS");
-            }
-            Debug.Log("After Reset: " + agent.pathStatus);
-            shootTimer = 0;
-        }
+        //else if (currTarget != null && afkTimer > 5)
+        //{
+        //    //Debug.Log("Before reset: " + agent.pathStatus);
+        //    agent.ResetPath();
+        //    if (!agent.SetDestination(currTarget.transform.position))
+        //    {
+        //        Debug.Log("RUH ROH RAGGY I CAN'T FIND A NEXUS");
+        //    }
+        //    //Debug.Log("After Reset: " + agent.pathStatus);
+        //    shootTimer = 0;
+        //}
         else
         {
-            if (!agent.SetDestination(NexusManager.nexusManagerInstance.nexusList[currTargetNexus].transform.position))
+            if (currTarget != null && !agent.SetDestination(currTarget.transform.position))
             {
                 Debug.Log("RUH ROH RAGGY I CAN'T FIND A NEXUS but in else");
             }
@@ -203,8 +225,23 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
         if(HP <= 0)
         {
             gamemanager.instance.currencyManager.AddCurrency(currencyDrop);
+            gamemanager.instance.currScore += maxHP * 10;
             PooledEnemy pooledEnemy = GetComponent<PooledEnemy>();
-
+            if(DropTables.Count > 0)
+            {
+                for (int i = 0; i < DropTables.Count; i++)
+                {
+                    float chance = Random.Range(0, 101);
+                    float toBeat = 100 - 100 * DropTables[i].Odds;
+                    Debug.Log(chance + "toBeat: " + toBeat);
+                    if ( chance >= toBeat)
+                    { 
+                        Vector3 DropOffset = Random.insideUnitSphere * 2;
+                        DropOffset.y = 0f;
+                        Instantiate(DropTables[i].itemDrop, transform.position + DropOffset, Quaternion.identity);
+                    }
+                }
+            }
             if(pooledEnemy != null)
             {
                 pooledEnemy.RemoveFromWave();
@@ -298,7 +335,8 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
         angleToNexus = 0f;
         nexusInRange = false;
         nexusDir = Vector3.zero;
-        currTargetNexus = -1;
+        //currTargetNexus = -1;
+        currTarget = null;
         if(model != null)
         {
             model.material.color = colorOrig;
@@ -315,8 +353,8 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
     }
     bool canSeeNexus()
     {
-        if (NexusManager.nexusManagerInstance.nexusList[currTargetNexus] == null) return false;
-        nexusDir = NexusManager.nexusManagerInstance.nexusList[currTargetNexus].transform.position - transform.position;
+        if (currTarget == null) return false;
+        nexusDir = currTarget.transform.position - transform.position;
         angleToNexus = Vector3.Angle(nexusDir, transform.forward);
 
 
@@ -335,7 +373,7 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
                 if (shootTimer >= shootRate)
                     shoot();
 
-                agent.SetDestination(NexusManager.nexusManagerInstance.nexusList[currTargetNexus].transform.position);
+                agent.SetDestination(currTarget.transform.position);
 
                 return true;
             }
@@ -345,29 +383,46 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
     void changeTarget()
     {
         nexusInRange = false;
-        if (currTargetNexus == -1)
+        if(NexusManager.nexusManagerInstance.nexusCount == 1)
         {
-            currTargetNexus = Random.Range(0, NexusManager.nexusManagerInstance.nexusList.Count);
+             currTarget = NexusManager.nexusManagerInstance.nexusList[0];
         }
         else
         {
-            currTargetNexus = 0;
-            while( NexusManager.nexusManagerInstance.nexusList[currTargetNexus] == null)
+            if (targetPriority == TargetPriority.LOWHEALTH)
             {
-                currTargetNexus++;
-                if(currTargetNexus == NexusManager.nexusManagerInstance.nexusList.Count)
-                {
-                    Debug.Log("No Valid Target");
-                    currTargetNexus = 0;
-                    return;
-                }
+                currTarget = LowHealthSearch();
             }
+            if (targetPriority == TargetPriority.CLOSEST)
+            {
+                currTarget = ClosestSearch();
+            }
+            if (targetPriority == TargetPriority.FURTHEST)
+            {
+                currTarget = FurthestSearch();
+            }
+            if (targetPriority == TargetPriority.ORDER)
+            {
+                currTarget = OrderSearch();
+            }
+        }
+        if(currTarget == null)
+        {
+            Debug.Log("No Path Found");
+            return;
         }
     }
     IEnumerator CheckTarget()
     {
+        currentlyRetargeting = true;
+        yield return null;
         changeTarget();
-        yield return new WaitForSeconds(0.5f);
+        if (agent.isOnNavMesh && currTarget != null)
+        {
+            yield return new WaitForSeconds(0.5f);
+            agent.SetDestination(currTarget.transform.position);
+        }
+        currentlyRetargeting = false;
     }
 
     public void ResetAgentToMesh()
@@ -385,5 +440,72 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
         {
             Debug.LogWarning("No NavMesh found near agent position!");
         }
+    }
+    Nexus LowHealthSearch()
+    {
+        Nexus Temp = null;
+        float lowestHP = Mathf.Infinity;
+        for(int i = 0; i < NexusManager.nexusManagerInstance.nexusList.Count; ++i)
+        {
+            if (NexusManager.nexusManagerInstance.nexusList[i] != null &&
+                NexusManager.nexusManagerInstance.nexusList[i].GetCurrHP() < lowestHP)
+            {
+                Temp = NexusManager.nexusManagerInstance.nexusList[i];
+                lowestHP = NexusManager.nexusManagerInstance.nexusList[i].GetCurrHP();
+            }
+        }
+
+        return Temp;
+    }
+    Nexus ClosestSearch()
+    {
+        Nexus Temp = null;
+        float shortestDistance = Mathf.Infinity;
+        for (int i = 0; i < NexusManager.nexusManagerInstance.nexusList.Count; ++i)
+        {
+            if(NexusManager.nexusManagerInstance.nexusList[i] != null)
+            {
+                float distance = Vector3.Distance(transform.position, NexusManager.nexusManagerInstance.nexusList[i].transform.position);
+                if (distance < shortestDistance)
+                {
+                    Temp = NexusManager.nexusManagerInstance.nexusList[i];
+                    shortestDistance = distance;
+                }
+            }
+        }
+
+        return Temp;
+    }
+    Nexus FurthestSearch()
+    {
+        Nexus Temp = null;
+        float furthestDistance = 0;
+        for (int i = 0; i < NexusManager.nexusManagerInstance.nexusList.Count; ++i)
+        {
+            if (NexusManager.nexusManagerInstance.nexusList[i] != null)
+            {
+                float distance = Vector3.Distance(transform.position, NexusManager.nexusManagerInstance.nexusList[i].transform.position);
+                if (distance > furthestDistance)
+                {
+                    Temp = NexusManager.nexusManagerInstance.nexusList[i];
+                    furthestDistance = distance;
+                }
+            }
+        }
+
+        return Temp;
+    }
+    Nexus OrderSearch()
+    {
+        Nexus Temp = null;
+        int iterator = 0;
+        Temp = NexusManager.nexusManagerInstance.nexusList[iterator];
+        while(Temp == null && NexusManager.nexusManagerInstance.nexusCount > 0 && iterator < NexusManager.nexusManagerInstance.nexusList.Count)
+        {
+            iterator++;
+            Temp = NexusManager.nexusManagerInstance.nexusList[iterator];
+        }
+
+        return Temp;
     }
 }

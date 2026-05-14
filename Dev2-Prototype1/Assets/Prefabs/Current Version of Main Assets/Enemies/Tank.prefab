@@ -350,7 +350,7 @@ GameObject:
   - component: {fileID: 2795381276391677412}
   - component: {fileID: 1255366499585525102}
   - component: {fileID: 7398898841802938253}
-  m_Layer: 15
+  m_Layer: 8
   m_Name: Lava
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -384,12 +384,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98a1ca4addabea948ad7e3fa13651f5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::damage
+  applySlow: 0
+  slowPercent: 50
+  slowDuration: 3
   ignoreTriggerCollision: 1
   showDebugLogs: 0
   type: 2
   rb: {fileID: 0}
   damageAmount: 10
   damageRate: 0.5
+  damageMult: 1
   bulletSpeed: 0
   bulletDestroyTime: 0
   hitEffect: {fileID: 0}
@@ -460,10 +464,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
@@ -582,8 +586,11 @@ MonoBehaviour:
   FOV: 180
   ignoreLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 256
+  targetPriority: 1
   currencyDrop: 25
+  DropTables: []
+  showSlowLogs: 1
 --- !u!195 &3135814378302135873
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -593,19 +600,19 @@ NavMeshAgent:
   m_GameObject: {fileID: 5818386542145438867}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.75
   m_Speed: 4
   m_Acceleration: 15
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 5
+  m_StoppingDistance: 15
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 1
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 0
+  m_ObstacleAvoidanceType: 4
 --- !u!33 &3189566274299938351
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -673,10 +680,10 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0

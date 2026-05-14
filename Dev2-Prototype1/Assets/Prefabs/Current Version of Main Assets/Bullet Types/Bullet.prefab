@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3703345238934162776}
   - component: {fileID: 6402709367965842205}
   - component: {fileID: 2561312348928883419}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,6 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98a1ca4addabea948ad7e3fa13651f5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::damage
+  applySlow: 0
+  slowPercent: 50
+  slowDuration: 3
   ignoreTriggerCollision: 1
   showDebugLogs: 0
   type: 0

@@ -10,6 +10,7 @@ using UnityEngine.InputSystem;
 public class playerController : MonoBehaviour, IDamage, IPickup
 {
     [SerializeField] CharacterController controller;
+    [SerializeField] BuildPlacementController buildScript;
     [SerializeField] LayerMask ignoreLayer;
 
     [Header("General Stats")]
@@ -20,7 +21,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     [Header("Gun")]
     [SerializeField] List<Weapon> weapons = new List<Weapon>();
     private List<Weapon> weaponModels = new List<Weapon>();
-    [SerializeField] private GameObject weaponHolder;
+    [SerializeField] public GameObject weaponHolder;
+    [SerializeField] public GameObject blueprintHolder;
     private Weapon lastWeapon;
     private Weapon currentWeapon;
     int currentWeaponIndex = 0;
@@ -139,16 +141,20 @@ public class playerController : MonoBehaviour, IDamage, IPickup
 
     void Update()
     {
-        if (weaponModels.Count > 0 && (currentWeaponIndex == 0 || currentWeaponIndex < weaponModels.Count))
+        //if (weaponModels.Count > 0 && (currentWeaponIndex == 0 || currentWeaponIndex < weaponModels.Count) && currentWeapon.gameObject.activeInHierarchy)
+        if (currentWeapon != null && currentWeapon.gameObject.activeInHierarchy)
             Debug.DrawRay(Camera.main.transform.position, Camera.main.transform.forward * currentWeapon.data.shootDist, Color.yellow);
 
 
         HandleDashInput();
-        HandleWeaponSwitch();
+
+        if (!buildScript.IsPreviewMode())
+            HandleWeaponSwitch();
+
         UpdateTimers();
         movement();
         //if (currentWeapon != null && shootAction.action.IsPressed() && shootTimer >= currentWeapon.data.shootRate && !gamemanager.instance.isPaused && !currentWeapon.isReloading)
-        if (currentWeapon != null && shootAction.action.IsPressed() && shootTimer >= currentWeapon.data.shootRate && !gamemanager.instance.isPaused && ((!currentWeapon.data.isReloading || currentWeapon.data.isSingleShellReload) && currentWeapon.data.canShootShotgun))
+        if (currentWeapon != null && currentWeapon.gameObject.activeInHierarchy && shootAction.action.IsPressed() && shootTimer >= currentWeapon.data.shootRate && !gamemanager.instance.isPaused && ((!currentWeapon.data.isReloading || currentWeapon.data.isSingleShellReload) && currentWeapon.data.canShootShotgun))
         {
             Debug.Log("Shooting");
             shoot();
@@ -565,5 +571,14 @@ public class playerController : MonoBehaviour, IDamage, IPickup
 
         weaponModels.Add(newWeapon);
         SwitchWeapon(weaponModels.Count - 1);
+    }
+    public void HealPlayer(int amount)
+    {
+        HP += amount;
+        if(HP > HPOrig)
+        {
+            HP = HPOrig;
+        }
+        OnHPChanged?.Invoke(HP);
     }
 }
