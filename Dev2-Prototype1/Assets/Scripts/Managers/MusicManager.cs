@@ -145,7 +145,7 @@ public class MusicManager : MonoBehaviour
 
         float timer = 0f;
         float currStartVol = currSong.volume;
-        float targetVol = GetTargetVol(_NewTrack);
+        //float targetVol = GetTargetVol(_NewTrack);
 
         while(timer < _FadeDur)
         {
@@ -154,7 +154,8 @@ public class MusicManager : MonoBehaviour
             float fadeProgress = timer / _FadeDur;
 
             currSong.volume = Mathf.Lerp(currStartVol, 0f, fadeProgress);
-            nextSong.volume = Mathf.Lerp(0f, targetVol, fadeProgress);
+            //nextSong.volume = Mathf.Lerp(0f, targetVol, fadeProgress);
+            nextSong.volume = Mathf.Lerp(0f, GetTargetVol(_NewTrack), fadeProgress); // Changed to check TargetVol each time in case it changes during the fade
 
             yield return null;
         }
@@ -163,7 +164,8 @@ public class MusicManager : MonoBehaviour
         currSong.clip = null;
         currSong.volume = 0f;
 
-        nextSong.volume = targetVol;
+        //nextSong.volume = targetVol;
+        nextSong.volume = GetTargetVol(_NewTrack);
 
         AudioSource oldCurr = currSong;
         currSong = nextSong;
@@ -191,6 +193,7 @@ public class MusicManager : MonoBehaviour
         float targetVol = GetTargetVol(currTrack);
 
         IEnumerator fadeRoutine = FadeCurrVol(targetVol, fadeDur);
+        //IEnumerator fadeRoutine = FadeCurrVol(GetTargetVol(currTrack), fadeDur);
 
         volCoroutine = StartCoroutine(fadeRoutine);
     }
@@ -204,12 +207,14 @@ public class MusicManager : MonoBehaviour
         {
             timer += Time.unscaledDeltaTime;
             float fadeProgress = timer / _FadeLen;
-            currSong.volume = Mathf.Lerp(initVol, _TargetVol, fadeProgress);
+            //currSong.volume = Mathf.Lerp(initVol, _TargetVol, fadeProgress);
+            currSong.volume = Mathf.Lerp(initVol, GetTargetVol(currTrack), fadeProgress); // // Changed to check TargetVol each time in case it changes during the fade
 
             yield return null;
         }
 
-        currSong.volume = _TargetVol;
+        //currSong.volume = _TargetVol;
+        currSong.volume = GetTargetVol(currTrack);
         volCoroutine = null;
     }
 

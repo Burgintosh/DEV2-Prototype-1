@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] ButtonFunctions buttonFunctions;
+
     public GameObject mainMenu;
     public GameObject LevelSelectMenu;
     public GameObject EndlessMenu;
@@ -72,6 +74,7 @@ public class MainMenu : MonoBehaviour
     {
         OptionsMenu.SetActive(false);
         mainMenu.SetActive(true);
+        buttonFunctions.LoadSettings();
     }
     public void CloseScoresMenu()
     {

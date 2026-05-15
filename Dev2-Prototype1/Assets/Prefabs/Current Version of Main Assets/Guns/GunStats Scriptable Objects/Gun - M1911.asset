@@ -32,3 +32,6 @@ MonoBehaviour:
   pelletCount: 1
   spreadAngle: 0
   canShootShotgun: 1
+  cameraShakeDuration: 0.1
+  cameraShakeMagnitude: 1.5
+  cameraShakeFrequency: 20

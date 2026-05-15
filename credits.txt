@@ -1,0 +1,5 @@
+[IMAGES]
+lock icon - <a href="https://www.flaticon.com/free-icons/lock" title="lock icons">Lock icons created by Those Icons - Flaticon</a>
+
+[AUDIO]
+Wilhelm scream - https://bigsoundbank.com/download.php

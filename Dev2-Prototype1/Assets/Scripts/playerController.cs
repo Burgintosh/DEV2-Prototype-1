@@ -77,6 +77,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     //public AudioSource jumpSound3;
 
     [Header("Sound")]
+    [SerializeField] AudioSource playerAudioSource;
+    [SerializeField] AudioClip playerDeath;
     [Range(0f, 1f)][SerializeField] float playerJumpVol = 0.5f;
     [Range(0f, 1f)][SerializeField] float playerHurtVol = 0.5f;
     [Range(0f, 1f)][SerializeField] float hurtSoundCooldown = 0.15f;
@@ -160,7 +162,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
             shoot();
         }
 
-        if(currentWeapon != null && reloadAction.action.WasPressedThisFrame())
+        if(currentWeapon != null && currentWeapon.gameObject.activeInHierarchy && reloadAction.action.WasPressedThisFrame())
         {
             if (!currentWeapon.data.isReloading && currentWeapon.canReload())
             {
@@ -421,7 +423,11 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         if(currentWeapon != null)
         {
             if(currentWeapon.canShoot())
+            {
                 currentWeapon.FireWeapon();
+                Camera.main.GetComponent<cameraController>().Shake(currentWeapon.data.cameraShakeDuration, currentWeapon.data.cameraShakeMagnitude, currentWeapon.data.cameraShakeFrequency);
+            }
+                
             else
             {
                 currentWeapon.GunClick();
@@ -464,6 +470,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         HP -= amount; // do NOT destroy your player
         OnHPChanged?.Invoke(HP);
 
+        Camera.main.GetComponent<cameraController>().Shake(0.35f, 3.5f);
+
         if(hurtSoundTimer <= 0) 
         {
             PlayRandomHurtSound();
@@ -474,6 +482,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         if (HP <= 0)
         {
             // Congrat u r ded
+            SoundManager.Instance.PlayWithRandomPitch(playerAudioSource, playerDeath, 1f, SoundCategory.Player);
             gamemanager.instance.youLose();
         }
     }
