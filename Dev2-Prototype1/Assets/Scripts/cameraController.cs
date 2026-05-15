@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class cameraController : MonoBehaviour
@@ -9,6 +10,9 @@ public class cameraController : MonoBehaviour
 
     float camRotX;
 
+    private Coroutine shakeCoroutine;
+    private Quaternion shakeRotationOffset = Quaternion.identity;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -19,8 +23,12 @@ public class cameraController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float mouseX = Input.GetAxisRaw("Mouse X") * sens * Time.deltaTime;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * sens * Time.deltaTime; // mousey = camerax
+        if (Time.timeScale == 0) return;
+
+        //float mouseX = Input.GetAxisRaw("Mouse X") * sens * Time.deltaTime;
+        //float mouseY = Input.GetAxisRaw("Mouse Y") * sens * Time.deltaTime; // mousey = camerax
+        float mouseX = Input.GetAxisRaw("Mouse X") * sens * 0.5f;
+        float mouseY = Input.GetAxisRaw("Mouse Y") * sens * 0.5f; // mousey = camerax
 
         if(invertY)
             camRotX += mouseY;
@@ -29,8 +37,8 @@ public class cameraController : MonoBehaviour
 
 
 
-            camRotX = Mathf.Clamp(camRotX, lockVertMin, lockVertMax);
-        transform.localRotation = Quaternion.Euler(camRotX, 0, 0); // Use Quaternion library when rotating ANYTHING
+        camRotX = Mathf.Clamp(camRotX, lockVertMin, lockVertMax);
+        transform.localRotation = Quaternion.Euler(camRotX, 0, 0) * shakeRotationOffset; // Use Quaternion library when rotating ANYTHING
 
         if(player != null)
             player.transform.Rotate(Vector3.up * mouseX); // Vector3.up = y axis
@@ -40,4 +48,44 @@ public class cameraController : MonoBehaviour
     {
         sens = _sens;
     }
+
+    public void Shake(float duration, float magnitude, float frequency = 20f)
+    {
+        if (shakeCoroutine != null)
+        {
+            StopCoroutine(shakeCoroutine);
+        }
+        shakeCoroutine = StartCoroutine(ShakeRoutine(duration, magnitude, frequency));
+
+
+    }
+    private IEnumerator ShakeRoutine(float duration, float magnitude, float frequency)
+    {
+        float shakeTimer = 0.0f;
+
+        float seedX = Random.value * 100f;
+        float seedY = Random.value * 100f;
+        float seedZ = Random.value * 100f;
+
+        while (shakeTimer < duration)
+        {
+            float timeStep = shakeTimer * frequency;
+
+            float xOffset = (Mathf.PerlinNoise(seedX + timeStep, 0f) * 2f - 1f) * magnitude;
+            float yOffset = (Mathf.PerlinNoise(0f, seedY + timeStep) * 2f - 1f) * magnitude;
+            float zOffset = (Mathf.PerlinNoise(seedZ + timeStep, seedZ + timeStep) * 2f - 1f) * magnitude;
+
+            float damping = 1 - (shakeTimer / duration);
+
+            shakeRotationOffset = Quaternion.Euler(xOffset * damping, yOffset * damping, zOffset * damping);
+
+            shakeTimer += Time.unscaledDeltaTime;
+
+            yield return null;
+        }
+
+        shakeRotationOffset = Quaternion.identity;
+        shakeCoroutine = null;
+    }
+
 }

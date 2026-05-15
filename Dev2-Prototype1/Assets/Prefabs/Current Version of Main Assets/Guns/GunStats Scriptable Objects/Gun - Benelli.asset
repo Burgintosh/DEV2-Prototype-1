@@ -19,14 +19,19 @@ MonoBehaviour:
   shootRate: 1
   magazineSize: 7
   reloadTime: 0
-  bulletsLeft: 4
+  bulletsLeft: 3
   isReloading: 0
   shootClip: {fileID: 8300000, guid: 713c45bf545b9724ab291e5547bdb1d8, type: 3}
-  reloadClip: {fileID: 8300000, guid: f121a3bffc9f99c46833c19b281a84ae, type: 3}
   emptyClip: {fileID: 8300000, guid: 6c357fa4beb860343a34624d66ea8c12, type: 3}
   hitEffect: {fileID: 6932662996829953957, guid: e7a64ce28a726fe42a4aaaf79064a28e, type: 3}
+  shootVol: 0.5
+  reloadVol: 0.5
+  emptyClickVol: 0.5
   isSingleShellReload: 1
   shellReloadTime: 0.5
   pelletCount: 6
   spreadAngle: 5
   canShootShotgun: 1
+  cameraShakeDuration: 0.25
+  cameraShakeMagnitude: 8
+  cameraShakeFrequency: 5
