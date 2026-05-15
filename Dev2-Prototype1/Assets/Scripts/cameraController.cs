@@ -25,10 +25,10 @@ public class cameraController : MonoBehaviour
     {
         if (Time.timeScale == 0) return;
 
-        float mouseX = Input.GetAxisRaw("Mouse X") * sens * Time.deltaTime;
-        float mouseY = Input.GetAxisRaw("Mouse Y") * sens * Time.deltaTime; // mousey = camerax
-        //float mouseX = Input.GetAxisRaw("Mouse X") * sens * .3f;
-        //float mouseY = Input.GetAxisRaw("Mouse Y") * sens * .3f; // mousey = camerax
+        //float mouseX = Input.GetAxisRaw("Mouse X") * sens * Time.deltaTime;
+        //float mouseY = Input.GetAxisRaw("Mouse Y") * sens * Time.deltaTime; // mousey = camerax
+        float mouseX = Input.GetAxisRaw("Mouse X") * sens * 0.5f;
+        float mouseY = Input.GetAxisRaw("Mouse Y") * sens * 0.5f; // mousey = camerax
 
         if(invertY)
             camRotX += mouseY;

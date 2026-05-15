@@ -19,7 +19,7 @@ MonoBehaviour:
   shootRate: 0.3
   magazineSize: 30
   reloadTime: 1.5
-  bulletsLeft: 31
+  bulletsLeft: 21
   isReloading: 0
   shootClip: {fileID: 8300000, guid: 61d2f4d4705f5b249bec7ffa6404151b, type: 3}
   emptyClip: {fileID: 8300000, guid: 6c357fa4beb860343a34624d66ea8c12, type: 3}
@@ -34,4 +34,4 @@ MonoBehaviour:
   canShootShotgun: 1
   cameraShakeDuration: 0.1
   cameraShakeMagnitude: 0.8
-  cameraShakeFrequency: 30
+  cameraShakeFrequency: 15
