@@ -77,6 +77,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     //public AudioSource jumpSound3;
 
     [Header("Sound")]
+    [SerializeField] AudioSource playerAudioSource;
+    [SerializeField] AudioClip playerDeath;
     [Range(0f, 1f)][SerializeField] float playerJumpVol = 0.5f;
     [Range(0f, 1f)][SerializeField] float playerHurtVol = 0.5f;
     [Range(0f, 1f)][SerializeField] float hurtSoundCooldown = 0.15f;
@@ -480,6 +482,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         if (HP <= 0)
         {
             // Congrat u r ded
+            SoundManager.Instance.PlayWithRandomPitch(playerAudioSource, playerDeath, 1f, SoundCategory.Player);
             gamemanager.instance.youLose();
         }
     }
