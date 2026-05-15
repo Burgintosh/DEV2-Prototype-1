@@ -61,12 +61,12 @@ public class BuildPlacementController : MonoBehaviour
         }
 
         if (hotbarUI == null)
-            hotbarUI = FindFirstObjectByType<BuildUIHotbar>();
+            //hotbarUI = FindFirstObjectByType<BuildUIHotbar>();
 
         if (hotbarUI != null)
         {
-            hotbarUI.Initialize(buildables);
-            hotbarUI.SetSelectedIndex(currBuildIndex);
+            //hotbarUI.Initialize(buildables);
+            //hotbarUI.SetSelectedIndex(currBuildIndex);
         }
         else
         {
@@ -524,5 +524,11 @@ public class BuildPlacementController : MonoBehaviour
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         SetCurrencyManager();
+        if( hotbarUI == null)
+        {
+            hotbarUI = FindFirstObjectByType<BuildUIHotbar>();
+            hotbarUI.Initialize(buildables);
+            hotbarUI.SetSelectedIndex(currBuildIndex);
+        }
     }
 }
