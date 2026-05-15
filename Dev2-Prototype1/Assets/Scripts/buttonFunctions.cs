@@ -84,6 +84,8 @@ public class ButtonFunctions : MonoBehaviour
 
         if (MusicManager.Instance != null)
             MusicManager.Instance.SetMasterVolume(pendingMusicVol);
+        else
+            Debug.Log("Music Manager doesn't exist yet");
 
         if (SoundManager.Instance != null)
             SoundManager.Instance.masterSFXVol = pendingSFXVol;
