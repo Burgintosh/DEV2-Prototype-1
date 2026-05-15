@@ -278,6 +278,9 @@ public class gamemanager : MonoBehaviour
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        UpdateGun(playerScript.GetCurrentWeapon());
+        UpdatePlayerHPBar(playerScript.GetCurrentHP());
+
 
     }
 }

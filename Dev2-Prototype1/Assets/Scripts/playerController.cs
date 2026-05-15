@@ -586,5 +586,6 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         transform.position = gamemanager.instance.playerSpawnPos.transform.position;
+        
     }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BuildPlacementController : MonoBehaviour
 {
@@ -71,7 +72,7 @@ public class BuildPlacementController : MonoBehaviour
         {
             Debug.LogWarning("BuildUIHotbar is missing from the scene!");
         }
-        currencyManager = gamemanager.instance.currencyManager;
+        SetCurrencyManager();
     }
 
     private void Update()
@@ -106,6 +107,14 @@ public class BuildPlacementController : MonoBehaviour
         {
             ConfirmBuild();
         }
+    }
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     void RotatePreview()
@@ -504,5 +513,16 @@ public class BuildPlacementController : MonoBehaviour
     public bool IsPreviewMode()
     {
         return previewModeActive;
+    }
+    private void SetCurrencyManager()
+    {
+        if(currencyManager == null)
+        {
+            currencyManager = gamemanager.instance.currencyManager;
+        }
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        SetCurrencyManager();
     }
 }
