@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro; // Access to text stuff
 using UnityEngine.UI;
 using Unity.Properties; // Access to UI stuff
+using UnityEngine.SceneManagement;
 
 public class gamemanager : MonoBehaviour
 {
@@ -100,6 +101,7 @@ public class gamemanager : MonoBehaviour
         playerScript.OnWeaponChanged += UpdateGun;
         playerScript.OnHPChanged += UpdatePlayerHPBar;
         nexusScript.OnNexusHPChanged += UpdateNexusHPBar;
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
@@ -117,6 +119,7 @@ public class gamemanager : MonoBehaviour
         playerScript.OnWeaponChanged -= UpdateGun;
         playerScript.OnHPChanged -= UpdatePlayerHPBar;
         nexusScript.OnNexusHPChanged -= UpdateNexusHPBar;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     public void statePause(bool _LowerMusic = true)
@@ -270,6 +273,10 @@ public class gamemanager : MonoBehaviour
             
     }
     public void Respawn()
+    {
+
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
 
     }
