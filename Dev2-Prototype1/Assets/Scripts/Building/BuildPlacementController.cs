@@ -397,10 +397,19 @@ public class BuildPlacementController : MonoBehaviour
             return null;
         }
 
+        Debug.Log("Sell ray hit: " + hit.collider.name + " | Root: " + hit.collider.transform.name + " | Is Trigger: " + hit.collider.isTrigger + " | Layer: " + LayerMask.LayerToName(hit.collider.gameObject.layer), hit.collider.gameObject);
+
         PlacedBuildable placedBuildable = hit.collider.GetComponent<PlacedBuildable>();
+
+        //Debug.Log("Selling buildables: " + placedBuildable.name, placedBuildable.gameObject);
 
         if (placedBuildable == null)
             placedBuildable = hit.collider.GetComponentInParent<PlacedBuildable>();
+
+        if (placedBuildable == null)
+        {
+            Debug.Log("No PlaceBuildable found on hit object or parents.", hit.collider.gameObject);
+        }
 
         return placedBuildable;
     }
@@ -525,21 +534,11 @@ public class BuildPlacementController : MonoBehaviour
             return;
         }
 
-        Debug.Log("Sell ray hit: " + hit.collider.name + " | Root: " + hit.collider.transform.name + " | Is Trigger: " + hit.collider.isTrigger + " | Layer: " + LayerMask.LayerToName(hit.collider.gameObject.layer), hit.collider.gameObject);
-
         //PlacedBuildable placedBuildable = hit.collider.GetComponent<PlacedBuildable>();
-
-        Debug.Log("Selling buildables: " + placedBuildable.name, placedBuildable.gameObject);
 
         //placedBuildable.Sell(currencyManager);
 
         PlacedBuildable placedBuildable = GetTargetedBuildable(); // Replaced the above code with a helper function
-
-        if (placedBuildable == null)
-        {
-            Debug.Log("No PlaceBuildable found on hit object or parents.", hit.collider.gameObject);
-            return;
-        }
 
         if (placedBuildable != null)
             placedBuildable.Sell(currencyManager);
