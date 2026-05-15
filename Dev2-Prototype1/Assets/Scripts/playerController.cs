@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
 
 public class playerController : MonoBehaviour, IDamage, IPickup
@@ -96,6 +97,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         Weapon1.action?.Enable();
         Weapon2.action?.Enable();
         Weapon3.action?.Enable();
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void OnDisable()
@@ -108,7 +110,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         Weapon1.action?.Disable();
         Weapon2.action?.Disable();
         Weapon3.action?.Disable();
-
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     void Start()
@@ -580,5 +582,9 @@ public class playerController : MonoBehaviour, IDamage, IPickup
             HP = HPOrig;
         }
         OnHPChanged?.Invoke(HP);
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        transform.position = gamemanager.instance.playerSpawnPos.transform.position;
     }
 }
