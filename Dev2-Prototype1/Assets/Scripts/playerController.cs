@@ -160,7 +160,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
             shoot();
         }
 
-        if(currentWeapon != null && reloadAction.action.WasPressedThisFrame())
+        if(currentWeapon != null && currentWeapon.gameObject.activeInHierarchy && reloadAction.action.WasPressedThisFrame())
         {
             if (!currentWeapon.data.isReloading && currentWeapon.canReload())
             {
