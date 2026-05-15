@@ -10,6 +10,13 @@ public class damage : MonoBehaviour
     [SerializeField] float slowPercent = 50f;
     [SerializeField] float slowDuration = 3f;
 
+    [Header("----- Explo Settings -----")]
+    [SerializeField] bool explodeOnImpact;
+    [SerializeField] float exploRadius = 3f;
+    [SerializeField] int exploDam = 10;
+    [SerializeField] LayerMask exploDamMask;
+    [SerializeField] ParticleSystem exploVFX;
+
     [Header("Collision Settings")]
     [SerializeField] bool ignoreTriggerCollision = true;
 
@@ -30,6 +37,7 @@ public class damage : MonoBehaviour
     [SerializeField] ParticleSystem hitEffect;
 
     bool isDamaging;
+    bool hasHit;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -43,6 +51,11 @@ public class damage : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if(type == damageType.bullet && hasHit)
+        {
+            return;
+        }
+
         DebugDam("OnTriggerEnter touched: " + other.name + " | Layer: " + LayerMask.LayerToName(other.gameObject.layer) + " | Tage: " + other.tag + " | isTrigger: " + other.isTrigger);
 
         if (other.isTrigger && ignoreTriggerCollision) // A trigger can enter another trigger so need this to not do anything with that or something
@@ -64,7 +77,7 @@ public class damage : MonoBehaviour
             }
         }
 
-        if (dmg != null && type != damageType.DOT)
+        if (dmg != null && type != damageType.DOT && !explodeOnImpact)
         {
             int finalDamage = GetFinalDam();
 
@@ -75,10 +88,22 @@ public class damage : MonoBehaviour
 
         if (type == damageType.bullet)
         {
-            if (hitEffect != null)
+            hasHit = true;
+
+            if(explodeOnImpact && dmg != null)
+            {
+                Explode();
+            }
+
+            if(explodeOnImpact && exploVFX != null)
+            {
+                Instantiate(exploVFX, transform.position, Quaternion.identity);
+            }
+            else if (hitEffect != null)
             {
                 Instantiate(hitEffect, transform.position, Quaternion.identity); // Quaternion identity means (0,0,0)
             }
+
             Destroy(gameObject);
         }
     }
@@ -113,6 +138,48 @@ public class damage : MonoBehaviour
         }
     }
 
+    void Explode()
+    {
+        int finalExploDam = GetFinalExploDam();
+
+        QueryTriggerInteraction triggerMode;
+
+        if (ignoreTriggerCollision)
+        {
+            triggerMode = QueryTriggerInteraction.Ignore;
+        }
+        else
+        {
+            triggerMode = QueryTriggerInteraction.Collide;
+        }
+
+        Collider[] hits = Physics.OverlapSphere(transform.position, exploRadius, exploDamMask, triggerMode);
+
+        HashSet<IDamage> damTargets = new HashSet<IDamage>();
+
+        for(int i = 0; i < hits.Length; i++)
+        {
+            IDamage dmg = hits[i].GetComponentInParent<IDamage>();
+
+            if(dmg == null)
+            {
+                continue;
+            }
+
+            if (damTargets.Contains(dmg))
+            {
+                continue;
+            }
+
+            damTargets.Add(dmg);
+
+            DebugDam("Explosion damaged " + hits[i].name + " for " + finalExploDam);
+
+            dmg.takeDamage(finalExploDam);
+        }
+
+    }
+
     IEnumerator damageOther(IDamage d)
     {
         targetsToDam.Add(d);
@@ -135,12 +202,28 @@ public class damage : MonoBehaviour
         return Mathf.Max(0, Mathf.RoundToInt(damageAmount * damageMult));
     }
 
+    int GetFinalExploDam()
+    {
+        return Mathf.Max(0, Mathf.RoundToInt(exploDam * damageMult));
+    }
+
     void DebugDam(string _MSG)
     {
         if (showDebugLogs)
         {
             Debug.Log("[Damage Script: " + gameObject.name + "] "+  _MSG, gameObject);
         }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (!explodeOnImpact)
+        {
+            return;
+        }
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, exploRadius);
     }
 
 }
