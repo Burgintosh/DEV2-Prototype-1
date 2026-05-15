@@ -35,8 +35,6 @@ public class ButtonFunctions : MonoBehaviour
 
         if (sfxSlider != null)
             sfxSlider.value = SFXVol;
-
-
     }
 
 
