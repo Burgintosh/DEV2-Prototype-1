@@ -15,6 +15,7 @@ public class BuildPlacementController : MonoBehaviour
 
     [Header("----- Sell Settings -----")]
     [SerializeField] float sellDist = 10f;
+    private GameObject sellPromptUI;
 
     [Header("----- Buildables -----")]
     [SerializeField] BuildableDefinition[] buildables;
@@ -71,6 +72,11 @@ public class BuildPlacementController : MonoBehaviour
         {
             Debug.LogWarning("BuildUIHotbar is missing from the scene!");
         }
+
+        if (sellPromptUI  == null)
+        {
+            sellPromptUI = gamemanager.instance.sellPromptUI;
+        }
     }
 
     private void Update()
@@ -85,6 +91,8 @@ public class BuildPlacementController : MonoBehaviour
             currentPreviewYaw = 0;
             TogglePreviewMode();
         }
+
+        UpdateSellPrompt();
 
         if (!previewModeActive)
         {
@@ -358,6 +366,45 @@ public class BuildPlacementController : MonoBehaviour
         ApplyPreviewColor(currentPlacementValid ? validColor : invalidColor);
     }
 
+    private void UpdateSellPrompt()
+    {
+        if (sellPromptUI == null) return;
+
+        if(!IsPreviewMode())
+        {
+            if (sellPromptUI.activeSelf)
+                sellPromptUI.SetActive(false);
+            return;
+        }
+
+        PlacedBuildable targetedBuildable = GetTargetedBuildable();
+        bool canSell = (targetedBuildable != null);
+
+        if (sellPromptUI.activeSelf != canSell)
+        {
+            sellPromptUI.SetActive(canSell);
+        }
+
+    }
+    private PlacedBuildable GetTargetedBuildable() // Helper function to avoid reusing the code in TrySellBuildable in new UpdateSellPrompt method
+    {
+        if (buildCamera == null) return null;
+
+        Ray ray = buildCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+
+        if (!Physics.Raycast(ray, out RaycastHit hit, sellDist, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide))
+        {
+            return null;
+        }
+
+        PlacedBuildable placedBuildable = hit.collider.GetComponent<PlacedBuildable>();
+
+        if (placedBuildable == null)
+            placedBuildable = hit.collider.GetComponentInParent<PlacedBuildable>();
+
+        return placedBuildable;
+    }
+
     bool IsWithinBuildDist(Vector3 _PlacementPos)
     {
         if(playerPos == null)
@@ -478,26 +525,27 @@ public class BuildPlacementController : MonoBehaviour
             return;
         }
 
-        Ray ray = buildCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        //Ray ray = buildCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 
-        if(!Physics.Raycast(ray, out RaycastHit hit, sellDist, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide))
-        {
-            return;
-        }
+        //if(!Physics.Raycast(ray, out RaycastHit hit, sellDist, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide))
+        //{
+        //    return;
+        //}
 
-        PlacedBuildable placedBuildable = hit.collider.GetComponent<PlacedBuildable>();
+        //PlacedBuildable placedBuildable = hit.collider.GetComponent<PlacedBuildable>();
 
-        if(placedBuildable == null)
-        {
-            placedBuildable = hit.collider.GetComponentInParent<PlacedBuildable>();
-        }
+        //if(placedBuildable == null)
+        //{
+        //    placedBuildable = hit.collider.GetComponentInParent<PlacedBuildable>();
+        //}
 
-        if(placedBuildable == null)
-        {
-            return;
-        }
-
-        placedBuildable.Sell(currencyManager);
+        //if(placedBuildable == null)
+        //{
+        //    return;
+        //}
+        PlacedBuildable placedBuildable = GetTargetedBuildable(); // Replaced the above code with a helper function
+        if(placedBuildable != null)
+            placedBuildable.Sell(currencyManager);
     }
 
     public bool IsPreviewMode()
