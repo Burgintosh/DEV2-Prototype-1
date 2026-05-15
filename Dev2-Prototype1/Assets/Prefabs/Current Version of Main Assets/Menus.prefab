@@ -1780,6 +1780,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7460792287745183456}
   - component: {fileID: 3380112459152735891}
+  - component: {fileID: 2487517249615808105}
   m_Layer: 0
   m_Name: MainMenuFunctions
   m_TagString: Untagged
@@ -1814,6 +1815,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eed7c930d11938045a3c8b12320de049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenu
+  buttonFunctions: {fileID: 7141477509220017374}
   mainMenu: {fileID: 7130962304818966553}
   LevelSelectMenu: {fileID: 3156834232567830523}
   EndlessMenu: {fileID: 2315052488014723840}
@@ -1822,6 +1824,28 @@ MonoBehaviour:
   CreditsMenu: {fileID: 9208468236440735774}
   menuParent: {fileID: 2325220220497209703}
   hoverColorHex: '#8C8C8C'
+--- !u!114 &2487517249615808105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1682061706623217705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb1248ad13258458c4c8acc2118a47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::LevelSelectionManager
+  levelSelectButtons:
+  - {fileID: 743091967570376692}
+  - {fileID: 8018263939365074684}
+  - {fileID: 6475370520078209199}
+  - {fileID: 3382073007965317231}
+  endlessModeButtons:
+  - {fileID: 8958543432149503247}
+  - {fileID: 7459978094309157537}
+  - {fileID: 8964842427569716773}
+  - {fileID: 2464133022048213275}
 --- !u!1 &1719317785785459190
 GameObject:
   m_ObjectHideFlags: 0
@@ -1910,7 +1934,7 @@ GameObject:
   - component: {fileID: 356045798819698916}
   - component: {fileID: 8964842427569716773}
   m_Layer: 5
-  m_Name: Level 3 Button
+  m_Name: EM Level 3 Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2043,7 +2067,7 @@ GameObject:
   - component: {fileID: 5720373229170983221}
   - component: {fileID: 3382073007965317231}
   m_Layer: 5
-  m_Name: Level 4
+  m_Name: LS Level 4 Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3334,9 +3358,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 7141477509220017374}
         m_TargetAssemblyTypeName: ButtonFunctions, Assembly-CSharp
-        m_MethodName: restart
+        m_MethodName: ApplyAndSaveSettings
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3359,7 +3383,7 @@ GameObject:
   - component: {fileID: 3236220579238421544}
   - component: {fileID: 8018263939365074684}
   m_Layer: 5
-  m_Name: Level 2 Button
+  m_Name: LS Level 2 Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4209,7 +4233,7 @@ GameObject:
   - component: {fileID: 249971919504062599}
   - component: {fileID: 7459978094309157537}
   m_Layer: 5
-  m_Name: Level 2 Button
+  m_Name: EM Level 2 Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6044,7 +6068,7 @@ GameObject:
   - component: {fileID: 4036448552229029594}
   - component: {fileID: 9008778519153109774}
   m_Layer: 5
-  m_Name: Back Button
+  m_Name: EM Back Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7310,7 +7334,7 @@ GameObject:
   - component: {fileID: 6160435196289933827}
   - component: {fileID: 743091967570376692}
   m_Layer: 5
-  m_Name: Level 1 Button
+  m_Name: LS Level 1 Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7931,7 +7955,7 @@ GameObject:
   - component: {fileID: 273377634960204462}
   - component: {fileID: 6475370520078209199}
   m_Layer: 5
-  m_Name: Level 3 Button
+  m_Name: LS Level 3 Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9914,7 +9938,7 @@ GameObject:
   - component: {fileID: 4444514690884766706}
   - component: {fileID: 9129447043249137343}
   m_Layer: 5
-  m_Name: Level Select Back Button
+  m_Name: LS Back Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11198,7 +11222,7 @@ GameObject:
   - component: {fileID: 60522133741736219}
   - component: {fileID: 8958543432149503247}
   m_Layer: 5
-  m_Name: Level 1 Button
+  m_Name: EM Level 1 Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12728,7 +12752,7 @@ GameObject:
   - component: {fileID: 1814590263581444145}
   - component: {fileID: 2464133022048213275}
   m_Layer: 5
-  m_Name: Level 4
+  m_Name: EM Level 4 Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
