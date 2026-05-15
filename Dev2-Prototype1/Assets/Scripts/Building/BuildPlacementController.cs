@@ -370,7 +370,7 @@ public class BuildPlacementController : MonoBehaviour
 
     bool IsPlacementBlocked(Vector3 _PlacementPos, Collider _HitCollider, BuildArea _CurrBuildArea)
     {
-        Collider[] allHits = Physics.OverlapSphere(_PlacementPos, currBuildable.placementRadius, placementBlockMask, QueryTriggerInteraction.Collide);
+        Collider[] allHits = Physics.OverlapSphere(_PlacementPos, currBuildable.placementRadius, placementBlockMask, QueryTriggerInteraction.Ignore);
 
         for(int i = 0; i < allHits.Length; i++)
         {
@@ -480,10 +480,13 @@ public class BuildPlacementController : MonoBehaviour
 
         Ray ray = buildCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 
-        if(!Physics.Raycast(ray, out RaycastHit hit, sellDist, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Collide))
+        if(!Physics.Raycast(ray, out RaycastHit hit, sellDist, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
         {
+            Debug.Log("Sell ray hit nothing");
             return;
         }
+
+        Debug.Log("Sell ray hit: " + hit.collider.name + " | Root: " + hit.collider.transform.name + " | Is Trigger: " + hit.collider.isTrigger + " | Layer: " + LayerMask.LayerToName(hit.collider.gameObject.layer), hit.collider.gameObject);
 
         PlacedBuildable placedBuildable = hit.collider.GetComponent<PlacedBuildable>();
 
@@ -494,8 +497,11 @@ public class BuildPlacementController : MonoBehaviour
 
         if(placedBuildable == null)
         {
+            Debug.Log("No PlaceBuildable found on hit object or parents.", hit.collider.gameObject);
             return;
         }
+
+        Debug.Log("Selling buildables: " + placedBuildable.name, placedBuildable.gameObject);
 
         placedBuildable.Sell(currencyManager);
     }

@@ -453,6 +453,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+      propertyPath: buildables.Array.data[7].buildableType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: buildables.Array.data[6].previewYOffset
       value: 0.1
       objectReference: {fileID: 0}

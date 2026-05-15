@@ -329,7 +329,7 @@ public class SniperTowerAI : MonoBehaviour, IBuffableTower
         return 1f + (totalDamBuffPercent / 100f);
     }
 
-    public int GetCost()
+    public int getCost()
     {
         return cost;
     }
