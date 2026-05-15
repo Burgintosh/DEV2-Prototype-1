@@ -508,4 +508,15 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
 
         return Temp;
     }
+
+    public Vector3 GetEnemyVelocity()
+    {
+        if(agent == null)
+        {
+            return Vector3.zero;
+        }
+
+        return agent.velocity;
+    }
+
 }

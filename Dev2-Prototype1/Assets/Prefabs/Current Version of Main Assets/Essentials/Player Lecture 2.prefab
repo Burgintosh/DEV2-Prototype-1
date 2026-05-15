@@ -613,6 +613,17 @@ MonoBehaviour:
     placementMode: 0
     surfaceRotOffset: {x: 0, y: 0, z: 0}
     surfaceSpinAxis: 0
+  - buildName: Sniper Turret
+    buildableType: 1
+    placedPrefab: {fileID: 9053854627621666543, guid: 66849388b9369ef489196ffb82e2a8fe, type: 3}
+    placedPreview: {fileID: 2858127667424305982, guid: c57dda769e1735446ab16cc326a11bc7, type: 3}
+    cost: 200
+    refundAmount: 200
+    placementRadius: 1.5
+    previewYOffset: 0.1
+    placementMode: 0
+    surfaceRotOffset: {x: 0, y: 0, z: 0}
+    surfaceSpinAxis: 0
   currBuildIndex: 0
   togglePreviewKey: 98
   confirmBuildKey: 323
