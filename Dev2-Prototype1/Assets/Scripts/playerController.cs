@@ -12,7 +12,6 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     [SerializeField] CharacterController controller;
     [SerializeField] BuildPlacementController buildScript;
     [SerializeField] LayerMask ignoreLayer;
-    static playerController instance;
 
     [Header("General Stats")]
     [Range(1, 200)] [SerializeField] int HP;
@@ -138,15 +137,6 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         
         OnHPChanged?.Invoke(HP);
         hurtSoundTimer = 0f;
-        if(instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
     }
 
     void Update()

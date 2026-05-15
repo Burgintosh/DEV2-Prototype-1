@@ -71,6 +71,7 @@ public class BuildPlacementController : MonoBehaviour
         {
             Debug.LogWarning("BuildUIHotbar is missing from the scene!");
         }
+        currencyManager = gamemanager.instance.currencyManager;
     }
 
     private void Update()

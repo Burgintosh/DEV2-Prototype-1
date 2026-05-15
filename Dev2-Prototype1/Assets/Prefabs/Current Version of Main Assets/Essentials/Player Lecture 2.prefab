@@ -442,6 +442,7 @@ GameObject:
   - component: {fileID: 3405798309347347471}
   - component: {fileID: 1423015754300154477}
   - component: {fileID: 1164031155285335923}
+  - component: {fileID: 503571284435661986}
   - component: {fileID: 4060575182106954972}
   - component: {fileID: 8083583662974543037}
   - component: {fileID: 3418633649003836014}
@@ -647,6 +648,19 @@ MonoBehaviour:
     m_Bits: 4294967295
   triggerInteraction: 2
   deselectOnTurnAway: 1
+--- !u!114 &503571284435661986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8496870519721792966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c49f087bbb3d8d42b1b93da7f0776f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Persistence
+  arrayPos: 0
 --- !u!143 &4060575182106954972
 CharacterController:
   m_ObjectHideFlags: 0
