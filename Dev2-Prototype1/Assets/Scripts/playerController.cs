@@ -423,7 +423,11 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         if(currentWeapon != null)
         {
             if(currentWeapon.canShoot())
+            {
                 currentWeapon.FireWeapon();
+                Camera.main.GetComponent<cameraController>().Shake(currentWeapon.data.cameraShakeDuration, currentWeapon.data.cameraShakeMagnitude, currentWeapon.data.cameraShakeFrequency);
+            }
+                
             else
             {
                 currentWeapon.GunClick();
@@ -465,6 +469,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     {
         HP -= amount; // do NOT destroy your player
         OnHPChanged?.Invoke(HP);
+
+        Camera.main.GetComponent<cameraController>().Shake(0.35f, 3.5f);
 
         if(hurtSoundTimer <= 0) 
         {

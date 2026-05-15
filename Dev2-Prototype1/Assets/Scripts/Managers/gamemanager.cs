@@ -9,6 +9,7 @@ public class gamemanager : MonoBehaviour
     // Basically core of game
 
     public static gamemanager instance;
+    [SerializeField] ButtonFunctions buttonFunctions;
 
     [Header("Menus")]
     GameObject menuActive;
@@ -162,6 +163,7 @@ public class gamemanager : MonoBehaviour
     }
     public void CloseSettings()
     {
+        buttonFunctions.LoadSettings();
         if (menuSetting != null)
         {
             menuSetting.SetActive(false);
