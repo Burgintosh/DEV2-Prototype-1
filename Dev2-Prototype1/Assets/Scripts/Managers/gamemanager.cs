@@ -2,10 +2,12 @@ using UnityEngine;
 using TMPro; // Access to text stuff
 using UnityEngine.UI;
 using Unity.Properties; // Access to UI stuff
+using UnityEngine.SceneManagement;
 
 public class gamemanager : MonoBehaviour
 {
     // Basically core of game
+    private const string UNLOCKED_LEVELS_KEY = "UnlockedLevels";
 
     public static gamemanager instance;
     [SerializeField] ButtonFunctions buttonFunctions;
@@ -36,6 +38,9 @@ public class gamemanager : MonoBehaviour
 
     [Header("Wave UI")]
     public WaveUIController waveUI;
+
+    [Header("Build UI")]
+    public GameObject sellPromptUI;
 
     [Header("Public Vars (Do Not Assign)")]
     public GameObject player;
@@ -175,6 +180,15 @@ public class gamemanager : MonoBehaviour
     }
     public void youWin()
     {
+        int currentBuildIndex = SceneManager.GetActiveScene().buildIndex;
+        int unlockedLevels = PlayerPrefs.GetInt(UNLOCKED_LEVELS_KEY, 1);
+        if (currentBuildIndex >= unlockedLevels)
+        {
+            PlayerPrefs.SetInt(UNLOCKED_LEVELS_KEY, currentBuildIndex + 1);
+            PlayerPrefs.Save();
+            Debug.Log($"Level Completed! Unlocked Level {currentBuildIndex + 1}");
+        }
+
         if(MusicManager.Instance != null)
         {
             MusicManager.Instance.SetPausedMusicVol(false);
