@@ -32,7 +32,8 @@ public class cameraController : MonoBehaviour
             camRotX = Mathf.Clamp(camRotX, lockVertMin, lockVertMax);
         transform.localRotation = Quaternion.Euler(camRotX, 0, 0); // Use Quaternion library when rotating ANYTHING
 
-        player.transform.Rotate(Vector3.up * mouseX); // Vector3.up = y axis
+        if(player != null)
+            player.transform.Rotate(Vector3.up * mouseX); // Vector3.up = y axis
     }
 
     public void SetSensitivity(float _sens)
