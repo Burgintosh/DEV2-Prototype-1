@@ -31,4 +31,9 @@ public class WeaponData : ScriptableObject
     public int pelletCount = 1;      // shotgun = 6–12. 1 for single bullet
     public float spreadAngle = 0f;   // degrees. 0 for normal (no spread)
     public bool canShootShotgun = true;
+
+    [Header("Camera Shake")]
+    public float cameraShakeDuration;
+    public float cameraShakeMagnitude;
+    public float cameraShakeFrequency;
 }
