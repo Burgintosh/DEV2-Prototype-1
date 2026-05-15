@@ -527,8 +527,11 @@ public class BuildPlacementController : MonoBehaviour
         if( hotbarUI == null)
         {
             hotbarUI = FindFirstObjectByType<BuildUIHotbar>();
-            hotbarUI.Initialize(buildables);
-            hotbarUI.SetSelectedIndex(currBuildIndex);
+            if(hotbarUI != null)
+            {
+                hotbarUI.Initialize(buildables);
+                hotbarUI.SetSelectedIndex(currBuildIndex);
+            }
         }
     }
 }

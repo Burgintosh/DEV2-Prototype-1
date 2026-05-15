@@ -6,7 +6,7 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Menus/MainMenu.unity
+    path: Assets/Scenes/jacob-test-scene-1/Menus/MainMenu.unity
     guid: b0de9b183d1f30d4793327cab41f949a
   - enabled: 1
     path: Assets/Scenes/DiegoTestScene.unity

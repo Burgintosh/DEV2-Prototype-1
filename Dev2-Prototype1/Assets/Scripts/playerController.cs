@@ -594,8 +594,17 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        controller.transform.position = gamemanager.instance.playerSpawnPos.transform.position;
-        Physics.SyncTransforms();
+        if(scene.name == "MainMenu")
+        {
+            gameObject.SetActive(false);
+        }
+        else
+        {
+            gameObject.SetActive(true);
+            controller.transform.position = gamemanager.instance.playerSpawnPos.transform.position;
+            Physics.SyncTransforms();
+        }
+            
     }
     private void OnSceneUnloaded(Scene scene)
     {
