@@ -381,6 +381,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: MusicManager
       objectReference: {fileID: 0}
+    - target: {fileID: 3973324309067442442, guid: ac84f9ffc1470e048bb320d131178ddd, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5707943576043041814, guid: ac84f9ffc1470e048bb320d131178ddd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 637.3771
@@ -419,6 +423,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5707943576043041814, guid: ac84f9ffc1470e048bb320d131178ddd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6277021908130704955, guid: ac84f9ffc1470e048bb320d131178ddd, type: 3}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6277021908130704955, guid: ac84f9ffc1470e048bb320d131178ddd, type: 3}
@@ -741,6 +749,45 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &33843344359790254
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8676916197569366962}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 637.3771, y: 302.1229, z: -503.32275}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1752738136593435779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8676916197569366962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c3daff7c06e75d2488f0199b6bd4e1c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MusicManager
+  musicTracks:
+  - musicState: 0
+    clip: {fileID: 8300000, guid: e5f77a521307be14e8d74f40943295f1, type: 3}
+    volume: 1
+    loop: 1
+  playOnStart: 1
+  initMusicState: 0
+  masterVol: 1
+  pauseVolMult: 0.15
+  fadeDur: 1
+  interruptFadeDur: 0.5
+  persistBetweenScenes: 0
 --- !u!1001 &5389488223452093220
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -798,6 +845,23 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
+--- !u!1 &8676916197569366962
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 33843344359790254}
+  - component: {fileID: 1752738136593435779}
+  m_Layer: 0
+  m_Name: MenuMusicManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -807,5 +871,6 @@ SceneRoots:
   - {fileID: 1087802922}
   - {fileID: 1191888210}
   - {fileID: 1071975619}
+  - {fileID: 33843344359790254}
   - {fileID: 5389488223452093220}
   - {fileID: 1297364655}
