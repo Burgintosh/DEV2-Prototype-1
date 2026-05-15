@@ -5,6 +5,8 @@ public class LevelSelectionManager : MonoBehaviour
 {
     [SerializeField] private Button[] levelSelectButtons;
     [SerializeField] private Button[] endlessModeButtons;
+
+    private const string LOCK_ICON = "LockIcon";
     private const string UNLOCKED_LEVELS_KEY = "UnlockedLevels";
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -25,32 +27,37 @@ public class LevelSelectionManager : MonoBehaviour
         }
 
         int unlockedLevels = PlayerPrefs.GetInt(UNLOCKED_LEVELS_KEY, 1);
+
         for (int i = 0; i < levelSelectButtons.Length; i++)
         {
-            if (i < unlockedLevels)
-                levelSelectButtons[i].interactable = true;
-            else
-                levelSelectButtons[i].interactable = false;
-            
-            if (i + 1 < unlockedLevels) // Must clear the level first to unlock endless mode
-                endlessModeButtons[i].interactable = true;
-            else
-                endlessModeButtons[i].interactable = false;
-        }
+            bool isLevelUnlocked = i < unlockedLevels;
+            SetButtonState(levelSelectButtons[i], isLevelUnlocked);
 
-        //for (int i = 0; i < endlessModeButtons.Length; i++)
-        //{
-        //    if (i < unlockedLevels)
-        //    {
-        //        endlessModeButtons[i].interactable = true;
-        //    }
-        //    else
-        //    {
-        //        endlessModeButtons[i].interactable = false;
-        //    }
-        //}
+            bool isEndlessUnlocked = i + 1 < unlockedLevels;
+            SetButtonState(endlessModeButtons[i], isEndlessUnlocked);
+
+            //if (i < unlockedLevels)
+            //    levelSelectButtons[i].interactable = true;
+            //else
+            //    levelSelectButtons[i].interactable = false;
+            
+            //if (i + 1 < unlockedLevels) // Must clear the level first to unlock endless mode
+            //    endlessModeButtons[i].interactable = true;
+            //else
+            //    endlessModeButtons[i].interactable = false;
+        }
     }
 
+    private void SetButtonState(Button button, bool isUnlocked) 
+    {
+        if (button == null) return;
+        
+        button.interactable = isUnlocked;
+
+        Transform lockIcon = button.transform.Find(LOCK_ICON);
+        if (lockIcon != null)
+            lockIcon.gameObject.SetActive(!isUnlocked);
+    }
 
 
     // TESTING
