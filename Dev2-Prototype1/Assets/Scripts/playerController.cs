@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 
 public class playerController : MonoBehaviour, IDamage, IPickup
 {
@@ -98,6 +99,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         Weapon2.action?.Enable();
         Weapon3.action?.Enable();
         SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
 
     void OnDisable()
@@ -111,6 +113,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         Weapon2.action?.Disable();
         Weapon3.action?.Disable();
         SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
     }
 
     void Start()
@@ -593,5 +596,10 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     {
         controller.transform.position = gamemanager.instance.playerSpawnPos.transform.position;
         Physics.SyncTransforms();
+    }
+    private void OnSceneUnloaded(Scene scene)
+    {
+        UniversalAdditionalCameraData data = Camera.main.GetUniversalAdditionalCameraData();
+        data.cameraStack.RemoveAt(data.cameraStack.Count - 1);
     }
 }

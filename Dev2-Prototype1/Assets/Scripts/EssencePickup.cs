@@ -26,7 +26,7 @@ public class EssencePickup : MonoBehaviour
                     gamemanager.instance.playerScript.GetCurrentWeapon().StartReload();
                     break;
                 case EssenceType.UPGRADEMATERIAL:
-                    SceneManager.LoadScene("ShowCaseLevelScene");
+                    SceneManager.LoadScene("MainMenu");
                     break;
                 case EssenceType.MONEY:
                     gamemanager.instance.currencyManager.AddCurrency(Amount);
