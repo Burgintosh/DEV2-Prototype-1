@@ -125,4 +125,8 @@ public class ButtonFunctions : MonoBehaviour
 
         pendingSFXVol = vol;
     }
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
 }
