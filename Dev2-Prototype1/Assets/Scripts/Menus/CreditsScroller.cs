@@ -14,6 +14,7 @@ public class CreditsScroller : MonoBehaviour
     {
         if (creditsRect != null)
             startPosition = creditsRect.anchoredPosition;
+        Time.timeScale = 1f;
     }
     private void OnDisable()
     {
