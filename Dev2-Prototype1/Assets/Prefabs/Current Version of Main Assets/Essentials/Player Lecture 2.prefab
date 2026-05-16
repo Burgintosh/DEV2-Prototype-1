@@ -514,6 +514,8 @@ MonoBehaviour:
   Weapon1: {fileID: 6369141664691002748, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   Weapon2: {fileID: 2590268180834388341, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   Weapon3: {fileID: -9009743939945576308, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  playerAudioSource: {fileID: 0}
+  playerDeath: {fileID: 0}
   playerJumpVol: 0.5
   playerHurtVol: 0.5
   hurtSoundCooldown: 0.15
@@ -629,6 +631,17 @@ MonoBehaviour:
     buildableType: 1
     placedPrefab: {fileID: 6124825163481744122, guid: 615be09f645369d4297824c40a9096ee, type: 3}
     placedPreview: {fileID: 628324109812699501, guid: 1f79a5910f326524895745ea74309ae3, type: 3}
+    cost: 300
+    refundAmount: 300
+    placementRadius: 1.5
+    previewYOffset: 0.1
+    placementMode: 0
+    surfaceRotOffset: {x: 0, y: 0, z: 0}
+    surfaceSpinAxis: 0
+  - buildName: Gatling Turret
+    buildableType: 1
+    placedPrefab: {fileID: 5440664193693247066, guid: 6194892bca685404da7439880106838f, type: 3}
+    placedPreview: {fileID: 2649977719255375500, guid: ebf02adc49ab5ac448102d9dd25ba87f, type: 3}
     cost: 300
     refundAmount: 300
     placementRadius: 1.5
