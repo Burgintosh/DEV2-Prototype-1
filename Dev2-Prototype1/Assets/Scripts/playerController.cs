@@ -5,7 +5,9 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 
 public class playerController : MonoBehaviour, IDamage, IPickup
 {
@@ -84,6 +86,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     [Range(0f, 1f)][SerializeField] float hurtSoundCooldown = 0.15f;
 
     float hurtSoundTimer;
+    Camera playerCamRef;
 
     public event Action<Weapon> OnWeaponChanged;
     public event Action<int> OnHPChanged;
@@ -98,6 +101,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         Weapon1.action?.Enable();
         Weapon2.action?.Enable();
         Weapon3.action?.Enable();
+        SceneManager.sceneLoaded += OnSceneLoaded;
+        SceneManager.sceneUnloaded += OnSceneUnloaded;
     }
 
     void OnDisable()
@@ -110,7 +115,8 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         Weapon1.action?.Disable();
         Weapon2.action?.Disable();
         Weapon3.action?.Disable();
-
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+        SceneManager.sceneUnloaded -= OnSceneUnloaded;
     }
 
     void Start()
@@ -139,6 +145,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         
         OnHPChanged?.Invoke(HP);
         hurtSoundTimer = 0f;
+        playerCamRef = Camera.main;
     }
 
     void Update()
@@ -589,5 +596,38 @@ public class playerController : MonoBehaviour, IDamage, IPickup
             HP = HPOrig;
         }
         OnHPChanged?.Invoke(HP);
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if(scene.name != "MainMenu")
+        {
+            SwitchWeapon(0);
+            if(playerCamRef != null)
+            {
+                playerCamRef.GetComponent<AudioListener>().enabled = true;
+            }
+            controller.transform.position = gamemanager.instance.playerSpawnPos.transform.position;
+            Physics.SyncTransforms();
+            if(currentWeapon != null)
+            {
+                currentWeapon.StartReload();
+            }
+        }
+        else
+        {
+            if(playerCamRef != null)
+            {
+                playerCamRef.GetComponent<AudioListener>().enabled = false;
+            }
+        }
+    }
+    private void OnSceneUnloaded(Scene scene)
+    {
+        SwitchWeapon(0);
+        if(scene.name != "MainMenu")
+        {
+            UniversalAdditionalCameraData data = Camera.main.GetUniversalAdditionalCameraData();
+            data.cameraStack.RemoveAt(data.cameraStack.Count - 1);
+        }
     }
 }

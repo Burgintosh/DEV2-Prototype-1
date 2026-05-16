@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class cameraController : MonoBehaviour
 {
@@ -42,6 +43,15 @@ public class cameraController : MonoBehaviour
 
         if(player != null)
             player.transform.Rotate(Vector3.up * mouseX); // Vector3.up = y axis
+    }
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     public void SetSensitivity(float _sens)
@@ -87,5 +97,17 @@ public class cameraController : MonoBehaviour
         shakeRotationOffset = Quaternion.identity;
         shakeCoroutine = null;
     }
-
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if(scene.name == "MainMenu")
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.Confined;
+        }
+        else
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
 }

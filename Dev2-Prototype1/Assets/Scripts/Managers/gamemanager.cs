@@ -61,6 +61,7 @@ public class gamemanager : MonoBehaviour
     void Awake() // Changing Start() to Awake() ensures this takes priority. Reserve Awake for manager types (Need this before other scripts run)
     {
         instance = this;
+        Time.timeScale = 1f;
         timeScaleOrig = Time.timeScale;
 
         player = GameObject.FindWithTag("Player");
@@ -106,6 +107,7 @@ public class gamemanager : MonoBehaviour
         playerScript.OnWeaponChanged += UpdateGun;
         playerScript.OnHPChanged += UpdatePlayerHPBar;
         nexusScript.OnNexusHPChanged += UpdateNexusHPBar;
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable()
@@ -123,6 +125,7 @@ public class gamemanager : MonoBehaviour
         playerScript.OnWeaponChanged -= UpdateGun;
         playerScript.OnHPChanged -= UpdatePlayerHPBar;
         nexusScript.OnNexusHPChanged -= UpdateNexusHPBar;
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     public void statePause(bool _LowerMusic = true)
@@ -287,6 +290,13 @@ public class gamemanager : MonoBehaviour
     }
     public void Respawn()
     {
+
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        UpdateGun(playerScript.GetCurrentWeapon());
+        UpdatePlayerHPBar(playerScript.GetCurrentHP());
+
 
     }
 }

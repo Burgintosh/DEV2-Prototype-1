@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BuildPlacementController : MonoBehaviour
 {
@@ -61,12 +62,12 @@ public class BuildPlacementController : MonoBehaviour
         }
 
         if (hotbarUI == null)
-            hotbarUI = FindFirstObjectByType<BuildUIHotbar>();
+            //hotbarUI = FindFirstObjectByType<BuildUIHotbar>();
 
         if (hotbarUI != null)
         {
-            hotbarUI.Initialize(buildables);
-            hotbarUI.SetSelectedIndex(currBuildIndex);
+            //hotbarUI.Initialize(buildables);
+            //hotbarUI.SetSelectedIndex(currBuildIndex);
         }
         else
         {
@@ -77,6 +78,7 @@ public class BuildPlacementController : MonoBehaviour
         {
             sellPromptUI = gamemanager.instance.sellPromptUI;
         }
+        SetCurrencyManager();
     }
 
     private void Update()
@@ -113,6 +115,14 @@ public class BuildPlacementController : MonoBehaviour
         {
             ConfirmBuild();
         }
+    }
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     void RotatePreview()
@@ -547,5 +557,37 @@ public class BuildPlacementController : MonoBehaviour
     public bool IsPreviewMode()
     {
         return previewModeActive;
+    }
+    private void SetCurrencyManager()
+    {
+        if(currencyManager == null)
+        {
+            currencyManager = gamemanager.instance.currencyManager;
+        }
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (previewModeActive)
+        {
+            TogglePreviewMode();
+        }
+        SetCurrencyManager();
+        if( hotbarUI == null)
+        {
+            hotbarUI = FindFirstObjectByType<BuildUIHotbar>();
+            if(hotbarUI != null)
+            {
+                hotbarUI.Initialize(buildables);
+                hotbarUI.SetSelectedIndex(currBuildIndex);
+            }
+        }
+        if(sellPromptUI == null)
+        {
+            sellPromptUI = gamemanager.instance.sellPromptUI;
+            if(sellPromptUI != null)
+            {
+                sellPromptUI.SetActive(false);
+            }
+        }
     }
 }

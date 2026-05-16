@@ -1,5 +1,4 @@
 using UnityEngine;
-
 public class EssencePickup : MonoBehaviour
 {
     enum EssenceType

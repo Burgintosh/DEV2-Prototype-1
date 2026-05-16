@@ -11,9 +11,15 @@ public class NexusManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
    void Awake()
     {
-        nexusManagerInstance = this;
-        nexusList = new List<Nexus>();
-        
+        if(nexusManagerInstance == null)
+        {
+            nexusManagerInstance = this;
+            nexusList = new List<Nexus>();
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     // Update is called once per frame
