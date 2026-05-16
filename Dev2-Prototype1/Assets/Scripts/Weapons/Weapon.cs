@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -11,49 +12,48 @@ public class Weapon : MonoBehaviour
     
 
     [SerializeField] private GameObject muzzleEffect; // Eventually move to WeaponData. Requires a bit of work though.
-    private Animator animator; 
+    private Animator animator;
     //public ParticleSystem hitEffect;
 
+    private Vector3 defaultLocalPos;
+    private Quaternion defaultLocalRot;
 
     public event Action<int> OnAmmoChange;
 
     void Awake()
     {
+        defaultLocalPos = transform.localPosition;
+        defaultLocalRot = transform.localRotation;
+
         data.bulletsLeft = data.magazineSize;
         OnAmmoChange?.Invoke(data.bulletsLeft);
         animator = GetComponent<Animator>();
         data.canShootShotgun = true;
     }
+    private void OnDisable()
+    {
+        data.isReloading = false;
+        data.canShootShotgun = true;
+
+        if (data.isSingleShellReload)
+        {
+            animator.ResetTrigger("RELOAD");
+            animator.ResetTrigger("RELOADLOOP");
+            animator.ResetTrigger("RELOADEND");
+            animator.ResetTrigger("RECOIL");
+        }
+    }
 
     public void FireWeapon()
     {
-        /* Old Logic, delete after new stuff works
-        AudioSource shootSound = null;
-        muzzleEffect.GetComponent<ParticleSystem>().Play();
-        if (data.weaponName == "M1911")
-            shootSound = SoundManager.Instance.shootingSound1911;
-        else if (weaponName == "Bennelli")
-            shootSound = SoundManager.Instance.shootingSoundBennelli;
-        else if (weaponName == "M4")
-            shootSound = SoundManager.Instance.shootingSoundM4;
-
-        if(shootSound != null)
-        {
-            SoundManager.Instance.PlayWithRandomPitch(shootSound);
-        }
-        */
-
-        //shootSound.Play();
         if (data.isReloading)
-            StopReload(); // cancel reload for shotgun.
+            StopReload(true); // cancel reload for shotgun.
 
-        // New Logic
         if (data.shootClip != null)
             PlayGunSoundWithVolume(data.shootClip, data.shootVol);
 
         if (muzzleEffect != null)
             muzzleEffect.GetComponent<ParticleSystem>().Play();
-            //Instantiate(muzzleEffect, transform.position, transform.rotation);
 
         if(animator != null)
         {
@@ -162,14 +162,20 @@ public class Weapon : MonoBehaviour
 
         animator.SetTrigger("RELOADLOOP");
     }
-    public void StopReload()
+    public void StopReload(bool interrupted = false)
     {
         if (!data.isReloading) return;
 
         data.isReloading = false;
 
-        //animator.SetBool("Reloading", false);
-        animator.SetTrigger("RELOADEND");
+        if (interrupted)
+        {
+            animator.ResetTrigger("RELOAD");
+            animator.ResetTrigger("RELOADLOOP");
+            animator.ResetTrigger("RELOADEND");
+        }
+        else
+            animator.SetTrigger("RELOADEND");
     }
 
 
