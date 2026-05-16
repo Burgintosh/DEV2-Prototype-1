@@ -86,6 +86,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     [Range(0f, 1f)][SerializeField] float hurtSoundCooldown = 0.15f;
 
     float hurtSoundTimer;
+    Camera playerCamRef;
 
     public event Action<Weapon> OnWeaponChanged;
     public event Action<int> OnHPChanged;
@@ -144,6 +145,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         
         OnHPChanged?.Invoke(HP);
         hurtSoundTimer = 0f;
+        playerCamRef = Camera.main;
     }
 
     void Update()
@@ -599,13 +601,27 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     {
         if(scene.name != "MainMenu")
         {
+            if(playerCamRef != null)
+            {
+                playerCamRef.GetComponent<AudioListener>().enabled = true;
+            }
             controller.transform.position = gamemanager.instance.playerSpawnPos.transform.position;
             Physics.SyncTransforms();
-        }    
+        }
+        else
+        {
+            if(playerCamRef != null)
+            {
+                playerCamRef.GetComponent<AudioListener>().enabled = false;
+            }
+        }
     }
     private void OnSceneUnloaded(Scene scene)
     {
-        UniversalAdditionalCameraData data = Camera.main.GetUniversalAdditionalCameraData();
-        data.cameraStack.RemoveAt(data.cameraStack.Count - 1);
+        if(scene.name != "MainMenu")
+        {
+            UniversalAdditionalCameraData data = Camera.main.GetUniversalAdditionalCameraData();
+            data.cameraStack.RemoveAt(data.cameraStack.Count - 1);
+        }
     }
 }
