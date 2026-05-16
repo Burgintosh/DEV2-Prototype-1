@@ -597,17 +597,11 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if(scene.name == "MainMenu")
+        if(scene.name != "MainMenu")
         {
-            gameObject.SetActive(false);
-        }
-        else
-        {
-            gameObject.SetActive(true);
             controller.transform.position = gamemanager.instance.playerSpawnPos.transform.position;
             Physics.SyncTransforms();
-        }
-            
+        }    
     }
     private void OnSceneUnloaded(Scene scene)
     {
