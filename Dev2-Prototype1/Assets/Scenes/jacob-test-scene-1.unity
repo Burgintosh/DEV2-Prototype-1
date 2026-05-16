@@ -422,15 +422,23 @@ PrefabInstance:
       objectReference: {fileID: 1100070880}
     - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: buildables.Array.size
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: buildables.Array.data[6].cost
       value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+      propertyPath: buildables.Array.data[9].cost
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: buildables.Array.data[6].buildName
       value: Damage Booster
+      objectReference: {fileID: 0}
+    - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+      propertyPath: buildables.Array.data[9].buildName
+      value: Gatling Turret
       objectReference: {fileID: 0}
     - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: buildables.Array.data[6].placedPrefab
@@ -439,6 +447,14 @@ PrefabInstance:
     - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: buildables.Array.data[6].refundAmount
       value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+      propertyPath: buildables.Array.data[9].placedPrefab
+      value: 
+      objectReference: {fileID: 5440664193693247066, guid: 6194892bca685404da7439880106838f, type: 3}
+    - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+      propertyPath: buildables.Array.data[9].refundAmount
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: buildables.Array.data[6].buildableType
@@ -457,11 +473,27 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+      propertyPath: buildables.Array.data[9].buildableType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+      propertyPath: buildables.Array.data[9].placedPreview
+      value: 
+      objectReference: {fileID: 2649977719255375500, guid: ebf02adc49ab5ac448102d9dd25ba87f, type: 3}
+    - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: buildables.Array.data[6].previewYOffset
       value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+      propertyPath: buildables.Array.data[9].previewYOffset
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: buildables.Array.data[6].placementRadius
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+      propertyPath: buildables.Array.data[9].placementRadius
       value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 5281255741563342711, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
