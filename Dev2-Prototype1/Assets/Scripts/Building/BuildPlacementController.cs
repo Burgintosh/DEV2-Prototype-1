@@ -567,6 +567,10 @@ public class BuildPlacementController : MonoBehaviour
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        if (previewModeActive)
+        {
+            TogglePreviewMode();
+        }
         SetCurrencyManager();
         if( hotbarUI == null)
         {
@@ -575,6 +579,14 @@ public class BuildPlacementController : MonoBehaviour
             {
                 hotbarUI.Initialize(buildables);
                 hotbarUI.SetSelectedIndex(currBuildIndex);
+            }
+        }
+        if(sellPromptUI == null)
+        {
+            sellPromptUI = gamemanager.instance.sellPromptUI;
+            if(sellPromptUI != null)
+            {
+                sellPromptUI.SetActive(false);
             }
         }
     }

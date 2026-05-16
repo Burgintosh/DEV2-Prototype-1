@@ -601,12 +601,17 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     {
         if(scene.name != "MainMenu")
         {
+            SwitchWeapon(0);
             if(playerCamRef != null)
             {
                 playerCamRef.GetComponent<AudioListener>().enabled = true;
             }
             controller.transform.position = gamemanager.instance.playerSpawnPos.transform.position;
             Physics.SyncTransforms();
+            if(currentWeapon != null)
+            {
+                currentWeapon.StartReload();
+            }
         }
         else
         {
@@ -618,6 +623,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     }
     private void OnSceneUnloaded(Scene scene)
     {
+        SwitchWeapon(0);
         if(scene.name != "MainMenu")
         {
             UniversalAdditionalCameraData data = Camera.main.GetUniversalAdditionalCameraData();
