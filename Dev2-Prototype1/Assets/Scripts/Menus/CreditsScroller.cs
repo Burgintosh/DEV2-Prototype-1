@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class CreditsScroller : MonoBehaviour
 {
@@ -19,9 +18,7 @@ public class CreditsScroller : MonoBehaviour
     private void OnDisable()
     {
         if (creditsRect != null)
-        {
             creditsRect.anchoredPosition = startPosition;
-        }
         creditsFinished = false;
     }
     private void Update()
