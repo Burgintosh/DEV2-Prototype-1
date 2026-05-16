@@ -350,8 +350,8 @@ MonoBehaviour:
   gunRotSpeed: 8
   faceRotSpeed: 8
   FOV: 360
-  baseShootRate: 0.12
-  rampedShootRate: 0.05
+  baseShootRate: 0.2
+  rampedShootRate: 0.1
   timeTilRampUp: 3
   keepRampUpSwitchDist: 2
   showBuffDebugLog: 1
