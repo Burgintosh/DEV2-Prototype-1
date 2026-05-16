@@ -22,7 +22,7 @@ public class ButtonFunctions : MonoBehaviour
     }
     public void LoadSettings()
     {
-        float sens = PlayerPrefs.GetFloat(SENS_KEY, 500f);
+        float sens = PlayerPrefs.GetFloat(SENS_KEY, 10f);
         float musicVol = PlayerPrefs.GetFloat(MUSIC_VOLUME_KEY, 1.0f);
         float SFXVol = PlayerPrefs.GetFloat(SFX_VOLUME_KEY, 1.0f);
 
@@ -43,7 +43,10 @@ public class ButtonFunctions : MonoBehaviour
     }
 
 
-
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
     public void resume()
     {
         gamemanager.instance.stateUnpause();
