@@ -61,6 +61,7 @@ public class gamemanager : MonoBehaviour
     void Awake() // Changing Start() to Awake() ensures this takes priority. Reserve Awake for manager types (Need this before other scripts run)
     {
         instance = this;
+        Time.timeScale = 1f;
         timeScaleOrig = Time.timeScale;
 
         player = GameObject.FindWithTag("Player");
