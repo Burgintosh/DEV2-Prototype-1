@@ -420,7 +420,10 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
         if (agent.isOnNavMesh && currTarget != null)
         {
             yield return new WaitForSeconds(0.5f);
-            agent.SetDestination(currTarget.transform.position);
+            if (currTarget != null)
+            {
+                agent.SetDestination(currTarget.transform.position);
+            }
         }
         currentlyRetargeting = false;
     }
