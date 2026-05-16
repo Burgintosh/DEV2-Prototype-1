@@ -94,7 +94,19 @@ public class MainMenu : MonoBehaviour
     {
         SceneManager.LoadScene("DiegoTestScene");
     }
-    public void LoadShowcase()
+    public void LoadLevelOne()
+    {
+        SceneManager.LoadScene("Level1");
+    }
+    public void LoadLevelTwo()
+    {
+        SceneManager.LoadScene("Level2");
+    }
+    public void LoadLevelFour()
+    {
+        SceneManager.LoadScene("Level4");
+    }
+    public void LoadShowcaseLevel()
     {
         SceneManager.LoadScene("ShowCaseLevelScene");
     }
