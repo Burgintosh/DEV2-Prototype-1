@@ -47,9 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ba2c8d775272e748bdc9c97567d342b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SniperBullet
-  bulletSpeed: 60
+  bulletSpeed: 100
   hitDist: 0.6
-  selfDestructTime: 5
+  selfDestructTime: 3
   hitVFX: {fileID: 0}
   showDebugLog: 1
 --- !u!96 &442910387311463047

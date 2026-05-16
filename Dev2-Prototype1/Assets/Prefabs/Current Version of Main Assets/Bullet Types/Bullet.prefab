@@ -50,12 +50,20 @@ MonoBehaviour:
   applySlow: 0
   slowPercent: 50
   slowDuration: 3
+  explodeOnImpact: 0
+  exploRadius: 3
+  exploDam: 10
+  exploDamMask:
+    serializedVersion: 2
+    m_Bits: 0
+  exploVFX: {fileID: 0}
   ignoreTriggerCollision: 1
   showDebugLogs: 0
   type: 0
   rb: {fileID: 6402709367965842205}
   damageAmount: 1
   damageRate: 0.5
+  damageMult: 1
   bulletSpeed: 75
   bulletDestroyTime: 3
   hitEffect: {fileID: 0}

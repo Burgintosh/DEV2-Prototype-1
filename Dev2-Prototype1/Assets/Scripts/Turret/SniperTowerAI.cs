@@ -23,6 +23,7 @@ public class SniperTowerAI : MonoBehaviour, IBuffableTower
     [SerializeField] int faceRotSpeed = 8;
     [SerializeField] int turretFOV = 360;
     [SerializeField] LayerMask LOSMask = ~0;
+    [SerializeField] bool ignoreTriggerCollidersForTargeting = true;
 
     float totalDamBuffPercent;
 
@@ -93,7 +94,20 @@ public class SniperTowerAI : MonoBehaviour, IBuffableTower
             return false;
         }
 
-        angleToEnemy = Vector3.Angle(enemyDir, transform.forward);
+        Vector3 targetPos = GetTargetPos();
+
+        Vector3 flatDirToEnemy = targetPos - transform.position;
+        flatDirToEnemy.y = 0f;
+
+        Vector3 flatForward = transform.forward;
+        flatForward.y = 0f;
+
+        if (flatDirToEnemy == Vector3.zero || flatForward == Vector3.zero)
+        {
+            return true;
+        }
+
+        angleToEnemy = Vector3.Angle(flatDirToEnemy, transform.forward);
 
         if(angleToEnemy > turretFOV)
         {
@@ -111,8 +125,8 @@ public class SniperTowerAI : MonoBehaviour, IBuffableTower
             startPos = transform.position;
         }
 
-        Vector3 targetPos = GetTargetPos();
         Vector3 rayDir = targetPos - startPos;
+
         float rayDist = rayDir.magnitude;
 
         if(rayDist <= 0f)
@@ -120,48 +134,29 @@ public class SniperTowerAI : MonoBehaviour, IBuffableTower
             return false;
         }
 
-        RaycastHit[] hits = Physics.RaycastAll(startPos, rayDir.normalized, rayDist, LOSMask, QueryTriggerInteraction.Ignore);
-
-        if(hits == null || hits.Length == 0)
+        if(Physics.Raycast(startPos,rayDir.normalized, out RaycastHit hit, rayDist, LOSMask, QueryTriggerInteraction.Ignore))
         {
-            return false;
-        }
-
-        System.Array.Sort(hits, (a, b) => a.distance.CompareTo(b.distance));
-
-        IDamage targetDam = enemyPos.GetComponentInParent<IDamage>();
-
-        for(int i = 0; i < hits.Length; i++)
-        {
-            Collider hitCol = hits[i].collider;
-
-            if(hitCol == null)
-            {
-                continue;
-            }
-
-            // Ignore self
-            if (hitCol.transform.IsChildOf(transform))
-            {
-                continue;
-            }
-
-            IDamage hitDmg = hitCol.GetComponentInParent<IDamage>();
-
-            if(hitDmg != null && hitDmg == targetDam)
+            if(hit.collider != null && hit.collider.transform.IsChildOf(transform))
             {
                 return true;
             }
 
-            DebugSniper("Line of sighte is blocked by: " + hitCol.name);
+            DebugSniper("Line of sight is blocked by: " + hit.collider.name);
+
             return false;
         }
 
-        return false;
+        return true;
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if(ignoreTriggerCollidersForTargeting && other.isTrigger)
+        {
+            DebugSniper("Ignored trigger collider entering rnage: " + other.name);
+            return;
+        }
+
         if (other.CompareTag("Enemy"))
         {
             DebugSniper("Sniper trigger entered by: " + other.name);
@@ -180,6 +175,12 @@ public class SniperTowerAI : MonoBehaviour, IBuffableTower
 
     private void OnTriggerExit(Collider other)
     {
+        if(ignoreTriggerCollidersForTargeting && other.isTrigger)
+        {
+            DebugSniper("Ignored trigger collider exiting range: " + other.name);
+            return;
+        }
+
         if (other.CompareTag("Enemy"))
         {
             DebugSniper("Sniper trigger exited by: " + other.name);

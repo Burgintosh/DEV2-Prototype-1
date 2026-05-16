@@ -193,6 +193,8 @@ public class TurretAI : MonoBehaviour, IDamage, IBuffableTower
         {
             GameObject spawnedBullet = Instantiate(bullet, shootPos.position, gunPivot.rotation);
 
+            Debug.DrawRay(shootPos.position, gunPivot.forward * 100f, Color.yellow, 1f);
+
             damage bulletDamage = spawnedBullet.GetComponent<damage>();
 
             if(bulletDamage == null)

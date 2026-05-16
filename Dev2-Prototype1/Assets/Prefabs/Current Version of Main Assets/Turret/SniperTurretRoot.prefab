@@ -42,12 +42,16 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 843514392576203824, guid: 47531da39a77b804f888626243301830, type: 3}
       propertyPath: selectedColliders.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 843514392576203824, guid: 47531da39a77b804f888626243301830, type: 3}
       propertyPath: 'selectedColliders.Array.data[0]'
       value: 
       objectReference: {fileID: 7144480760155027029}
+    - target: {fileID: 1337980603353567446, guid: 47531da39a77b804f888626243301830, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.888
+      objectReference: {fileID: 0}
     - target: {fileID: 2067260168016791079, guid: 47531da39a77b804f888626243301830, type: 3}
       propertyPath: m_Name
       value: SniperTurret (1)
@@ -90,6 +94,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8882771646464916210, guid: 47531da39a77b804f888626243301830, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173126474489137565, guid: 47531da39a77b804f888626243301830, type: 3}
+      propertyPath: showDebugLog
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9173126474489137565, guid: 47531da39a77b804f888626243301830, type: 3}
+      propertyPath: LOSMask.m_Bits
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

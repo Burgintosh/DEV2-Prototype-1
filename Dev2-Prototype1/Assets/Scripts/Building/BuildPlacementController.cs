@@ -397,7 +397,7 @@ public class BuildPlacementController : MonoBehaviour
             return null;
         }
 
-        Debug.Log("Sell ray hit: " + hit.collider.name + " | Root: " + hit.collider.transform.name + " | Is Trigger: " + hit.collider.isTrigger + " | Layer: " + LayerMask.LayerToName(hit.collider.gameObject.layer), hit.collider.gameObject);
+        //Debug.Log("Sell ray hit: " + hit.collider.name + " | Root: " + hit.collider.transform.name + " | Is Trigger: " + hit.collider.isTrigger + " | Layer: " + LayerMask.LayerToName(hit.collider.gameObject.layer), hit.collider.gameObject);
 
         PlacedBuildable placedBuildable = hit.collider.GetComponent<PlacedBuildable>();
 
@@ -408,7 +408,7 @@ public class BuildPlacementController : MonoBehaviour
 
         if (placedBuildable == null)
         {
-            Debug.Log("No PlaceBuildable found on hit object or parents.", hit.collider.gameObject);
+            //Debug.Log("No PlaceBuildable found on hit object or parents.", hit.collider.gameObject);
         }
 
         return placedBuildable;
