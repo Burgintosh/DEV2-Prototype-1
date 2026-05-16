@@ -56,11 +56,12 @@ public class ButtonFunctions : MonoBehaviour
     }
     public void Quit()
     {
-    #if UNITY_EDITOR
-          UnityEditor.EditorApplication.isPlaying = false;
-    #else
+        
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
              Application.Quit();
-    #endif
+#endif
 
     }
     public void Settings()
@@ -125,5 +126,9 @@ public class ButtonFunctions : MonoBehaviour
         Debug.Log($"Slider moved! New Music Volume is: {vol}");
 
         pendingSFXVol = vol;
+    }
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }
