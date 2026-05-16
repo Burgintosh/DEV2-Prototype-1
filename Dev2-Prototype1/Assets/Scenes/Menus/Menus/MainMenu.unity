@@ -2009,6 +2009,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: LoadLevelOne
       objectReference: {fileID: 0}
+    - target: {fileID: 1197187814544508383, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadShowcaseLevel
+      objectReference: {fileID: 0}
     - target: {fileID: 2315052488014723840, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
       propertyPath: m_IsActive
       value: 0
