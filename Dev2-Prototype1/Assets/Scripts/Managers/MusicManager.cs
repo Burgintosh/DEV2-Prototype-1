@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum MusicState
 {
@@ -7,7 +8,8 @@ public enum MusicState
     Gameplay,
     Victory,
     Defeat,
-    Pause
+    Pause,
+    MainMenu
 }
 
 [System.Serializable]
@@ -41,7 +43,8 @@ public class MusicManager : MonoBehaviour
     [SerializeField] float fadeDur = 1f;
     [SerializeField] float interruptFadeDur = 0.5f;
     // For the future maybe if we have more than one scene
-    [HideInInspector][SerializeField] bool persistBetweenScenes = false;
+    //[HideInInspector][SerializeField] bool persistBetweenScenes = false;
+    [HideInInspector][SerializeField] bool persistBetweenScenes = true;
 
     AudioSource currSong;
     AudioSource nextSong;
@@ -84,6 +87,16 @@ public class MusicManager : MonoBehaviour
         SetSongValues(nextSong);
     }
 
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
     private void Start()
     {
         if (playOnStart)
@@ -91,6 +104,26 @@ public class MusicManager : MonoBehaviour
             PlayMusic(initMusicState);
         }
     }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (currTrack == null && playOnStart) return;
+
+        if (scene.name == "MainMenu")
+        {
+            if (currTrack == null || currTrack.musicState != MusicState.MainMenu)
+                PlayMusic(MusicState.MainMenu);
+        }
+        else
+        {
+            if (currTrack == null || currTrack.musicState != MusicState.Pregame)
+            {
+                SetPausedMusicVol(false);
+                PlayMusic(MusicState.Pregame);
+            }
+        }
+    }
+
 
     void SetSongValues(AudioSource _Src)
     {
