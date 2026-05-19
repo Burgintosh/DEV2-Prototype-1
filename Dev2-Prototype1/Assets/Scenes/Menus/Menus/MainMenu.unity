@@ -2021,6 +2021,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: Menus
       objectReference: {fileID: 0}
+    - target: {fileID: 3078084900273711174, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3078084900273711174, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5389488223452093223}
+    - target: {fileID: 3078084900273711174, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadLevelOne
+      objectReference: {fileID: 0}
     - target: {fileID: 3156834232567830523, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -2038,6 +2050,38 @@ PrefabInstance:
       value: MainMenu, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3382073007965317231, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 4304147537043258571, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5389488223452093223}
+    - target: {fileID: 4304147537043258571, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadLevelFour
+      objectReference: {fileID: 0}
+    - target: {fileID: 4304147537043258571, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MainMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4304147537043258571, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 6345245967755725601, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 5389488223452093223}
+    - target: {fileID: 6345245967755725601, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: LoadLevelTwo
+      objectReference: {fileID: 0}
+    - target: {fileID: 6345245967755725601, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: MainMenu, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 6345245967755725601, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
