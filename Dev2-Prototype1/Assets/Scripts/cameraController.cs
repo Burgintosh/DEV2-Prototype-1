@@ -11,6 +11,7 @@ public class cameraController : MonoBehaviour
 
     float camRotX;
 
+    private bool cameraShake = true;
     private Coroutine shakeCoroutine;
     private Quaternion shakeRotationOffset = Quaternion.identity;
 
@@ -36,8 +37,6 @@ public class cameraController : MonoBehaviour
         else
             camRotX -= mouseY;
 
-
-
         camRotX = Mathf.Clamp(camRotX, lockVertMin, lockVertMax);
         transform.localRotation = Quaternion.Euler(camRotX, 0, 0) * shakeRotationOffset; // Use Quaternion library when rotating ANYTHING
 
@@ -54,13 +53,9 @@ public class cameraController : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    public void SetSensitivity(float _sens)
-    {
-        sens = _sens;
-    }
-
     public void Shake(float duration, float magnitude, float frequency = 20f)
     {
+        if (cameraShake == false) return;
         if (shakeCoroutine != null)
         {
             StopCoroutine(shakeCoroutine);
@@ -97,6 +92,7 @@ public class cameraController : MonoBehaviour
         shakeRotationOffset = Quaternion.identity;
         shakeCoroutine = null;
     }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if(scene.name == "MainMenu")
@@ -109,5 +105,15 @@ public class cameraController : MonoBehaviour
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
         }
+    }
+
+    // SETTERS
+    public void SetSensitivity(float _sens)
+    {
+        sens = _sens;
+    }
+    public void SetCameraShake(bool isShakeEnabled)
+    {
+        cameraShake = isShakeEnabled;
     }
 }
