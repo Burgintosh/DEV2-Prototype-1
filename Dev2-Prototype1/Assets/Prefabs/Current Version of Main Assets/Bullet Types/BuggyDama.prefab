@@ -213,7 +213,7 @@ MonoBehaviour:
   exploDelay: 0.25
   audioSrc: {fileID: 2268724295299054049}
   impactSFX: {fileID: 8300000, guid: 009a9bfaac8584f43be9fcf2e016040c, type: 3}
-  exploSFX: {fileID: 8300000, guid: f19e1ffbc398a864aace2f4a53bf7bb8, type: 3}
+  exploSFX: {fileID: 8300000, guid: 2c80f18e1ad95d444b20923f23558161, type: 3}
   impactSFXVol: 1
   exploSFXVol: 1
   shakeCamOnExplo: 1
