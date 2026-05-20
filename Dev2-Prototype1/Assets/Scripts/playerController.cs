@@ -42,7 +42,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
 
 
     [Header("General Movement")]
-    [Range(3, 7)][SerializeField] float speed;
+    [Range(3, 10)][SerializeField] float speed;
     [Range(2, 5)][SerializeField] float sprintMod;
     [Range(5, 25)][SerializeField] float jumpSpeed;
     [Range(1, 3)][SerializeField] int jumpMax;
