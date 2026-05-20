@@ -208,7 +208,7 @@ MonoBehaviour:
   exploDamMask:
     serializedVersion: 2
     m_Bits: 128
-  exploVFX: {fileID: 4914495526166002796, guid: fe2205740225ab04bb07d3c6308b7c8b, type: 3}
+  exploVFX: {fileID: 198917022394846920, guid: e1b08032bec16ba4eb1ae23cbd572664, type: 3}
   ignoreTriggerCollision: 1
   exploDelay: 0.25
   audioSrc: {fileID: 2268724295299054049}
@@ -217,10 +217,10 @@ MonoBehaviour:
   impactSFXVol: 1
   exploSFXVol: 1
   shakeCamOnExplo: 1
-  screenShakeRad: 8
-  screenShakeDur: 0.2
-  screenShakeMag: 2
-  screenShakeFreq: 20
+  screenShakeRad: 10
+  screenShakeDur: 2
+  screenShakeMag: 40
+  screenShakeFreq: 10
   showDebugLogs: 1
   type: 0
   rb: {fileID: 8916695428541062992}
@@ -229,7 +229,7 @@ MonoBehaviour:
   damageMult: 1
   bulletSpeed: 35
   bulletDestroyTime: 10
-  hitEffect: {fileID: 6845850144125539351, guid: bad3cf055489f0e4e9cd51bd9cdb7008, type: 3}
+  hitEffect: {fileID: 198175801688348628, guid: 25c7aa9ad705fe143a4d71c1c8deb7d4, type: 3}
 --- !u!54 &8916695428541062992
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -421,7 +421,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8fbc3cbed4c364a088c44c346949786c, type: 2}
+  - {fileID: 2100000, guid: 094e76e620df5714eb3946120657e1f6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

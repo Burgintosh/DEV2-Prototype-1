@@ -629,8 +629,8 @@ MonoBehaviour:
     surfaceSpinAxis: 0
   - buildName: Explo Turret
     buildableType: 1
-    placedPrefab: {fileID: 6124825163481744122, guid: 615be09f645369d4297824c40a9096ee, type: 3}
-    placedPreview: {fileID: 628324109812699501, guid: 1f79a5910f326524895745ea74309ae3, type: 3}
+    placedPrefab: {fileID: 8715642165356123713, guid: a9bab2ea2a342354487503d68a9acb4c, type: 3}
+    placedPreview: {fileID: 7489729944659148203, guid: 46ab64960d2fa5b4c81b5d1210a65390, type: 3}
     cost: 300
     refundAmount: 300
     placementRadius: 1.5
