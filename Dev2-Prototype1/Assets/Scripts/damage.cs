@@ -20,6 +20,23 @@ public class damage : MonoBehaviour
     [Header("Collision Settings")]
     [SerializeField] bool ignoreTriggerCollision = true;
 
+    [Header("----- Feedback -----")]
+    [SerializeField] float exploDelay = 0.25f;
+    [SerializeField] AudioSource audioSrc;
+    [SerializeField] AudioClip impactSFX;
+    [SerializeField] AudioClip exploSFX;
+    [SerializeField]
+    [Range(0f, 1f)] float impactSFXVol = 1f;
+    [SerializeField]
+    [Range(0f, 1f)] float exploSFXVol = 1f;
+
+    [Header("----- Shake Settings -----")]
+    [SerializeField] bool shakeCamOnExplo = true;
+    [SerializeField] float screenShakeRad = 8f;
+    [SerializeField] float screenShakeDur = 0.2f;
+    [SerializeField] float screenShakeMag = 2f;
+    [SerializeField] float screenShakeFreq = 20f;
+
     [Header("Debug")]
     [SerializeField] public bool showDebugLogs;
 
@@ -90,21 +107,21 @@ public class damage : MonoBehaviour
         {
             hasHit = true;
 
-            if(explodeOnImpact && dmg != null)
-            {
-                Explode();
-            }
+            PlayDamSFX(impactSFX, impactSFXVol);
 
-            if(explodeOnImpact && exploVFX != null)
+            if (explodeOnImpact)
             {
-                Instantiate(exploVFX, transform.position, Quaternion.identity);
+                StartCoroutine(ExplodeAfterDelay(true));
             }
-            else if (hitEffect != null)
+            else
             {
-                Instantiate(hitEffect, transform.position, Quaternion.identity); // Quaternion identity means (0,0,0)
-            }
+                if(hitEffect != null)
+                {
+                    Instantiate(hitEffect, transform.position, Quaternion.identity);
+                }
 
-            Destroy(gameObject);
+                Destroy(gameObject);
+            }
         }
     }
 
@@ -177,7 +194,127 @@ public class damage : MonoBehaviour
 
             dmg.takeDamage(finalExploDam);
         }
+    }
 
+    IEnumerator ExplodeAfterDelay(bool _ShouldDamage)
+    {
+        DeactivateProjectilePostImpact();
+
+        if(exploDelay > 0)
+        {
+            yield return new WaitForSeconds(exploDelay);
+        }
+
+        if (_ShouldDamage)
+        {
+            Explode();
+        }
+
+        if(exploVFX != null)
+        {
+            Instantiate(exploVFX, transform.position, Quaternion.identity);
+        }
+
+        PlayDamSFX(exploSFX, exploSFXVol);
+
+        TryShakeCam();
+
+        float destroyDelay = 0.05f;
+
+        if(exploSFX != null)
+        {
+            destroyDelay = exploSFX.length + 0.05f;
+        }
+
+        Destroy(gameObject, destroyDelay);
+    }
+
+    void DeactivateProjectilePostImpact()
+    {
+        if(rb != null)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.isKinematic = true;
+        }
+
+        Collider[] cols = GetComponentsInChildren<Collider>();
+
+        for(int i = 0; i < cols.Length; i++)
+        {
+            cols[i].enabled = false;
+        }
+
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+
+        for(int i = 0; i < renderers.Length; i++)
+        {
+            renderers[i].enabled = false;
+        }
+    }
+
+    void PlayDamSFX(AudioClip _AudioClip, float _Vol)
+    {
+        if(_AudioClip == null)
+        {
+            return;
+        }
+
+        if(audioSrc == null)
+        {
+            DebugDam("Tried to play dam SFX but AudioSource is missing.");
+            return;
+        }
+
+        if(SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayWithRandomPitch(audioSrc, _AudioClip, _Vol, SoundCategory.Trap, true);
+        }
+        else
+        {
+            audioSrc.PlayOneShot(_AudioClip, Mathf.Clamp01(_Vol));
+        }
+
+    }
+
+    void TryShakeCam()
+    {
+        if (!shakeCamOnExplo)
+        {
+            return;
+        }
+
+        Camera mainCam = Camera.main;
+
+        if(mainCam == null)
+        {
+            DebugDam("No Main Camera found for screenshake");
+            return;
+        }
+
+        float dist = Vector3.Distance(transform.position, mainCam.transform.position);
+
+        if(dist > screenShakeRad)
+        {
+            return;
+        }
+
+        cameraController camController = mainCam.GetComponent<cameraController>();
+
+        if(camController == null)
+        {
+            camController = mainCam.GetComponentInParent<cameraController>();   
+        }
+
+        if(camController == null)
+        {
+            DebugDam("Main Camera has no cameraController for screen shake");
+            return;
+        }
+
+        float distPercent = 1f - (dist / screenShakeRad);
+        float finalMag = screenShakeMag * Mathf.Clamp01(distPercent);
+
+        camController.Shake(screenShakeDur, finalMag, screenShakeFreq);
     }
 
     IEnumerator damageOther(IDamage d)

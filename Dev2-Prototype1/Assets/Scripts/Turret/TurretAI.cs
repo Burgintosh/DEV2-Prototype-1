@@ -24,6 +24,12 @@ public class TurretAI : MonoBehaviour, IDamage, IBuffableTower
     [SerializeField] int targetFaceSpeed;
     [SerializeField] int FOV;
 
+    [Header("----- Audio Settings -----")]
+    [SerializeField] AudioSource audioSrc;
+    [SerializeField] AudioClip shootSFX;
+    [SerializeField]
+    [Range(0f, 1f)] float  shootSFXVol;
+
     Color colorOrig;
 
     float shootTimer;
@@ -189,6 +195,9 @@ public class TurretAI : MonoBehaviour, IDamage, IBuffableTower
     void shoot()
     {
         shootTimer = 0;
+
+        PlayTurretSFX(shootSFX, shootSFXVol);
+
         if(bullet != null)
         {
             GameObject spawnedBullet = Instantiate(bullet, shootPos.position, gunPivot.rotation);
@@ -317,6 +326,30 @@ public class TurretAI : MonoBehaviour, IDamage, IBuffableTower
     float GetDamMult()
     {
         return 1f + (totalDamageBuffPercent / 100f);
+    }
+
+    void PlayTurretSFX(AudioClip _AudioClip, float _Vol)
+    {
+        if(_AudioClip == null)
+        {
+            return;
+        }
+
+        if(audioSrc == null)
+        {
+            Debug.LogWarning("Turret tried to play audio but it has no src");
+            return;
+        }
+
+        if(SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayWithRandomPitch(audioSrc, _Vol, SoundCategory.Trap, true);
+        }
+        else
+        {
+            audioSrc.PlayOneShot(_AudioClip, Mathf.Clamp01(_Vol));
+        }
+
     }
 
     void DebugBuff(string _MSG)
