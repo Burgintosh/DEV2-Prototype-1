@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Nexus : MonoBehaviour, IDamage
 {
-   [Range(1,500)] [SerializeField] int HP;
+   [Range(1,1000)] [SerializeField] int HP;
     [SerializeField] Renderer model;
     [SerializeField] GameObject HPObject;
     [SerializeField] Renderer HPmodel;
