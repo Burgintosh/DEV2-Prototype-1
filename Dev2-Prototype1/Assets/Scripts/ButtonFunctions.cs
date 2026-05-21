@@ -274,5 +274,16 @@ public class ButtonFunctions : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
+    private void AdjustUIForPlatform()
+    {
+        bool isWeb = Application.platform == RuntimePlatform.WebGLPlayer;
+
+        if (fullscreenToggle != null)
+            fullscreenToggle.gameObject.SetActive(!isWeb);
+
+        if (resolutionDropdown != null)
+            resolutionDropdown.gameObject.SetActive(!isWeb);
+    }
+
 
 }
