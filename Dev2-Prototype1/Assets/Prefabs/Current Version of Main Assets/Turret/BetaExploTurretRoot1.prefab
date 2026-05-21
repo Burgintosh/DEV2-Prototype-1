@@ -277,7 +277,7 @@ GameObject:
   - component: {fileID: 7160439758198944942}
   - component: {fileID: 4233334330452906855}
   - component: {fileID: 7072610158906773721}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Turret_01_MainGunRightPart
   m_TagString: Untagged
   m_Icon: {fileID: 0}

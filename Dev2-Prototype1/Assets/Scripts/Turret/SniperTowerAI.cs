@@ -25,6 +25,12 @@ public class SniperTowerAI : MonoBehaviour, IBuffableTower
     [SerializeField] LayerMask LOSMask = ~0;
     [SerializeField] bool ignoreTriggerCollidersForTargeting = true;
 
+    [Header("----- Audio Settings -----")]
+    [SerializeField] AudioSource audioSrc;
+    [SerializeField] AudioClip shootSFX;
+    [SerializeField]
+    [Range(0, 1f)] float shootSFXVol = 1f;
+
     float totalDamBuffPercent;
 
     Color colorOrig;
@@ -264,6 +270,8 @@ public class SniperTowerAI : MonoBehaviour, IBuffableTower
             return;
         }
 
+        PlaySniperShootSFX();
+
         Quaternion spawnRot = transform.rotation;
 
         if (pivotPos != null)
@@ -389,6 +397,30 @@ public class SniperTowerAI : MonoBehaviour, IBuffableTower
         totalDamBuffPercent = Mathf.Max(0f, totalDamBuffPercent);
 
         DebugBuff("Removed damage buff -" + _Percent + "% | Total Damage Buff" + totalDamBuffPercent + "% | Mult: " + GetDamMult());
+    }
+
+    void PlaySniperShootSFX()
+    {
+        if(shootSFX == null)
+        {
+            return;
+        }
+
+        if(audioSrc == null)
+        {
+            DebugSniper("Tried to play sniper shoot SFX but AudioSource is missing");
+            return;
+        }
+
+        if(SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayWithRandomPitch(audioSrc, shootSFX, shootSFXVol, SoundCategory.Trap, true);
+        }
+        else
+        {
+            audioSrc.PlayOneShot(shootSFX, Mathf.Clamp01(shootSFXVol));
+        }
+
     }
 
     void DebugBuff(string _MSG)

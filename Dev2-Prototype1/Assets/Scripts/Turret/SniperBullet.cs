@@ -8,6 +8,11 @@ public class SniperBullet : MonoBehaviour
     [SerializeField] float selfDestructTime = 5f;
     [SerializeField] ParticleSystem hitVFX;
 
+    [Header("----- Audio Settings -----")]
+    [SerializeField] AudioSource audioSrc;
+    [SerializeField] AudioClip hitSFX;
+    [SerializeField] [Range(0f, 1f)] float hitSFXVol;
+
     [Header("----- Debug Settings -----")]
     [SerializeField] bool showDebugLog;
 
@@ -117,10 +122,64 @@ public class SniperBullet : MonoBehaviour
 
         if(hitVFX != null)
         {
-            Instantiate(hitVFX, transform.position, Quaternion.identity);
+            ParticleSystem spawnedHitVFX = Instantiate(hitVFX, transform.position, Quaternion.identity);
+
+            ParticleSystem.MainModule mainParticle = spawnedHitVFX.main;
+
+            Destroy(spawnedHitVFX.gameObject, mainParticle.duration + mainParticle.startLifetime.constantMax);
         }
 
-        Destroy(gameObject);
+        PlayImpactSFX();
+
+        if(hitSFX != null && audioSrc != null)
+        {
+            StopProjectileAfterImpact();
+            Destroy(gameObject, hitSFX.length + 0.05f);
+        }
+        else
+        {
+            Destroy(gameObject); 
+        }
+    }
+
+    void PlayImpactSFX()
+    {
+        if(hitSFX == null)
+        {
+            return;
+        }
+
+        if(audioSrc == null)
+        {
+            DebugSniperBullet("Attempted to play sniper bullet impact SFX but AudioSource was missing");
+            return;
+        }
+
+        if(SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayWithRandomPitch(audioSrc, hitSFX, hitSFXVol, SoundCategory.Trap, true);
+        }
+        else
+        {
+            audioSrc.PlayOneShot(hitSFX, Mathf.Clamp01(hitSFXVol));
+        }
+    }
+
+    void StopProjectileAfterImpact()
+    {
+        Collider[] colliders = GetComponentsInChildren<Collider>();
+
+        for(int i = 0; i < colliders.Length; i++)
+        {
+            colliders[i].enabled = false;
+        }
+
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+
+        for(int i = 0; i < renderers.Length; i++)
+        {
+            renderers[i].enabled = false;
+        }
     }
 
     void DebugSniperBullet(string _MSG)
