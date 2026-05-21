@@ -256,6 +256,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &316975968 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5948181997335513691, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
+  m_PrefabInstance: {fileID: 5389488223452093220}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!1 &352547923
 GameObject:
   m_ObjectHideFlags: 0
@@ -892,6 +903,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3380112459152735891, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
+      propertyPath: quitButton
+      value: 
+      objectReference: {fileID: 316975968}
     - target: {fileID: 3433618002510074175, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
