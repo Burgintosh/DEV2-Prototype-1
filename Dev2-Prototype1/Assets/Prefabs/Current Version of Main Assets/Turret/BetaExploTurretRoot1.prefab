@@ -402,7 +402,7 @@ Transform:
   m_GameObject: {fileID: 3418823001691959778}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.012, y: 1.663, z: -2.008}
+  m_LocalPosition: {x: 0.012, y: 1.063, z: 0.163}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -434,7 +434,7 @@ Transform:
   m_GameObject: {fileID: 4024441260237275320}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.012116348, y: 0.12991917, z: 2.3563333}
+  m_LocalPosition: {x: -0.012116348, y: 0.7299192, z: 0.18533336}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -524,7 +524,7 @@ MonoBehaviour:
   model: {fileID: 8173997720227047117}
   agent: {fileID: 0}
   bullet: {fileID: 2230618022155075876, guid: 48a5e1d07f9b898468cbe73ccab4719e, type: 3}
-  shootRate: 1
+  shootRate: 4
   shootPos: {fileID: 2295208688091992286}
   gunPivot: {fileID: 2965816162331349290}
   gunRotateSpeed: 6

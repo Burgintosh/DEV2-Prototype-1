@@ -204,7 +204,7 @@ MonoBehaviour:
   slowDuration: 3
   explodeOnImpact: 1
   exploRadius: 3
-  exploDam: 10
+  exploDam: 5
   exploDamMask:
     serializedVersion: 2
     m_Bits: 128
