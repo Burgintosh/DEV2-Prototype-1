@@ -860,6 +860,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: Menus
       objectReference: {fileID: 0}
+    - target: {fileID: 3501914575324263247, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3501914575324263247, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5532432373533928368, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6833838535396408068, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7339607169924677800, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7378677840688882098, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8850613830148189508, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8850613830148189508, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8850613830148189508, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

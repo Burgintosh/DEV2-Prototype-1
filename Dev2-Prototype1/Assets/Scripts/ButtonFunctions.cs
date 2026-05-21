@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class ButtonFunctions : MonoBehaviour
 {
@@ -24,7 +25,7 @@ public class ButtonFunctions : MonoBehaviour
     [SerializeField] private Toggle cameraShakeToggle;
     
     // Display Settings
-    [SerializeField] private Dropdown resolutionDropdown;
+    [SerializeField] private TMP_Dropdown resolutionDropdown;
     [SerializeField] private Toggle fullscreenToggle;
 
     private float pendingSens;
@@ -99,7 +100,6 @@ public class ButtonFunctions : MonoBehaviour
             for (int i = 0; i < availableResolutions.Length; ++i)
             {
                 Resolution resolutionToCheck = availableResolutions[i];
-                //if(resolutionToCheck.width == Screen.currentResolution.width && resolutionToCheck.height == Screen.currentResolution.height && resolutionToCheck.refreshRateRatio == Screen.currentResolution.refreshRateRatio)
                 if(resolutionToCheck.width == Screen.currentResolution.width && resolutionToCheck.height == Screen.currentResolution.height)
                 {
                     bestMatchIndex = i;
@@ -138,7 +138,6 @@ public class ButtonFunctions : MonoBehaviour
             for (int i = 0; i < availableResolutions.Length; i++)
             {
                 Resolution resolution = availableResolutions[i];
-                //options.Add(string.Format("{0} x {1} @ {2}Hz", r.width, r.height, r.refreshRate));
                 ResolutionOptions.Add(string.Format("{0} x {1}", resolution.width, resolution.height));
             }
             resolutionDropdown.AddOptions(ResolutionOptions);
@@ -155,7 +154,6 @@ public class ButtonFunctions : MonoBehaviour
         {
             int resolutionIndex = Mathf.Clamp(pendingResolutionIndex, 0, availableResolutions.Length - 1);
             Resolution resolution = availableResolutions[resolutionIndex];
-            //Screen.SetResolution(resolution.width, resolution.height, pendingFullscreen, resolution.refreshRate);
             Screen.SetResolution(resolution.width, resolution.height, pendingFullscreen);
 
         }
@@ -253,19 +251,18 @@ public class ButtonFunctions : MonoBehaviour
         if (availableResolutions == null || availableResolutions.Length == 0)
         {
             // Fallback: create at least current resolution
-            Resolution cr = Screen.currentResolution;
-            availableResolutions = new Resolution[] { cr };
+            Resolution defaultResolution = Screen.currentResolution;
+            availableResolutions = new Resolution[] { defaultResolution };
         }
 
         if (resolutionDropdown != null)
         {
             resolutionDropdown.ClearOptions();
             List<string> options = new List<string>();
-            for (int i = 0; i < availableResolutions.Length; i++)
+            for (int i = 0; i < availableResolutions.Length; ++i)
             {
-                Resolution r = availableResolutions[i];
-                //options.Add(string.Format("{0} x {1} @ {2}Hz", r.width, r.height, r.refreshRate));
-                options.Add(string.Format("{0} x {1} @ {2}Hz", r.width, r.height));
+                Resolution resolution = availableResolutions[i];
+                options.Add(string.Format("{0} x {1}", resolution.width, resolution.height));
             }
             resolutionDropdown.AddOptions(options);
         }
