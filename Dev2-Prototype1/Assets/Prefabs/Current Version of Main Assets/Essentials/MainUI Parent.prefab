@@ -186,6 +186,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 867166590482209895}
     m_Modifications:
+    - target: {fileID: 3049013082740777210, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
+      propertyPath: FullScreenParent
+      value: 
+      objectReference: {fileID: 7947306028835992010}
+    - target: {fileID: 3049013082740777210, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
+      propertyPath: ScreenResolutionParent
+      value: 
+      objectReference: {fileID: 8752540269057522066}
     - target: {fileID: 3085758794305806419, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
       propertyPath: m_Camera
       value: 
@@ -282,5 +290,15 @@ PrefabInstance:
 --- !u!224 &2087238605249345954 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7828719983937996581, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
+  m_PrefabInstance: {fileID: 8093653711684779655}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7947306028835992010 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2168746627465531213, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
+  m_PrefabInstance: {fileID: 8093653711684779655}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8752540269057522066 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 658979285734229781, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
   m_PrefabInstance: {fileID: 8093653711684779655}
   m_PrefabAsset: {fileID: 0}

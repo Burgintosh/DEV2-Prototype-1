@@ -28,6 +28,10 @@ public class ButtonFunctions : MonoBehaviour
     [SerializeField] private TMP_Dropdown resolutionDropdown;
     [SerializeField] private Toggle fullscreenToggle;
 
+    // For disabling these on WebGL
+    [SerializeField] private GameObject FullScreenParent;
+    [SerializeField] private GameObject ScreenResolutionParent;
+
     private float pendingSens;
     private float pendingMusicVol;
     private float pendingSFXVol;
@@ -39,6 +43,8 @@ public class ButtonFunctions : MonoBehaviour
 
     private void Start()
     {
+        PopulateResolutionDropdown();
+        AdjustUIForPlatform();
         LoadSettings();
     }
 
@@ -150,16 +156,17 @@ public class ButtonFunctions : MonoBehaviour
     }
     public void ApplySettings()
     {
-        if (availableResolutions != null && availableResolutions.Length > 0)
+        if(!IsRunningOnWebGL())
         {
-            int resolutionIndex = Mathf.Clamp(pendingResolutionIndex, 0, availableResolutions.Length - 1);
-            Resolution resolution = availableResolutions[resolutionIndex];
-            Screen.SetResolution(resolution.width, resolution.height, pendingFullscreen);
-
+            if (availableResolutions != null && availableResolutions.Length > 0)
+            {
+                int resolutionIndex = Mathf.Clamp(pendingResolutionIndex, 0, availableResolutions.Length - 1);
+                Resolution resolution = availableResolutions[resolutionIndex];
+                Screen.SetResolution(resolution.width, resolution.height, pendingFullscreen);
+            }
+            else
+                Debug.Log("No available resolutions found - (ButtonFunctions.ApplySettings())");
         }
-        else
-            Debug.Log("No available resolutions found - (ButtonFunctions.ApplySettings())");
-
         if (Camera.main != null)
         {
             cameraController camController = Camera.main.GetComponent<cameraController>();
@@ -247,6 +254,8 @@ public class ButtonFunctions : MonoBehaviour
 
     private void PopulateResolutionDropdown()
     {
+        if (IsRunningOnWebGL()) return;
+
         availableResolutions = Screen.resolutions;
         if (availableResolutions == null || availableResolutions.Length == 0)
         {
@@ -276,14 +285,17 @@ public class ButtonFunctions : MonoBehaviour
 
     private void AdjustUIForPlatform()
     {
-        bool isWeb = Application.platform == RuntimePlatform.WebGLPlayer;
+        bool isWeb = IsRunningOnWebGL();
 
         if (fullscreenToggle != null)
-            fullscreenToggle.gameObject.SetActive(!isWeb);
+            FullScreenParent.gameObject.SetActive(!isWeb);
 
         if (resolutionDropdown != null)
-            resolutionDropdown.gameObject.SetActive(!isWeb);
+            ScreenResolutionParent.gameObject.SetActive(!isWeb);
     }
-
+    private bool IsRunningOnWebGL()
+    {
+        return Application.platform == RuntimePlatform.WebGLPlayer;
+    }
 
 }
