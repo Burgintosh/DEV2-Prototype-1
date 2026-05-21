@@ -212,7 +212,11 @@ public class damage : MonoBehaviour
 
         if(exploVFX != null)
         {
-            Instantiate(exploVFX, transform.position, Quaternion.identity);
+            ParticleSystem spawnedExplo = Instantiate(exploVFX, transform.position, Quaternion.identity);
+
+            ParticleSystem.MainModule mainParticle = spawnedExplo.main;
+
+            Destroy(spawnedExplo.gameObject, mainParticle.duration + mainParticle.startLifetime.constantMax);     
         }
 
         PlayDamSFX(exploSFX, exploSFXVol);
