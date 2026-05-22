@@ -612,6 +612,11 @@ public class playerController : MonoBehaviour, IDamage, IPickup
             {
                 currentWeapon.StartReload();
             }
+            if(HPOrig != 0)
+            {
+                HP = HPOrig;
+            }
+            playerVel = Vector3.zero;
         }
         else
         {
