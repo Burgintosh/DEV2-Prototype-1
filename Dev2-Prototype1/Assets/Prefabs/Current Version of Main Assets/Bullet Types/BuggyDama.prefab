@@ -204,7 +204,7 @@ MonoBehaviour:
   slowDuration: 3
   explodeOnImpact: 1
   exploRadius: 3
-  exploDam: 5
+  exploDam: 7
   exploDamMask:
     serializedVersion: 2
     m_Bits: 128
@@ -224,7 +224,7 @@ MonoBehaviour:
   showDebugLogs: 1
   type: 0
   rb: {fileID: 8916695428541062992}
-  damageAmount: 1
+  damageAmount: 7
   damageRate: 0.5
   damageMult: 1
   bulletSpeed: 35

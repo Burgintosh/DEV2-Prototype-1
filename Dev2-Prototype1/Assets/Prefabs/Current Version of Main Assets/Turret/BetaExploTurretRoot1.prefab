@@ -524,12 +524,13 @@ MonoBehaviour:
   model: {fileID: 8173997720227047117}
   agent: {fileID: 0}
   bullet: {fileID: 2230618022155075876, guid: 48a5e1d07f9b898468cbe73ccab4719e, type: 3}
-  shootRate: 4
+  shootRate: 3.5
   shootPos: {fileID: 2295208688091992286}
   gunPivot: {fileID: 2965816162331349290}
   gunRotateSpeed: 6
   targetFaceSpeed: 6
   FOV: 360
+  ignoreTriggerColForTarget: 1
   audioSrc: {fileID: 3040175500499056681}
   shootSFX: {fileID: 8300000, guid: 1aacb62ec1ffcb341b3fca76b99d7ec0, type: 3}
   shootSFXVol: 1
@@ -574,7 +575,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 11
+  m_Radius: 24
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &1767006041527743833
 Rigidbody:
