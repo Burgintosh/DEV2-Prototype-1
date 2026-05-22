@@ -269,6 +269,8 @@ MonoBehaviour:
   cameraShakeToggle: {fileID: 7577638756141169903}
   resolutionDropdown: {fileID: 5530422972555524839}
   fullscreenToggle: {fileID: 6021638185374608812}
+  FullScreenParent: {fileID: 0}
+  ScreenResolutionParent: {fileID: 0}
 --- !u!1 &357820314191329483
 GameObject:
   m_ObjectHideFlags: 0
