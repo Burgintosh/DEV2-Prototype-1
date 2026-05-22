@@ -25,6 +25,12 @@ public class SniperTowerAI : MonoBehaviour, IBuffableTower
     [SerializeField] LayerMask LOSMask = ~0;
     [SerializeField] bool ignoreTriggerCollidersForTargeting = true;
 
+    [Header("----- Audio Settings -----")]
+    [SerializeField] AudioSource audioSrc;
+    [SerializeField] AudioClip shootSFX;
+    [SerializeField]
+    [Range(0, 1f)] float shootSFXVol = 1f;
+
     float totalDamBuffPercent;
 
     Color colorOrig;
@@ -141,35 +147,68 @@ public class SniperTowerAI : MonoBehaviour, IBuffableTower
                 return true;
             }
 
-            DebugSniper("Line of sight is blocked by: " + hit.collider.name);
+            Transform hitEnemy = GetEnemyTransform(hit.collider);
+
+            if(hitEnemy == enemyPos)
+            {
+                return true;
+            }
+
+            DebugSniper("LOS is blocked by: " + hit.collider.name);
 
             return false;
         }
 
         return true;
     }
+    
+    Transform GetEnemyTransform(Collider _ColToFind)
+    {
+        if (_ColToFind.CompareTag("Enemy"))
+        {
+            return _ColToFind.transform;
+        }
+
+        Transform currTransform = _ColToFind.transform.parent;
+
+        while(currTransform != null)
+        {
+            if (currTransform.CompareTag("Enemy"))
+            {
+                return currTransform;
+            }
+
+            currTransform = currTransform.parent;
+        }
+
+        return null;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if(ignoreTriggerCollidersForTargeting && other.isTrigger)
         {
-            DebugSniper("Ignored trigger collider entering rnage: " + other.name);
+            DebugSniper("Ignored trigger collider entering range: " + other.name);
             return;
         }
 
-        if (other.CompareTag("Enemy"))
+        Transform enemy = GetEnemyTransform(other);
+
+        if(enemy == null)
         {
-            DebugSniper("Sniper trigger entered by: " + other.name);
+            return;
+        }
 
-            if (!enemiesInRange.Contains(other.transform))
-            {
-                enemiesInRange.Add(other.transform);
-            }
+        DebugSniper("Sniper rang col entered by enemy: " + enemy.name);
 
-            if(enemyPos == null)
-            {
-                enemyPos = other.transform;
-            }
+        if(!enemiesInRange.Contains(enemy))
+        {
+            enemiesInRange.Add(enemy);
+        }
+
+        if(enemyPos == null)
+        {
+            enemyPos = enemy;
         }
     }
 
@@ -177,22 +216,26 @@ public class SniperTowerAI : MonoBehaviour, IBuffableTower
     {
         if(ignoreTriggerCollidersForTargeting && other.isTrigger)
         {
-            DebugSniper("Ignored trigger collider exiting range: " + other.name);
+            DebugSniper("Ignored trigger col exiting range: " + other.name);
             return;
         }
 
-        if (other.CompareTag("Enemy"))
+        Transform enemy = GetEnemyTransform(other);
+
+        if(enemy == null)
         {
-            DebugSniper("Sniper trigger exited by: " + other.name);
+            return;
+        }
 
-            enemiesInRange.Remove(other.transform);
+        DebugSniper("Sniper col exited by enemy: " + enemy.name);
 
-            if(enemyPos == other.transform)
-            {
-                enemyPos = null;
-                enemyDir = Vector3.zero;
-                GetTarget();
-            }
+        enemiesInRange.Remove(enemy);
+
+        if(enemyPos == enemy)
+        {
+            enemyPos = null;
+            enemyDir = Vector3.zero;
+            GetTarget();
         }
     }
 
@@ -226,6 +269,8 @@ public class SniperTowerAI : MonoBehaviour, IBuffableTower
             DebugSniper("Missing bullet or shootPos");
             return;
         }
+
+        PlaySniperShootSFX();
 
         Quaternion spawnRot = transform.rotation;
 
@@ -277,16 +322,19 @@ public class SniperTowerAI : MonoBehaviour, IBuffableTower
 
     Vector3 GetTargetPos()
     {
-        if(enemyPos == null)
+        if (enemyPos == null)
         {
             return transform.position;
         }
 
-        Collider enemyCol = enemyPos.GetComponentInChildren<Collider>();
+        Collider[] enemyCols = enemyPos.GetComponentsInChildren<Collider>();
 
-        if(enemyCol != null)
+        for (int i = 0; i < enemyCols.Length; i++)
         {
-            return enemyCol.bounds.center;
+            if (enemyCols[i] != null && !enemyCols[i].isTrigger)
+            {
+                return enemyCols[i].bounds.center;
+            }
         }
 
         return enemyPos.position;
@@ -349,6 +397,30 @@ public class SniperTowerAI : MonoBehaviour, IBuffableTower
         totalDamBuffPercent = Mathf.Max(0f, totalDamBuffPercent);
 
         DebugBuff("Removed damage buff -" + _Percent + "% | Total Damage Buff" + totalDamBuffPercent + "% | Mult: " + GetDamMult());
+    }
+
+    void PlaySniperShootSFX()
+    {
+        if(shootSFX == null)
+        {
+            return;
+        }
+
+        if(audioSrc == null)
+        {
+            DebugSniper("Tried to play sniper shoot SFX but AudioSource is missing");
+            return;
+        }
+
+        if(SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayWithRandomPitch(audioSrc, shootSFX, shootSFXVol, SoundCategory.Trap, true);
+        }
+        else
+        {
+            audioSrc.PlayOneShot(shootSFX, Mathf.Clamp01(shootSFXVol));
+        }
+
     }
 
     void DebugBuff(string _MSG)

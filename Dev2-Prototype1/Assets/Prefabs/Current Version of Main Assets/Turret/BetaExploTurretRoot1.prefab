@@ -277,7 +277,7 @@ GameObject:
   - component: {fileID: 7160439758198944942}
   - component: {fileID: 4233334330452906855}
   - component: {fileID: 7072610158906773721}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Turret_01_MainGunRightPart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -402,7 +402,7 @@ Transform:
   m_GameObject: {fileID: 3418823001691959778}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.012, y: 1.663, z: -2.008}
+  m_LocalPosition: {x: 0.012, y: 1.063, z: 0.163}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -434,7 +434,7 @@ Transform:
   m_GameObject: {fileID: 4024441260237275320}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.012116348, y: 0.12991917, z: 2.3563333}
+  m_LocalPosition: {x: -0.012116348, y: 0.7299192, z: 0.18533336}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -524,12 +524,13 @@ MonoBehaviour:
   model: {fileID: 8173997720227047117}
   agent: {fileID: 0}
   bullet: {fileID: 2230618022155075876, guid: 48a5e1d07f9b898468cbe73ccab4719e, type: 3}
-  shootRate: 1
+  shootRate: 3.5
   shootPos: {fileID: 2295208688091992286}
   gunPivot: {fileID: 2965816162331349290}
   gunRotateSpeed: 6
   targetFaceSpeed: 6
   FOV: 360
+  ignoreTriggerColForTarget: 1
   audioSrc: {fileID: 3040175500499056681}
   shootSFX: {fileID: 8300000, guid: 1aacb62ec1ffcb341b3fca76b99d7ec0, type: 3}
   shootSFXVol: 1
@@ -574,7 +575,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 15
+  m_Radius: 24
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &1767006041527743833
 Rigidbody:

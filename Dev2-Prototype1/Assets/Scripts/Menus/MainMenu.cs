@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] ButtonFunctions buttonFunctions;
+    [SerializeField] private Button quitButton;
 
     public GameObject mainMenu;
     public GameObject LevelSelectMenu;
@@ -28,8 +29,10 @@ public class MainMenu : MonoBehaviour
             {
                 colors.highlightedColor = hoverColor;
             }
-            //colors.highlightedColor = 
         }
+
+        if (quitButton != null)
+            quitButton.gameObject.SetActive(Application.platform != RuntimePlatform.WebGLPlayer);
     }
 
     // Open Menus

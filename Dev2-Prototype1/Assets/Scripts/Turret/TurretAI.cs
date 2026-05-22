@@ -23,6 +23,7 @@ public class TurretAI : MonoBehaviour, IDamage, IBuffableTower
     [SerializeField] int gunRotateSpeed;
     [SerializeField] int targetFaceSpeed;
     [SerializeField] int FOV;
+    [SerializeField] bool ignoreTriggerColForTarget = true;
 
     [Header("----- Audio Settings -----")]
     [SerializeField] AudioSource audioSrc;
@@ -139,39 +140,96 @@ public class TurretAI : MonoBehaviour, IDamage, IBuffableTower
         enemiesInRange.RemoveAll(enemy => enemy == null || !enemy.gameObject.activeInHierarchy);
     }
 
+    Transform GetEnemyTransform(Collider _EnemyCol)
+    {
+        if(_EnemyCol == null)
+        {
+            return null;
+        }
+
+        if (_EnemyCol.CompareTag("Enemy"))
+        {
+            return _EnemyCol.transform;
+        }
+
+        Transform currTransform = _EnemyCol.transform.parent;
+
+        while(currTransform != null)
+        {
+            if (currTransform.CompareTag("Enemy"))
+            {
+                return currTransform;
+            }
+
+            currTransform = currTransform.parent;
+        }
+
+        return null;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if(other == null)
         {
-            Debug.Log($"Turret trigger entered by: {other.name}");
+            return;
+        }
 
-            if (!enemiesInRange.Contains(other.transform))
-            {
-                enemiesInRange.Add(other.transform);
-            }
+        if(ignoreTriggerColForTarget && other.isTrigger)
+        {
+            Debug.Log("Turret ignored trigger collider entering range: " + other.name);
+            return;
+        }
 
-            if(enemyPos == null)
-            {
-                enemyPos = other.transform;
-            }
+        Transform enemy = GetEnemyTransform(other);
 
+        if(enemy == null)
+        {
+            DebugBuff("Collider entered range but no Enemy root was found: " + other.name);
+            return;
+        }
+
+        Debug.Log($"Turret trigger entered by enemy: {enemy.name}");
+
+        if (!enemiesInRange.Contains(enemy))
+        {
+            enemiesInRange.Add(enemy);
+        }
+
+        if(enemyPos == null)
+        {
+            enemyPos = enemy;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Enemy"))
+        if(other == null)
         {
-            Debug.Log($"Turret trigger exited by: {other.name}");
+            return;
+        }
 
-            enemiesInRange.Remove(other.transform);
+        if(ignoreTriggerColForTarget && other.isTrigger)
+        {
+            Debug.Log("Turret ignored trigger collider exiting range: " + other.name);
+            return;
+        }
 
-            if(enemyPos == other.transform)
-            {
-                enemyPos = null;
-                enemyDir = Vector3.zero;
-                AcquireTarget();
-            }
+        Transform enemy = GetEnemyTransform(other);
+
+        if(enemy == null)
+        {
+            return;
+        }
+
+        Debug.Log($"Turret trigger exited by enemy: {enemy.name}");
+
+        enemiesInRange.Remove(enemy);
+
+        if(enemyPos == enemy)
+        {
+            enemyPos = null;
+            enemyDir = Vector3.zero;
+            AcquireTarget();
         }
     }
 
@@ -182,11 +240,14 @@ public class TurretAI : MonoBehaviour, IDamage, IBuffableTower
             return transform.position;
         }
 
-        Collider enemyCol = enemyPos.GetComponentInChildren<Collider>();
+        Collider[] enemyCols = enemyPos.GetComponentsInChildren<Collider>();
 
-        if(enemyCol != null)
+        for(int i = 0; i < enemyCols.Length; i++)
         {
-            return enemyCol.bounds.center;
+            if (enemyCols[i] != null && !enemyCols[i].isTrigger)
+            {
+                return enemyCols[i].bounds.center;
+            }
         }
 
         return enemyPos.position;
