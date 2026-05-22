@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using TMPro;
 
 public class LoadingManager : MonoBehaviour
 {
@@ -9,9 +10,13 @@ public class LoadingManager : MonoBehaviour
 
     public Image fillImage;
     public Canvas loadingCanvas;
+    public TextMeshProUGUI continuePromptText;
+    public float promptDelay = 3f;
 
     private Coroutine loadCoroutine;
     private AsyncOperation currentAsyncOperation;
+
+    private const float ActivationTimeoutSeconds = 10f;
 
     private void Awake()
     {
@@ -23,6 +28,9 @@ public class LoadingManager : MonoBehaviour
             if (loadingCanvas != null)
                 loadingCanvas.sortingOrder = 1000;
 
+            if (continuePromptText != null) continuePromptText.gameObject.SetActive(false);
+            if (loadingCanvas != null) loadingCanvas.gameObject.SetActive(false);
+
         }
         else
         {
@@ -33,9 +41,7 @@ public class LoadingManager : MonoBehaviour
     public void StartLoading(string sceneName)
     {
         if (currentAsyncOperation != null && !currentAsyncOperation.isDone)
-        {
             currentAsyncOperation.allowSceneActivation = true;
-        }
         if (loadCoroutine != null)
         {
             StopCoroutine(loadCoroutine);
@@ -47,6 +53,9 @@ public class LoadingManager : MonoBehaviour
 
         if (fillImage != null)
             fillImage.fillAmount = 0f;
+        
+        if (continuePromptText != null)
+            continuePromptText.gameObject.SetActive(false);
 
         loadCoroutine = StartCoroutine(LoadSceneAsync(sceneName));
     }
@@ -78,16 +87,26 @@ public class LoadingManager : MonoBehaviour
 
         Debug.Log("LoadingManager: reached 0.9f.");
 
-        yield return new WaitForSeconds(0.25f);
-        Debug.Log("Yielded Wait for Seconds.");
+        yield return new WaitForSeconds(promptDelay);
 
-        if (currentAsyncOperation != null)
-            currentAsyncOperation.allowSceneActivation = true;
+        if (continuePromptText != null)
+        {
+            bool isWeb = Application.platform == RuntimePlatform.WebGLPlayer;
+            continuePromptText.text = isWeb
+                ? "Scene is loaded. If you're still here, press P to continue."
+                : "Scene is loaded. If you're still here, press ESC to continue.";
+            continuePromptText.gameObject.SetActive(true);
+        }
+
+        currentAsyncOperation.allowSceneActivation = true;
 
         Debug.Log("After allowing activation.");
 
         //while (currentAsyncOperation != null && !currentAsyncOperation.isDone)
         //    yield return null;
+
+        if (continuePromptText != null)
+            continuePromptText.gameObject.SetActive(false);
 
         if (loadingCanvas != null)
             loadingCanvas.gameObject.SetActive(false);

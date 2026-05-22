@@ -50,6 +50,7 @@ public class ButtonFunctions : MonoBehaviour
 
     public void LoadMainMenu()
     {
+        gamemanager.instance.stateUnpause();
         SceneManager.LoadScene("MainMenu");
     }
     public void resume()
@@ -280,8 +281,8 @@ public class ButtonFunctions : MonoBehaviour
 
     public void MainMenu()
     {
-        //LoadingManager.Instance.StartLoading("MainMenu");
-        SceneManager.LoadScene("MainMenu");
+        LoadingManager.Instance.StartLoading("MainMenu");
+        //SceneManager.LoadScene("MainMenu");
     }
 
     private void AdjustUIForPlatform()
