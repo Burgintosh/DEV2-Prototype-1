@@ -625,6 +625,10 @@ PrefabInstance:
       propertyPath: buildables.Array.data[4].surfaceRotOffset.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4323198515979075238, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+      propertyPath: m_Resource
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5281255741563342711, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: m_CullingMask.m_Bits
       value: 49151

@@ -668,6 +668,7 @@ MonoBehaviour:
   placeBuildableSFX: {fileID: 8300000, guid: aed8f00dddaa3ca4ca803055dfd501dd, type: 3}
   sellBuildableSFX: {fileID: 8300000, guid: 2c42c807ee5f2fe4ab0ed044522dace9, type: 3}
   rotBuildableSFX: {fileID: 8300000, guid: 007a20a96f6286e49924273b10ec19af, type: 3}
+  failedBuildableSFX: {fileID: 8300000, guid: d0c3359d71bbca943822c4373bbe36b3, type: 3}
   buildFeedbackVol: 1
   buildFeedbackSoundCategory: 5
 --- !u!114 &1164031155285335923

@@ -43,6 +43,7 @@ public class BuildPlacementController : MonoBehaviour
     [SerializeField] AudioClip placeBuildableSFX;
     [SerializeField] AudioClip sellBuildableSFX;
     [SerializeField] AudioClip rotBuildableSFX;
+    [SerializeField] AudioClip failedBuildableSFX;
     [SerializeField] float buildFeedbackVol = 1f;
     [SerializeField] SoundCategory buildFeedbackSoundCategory = SoundCategory.Trap;
 
@@ -119,9 +120,16 @@ public class BuildPlacementController : MonoBehaviour
 
         UpdatePreview();
 
-        if(Input.GetKeyDown(confirmBuildKey) && currentPlacementValid)
+        if(Input.GetKeyDown(confirmBuildKey))
         {
-            ConfirmBuild();
+            if (currentPlacementValid)
+            {
+                ConfirmBuild();
+            }
+            else
+            {
+                PlayBuildFeedbackSFX(failedBuildableSFX);
+            }
         }
     }
     private void OnEnable()
