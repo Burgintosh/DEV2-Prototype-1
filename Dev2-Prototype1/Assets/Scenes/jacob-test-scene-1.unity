@@ -514,9 +514,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1100070880}
     - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+      propertyPath: sellBuildableSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 2c42c807ee5f2fe4ab0ed044522dace9, type: 3}
+    - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+      propertyPath: placeBuildableSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: aed8f00dddaa3ca4ca803055dfd501dd, type: 3}
+    - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: buildables.Array.size
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+      propertyPath: buildFeedbackAudioSource
+      value: 
+      objectReference: {fileID: 1323051038}
     - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: buildables.Array.data[6].cost
       value: 50
@@ -1247,6 +1259,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d953a6e4ca7164c37b7127855cb54154, type: 3}
+--- !u!82 &1323051038 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 4323198515979075238, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
+  m_PrefabInstance: {fileID: 411611331}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1405104713
 PrefabInstance:
   m_ObjectHideFlags: 0

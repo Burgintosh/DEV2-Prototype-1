@@ -38,6 +38,14 @@ public class BuildPlacementController : MonoBehaviour
     [SerializeField] Color validColor = Color.blue;
     [SerializeField] Color invalidColor = Color.red;
 
+    [Header("----- Build Feedback SFX -----")]
+    [SerializeField] AudioSource buildFeedbackAudioSource;
+    [SerializeField] AudioClip placeBuildableSFX;
+    [SerializeField] AudioClip sellBuildableSFX;
+    [SerializeField] AudioClip rotBuildableSFX;
+    [SerializeField] float buildFeedbackVol = 1f;
+    [SerializeField] SoundCategory buildFeedbackSoundCategory = SoundCategory.Trap;
+
     bool previewModeActive;
     bool currentPlacementValid;
 
@@ -133,6 +141,8 @@ public class BuildPlacementController : MonoBehaviour
         {
             currentPreviewYaw -= 360f;
         }
+
+        PlayBuildFeedbackSFX(rotBuildableSFX);
     }
 
     Quaternion GetPlacementRot(Vector3 _SurfaceNormal)
@@ -528,6 +538,8 @@ public class BuildPlacementController : MonoBehaviour
         {
             placedBuildable.Init(currBuildable);
         }
+
+        PlayBuildFeedbackSFX(placeBuildableSFX);
     }
 
     void TrySellBuildable()
@@ -551,7 +563,36 @@ public class BuildPlacementController : MonoBehaviour
         PlacedBuildable placedBuildable = GetTargetedBuildable(); // Replaced the above code with a helper function
 
         if (placedBuildable != null)
+        {
             placedBuildable.Sell(currencyManager);
+
+            PlayBuildFeedbackSFX(sellBuildableSFX);
+        }
+            
+    }
+
+    void PlayBuildFeedbackSFX(AudioClip _AudioClip)
+    {
+        if(_AudioClip == null)
+        {
+            Debug.LogWarning("[BuildPlacementController] Attempted to play build SFX no audioclip was assigned", this);
+            return;
+        }
+
+        if(buildFeedbackAudioSource == null)
+        {
+            Debug.LogWarning("[BuildPlacementController] Attempted toplay build feedback SFX, but AudioSource wasn't assigned");
+            return;
+        }
+
+        if(SoundManager.Instance == null)
+        {
+            Debug.LogWarning("[BuildPlacementController] SoundManager instance missing", this);
+            return;
+        }
+
+        SoundManager.Instance.PlayWithRandomPitch(buildFeedbackAudioSource, _AudioClip, buildFeedbackVol, buildFeedbackSoundCategory, true);
+
     }
 
     public bool IsPreviewMode()
