@@ -280,6 +280,7 @@ public class ButtonFunctions : MonoBehaviour
 
     public void MainMenu()
     {
+        //LoadingManager.Instance.StartLoading("MainMenu");
         SceneManager.LoadScene("MainMenu");
     }
 

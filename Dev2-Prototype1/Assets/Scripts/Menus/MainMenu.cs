@@ -95,23 +95,28 @@ public class MainMenu : MonoBehaviour
     // Levels
     public void LoadLevelThree()
     {
-        SceneManager.LoadScene("DiegoTestScene");
+        LoadingManager.Instance.StartLoading("DiegoTestScene");
+        //SceneManager.LoadScene("DiegoTestScene");
     }
     public void LoadLevelOne()
     {
-        SceneManager.LoadScene("Level1");
+        LoadingManager.Instance.StartLoading("Level1");
+        //SceneManager.LoadScene("Level1");
     }
     public void LoadLevelTwo()
     {
-        SceneManager.LoadScene("Level2");
+        LoadingManager.Instance.StartLoading("Level2");
+        //SceneManager.LoadScene("Level2");
     }
     public void LoadLevelFour()
     {
-        SceneManager.LoadScene("Level4");
+        LoadingManager.Instance.StartLoading("Level4");
+        //SceneManager.LoadScene("Level4");
     }
     public void LoadShowcaseLevel()
     {
-        SceneManager.LoadScene("ShowCaseLevelScene");
+        LoadingManager.Instance.StartLoading("ShowCaseLevelScene");
+        //SceneManager.LoadScene("ShowCaseLevelScene");
     }
 
     public void Quit()
