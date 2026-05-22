@@ -233,5 +233,7 @@ public class MoneyTrap : MonoBehaviour
 
         moneyPayoutVFX.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         moneyPayoutVFX.Play(true);
+
+        Debug.Log("[MoneyTrap] Playing payout VFX at: " + moneyPayoutVFX.transform.position, this);
     }
 }
