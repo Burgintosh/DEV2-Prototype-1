@@ -12,7 +12,30 @@ public class laser : MonoBehaviour
     [SerializeField] int damage;
     [SerializeField] float damageRate;
 
+    [Header("----- Laser Audio -----")]
+    [SerializeField] AudioSource laserAudioSrc;
+    [SerializeField][Range(0f, 1f)] float laserVolScale = 1f;
+    [SerializeField] SoundCategory laserSoundCategory = SoundCategory.Master;
+
     bool isDamaging;
+
+    private void Start()
+    {
+        if (laserAudioSrc == null)
+        {
+            laserAudioSrc = GetComponent<AudioSource>();
+        }
+
+        if(laserAudioSrc != null)
+        {
+            laserAudioSrc.loop = true;
+            laserAudioSrc.playOnAwake = false;
+
+            laserAudioSrc.Play();
+        }
+        
+        StartCoroutine(UpdateLaserAudioVolRoutine());
+    }
 
     // Update is called once per frame
     void Update()
@@ -46,11 +69,44 @@ public class laser : MonoBehaviour
         }
     }
 
+    IEnumerator UpdateLaserAudioVolRoutine()
+    {
+        while(true)
+        {
+            if(laserAudioSrc != null)
+            {
+                if(SoundManager.Instance != null)
+                {
+                    laserAudioSrc.volume = SoundManager.Instance.GetFinalVol(laserVolScale, laserSoundCategory);
+                }
+                else
+                {
+                    laserAudioSrc.volume = laserVolScale;
+                }
+
+                if (!laserAudioSrc.isPlaying)
+                {
+                    laserAudioSrc.Play();
+                }
+            }
+
+            yield return new WaitForSeconds(0.2f);
+        }
+    }
+
     IEnumerator damageTime(IDamage d)
     {
         isDamaging = true;
         d.takeDamage(damage);
         yield return new WaitForSeconds(damageRate);
         isDamaging = false;
+    }
+
+    private void OnDisable()
+    {
+        if(laserAudioSrc != null)
+        {
+            laserAudioSrc.Stop();
+        }
     }
 }
