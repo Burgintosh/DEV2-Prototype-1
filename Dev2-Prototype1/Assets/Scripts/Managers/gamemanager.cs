@@ -121,9 +121,14 @@ public class gamemanager : MonoBehaviour
             activeWeapon.OnAmmoChange -= UpdateAmmoUI;
         }
 
-        playerScript.GetCurrentWeapon().OnAmmoChange -= UpdateAmmoUI;
-        playerScript.OnWeaponChanged -= UpdateGun;
-        playerScript.OnHPChanged -= UpdatePlayerHPBar;
+        if(playerScript != null)
+        {
+            if (playerScript.GetCurrentWeapon() != null)
+                playerScript.GetCurrentWeapon().OnAmmoChange -= UpdateAmmoUI;
+            playerScript.OnWeaponChanged -= UpdateGun;
+            playerScript.OnHPChanged -= UpdatePlayerHPBar;
+        }
+        
         nexusScript.OnNexusHPChanged -= UpdateNexusHPBar;
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }

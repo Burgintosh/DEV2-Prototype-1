@@ -15,6 +15,16 @@ public class MoneyTrap : MonoBehaviour
     [Header("----- Refs -----")]
     [SerializeField] CurrencyManager currencyManager;
 
+    [Header("----- Audio -----")]
+    [SerializeField] AudioSource moneyAudioSource;
+    [SerializeField] AudioClip moneyPayoutAudioClip;
+    [SerializeField] float moneyPayoutVol = 1f;
+    [SerializeField] SoundCategory moneySoundCategory = SoundCategory.Trap;
+
+    [Header("----- VFX Feedback -----")]
+    [SerializeField] ParticleSystem moneyPayoutVFX;
+    [SerializeField] Transform moneyPayoutVFXPos;
+
     [Header("----- Debug -----")]
     [SerializeField] bool showDebugLogs = true;
 
@@ -149,6 +159,8 @@ public class MoneyTrap : MonoBehaviour
 
         currencyManager.AddCurrency(amountToPay);
 
+        PlayPayoutFeedback();
+
         if (showDebugLogs)
         {
             Debug.Log("[MoneyTrap] Player currency after payout: " + currencyManager.GetCurrentCurrency(), this);
@@ -177,4 +189,51 @@ public class MoneyTrap : MonoBehaviour
         payoutIntervalMult = Mathf.Max(0.1f, _NewPayIntervalMult);
     }
 
+    void PlayPayoutFeedback()
+    {
+        PlayPayoutSFX();
+        PlayPayoutVFX();
+    }
+
+    void PlayPayoutSFX()
+    {
+        if(moneyAudioSource == null)
+        {
+            Debug.LogWarning("[MoneyTrap] Money AudioSource is missing", this);
+            return;
+        }
+
+        if(moneyPayoutAudioClip == null)
+        {
+            Debug.LogWarning("[MoneyTrap] Money payout AudioClip is missing", this);
+            return;
+        }
+
+        if(SoundManager.Instance == null)
+        {
+            Debug.LogWarning("[Money Trap] SoundManager instance is missing.", this);
+            return;
+        }
+
+        SoundManager.Instance.PlayWithRandomPitch(moneyAudioSource, moneyPayoutAudioClip, moneyPayoutVol, moneySoundCategory, true);
+    }
+
+    void PlayPayoutVFX()
+    {
+        if(moneyPayoutVFX == null)
+        {
+            return;
+        }
+
+        if(moneyPayoutVFXPos != null)
+        {
+            moneyPayoutVFX.transform.position = moneyPayoutVFXPos.position;
+            moneyPayoutVFX.transform.rotation = moneyPayoutVFXPos.rotation;
+        }
+
+        moneyPayoutVFX.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        moneyPayoutVFX.Play(true);
+
+        Debug.Log("[MoneyTrap] Playing payout VFX at: " + moneyPayoutVFX.transform.position, this);
+    }
 }
