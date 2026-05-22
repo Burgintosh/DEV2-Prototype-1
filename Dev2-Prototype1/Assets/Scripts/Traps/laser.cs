@@ -5,7 +5,6 @@ public class laser : MonoBehaviour
 {
     [SerializeField] LineRenderer laserLine;
 
-    [SerializeField] GameObject hitEffect;
     [SerializeField] Transform laserStartPos;
 
     [SerializeField] int laserMaxDist;
@@ -16,6 +15,11 @@ public class laser : MonoBehaviour
     [SerializeField] AudioSource laserAudioSrc;
     [SerializeField][Range(0f, 1f)] float laserVolScale = 1f;
     [SerializeField] SoundCategory laserSoundCategory = SoundCategory.Master;
+
+    [Header("----- Laser VFX -----")]
+    [SerializeField] GameObject hitEffect;
+    GameObject hitEffectInstance;
+    ParticleSystem[] hitParticles;
 
     bool isDamaging;
 
@@ -34,6 +38,15 @@ public class laser : MonoBehaviour
             laserAudioSrc.Play();
         }
         
+        if(hitEffect != null)
+        {
+            hitEffectInstance = Instantiate(hitEffect);
+
+            hitEffectInstance.SetActive(false);
+
+            hitParticles = hitEffectInstance.GetComponentsInChildren<ParticleSystem>(); 
+        }
+
         StartCoroutine(UpdateLaserAudioVolRoutine());
     }
 
@@ -51,8 +64,7 @@ public class laser : MonoBehaviour
             laserLine.SetPosition(0, laserStartPos.position);
             laserLine.SetPosition(1, hit.point); // Can use multiple indexes to have laser look like lightning (zigzagging)
 
-            hitEffect.SetActive(true);
-            hitEffect.transform.position = hit.point;
+            UpdateHitVFX(hit.point, hit.normal);
 
             IDamage dmg = hit.collider.GetComponent<IDamage>();
             if (dmg != null && isDamaging == false)
@@ -65,8 +77,55 @@ public class laser : MonoBehaviour
             laserLine.SetPosition(0, laserStartPos.position);
             laserLine.SetPosition(1, laserStartPos.position + laserStartPos.forward * laserMaxDist);
 
-            hitEffect.SetActive(false);
+            StopHitVFX();
         }
+    }
+
+    void UpdateHitVFX(Vector3 _HitPos, Vector3 _HitNorm)
+    {
+        if(hitEffectInstance == null)
+        {
+            return;
+        }
+
+        hitEffectInstance.transform.position = _HitPos;
+
+        hitEffectInstance.transform.rotation = Quaternion.LookRotation(_HitNorm);
+
+        if (!hitEffectInstance.activeSelf)
+        {
+            hitEffectInstance.SetActive(true);
+
+            if(hitParticles != null)
+            {
+                foreach(ParticleSystem particle in hitParticles)
+                {
+                    particle.Play();
+                }
+            }
+        }
+    }
+
+    void StopHitVFX()
+    {
+        if(hitEffectInstance == null)
+        {
+            return;
+        }
+
+        if (hitEffectInstance.activeSelf)
+        {
+            if(hitParticles != null)
+            {
+                foreach(ParticleSystem particle in hitParticles)
+                {
+                    particle.Stop();
+                }
+            }
+
+            hitEffectInstance.SetActive(false);
+        }
+
     }
 
     IEnumerator UpdateLaserAudioVolRoutine()
@@ -108,5 +167,7 @@ public class laser : MonoBehaviour
         {
             laserAudioSrc.Stop();
         }
+
+        StopHitVFX();
     }
 }
