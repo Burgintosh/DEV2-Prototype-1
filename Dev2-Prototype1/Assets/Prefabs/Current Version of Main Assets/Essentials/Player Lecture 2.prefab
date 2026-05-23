@@ -609,7 +609,7 @@ MonoBehaviour:
   - buildName: Damage Booster
     buildableType: 1
     placedPrefab: {fileID: 8248692391061687236, guid: 43c0ea4f2534f9f43ad9fce7891f7af8, type: 3}
-    placedPreview: {fileID: 4469330818491300610, guid: 8b2235fc9a0b0674f984ff1e2e7597b9, type: 3}
+    placedPreview: {fileID: 1860892769864426556, guid: e54064b482fbcb947bd5e128e5a9d93c, type: 3}
     cost: 50
     refundAmount: 50
     placementRadius: 1.5

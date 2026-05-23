@@ -161,6 +161,18 @@ PrefabInstance:
       propertyPath: buffRange
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3276813395407927212, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
+      propertyPath: beamColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3276813395407927212, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
+      propertyPath: beamColor.g
+      value: 0.86353207
+      objectReference: {fileID: 0}
+    - target: {fileID: 3276813395407927212, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
+      propertyPath: beamColor.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3367476662884277613, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5

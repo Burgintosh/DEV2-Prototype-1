@@ -91,6 +91,7 @@ Transform:
   m_Children:
   - {fileID: 771627140512543398}
   - {fileID: 6674026971319806769}
+  - {fileID: 712976796254331145}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &452103440242011658
@@ -216,6 +217,11 @@ MonoBehaviour:
   towerLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
+  cleanupCheckRate: 0.25
+  beamStartPos: {fileID: 712976796254331145}
+  beamMat: {fileID: 2100000, guid: 123ac6dc79004e54b8b352a7e64acdca, type: 2}
+  beamWidth: 0.5
+  beamColor: {r: 1, g: 0.9161716, b: 0, a: 1}
   showDebugLogs: 1
 --- !u!114 &98623621384174076
 MonoBehaviour:
@@ -253,6 +259,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlacedBuildable
   buildableType: 1
   refundAmount: 0
+--- !u!1 &7486746597962398750
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 712976796254331145}
+  m_Layer: 15
+  m_Name: BeamStartPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &712976796254331145
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7486746597962398750}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.504, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3367476662884277613}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8228480161997818956
 GameObject:
   m_ObjectHideFlags: 0

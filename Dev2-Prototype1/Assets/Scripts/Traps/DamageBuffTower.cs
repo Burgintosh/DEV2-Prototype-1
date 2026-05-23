@@ -11,14 +11,37 @@ public class DamageBuffTower : MonoBehaviour
 
     [SerializeField] LayerMask towerLayerMask = ~0;
 
+    [SerializeField] float cleanupCheckRate = 0.25f;
+    float beamCleanupTimer;
+
+    [Header("----- Beam Visuals -----")]
+    [SerializeField] Transform beamStartPos;
+    [SerializeField] Material beamMat;
+    [SerializeField] float beamWidth = 0.05f;
+    [SerializeField] Color beamColor = Color.cyan;
+
     [Header("----- Debug -----")]
     [SerializeField] bool showDebugLogs = true;
 
     Dictionary<IBuffableTower, float> buffedTowers = new Dictionary<IBuffableTower, float>();
 
+    Dictionary<IBuffableTower, GameObject> buffBeams = new Dictionary<IBuffableTower, GameObject>();
+
     private void Awake()
     {
         SetupRangeTrigger();
+    }
+
+    private void Update()
+    {
+        beamCleanupTimer += Time.deltaTime;
+
+        if(beamCleanupTimer >= cleanupCheckRate)
+        {
+            beamCleanupTimer = 0f;
+
+            CleanupRemovedBuffedTowers();
+        }
     }
 
     private void Start()
@@ -88,10 +111,19 @@ public class DamageBuffTower : MonoBehaviour
             return;
         }
 
+        MonoBehaviour tower = buffableTower as MonoBehaviour;
+
         float appliedPercent = damageBuffPercent;
 
         buffedTowers.Add(buffableTower, appliedPercent);
         buffableTower.AddDamageBuff(appliedPercent);
+
+        GameObject beamObj = CreateBeamToTower(tower);
+
+        if(beamObj != null)
+        {
+            buffBeams[buffableTower] = beamObj;
+        }
 
         DebugBuff("Added damage buff to: " + _Other.name + " | Buff percent: +" + appliedPercent + "%");
     }
@@ -122,22 +154,89 @@ public class DamageBuffTower : MonoBehaviour
         buffedTowers.Remove(buffableTower);
         buffableTower.RemoveDamageBuff(appliedPercent);
 
+        RemoveBeam(buffableTower);
+
         DebugBuff("Removed damage buff: " + _Other.name + " | Buff percent -" + appliedPercent + "%");
+    }
+
+    GameObject CreateBeamToTower(MonoBehaviour _Tower)
+    {
+        if(_Tower == null)
+        {
+            return null;
+        }
+
+        GameObject beamObj = new GameObject("DamageBuffBeam " + _Tower.name);
+        beamObj.transform.SetParent(transform);
+
+        LineRenderer lineRend = beamObj.AddComponent<LineRenderer>();
+
+        lineRend.useWorldSpace = true;
+        lineRend.positionCount = 2;
+
+        lineRend.startWidth = beamWidth;
+        lineRend.endWidth = beamWidth;
+
+        lineRend.startColor = beamColor;
+        lineRend.endColor = beamColor;
+
+        if(beamMat != null)
+        {
+            lineRend.material = beamMat;
+        }
+
+        lineRend.SetPosition(0, GetBeamStartPos());
+        lineRend.SetPosition(1, _Tower.transform.position);
+
+        return beamObj;
+    }
+
+    Vector3 GetBeamStartPos()
+    {
+        if(beamStartPos != null)
+        {
+            return beamStartPos.position;
+        }
+
+        return transform.position;
+    }
+
+    void RemoveBeam(IBuffableTower _Tower)
+    {
+        if(_Tower == null)
+        {
+            return;
+        }
+
+        if (!buffBeams.ContainsKey(_Tower))
+        {
+            return;
+        }
+
+        GameObject beamObj = buffBeams[_Tower];
+
+        if(beamObj != null)
+        {
+            Destroy(beamObj);
+        }
+
+        buffBeams.Remove(_Tower);
     }
 
     void RemoveAllBuffs()
     {
         foreach(KeyValuePair<IBuffableTower, float> currBuffedTower in buffedTowers)
         {
-            if (!IsBuffableTowerStillValid(currBuffedTower.Key))
+            if (IsBuffableTowerStillValid(currBuffedTower.Key))
             {
-                continue;
+                currBuffedTower.Key.RemoveDamageBuff(currBuffedTower.Value);
             }
 
-            currBuffedTower.Key.RemoveDamageBuff(currBuffedTower.Value);
+            RemoveBeam(currBuffedTower.Key);
         }
 
         buffedTowers.Clear();
+        buffBeams.Clear();
     }
 
     bool IsBuffableTowerStillValid(IBuffableTower _Tower)
@@ -176,6 +275,7 @@ public class DamageBuffTower : MonoBehaviour
 
         for (int i = 0; i < towersToRemove.Count; i++)
         {
+            RemoveBeam(towersToRemove[i]);
             buffedTowers.Remove(towersToRemove[i]);
         }
     }
