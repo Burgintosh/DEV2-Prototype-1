@@ -13,7 +13,7 @@ public class BuildUISlot : MonoBehaviour
     private GameObject currentModel;
     BuildableDefinition buildable;
 
-    public void Setup(BuildableDefinition _buildData)
+    public void Setup(BuildableDefinition _buildData) // Deprecated
     {
         buildable = _buildData;
         if (currentModel != null)

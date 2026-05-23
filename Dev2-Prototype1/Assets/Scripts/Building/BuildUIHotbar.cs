@@ -56,7 +56,7 @@ public class BuildUIHotbar : MonoBehaviour
         }
     }
 
-    void UpdateInfoText(BuildableDefinition buildData)
+    public void UpdateInfoText(BuildableDefinition buildData)
     {
         if (buildData == null) return;
         currentBuildable = buildData;

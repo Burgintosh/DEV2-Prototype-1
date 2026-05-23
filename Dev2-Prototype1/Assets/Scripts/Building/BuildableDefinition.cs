@@ -1,7 +1,10 @@
 using UnityEngine;
 
 [System.Serializable]
-public class BuildableDefinition
+// Should be a scriptable object to be more modular.
+// Doing so now will clear all the trap data in the BuildPlacementController script's buildables list.
+// Make sure to make those up if we do that.
+public class BuildableDefinition 
 {
     public string buildName;
     public BuildableType buildableType;
