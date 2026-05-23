@@ -21,6 +21,7 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
     [Header("Sound")]
     [Range(0f, 1f)]
     [SerializeField] float enemyShootVol = 0.5f;
+    [SerializeField] AudioSource enemyShootSound;
 
     [SerializeField] int maxHP = 3;
     int HP;
@@ -175,7 +176,7 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
 
         if (SoundManager.Instance != null)
         {
-            SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.enemyShootSound, enemyShootVol, SoundCategory.Enemy);
+            SoundManager.Instance.PlayWithRandomPitch(enemyShootSound, enemyShootVol, SoundCategory.Enemy, true);
         }
 
         Instantiate(bullet, shootPos.position, gunPivot.rotation);
