@@ -8,6 +8,9 @@ public class Nexus : MonoBehaviour, IDamage
     [SerializeField] Renderer model;
     [SerializeField] GameObject HPObject;
     [SerializeField] Renderer HPmodel;
+    [SerializeField] AudioSource nexusDeathSFX;
+    [Range(0, 1f)][SerializeField] float volume;
+    [SerializeField] GameObject deathEffectPrefab;
     int HPOrig;
     Color colorOrig;
     Color HPcolorOrig;
@@ -51,6 +54,11 @@ public class Nexus : MonoBehaviour, IDamage
         if (HP <= 0)
         {
             NexusManager.nexusManagerInstance.OnNexusDeath(this);
+            if(SoundManager.Instance != null)
+            {
+                SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.enemyShootSound,nexusDeathSFX.clip, volume, SoundCategory.Master, true);
+            }
+            
             Destroy(gameObject);
             
         }

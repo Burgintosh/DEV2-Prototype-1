@@ -415,6 +415,7 @@ MonoBehaviour:
   bulletSpeed: 0
   bulletDestroyTime: 0
   hitEffect: {fileID: 0}
+  hitEffectDestroyDelay: 0.25
 --- !u!33 &2795381276391677412
 MeshFilter:
   m_ObjectHideFlags: 0
