@@ -608,7 +608,7 @@ MonoBehaviour:
     surfaceSpinAxis: 0
   - buildName: Damage Booster
     buildableType: 1
-    placedPrefab: {fileID: 458035499721688873, guid: f8444172520db8a4382181de3ce6d6a3, type: 3}
+    placedPrefab: {fileID: 8248692391061687236, guid: 43c0ea4f2534f9f43ad9fce7891f7af8, type: 3}
     placedPreview: {fileID: 4469330818491300610, guid: 8b2235fc9a0b0674f984ff1e2e7597b9, type: 3}
     cost: 50
     refundAmount: 50
