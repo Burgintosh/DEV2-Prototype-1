@@ -540,76 +540,10 @@ MonoBehaviour:
   maxBuildDist: 8
   sellDist: 10
   buildables:
-  - buildName: Basic Turret
-    buildableType: 0
-    placedPrefab: {fileID: 3753099880414341378, guid: 92925c400ad13fa449fc4274c22a50f9, type: 3}
-    placedPreview: {fileID: 338631171373570351, guid: 42dea41f286715b41aefa55bcdf6cf23, type: 3}
-    cost: 100
-    refundAmount: 100
-    placementRadius: 1
-    previewYOffset: 0
-    placementMode: 0
-    surfaceRotOffset: {x: 0, y: 0, z: 0}
-    surfaceSpinAxis: 0
-  - buildName: Lava
-    buildableType: 2
-    placedPrefab: {fileID: 5748728663981810870, guid: cd95805005b801b45bd8a11688798d2d, type: 3}
-    placedPreview: {fileID: 2648660969215610069, guid: 4355e6c8a2190c64fa5eb021afa1004d, type: 3}
-    cost: 75
-    refundAmount: 100
-    placementRadius: 1.4
-    previewYOffset: 0.1
-    placementMode: 1
-    surfaceRotOffset: {x: -90, y: 0, z: 0}
-    surfaceSpinAxis: 1
-  - buildName: Ceiling SpikeTrap
-    buildableType: 3
-    placedPrefab: {fileID: 6947171205992848790, guid: 10c1470a9096d5844a5cd83bd28d13fc, type: 3}
-    placedPreview: {fileID: 5422685985442932065, guid: 9a7e1e6797f10d943a60bb08c59d0fae, type: 3}
-    cost: 50
-    refundAmount: 100
-    placementRadius: 1.5
-    previewYOffset: 0.1
-    placementMode: 1
-    surfaceRotOffset: {x: 180, y: 0, z: 0}
-    surfaceSpinAxis: 1
-  - buildName: Wall Laser
-    buildableType: 2
-    placedPrefab: {fileID: 7195392270888888398, guid: 0d64c4c1ca368a745810230365d4fe37, type: 3}
-    placedPreview: {fileID: 6804340040020443370, guid: f4b5427b6023c1d4e88ae71a1c450f30, type: 3}
-    cost: 50
-    refundAmount: 50
-    placementRadius: 1.5
-    previewYOffset: 0.1
-    placementMode: 1
-    surfaceRotOffset: {x: 180, y: 0, z: 0}
-    surfaceSpinAxis: 0
-  - buildName: Money Trap
-    buildableType: 1
-    placedPrefab: {fileID: 2412881764136632095, guid: 4d27dc1be6a14a14bbf4769bb00a3053, type: 3}
-    placedPreview: {fileID: 3166262882245428169, guid: c7d314ee73fd73943a2b0f22f5331418, type: 3}
-    cost: 50
-    refundAmount: 50
-    placementRadius: 1.5
-    previewYOffset: 0.1
-    placementMode: 0
-    surfaceRotOffset: {x: 0, y: 0, z: 0}
-    surfaceSpinAxis: 0
-  - buildName: Slow Turret
+  - buildName: Slowing Turret
     buildableType: 1
     placedPrefab: {fileID: 6870233718206173997, guid: d05c23f8614ed0f47844f764341dd52e, type: 3}
     placedPreview: {fileID: 8388513691485088464, guid: 867401a8d2cead74c96e82fa75c0efe3, type: 3}
-    cost: 50
-    refundAmount: 50
-    placementRadius: 1.5
-    previewYOffset: 0.1
-    placementMode: 0
-    surfaceRotOffset: {x: 0, y: 0, z: 0}
-    surfaceSpinAxis: 0
-  - buildName: Damage Booster
-    buildableType: 1
-    placedPrefab: {fileID: 8248692391061687236, guid: 43c0ea4f2534f9f43ad9fce7891f7af8, type: 3}
-    placedPreview: {fileID: 1860892769864426556, guid: e54064b482fbcb947bd5e128e5a9d93c, type: 3}
     cost: 50
     refundAmount: 50
     placementRadius: 1.5
@@ -628,7 +562,7 @@ MonoBehaviour:
     placementMode: 0
     surfaceRotOffset: {x: 0, y: 0, z: 0}
     surfaceSpinAxis: 0
-  - buildName: Explo Turret
+  - buildName: Exploding Turret
     buildableType: 1
     placedPrefab: {fileID: 319267426176987478, guid: 72355e6816c3283409e56714101bf732, type: 3}
     placedPreview: {fileID: 2426556358575220823, guid: a991059d58302e747bac88fc4b67b27d, type: 3}
@@ -645,6 +579,50 @@ MonoBehaviour:
     placedPreview: {fileID: 632976947485097763, guid: 14fc7a6fc36a4f74d84af104eb33e6fc, type: 3}
     cost: 300
     refundAmount: 300
+    placementRadius: 1.5
+    previewYOffset: 0.1
+    placementMode: 0
+    surfaceRotOffset: {x: 0, y: 0, z: 0}
+    surfaceSpinAxis: 0
+  - buildName: Wall Laser Trap
+    buildableType: 2
+    placedPrefab: {fileID: 7195392270888888398, guid: 0d64c4c1ca368a745810230365d4fe37, type: 3}
+    placedPreview: {fileID: 6804340040020443370, guid: f4b5427b6023c1d4e88ae71a1c450f30, type: 3}
+    cost: 50
+    refundAmount: 50
+    placementRadius: 1.5
+    previewYOffset: 0.1
+    placementMode: 1
+    surfaceRotOffset: {x: 180, y: 0, z: 0}
+    surfaceSpinAxis: 0
+  - buildName: Ceiling Spike Trap
+    buildableType: 3
+    placedPrefab: {fileID: 6947171205992848790, guid: 10c1470a9096d5844a5cd83bd28d13fc, type: 3}
+    placedPreview: {fileID: 5422685985442932065, guid: 9a7e1e6797f10d943a60bb08c59d0fae, type: 3}
+    cost: 50
+    refundAmount: 100
+    placementRadius: 1.5
+    previewYOffset: 0.1
+    placementMode: 1
+    surfaceRotOffset: {x: 180, y: 0, z: 0}
+    surfaceSpinAxis: 1
+  - buildName: Money Farm
+    buildableType: 1
+    placedPrefab: {fileID: 2412881764136632095, guid: 4d27dc1be6a14a14bbf4769bb00a3053, type: 3}
+    placedPreview: {fileID: 3166262882245428169, guid: c7d314ee73fd73943a2b0f22f5331418, type: 3}
+    cost: 50
+    refundAmount: 50
+    placementRadius: 1.5
+    previewYOffset: 0.1
+    placementMode: 0
+    surfaceRotOffset: {x: 0, y: 0, z: 0}
+    surfaceSpinAxis: 0
+  - buildName: Damage Booster
+    buildableType: 1
+    placedPrefab: {fileID: 8248692391061687236, guid: 43c0ea4f2534f9f43ad9fce7891f7af8, type: 3}
+    placedPreview: {fileID: 1860892769864426556, guid: e54064b482fbcb947bd5e128e5a9d93c, type: 3}
+    cost: 50
+    refundAmount: 50
     placementRadius: 1.5
     previewYOffset: 0.1
     placementMode: 0

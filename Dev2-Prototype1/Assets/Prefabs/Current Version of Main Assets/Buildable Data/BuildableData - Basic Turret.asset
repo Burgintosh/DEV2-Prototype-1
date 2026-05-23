@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9014860ff62579149a82568bc2aac90a, type: 3}
+  m_Name: BuildableData - Basic Turret
+  m_EditorClassIdentifier: Assembly-CSharp::BuildableData
+  buildName: Basic Turret
+  buildableType: 0
+  placedPrefab: {fileID: 3753099880414341378, guid: 92925c400ad13fa449fc4274c22a50f9, type: 3}
+  placedPreview: {fileID: 338631171373570351, guid: 42dea41f286715b41aefa55bcdf6cf23, type: 3}
+  cost: 100
+  refundAmount: 100
+  placementRadius: 1
+  previewYOffset: 0
+  placementMode: 0
+  surfaceRotOffset: {x: 0, y: 0, z: 0}
+  surfaceSpinAxis: 0
