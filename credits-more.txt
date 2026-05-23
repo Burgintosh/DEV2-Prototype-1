@@ -1,0 +1,57 @@
+
+
+
+Weapons of Choice - FREE by Brian_David -- https://assetstore.unity.com/packages/audio/sound-fx/weapons/weapons-of-choice-free-101807 -- License: Standard Unity Asset Store EULA
+
+
+Particle Pack by Unity Technologies -- https://assetstore.unity.com/packages/vfx/particles/particle-pack-127325 -- License: Unity Companion License.
+
+MuhGUNS by The Artifact & Rosalba Vázquez García -- https://assetstore.unity.com/packages/audio/sound-fx/weapons/muhguns-148666 -- License: Standard Unity Asset Store EULA
+
+Low Poly Weapons VOL.1 by Simon Mercuzot -- https://assetstore.unity.com/packages/3d/props/guns/low-poly-weapons-vol-1-151980 -- License: Standard Unity Asset Store EULA
+
+Low Poly ShotGun Weapon Pack 1 by CASTLE BRAVO -- https://assetstore.unity.com/packages/3d/props/guns/low-poly-shotgun-weapon-pack-1-283665 -- License: Standard Unity Asset Store EULA
+
+Free UI Click Sound Pack by SwishSwoosh -- https://assetstore.unity.com/packages/audio/sound-fx/free-ui-click-sound-pack-244644 -- License: Standard Unity Asset Store EULA
+
+FREE Stylized PBR Textures Pack by Lumo-Art 3D -- https://assetstore.unity.com/packages/2d/textures-materials/free-stylized-pbr-textures-pack-111778 -- License: Standard Unity Asset Store EULA
+
+Cartoon Military Model Pack by GAPH -- https://assetstore.unity.com/packages/3d/vehicles/cartoon-military-model-pack-70946 -- License: Standard Unity Asset Store EULA
+
+Conflict by Zach Bogart -- https://thenounproject.com/browse/icons/term/conflict/ -- Noun Project -- License: (CC BY 3.0)
+
+
+SOUNDS
+
+spike_trap_deactivate.wav by marb7e -- https://freesound.org/s/653129/ -- License: Attribution 4.0
+
+spike_trap_activate.wav by marb7e -- https://freesound.org/s/653130/ -- License: Attribution 4.0
+
+sfx_snowball_hit-02.wav by bajko -- https://freesound.org/s/378059/ -- License: Creative Commons 0
+
+Toy Double Barrel Shotgun Left Trigger by JumboSizedFish -- https://freesound.org/s/693504/ -- License: Creative Commons 0
+
+Rocket Launch by Jarusca -- https://freesound.org/s/521377/ -- License: Creative Commons 0
+
+Explosion_001.mp3 by cydon -- https://freesound.org/s/268557/ -- License: Attribution NonCommercial 4.0
+
+Designed big and powerful thunderous explosion 2 by ZapSplat -- https://www.zapsplat.com/music/designed-big-and-powerful-thunderous-explosion-2/ -- License: ZapSplat Standard License Agreement
+
+MODELS
+
+Low Poly ATM by EVILTORN -- https://assetstore.unity.com/packages/3d/environments/urban/low-poly-atm-153420 -- License: Standard Unity Asset Store EULA
+
+
+EFFECTS
+
+Money VFX - URP by Vefects -- https://assetstore.unity.com/packages/vfx/money-vfx-urp-375124 -- License: Standard Unity Asset Store EULA
+
+MUSIC
+
+Good Morning by chill_background -- https://pixabay.com/music/upbeat-good-morning-110536/ -- License: Pixabay Content License
+
+Drum & Bass - DnB Music - D&B - Drum And Bass by Watermello -- https://pixabay.com/music/drum-n-bass-drum-amp-bass-dnb-music-dampb-drum-and-bass-488391/ -- License: Pixabay Content License
+
+Jungle Waves (Drum&Bass Electronic Inspiring Promo) by DIMMYSAD -- https://pixabay.com/music/drum-n-bass-jungle-waves-drumampbass-electronic-inspiring-promo-345013/ -- License: Pixabay Content License
+
+Ibiza Nights - Drum and Bass High Energy Music by kaazoom -- https://pixabay.com/music/drum-n-bass-ibiza-nights-drum-and-bass-high-energy-music-353042/ -- License: Pixabay Content License
