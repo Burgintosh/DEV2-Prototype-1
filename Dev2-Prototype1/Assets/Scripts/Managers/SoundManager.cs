@@ -134,6 +134,11 @@ public class SoundManager : MonoBehaviour
         }
     }
 
+    public float GetFinalVol(float _VolScale, SoundCategory _SoundCategory = SoundCategory.Master)
+    {
+        return Mathf.Clamp01((_VolScale) * GetVolContext(_SoundCategory) * masterSFXVol);
+    }
+
     public void SetMasterVolume(float _masterSFXVol)
     {
         masterSFXVol = _masterSFXVol;
