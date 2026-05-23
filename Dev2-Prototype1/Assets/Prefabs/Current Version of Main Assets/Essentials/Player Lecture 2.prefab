@@ -509,7 +509,6 @@ MonoBehaviour:
   airSpeedCap: 1
   moveAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   jumpAction: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  sprintAction: {fileID: -7471211009204490832, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   dashAction: {fileID: -795880778891954074, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   shootAction: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   reloadAction: {fileID: 8061639085047565768, guid: 052faaac586de48259a63d0c4782560b, type: 3}
@@ -598,8 +597,8 @@ MonoBehaviour:
     surfaceSpinAxis: 0
   - buildName: Slow Turret
     buildableType: 1
-    placedPrefab: {fileID: 5315801114722084613, guid: 14a9485bd0ab1dd4fa21cc821e5d04f4, type: 3}
-    placedPreview: {fileID: 2126695132893254590, guid: 3b2dd9cb5e0c2674ca669f61d3f7d197, type: 3}
+    placedPrefab: {fileID: 6870233718206173997, guid: d05c23f8614ed0f47844f764341dd52e, type: 3}
+    placedPreview: {fileID: 8388513691485088464, guid: 867401a8d2cead74c96e82fa75c0efe3, type: 3}
     cost: 50
     refundAmount: 50
     placementRadius: 1.5
@@ -624,7 +623,7 @@ MonoBehaviour:
     placedPreview: {fileID: 7993998758678285593, guid: e5ff6221ce67b244ea0d557a39801e6e, type: 3}
     cost: 200
     refundAmount: 200
-    placementRadius: 1.5
+    placementRadius: 2.5
     previewYOffset: 0.1
     placementMode: 0
     surfaceRotOffset: {x: 0, y: 0, z: 0}
@@ -642,8 +641,8 @@ MonoBehaviour:
     surfaceSpinAxis: 0
   - buildName: Gatling Turret
     buildableType: 1
-    placedPrefab: {fileID: 5440664193693247066, guid: 6194892bca685404da7439880106838f, type: 3}
-    placedPreview: {fileID: 2649977719255375500, guid: ebf02adc49ab5ac448102d9dd25ba87f, type: 3}
+    placedPrefab: {fileID: 1534779369061112111, guid: 8a804997e12da654181bf441745f6e3d, type: 3}
+    placedPreview: {fileID: 632976947485097763, guid: 14fc7a6fc36a4f74d84af104eb33e6fc, type: 3}
     cost: 300
     refundAmount: 300
     placementRadius: 1.5

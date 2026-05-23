@@ -615,6 +615,9 @@ MonoBehaviour:
   - itemDrop: {fileID: 6304703340568334801, guid: 58ac72b5e61a7c744a9a9a8546364bfd, type: 3}
     Odds: 0.25
   showSlowLogs: 1
+  slowColor: {r: 0.45, g: 0.85, b: 1, a: 1}
+  slowHitVFX: {fileID: 198856239026640498, guid: 9bba9cf244c53c5439505dfc96fdd11c, type: 3}
+  slowVFXDestroyBuffer: 0
 --- !u!195 &3135814378302135873
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,6 +19,12 @@ public class GatlingTowerAI : MonoBehaviour, IBuffableTower
     [SerializeField] float rampedShootRate = 0.05f;
     [SerializeField] float timeTilRampUp = 3f;
     [SerializeField] float keepRampUpSwitchDist = 2f;
+
+    [Header("----- Audio -----")]
+    [SerializeField] AudioSource shootAudioSrc;
+    [SerializeField] AudioClip gatlingBulletShotAudio;
+    [SerializeField][Range(0f, 1f)] float gatlingBulletVol = 1f;
+    [SerializeField] SoundCategory gatlingBulletSoundCategory = SoundCategory.Trap;
 
     [Header("----- Debug -----")]
     [SerializeField] bool showBuffDebugLog = true;
@@ -45,6 +50,18 @@ public class GatlingTowerAI : MonoBehaviour, IBuffableTower
         {
             colorOrig = model.material.color;
         }
+
+        if(shootAudioSrc == null)
+        {
+            shootAudioSrc = GetComponent<AudioSource>();
+        }
+
+        if(shootAudioSrc != null)
+        {
+            shootAudioSrc.playOnAwake = false;
+            shootAudioSrc.loop = false;
+        }
+
     }
 
     void Update()
@@ -264,6 +281,8 @@ public class GatlingTowerAI : MonoBehaviour, IBuffableTower
 
         GameObject spawnedBullet = Instantiate(bullet, shootPos.position, bulletRot);
 
+        PlayGatlingBulletSFX();
+
         damage bulletDam = spawnedBullet.GetComponent<damage>();
 
         if(bulletDam == null)
@@ -280,6 +299,29 @@ public class GatlingTowerAI : MonoBehaviour, IBuffableTower
         {
             DebugBuff("Spawned Gatling bullet has no damage script");
         }
+    }
+
+    void PlayGatlingBulletSFX()
+    {
+        if(SoundManager.Instance == null)
+        {
+            DebugGatling("Missing SoundManager");
+            return;
+        }
+
+        if(shootAudioSrc == null)
+        {
+            DebugGatling("Missing AudioSource");
+            return;
+        }
+
+        if(gatlingBulletShotAudio == null && shootAudioSrc == null)
+        {
+            DebugGatling("Missing gatling bullet audioclip");
+            return;
+        }
+
+        SoundManager.Instance.PlayWithRandomPitch(shootAudioSrc, gatlingBulletShotAudio, gatlingBulletVol, gatlingBulletSoundCategory, true);
     }
 
     void RotGun()

@@ -52,6 +52,7 @@ public class damage : MonoBehaviour
     [SerializeField] int bulletSpeed;
     [SerializeField] int bulletDestroyTime;
     [SerializeField] ParticleSystem hitEffect;
+    [SerializeField] float hitEffectDestroyDelay = 0.25f;
 
     bool isDamaging;
     bool hasHit;
@@ -115,10 +116,7 @@ public class damage : MonoBehaviour
             }
             else
             {
-                if(hitEffect != null)
-                {
-                    Instantiate(hitEffect, transform.position, Quaternion.identity);
-                }
+                SpawnHitEffect(transform.position, transform.rotation);
 
                 Destroy(gameObject);
             }
@@ -354,6 +352,24 @@ public class damage : MonoBehaviour
         {
             Debug.Log("[Damage Script: " + gameObject.name + "] "+  _MSG, gameObject);
         }
+    }
+
+    void SpawnHitEffect(Vector3 _HitPos, Quaternion _HitRot)
+    {
+        if(hitEffect == null)
+        {
+            return;
+        }
+
+        ParticleSystem spawnedHitEffect = Instantiate(hitEffect, _HitPos, _HitRot);
+
+        spawnedHitEffect.Play();
+
+        ParticleSystem.MainModule main = spawnedHitEffect.main;
+
+        float destoryTime = main.duration + main.startLifetime.constantMax + hitEffectDestroyDelay;
+
+        Destroy(spawnedHitEffect.gameObject, destoryTime);
     }
 
     private void OnDrawGizmosSelected()

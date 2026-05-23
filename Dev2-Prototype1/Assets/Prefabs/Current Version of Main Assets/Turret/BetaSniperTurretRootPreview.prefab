@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7023898231556156400}
   - component: {fileID: 5792093503980297310}
   - component: {fileID: 896697912129430997}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Turret_04_MainGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -457,7 +457,7 @@ GameObject:
   - component: {fileID: 5589220802396656007}
   - component: {fileID: 8668959271964544775}
   - component: {fileID: 5992443706489721734}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Turret_04_Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2784,7 +2784,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7950903549159447012}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: BetaSniperTurretRootPreview
   m_TagString: Untagged
   m_Icon: {fileID: 0}
