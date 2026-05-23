@@ -13,7 +13,8 @@ public class BuildUIHotbar : MonoBehaviour
     [SerializeField] TMP_Text towerNameText;
     [SerializeField] TMP_Text towerCostText;
 
-    private List<BuildUISlot> slots = new List<BuildUISlot>();
+    //private List<BuildUISlot> slots = new List<BuildUISlot>();
+    [SerializeField] private List<BuildUISlot> slots;
     private BuildableDefinition currentBuildable;
 
     private void OnEnable()
