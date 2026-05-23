@@ -860,14 +860,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Menus
       objectReference: {fileID: 0}
-    - target: {fileID: 7130962304818966553, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9208468236440735774, guid: 6e821ea07a7df0a418bd31886b1b5817, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

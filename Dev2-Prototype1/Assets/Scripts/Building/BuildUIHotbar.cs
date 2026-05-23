@@ -13,7 +13,8 @@ public class BuildUIHotbar : MonoBehaviour
     [SerializeField] TMP_Text towerNameText;
     [SerializeField] TMP_Text towerCostText;
 
-    private List<BuildUISlot> slots = new List<BuildUISlot>();
+    //private List<BuildUISlot> slots = new List<BuildUISlot>();
+    [SerializeField] private List<BuildUISlot> slots;
     private BuildableDefinition currentBuildable;
 
     private void OnEnable()
@@ -33,12 +34,12 @@ public class BuildUIHotbar : MonoBehaviour
     }
     public void Initialize(BuildableDefinition[] buildables)
     {
-        for (int i = 0; i < buildables.Length; i++)
-        {
-            BuildUISlot slot = Instantiate(slotPrefab, slotParent);
-            slot.Setup(buildables[i]);
-            slots.Add(slot);
-        }
+        //for (int i = 0; i < buildables.Length; i++)
+        //{
+        //    BuildUISlot slot = Instantiate(slotPrefab, slotParent);
+        //    slot.Setup(buildables[i]);
+        //    slots.Add(slot);
+        //}
 
         gameObject.SetActive(false);
     }
@@ -55,7 +56,7 @@ public class BuildUIHotbar : MonoBehaviour
         }
     }
 
-    void UpdateInfoText(BuildableDefinition buildData)
+    public void UpdateInfoText(BuildableDefinition buildData)
     {
         if (buildData == null) return;
         currentBuildable = buildData;
