@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 public class EssencePickup : MonoBehaviour
 {
@@ -10,6 +11,10 @@ public class EssencePickup : MonoBehaviour
     };
     [SerializeField] int Amount;
     [SerializeField] EssenceType Type;
+    private void Start()
+    {
+        StartCoroutine(StartDisappearing());
+    }
     private void OnTriggerEnter(Collider other)
     {
         IPickup pik = other.GetComponent<IPickup>();
@@ -22,7 +27,10 @@ public class EssencePickup : MonoBehaviour
                     gamemanager.instance.playerScript.HealPlayer(Amount);
                     break;
                 case EssenceType.PLAYERAMMO:
-                    gamemanager.instance.playerScript.GetCurrentWeapon().StartReload();
+                    if (gamemanager.instance.playerScript.GetCurrentWeapon().isActiveAndEnabled)
+                    {
+                        gamemanager.instance.playerScript.GetCurrentWeapon().StartReload();
+                    }
                     break;
                 case EssenceType.UPGRADEMATERIAL:
                     break;
@@ -32,5 +40,10 @@ public class EssencePickup : MonoBehaviour
             }
             Destroy(gameObject);
         }
+    }
+    IEnumerator StartDisappearing()
+    {
+        yield return new WaitForSeconds(5f);
+        Destroy(gameObject);
     }
 }

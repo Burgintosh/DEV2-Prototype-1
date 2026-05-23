@@ -369,7 +369,9 @@ MonoBehaviour:
     m_Bits: 256
   targetPriority: 2
   currencyDrop: 5
-  DropTables: []
+  DropTables:
+  - itemDrop: {fileID: 6312263914574599120, guid: 6ab0deb21545a4a439e4363fa19000ff, type: 3}
+    Odds: 0.1
   showSlowLogs: 1
 --- !u!33 &7836271524727554643
 MeshFilter:
