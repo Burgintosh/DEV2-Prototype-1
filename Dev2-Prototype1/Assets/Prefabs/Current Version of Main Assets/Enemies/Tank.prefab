@@ -387,7 +387,25 @@ MonoBehaviour:
   applySlow: 0
   slowPercent: 50
   slowDuration: 3
+  explodeOnImpact: 0
+  exploRadius: 3
+  exploDam: 10
+  exploDamMask:
+    serializedVersion: 2
+    m_Bits: 0
+  exploVFX: {fileID: 0}
   ignoreTriggerCollision: 1
+  exploDelay: 0.25
+  audioSrc: {fileID: 0}
+  impactSFX: {fileID: 0}
+  exploSFX: {fileID: 0}
+  impactSFXVol: 1
+  exploSFXVol: 1
+  shakeCamOnExplo: 1
+  screenShakeRad: 8
+  screenShakeDur: 0.2
+  screenShakeMag: 2
+  screenShakeFreq: 20
   showDebugLogs: 0
   type: 2
   rb: {fileID: 0}
@@ -591,6 +609,9 @@ MonoBehaviour:
   currencyDrop: 25
   DropTables: []
   showSlowLogs: 1
+  slowColor: {r: 0.45, g: 0.85, b: 1, a: 1}
+  slowHitVFX: {fileID: 198856239026640498, guid: 9bba9cf244c53c5439505dfc96fdd11c, type: 3}
+  slowVFXDestroyBuffer: 0
 --- !u!195 &3135814378302135873
 NavMeshAgent:
   m_ObjectHideFlags: 0

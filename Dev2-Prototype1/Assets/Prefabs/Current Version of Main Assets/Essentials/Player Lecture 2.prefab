@@ -509,7 +509,6 @@ MonoBehaviour:
   airSpeedCap: 1
   moveAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   jumpAction: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  sprintAction: {fileID: -7471211009204490832, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   dashAction: {fileID: -795880778891954074, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   shootAction: {fileID: 1120369429361536294, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   reloadAction: {fileID: 8061639085047565768, guid: 052faaac586de48259a63d0c4782560b, type: 3}
@@ -598,8 +597,8 @@ MonoBehaviour:
     surfaceSpinAxis: 0
   - buildName: Slow Turret
     buildableType: 1
-    placedPrefab: {fileID: 5315801114722084613, guid: 14a9485bd0ab1dd4fa21cc821e5d04f4, type: 3}
-    placedPreview: {fileID: 2126695132893254590, guid: 3b2dd9cb5e0c2674ca669f61d3f7d197, type: 3}
+    placedPrefab: {fileID: 6870233718206173997, guid: d05c23f8614ed0f47844f764341dd52e, type: 3}
+    placedPreview: {fileID: 8388513691485088464, guid: 867401a8d2cead74c96e82fa75c0efe3, type: 3}
     cost: 50
     refundAmount: 50
     placementRadius: 1.5

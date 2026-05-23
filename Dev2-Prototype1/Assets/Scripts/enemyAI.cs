@@ -54,8 +54,15 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
     [Header("----- Slow Settings -----")]
     [SerializeField] bool showSlowLogs = true;
 
+    [SerializeField] Color slowColor = new Color(0.45f, 0.85f, 1f, 1f);
+    [SerializeField] ParticleSystem slowHitVFX;
+    [SerializeField] float slowVFXDestroyBuffer = 0.5f;
+
     float origAgentSpeed;
     Coroutine slowCoroutine;
+    Coroutine flashCoroutine;
+
+    bool isSlowed;
 
     bool playerInRange;
     bool nexusInRange;
@@ -68,7 +75,11 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        colorOrig = model.material.color;
+        if(model != null)
+        {
+            colorOrig = model.material.color;
+        }
+
         startingPos = transform.position;
 
         if(agent != null)
@@ -254,7 +265,12 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
         }
         else
         {
-            StartCoroutine(flashRed()); // Object must still exist for coroutine to finish. Have to put this in an else
+            if (flashCoroutine != null)
+            {
+                StopCoroutine(flashCoroutine);
+            }
+
+            flashCoroutine = StartCoroutine(flashRed());
         }
     }
 
@@ -272,6 +288,16 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
         {
             origAgentSpeed = agent.speed;
         }
+
+        if(flashCoroutine != null)
+        {
+            StopCoroutine(flashCoroutine);
+            flashCoroutine = null;
+        }
+
+        isSlowed = true;
+        SetModelColor(slowColor);
+        SpawnSlowVFX();
 
         if(slowCoroutine != null)
         {
@@ -294,7 +320,9 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
         yield return new WaitForSeconds(_SlowDuration);
 
         agent.speed = origAgentSpeed;
+        isSlowed = false;
         slowCoroutine = null;
+        SetModelColor(colorOrig);
 
         if (showSlowLogs)
         {
@@ -310,17 +338,61 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
             slowCoroutine = null;
         }
 
+        if(flashCoroutine != null)
+        {
+            StopCoroutine(flashCoroutine);
+            flashCoroutine = null;
+        }
+
+        isSlowed = false;
+
         if(agent != null && origAgentSpeed > 0f)
         {
             agent.speed = origAgentSpeed;
         }
+
+        SetModelColor(colorOrig);
+    }
+
+    void SetModelColor(Color _Color)
+    {
+        if(model == null)
+        {
+            return;
+        }
+
+        model.material.color = _Color;
+    }
+
+    void SpawnSlowVFX()
+    {
+        if(slowHitVFX == null)
+        {
+            return;
+        }
+
+        ParticleSystem spawnedVFX = Instantiate(slowHitVFX, transform.position, Quaternion.identity);
+
+        ParticleSystem.MainModule mainParticle = spawnedVFX.main;
+
+        Destroy(spawnedVFX.gameObject, mainParticle.duration + mainParticle.startLifetime.constantMax + slowVFXDestroyBuffer);
     }
 
     IEnumerator flashRed()
     {
-        model.material.color = Color.red;
+        SetModelColor(Color.red);
         yield return new WaitForSeconds(0.1f);
-        model.material.color = colorOrig;
+
+        if (isSlowed)
+        {
+            SetModelColor(slowColor);
+        }
+        else
+        {
+            SetModelColor(colorOrig);
+        }
+
+        flashCoroutine = null;
     }
 
     public void ResetEnemyState()
