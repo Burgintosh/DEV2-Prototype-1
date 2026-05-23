@@ -140,12 +140,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 001705da869661748955d47f524dc2fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Nexus
-  HP: 500
+  HP: 8
   model: {fileID: 2376476921353970222}
   HPObject: {fileID: 8326399692893154409}
   HPmodel: {fileID: 82676889341336594}
   nexusDeathSFX: {fileID: -5144771256821989910}
-  volume: 0.5
+  volume: 1
+  deathEffectPrefab: {fileID: 1625040331190807804, guid: 6fb3b809d02f26249957c6ab520aa361, type: 3}
 --- !u!33 &1160597578068064959
 MeshFilter:
   m_ObjectHideFlags: 0

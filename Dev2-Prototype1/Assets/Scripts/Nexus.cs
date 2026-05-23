@@ -58,7 +58,7 @@ public class Nexus : MonoBehaviour, IDamage
             {
                 SoundManager.Instance.PlayWithRandomPitch(SoundManager.Instance.enemyShootSound,nexusDeathSFX.clip, volume, SoundCategory.Master, true);
             }
-            
+            Instantiate(deathEffectPrefab, transform.position, Quaternion.identity);
             Destroy(gameObject);
             
         }
