@@ -623,7 +623,7 @@ MonoBehaviour:
     placedPreview: {fileID: 7993998758678285593, guid: e5ff6221ce67b244ea0d557a39801e6e, type: 3}
     cost: 200
     refundAmount: 200
-    placementRadius: 1.5
+    placementRadius: 2.5
     previewYOffset: 0.1
     placementMode: 0
     surfaceRotOffset: {x: 0, y: 0, z: 0}
@@ -641,8 +641,8 @@ MonoBehaviour:
     surfaceSpinAxis: 0
   - buildName: Gatling Turret
     buildableType: 1
-    placedPrefab: {fileID: 5440664193693247066, guid: 6194892bca685404da7439880106838f, type: 3}
-    placedPreview: {fileID: 2649977719255375500, guid: ebf02adc49ab5ac448102d9dd25ba87f, type: 3}
+    placedPrefab: {fileID: 1534779369061112111, guid: 8a804997e12da654181bf441745f6e3d, type: 3}
+    placedPreview: {fileID: 632976947485097763, guid: 14fc7a6fc36a4f74d84af104eb33e6fc, type: 3}
     cost: 300
     refundAmount: 300
     placementRadius: 1.5
