@@ -101,6 +101,9 @@ public class LoadingManager : MonoBehaviour
 
         currentAsyncOperation.allowSceneActivation = true;
 
+
+        yield return new WaitForSeconds(0.25f);
+
         Debug.Log("After allowing activation.");
 
         //while (currentAsyncOperation != null && !currentAsyncOperation.isDone)

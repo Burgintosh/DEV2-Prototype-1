@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class MainMenu : MonoBehaviour
 {
     [SerializeField] ButtonFunctions buttonFunctions;
+    [SerializeField] LevelSelectionManager levelSelectionManager;
     [SerializeField] private Button quitButton;
 
     public GameObject mainMenu;
@@ -40,11 +41,17 @@ public class MainMenu : MonoBehaviour
     {
         mainMenu.SetActive(false);
         LevelSelectMenu.SetActive(true);
+
+        if(levelSelectionManager != null)
+            levelSelectionManager.OnLevelSelectOpened();
     }
     public void OpenEndlessMenu()
     {
         mainMenu.SetActive(false);
         EndlessMenu.SetActive(true);
+
+        if (levelSelectionManager != null)
+            levelSelectionManager.OnEndlessOpened();
     }
     public void OpenOptionsMenu()
     {
