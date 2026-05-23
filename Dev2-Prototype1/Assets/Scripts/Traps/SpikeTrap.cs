@@ -1,4 +1,3 @@
-using NUnit.Framework;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,13 +21,36 @@ public class SpikeTrap : MonoBehaviour
     [SerializeField] float upHoldBuffer = 0.15f;
     [SerializeField] LayerMask damageMask;
 
+    [Header("----- VFX -----")]
+    [SerializeField] GameObject hitVFX;
+    [SerializeField] Transform hitVFXSpawnPos;
+    [SerializeField] float hitVFXDestroyDelay = 2f;
+
+    [Header("----- Audio -----")]
+    [SerializeField] AudioSource spikeAudioSource;
+    [SerializeField] AudioClip activateAudio;
+    [SerializeField] AudioClip retractAudio;
+    [SerializeField][Range(0f, 1f)] float spikeAudioVol = 1f;
+    [SerializeField] SoundCategory spikeSoundCategory = SoundCategory.Trap;
+
     bool isAttacking;
     bool isCoolingDown;
 
     List<Collider> targetsInRange = new List<Collider>();
 
     private void Awake()
-    {
+    {   
+        if(spikeAudioSource == null)
+        {
+            spikeAudioSource = GetComponent<AudioSource>();
+        }
+
+        if(spikeAudioSource != null)
+        {
+            spikeAudioSource.playOnAwake = false;
+            spikeAudioSource.loop = false;
+        }
+
         //Debug.Log("[SpikeTrap] Awake ran", this);
 
         if(spikeVisualRoot == null)
@@ -102,11 +124,20 @@ public class SpikeTrap : MonoBehaviour
             yield break;
         }
 
+        PlayTrapSound(activateAudio);
+
         yield return StartCoroutine(MoveSpikes(spikeUpPos.localPosition));
 
-        DealBurstDamage();
+        bool hitEnemy = DealBurstDamage();
+
+        if (hitEnemy)
+        {
+            SpawnHitVFX();
+        }
 
         yield return new WaitForSeconds(upHoldBuffer);
+
+        PlayTrapSound(retractAudio);
 
         yield return StartCoroutine(MoveSpikes(spikeDownPos.localPosition));
 
@@ -142,13 +173,57 @@ public class SpikeTrap : MonoBehaviour
         spikeVisualRoot.localPosition = _TargetPos;
     }
 
-    void DealBurstDamage()
+    void PlayTrapSound(AudioClip _TrapSound)
+    {
+        if(_TrapSound == null)
+        {
+            return;
+        }
+
+        if(spikeAudioSource == null)
+        {
+            Debug.LogWarning("[SpikeTrap] Attempted to play spike sound but AudioSource is missing");
+            return;
+        }
+
+        if(SoundManager.Instance != null)
+        {
+            SoundManager.Instance.PlayWithRandomPitch(spikeAudioSource, _TrapSound, spikeAudioVol, spikeSoundCategory, true);
+        }
+        else
+        {
+            Debug.LogWarning("[SpikeTrap] SoundManager is missing");
+            spikeAudioSource.PlayOneShot(_TrapSound, Mathf.Clamp01(spikeAudioVol));
+        }
+    }
+
+    void SpawnHitVFX()
+    {
+        if(hitVFX == null)
+        {
+            return;
+        }
+
+        if(hitVFXSpawnPos == null)
+        {
+            Debug.LogWarning("Hit spawn pos is missing", this);
+            return;
+        }
+
+        GameObject spawnedHitVFX = Instantiate(hitVFX, hitVFXSpawnPos.position, hitVFXSpawnPos.rotation);
+
+        Destroy(spawnedHitVFX, hitVFXDestroyDelay);
+    }
+
+    bool DealBurstDamage()
     {
         if(damageTrigger == null)
         {
             //Debug.LogWarning("[SpikeTrap] Damage trigger is not assigned", this);
-            return;
+            return false;
         }
+
+        bool dealtDam = false;
 
         Bounds damBounds = damageTrigger.bounds;
 
@@ -183,7 +258,11 @@ public class SpikeTrap : MonoBehaviour
             damTargets.Add(dmg);
             //Debug.Log("[SpikeTrap] Damaging Target");
             dmg.takeDamage(damage);
+
+            dealtDam = true;
         }
+
+        return dealtDam;
     }
 
     void CleanupTargets()

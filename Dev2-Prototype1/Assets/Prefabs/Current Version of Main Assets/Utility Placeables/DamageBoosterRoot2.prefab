@@ -1,0 +1,136 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8248692391061687236
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8760790274362397260}
+  m_Layer: 15
+  m_Name: DamageBoosterRoot2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8760790274362397260
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8248692391061687236}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.3356023, y: 0.00000037846144, z: -4.525773}
+  m_LocalScale: {x: 1, y: 5, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2291297888685407199}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &3564596239533123250
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 8760790274362397260}
+    m_Modifications:
+    - target: {fileID: 1072531061752711189, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4f477167fc0be5e4dab9a125b37c42ad, type: 2}
+    - target: {fileID: 3276813395407927212, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
+      propertyPath: buffRange
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3276813395407927212, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
+      propertyPath: beamColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3276813395407927212, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
+      propertyPath: beamColor.g
+      value: 0.86353207
+      objectReference: {fileID: 0}
+    - target: {fileID: 3276813395407927212, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
+      propertyPath: beamColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3367476662884277613, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3367476662884277613, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3367476662884277613, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3367476662884277613, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3367476662884277613, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.4879
+      objectReference: {fileID: 0}
+    - target: {fileID: 3367476662884277613, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3367476662884277613, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3367476662884277613, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3367476662884277613, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3367476662884277613, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3367476662884277613, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3367476662884277613, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3367476662884277613, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4923942837229977925, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
+      propertyPath: m_Name
+      value: DamageBooster
+      objectReference: {fileID: 0}
+    - target: {fileID: 5611731690819867297, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
+      propertyPath: refundAmount
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7446449916503166452, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
+      propertyPath: m_Radius
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
+--- !u!4 &2291297888685407199 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3367476662884277613, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
+  m_PrefabInstance: {fileID: 3564596239533123250}
+  m_PrefabAsset: {fileID: 0}

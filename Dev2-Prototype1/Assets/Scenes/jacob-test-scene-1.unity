@@ -548,7 +548,7 @@ PrefabInstance:
     - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: buildables.Array.data[6].placedPrefab
       value: 
-      objectReference: {fileID: 458035499721688873, guid: f8444172520db8a4382181de3ce6d6a3, type: 3}
+      objectReference: {fileID: 8248692391061687236, guid: 43c0ea4f2534f9f43ad9fce7891f7af8, type: 3}
     - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: buildables.Array.data[6].refundAmount
       value: 50
@@ -576,7 +576,7 @@ PrefabInstance:
     - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: buildables.Array.data[6].placedPreview
       value: 
-      objectReference: {fileID: 4469330818491300610, guid: 8b2235fc9a0b0674f984ff1e2e7597b9, type: 3}
+      objectReference: {fileID: 1860892769864426556, guid: e54064b482fbcb947bd5e128e5a9d93c, type: 3}
     - target: {fileID: 1423015754300154477, guid: c0a1f2698e9a5d7459c52bcdfb631ecd, type: 3}
       propertyPath: buildables.Array.data[6].placementMode
       value: 0

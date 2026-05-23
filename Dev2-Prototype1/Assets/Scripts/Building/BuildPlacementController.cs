@@ -269,6 +269,7 @@ public class BuildPlacementController : MonoBehaviour
         if (hotbarUI  != null)
         {
             hotbarUI.SetSelectedIndex(currBuildIndex);
+            hotbarUI.UpdateInfoText(currBuildable);
         }
     }
 

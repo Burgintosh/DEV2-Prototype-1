@@ -63,7 +63,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     [Header("Input Setup (For Input System Package")]
     [SerializeField] InputActionReference moveAction;
     [SerializeField] InputActionReference jumpAction;
-    [SerializeField] InputActionReference sprintAction;
+    //[SerializeField] InputActionReference sprintAction;
     [SerializeField] InputActionReference dashAction;
     [SerializeField] InputActionReference shootAction;
     [SerializeField] InputActionReference reloadAction;
@@ -95,7 +95,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     {
         moveAction.action?.Enable();
         jumpAction.action?.Enable();
-        sprintAction.action?.Enable();
+        //sprintAction.action?.Enable();
         dashAction.action?.Enable();
         shootAction.action?.Enable();
         Weapon1.action?.Enable();
@@ -109,7 +109,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     {
         moveAction.action?.Disable();
         jumpAction.action?.Disable();
-        sprintAction.action?.Disable();
+        //sprintAction.action?.Disable();
         dashAction.action?.Disable();
         shootAction.action?.Disable();
         Weapon1.action?.Disable();
@@ -285,10 +285,10 @@ public class playerController : MonoBehaviour, IDamage, IPickup
             Vector3 wishDir = moveDir.normalized;
 
             float currentMoveSpeed = speed;
-            if (sprintAction.action.IsPressed() && controller.isGrounded)
-            {
-                currentMoveSpeed = speed * sprintMod; // Old sprint code kept slowly increasing movement speed over time
-            }
+            //if (sprintAction.action.IsPressed() && controller.isGrounded)
+            //{
+            //    currentMoveSpeed = speed * sprintMod; // Old sprint code kept slowly increasing movement speed over time
+            //}
 
             if (controller.isGrounded && jumpCount == 0)
             {
