@@ -595,6 +595,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         {
             HP = HPOrig;
         }
+        StartCoroutine(HealEffect());
         OnHPChanged?.Invoke(HP);
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -634,5 +635,14 @@ public class playerController : MonoBehaviour, IDamage, IPickup
             UniversalAdditionalCameraData data = Camera.main.GetUniversalAdditionalCameraData();
             data.cameraStack.RemoveAt(data.cameraStack.Count - 1);
         }
+    }
+    IEnumerator HealEffect()
+    {
+        Color HPBarColor = gamemanager.instance.playerHPBar.color;
+        gamemanager.instance.playerHPBar.color = Color.green;
+        gamemanager.instance.playerHPNum.color = Color.green;
+        yield return new WaitForSeconds(0.1f);
+        gamemanager.instance.playerHPBar.color = HPBarColor;
+        gamemanager.instance.playerHPNum.color = HPBarColor;
     }
 }

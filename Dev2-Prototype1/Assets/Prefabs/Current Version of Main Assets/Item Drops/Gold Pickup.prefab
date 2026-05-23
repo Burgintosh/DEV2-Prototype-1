@@ -127,3 +127,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EssencePickup
   Amount: 50
   Type: 2
+  PickupEffect: {fileID: 0}
+  temporary: 1

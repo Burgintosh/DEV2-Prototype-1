@@ -12,9 +12,13 @@ public class EssencePickup : MonoBehaviour
     [SerializeField] int Amount;
     [SerializeField] EssenceType Type;
     [SerializeField] ParticleSystem PickupEffect;
+    [SerializeField] bool temporary;
     private void Start()
     {
-        StartCoroutine(StartDisappearing());
+        if (temporary)
+        {
+            StartCoroutine(StartDisappearing());
+        } 
     }
     private void OnTriggerEnter(Collider other)
     {
