@@ -11,6 +11,7 @@ public class EssencePickup : MonoBehaviour
     };
     [SerializeField] int Amount;
     [SerializeField] EssenceType Type;
+    [SerializeField] ParticleSystem PickupEffect;
     private void Start()
     {
         StartCoroutine(StartDisappearing());
@@ -37,6 +38,10 @@ public class EssencePickup : MonoBehaviour
                 case EssenceType.MONEY:
                     gamemanager.instance.currencyManager.AddCurrency(Amount);
                     break;
+            }
+            if(PickupEffect != null)
+            {
+                Instantiate(PickupEffect, gamemanager.instance.player.transform.position,Quaternion.identity);
             }
             Destroy(gameObject);
         }
