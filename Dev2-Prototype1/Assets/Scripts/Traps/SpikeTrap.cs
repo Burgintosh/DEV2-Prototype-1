@@ -227,7 +227,7 @@ public class SpikeTrap : MonoBehaviour
 
         Bounds damBounds = damageTrigger.bounds;
 
-        Collider[] allHits = Physics.OverlapBox(damBounds.center, damBounds.extents, damageTrigger.transform.rotation, damageMask, QueryTriggerInteraction.Collide);
+        Collider[] allHits = Physics.OverlapBox(damBounds.center, damBounds.extents, damageTrigger.transform.rotation, damageMask, QueryTriggerInteraction.Ignore);
 
         //Debug.Log($"[SpikeTrap] Burst hit count: {allHits.Length}", this);
 
