@@ -33,12 +33,12 @@ public class BuildUIHotbar : MonoBehaviour
     }
     public void Initialize(BuildableDefinition[] buildables)
     {
-        for (int i = 0; i < buildables.Length; i++)
-        {
-            BuildUISlot slot = Instantiate(slotPrefab, slotParent);
-            slot.Setup(buildables[i]);
-            slots.Add(slot);
-        }
+        //for (int i = 0; i < buildables.Length; i++)
+        //{
+        //    BuildUISlot slot = Instantiate(slotPrefab, slotParent);
+        //    slot.Setup(buildables[i]);
+        //    slots.Add(slot);
+        //}
 
         gameObject.SetActive(false);
     }
