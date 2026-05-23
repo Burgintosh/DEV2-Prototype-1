@@ -565,7 +565,7 @@ MonoBehaviour:
   - buildName: Ceiling SpikeTrap
     buildableType: 3
     placedPrefab: {fileID: 6947171205992848790, guid: 10c1470a9096d5844a5cd83bd28d13fc, type: 3}
-    placedPreview: {fileID: 2094191744405732728, guid: 2f6155ec6a99a5f409a882f9cac97c67, type: 3}
+    placedPreview: {fileID: 5422685985442932065, guid: 9a7e1e6797f10d943a60bb08c59d0fae, type: 3}
     cost: 50
     refundAmount: 100
     placementRadius: 1.5
