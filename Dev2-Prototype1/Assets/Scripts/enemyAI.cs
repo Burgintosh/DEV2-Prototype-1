@@ -112,7 +112,7 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
         //    Debug.Log(agent.isStopped);
         //    Debug.Log(agent.pathStatus);
         //}
-        if (currTarget == null && NexusManager.nexusManagerInstance.nexusCount > 0 && !currentlyRetargeting)
+        if (currTarget == null && !currentlyRetargeting)
         {
             StartCoroutine(CheckTarget());
         }

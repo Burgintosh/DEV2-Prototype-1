@@ -612,7 +612,7 @@ MonoBehaviour:
   currencyDrop: 25
   DropTables:
   - itemDrop: {fileID: 3220594065194402282, guid: cc2bda5c49911aa4299ed70848eef995, type: 3}
-    Odds: 0.1
+    Odds: 0.5
   - itemDrop: {fileID: 6304703340568334801, guid: 58ac72b5e61a7c744a9a9a8546364bfd, type: 3}
     Odds: 0.25
   showSlowLogs: 1
