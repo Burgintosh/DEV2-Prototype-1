@@ -1443,6 +1443,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2937402377407894063, guid: 194e431ff3b65ce429e7f977d3237be4, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 633942068}
     - target: {fileID: 3358764770534743674, guid: 194e431ff3b65ce429e7f977d3237be4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1459,18 +1463,34 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3422018040239523391, guid: 194e431ff3b65ce429e7f977d3237be4, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 1989685128}
     - target: {fileID: 5466195347847321272, guid: 194e431ff3b65ce429e7f977d3237be4, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 712059286}
+    - target: {fileID: 5466195347847321272, guid: 194e431ff3b65ce429e7f977d3237be4, type: 3}
+      propertyPath: m_VersionIndex
+      value: 65
+      objectReference: {fileID: 0}
     - target: {fileID: 6223993635306431610, guid: 194e431ff3b65ce429e7f977d3237be4, type: 3}
       propertyPath: m_Name
       value: MainUI Parent
       objectReference: {fileID: 0}
+    - target: {fileID: 6832009028588971202, guid: 194e431ff3b65ce429e7f977d3237be4, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 712059286}
     - target: {fileID: 7702070947881851833, guid: 194e431ff3b65ce429e7f977d3237be4, type: 3}
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 633942068}
+    - target: {fileID: 7702070947881851833, guid: 194e431ff3b65ce429e7f977d3237be4, type: 3}
+      propertyPath: m_VersionIndex
+      value: 155
+      objectReference: {fileID: 0}
     - target: {fileID: 7708127323363115110, guid: 194e431ff3b65ce429e7f977d3237be4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1515,6 +1535,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 1989685128}
+    - target: {fileID: 7960814629421422218, guid: 194e431ff3b65ce429e7f977d3237be4, type: 3}
+      propertyPath: m_VersionIndex
+      value: 206
+      objectReference: {fileID: 0}
     - target: {fileID: 8016373149774461224, guid: 194e431ff3b65ce429e7f977d3237be4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
