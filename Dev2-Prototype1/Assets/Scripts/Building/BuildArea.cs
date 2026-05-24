@@ -4,7 +4,7 @@ public class BuildArea : MonoBehaviour
 {
     [SerializeField] BoxCollider areaCollider;
     [SerializeField] BuildableType[] allowedBuildTypes;
-    [SerializeField] bool showDebugGizmos = true;
+    [SerializeField] bool showDebugGizmos = false;
 
     private void Reset()
     {

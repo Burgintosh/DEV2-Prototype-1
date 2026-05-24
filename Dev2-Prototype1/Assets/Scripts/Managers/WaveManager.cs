@@ -13,7 +13,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] KeyCode startWaveKey = KeyCode.J;
     [SerializeField] float timeBetweenWaves = 10f;
     [SerializeField] bool allowEarlyWaveStart = true;
-    [SerializeField] bool showDebugLogs = true;
+    [SerializeField] bool showDebugLogs = false;
     [SerializeField] bool playGameplayMusicOnFirstWave = true;
 
     int currentWaveIndex = -1;
@@ -90,10 +90,10 @@ public class WaveManager : MonoBehaviour
             HasFirstWaveStarted = true;
             OnFirstWaveStart?.Invoke();
 
-            if (showDebugLogs)
-            {
-                Debug.Log("[WaveManager] First wave startd. Money traps can start to generate wealth", this);
-            }
+            //if (showDebugLogs)
+            //{
+            //    Debug.Log("[WaveManager] First wave startd. Money traps can start to generate wealth", this);
+            //}
 
             TryStartGameplayMusic();
         }
@@ -397,7 +397,7 @@ public class WaveManager : MonoBehaviour
 
         if(MusicManager.Instance == null)
         {
-            LogWarning("MusicManager instance is missing. Gameplay music could not start.");
+            //LogWarning("MusicManager instance is missing. Gameplay music could not start.");
             return;
         }
 

@@ -80,7 +80,7 @@ public class BuildPlacementController : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("BuildUIHotbar is missing from the scene!");
+            //Debug.LogWarning("BuildUIHotbar is missing from the scene!");
         }
 
         if (sellPromptUI  == null)
@@ -277,7 +277,7 @@ public class BuildPlacementController : MonoBehaviour
     {
         if (currBuildable == null || currBuildable.placedPreview == null)
         {
-            Debug.LogWarning("[BuildPlacementController] Preview prefab is not assigned");
+            //Debug.LogWarning("[BuildPlacementController] Preview prefab is not assigned");
             previewModeActive = false;
             return;
         }
@@ -516,13 +516,13 @@ public class BuildPlacementController : MonoBehaviour
     {
         if(currBuildable == null || currBuildable.placedPrefab == null)
         {
-            Debug.LogWarning("[BuildPlacementController] Placed prefab is not assigned", this);
+            //Debug.LogWarning("[BuildPlacementController] Placed prefab is not assigned", this);
             return;
         }
 
         if(currencyManager == null)
         {
-            Debug.LogWarning("[BuildPlacementController] CurrencyManager is not assigned", this);
+            //Debug.LogWarning("[BuildPlacementController] CurrencyManager is not assigned", this);
             return;
         }
 
@@ -536,7 +536,7 @@ public class BuildPlacementController : MonoBehaviour
 
         if(builtObject == null)
         {
-            Debug.LogWarning("[BuildPlacementController] Build failed", this);
+            //Debug.LogWarning("[BuildPlacementController] Build failed", this);
             gamemanager.instance.currencyManager.AddCurrency(currBuildable.cost); // Refund currency if failed
             return;
         }
@@ -555,13 +555,13 @@ public class BuildPlacementController : MonoBehaviour
     {
         if(buildCamera == null)
         {
-            Debug.LogWarning("[BuildPlacementController] Build camera is not assigned.", this);
+            //Debug.LogWarning("[BuildPlacementController] Build camera is not assigned.", this);
             return;
         }
 
         if(currencyManager == null)
         {
-            Debug.LogWarning("[BuildPlacementController] CurrencyManager is not assigned", this);
+            //Debug.LogWarning("[BuildPlacementController] CurrencyManager is not assigned", this);
             return;
         }
 
@@ -584,19 +584,19 @@ public class BuildPlacementController : MonoBehaviour
     {
         if(_AudioClip == null)
         {
-            Debug.LogWarning("[BuildPlacementController] Attempted to play build SFX no audioclip was assigned", this);
+            //Debug.LogWarning("[BuildPlacementController] Attempted to play build SFX no audioclip was assigned", this);
             return;
         }
 
         if(buildFeedbackAudioSource == null)
         {
-            Debug.LogWarning("[BuildPlacementController] Attempted toplay build feedback SFX, but AudioSource wasn't assigned");
+            //Debug.LogWarning("[BuildPlacementController] Attempted toplay build feedback SFX, but AudioSource wasn't assigned");
             return;
         }
 
         if(SoundManager.Instance == null)
         {
-            Debug.LogWarning("[BuildPlacementController] SoundManager instance missing", this);
+            //Debug.LogWarning("[BuildPlacementController] SoundManager instance missing", this);
             return;
         }
 

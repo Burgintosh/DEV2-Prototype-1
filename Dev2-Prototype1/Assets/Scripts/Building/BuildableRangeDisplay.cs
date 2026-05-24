@@ -135,7 +135,7 @@ public class BuildableRangeDisplay : MonoBehaviour
 
         if(rangeMat == null)
         {
-            Debug.LogWarning("BuildableRangeDisplay: Range Material is not assigned");
+            //Debug.LogWarning("BuildableRangeDisplay: Range Material is not assigned");
             return;
         }
 

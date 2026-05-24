@@ -35,11 +35,11 @@ public class LevelSelectionManager : MonoBehaviour
     // checks it's position in the button array vs the number of unlocked levels.
     private void UpdateLockedButtons()
     {
-        if (levelSelectButtons.Length != endlessModeButtons.Length)
-        {
-            Debug.LogWarning("The number of buttons in the Level Select Array does not match the number of buttons in the" +
-                " Endless Mode Array. Go to LevelSelectionManager.cs script on the MainMenuFunctions GameObject to resolve.");
-        }
+        //if (levelSelectButtons.Length != endlessModeButtons.Length)
+        //{
+        //    Debug.LogWarning("The number of buttons in the Level Select Array does not match the number of buttons in the" +
+        //        " Endless Mode Array. Go to LevelSelectionManager.cs script on the MainMenuFunctions GameObject to resolve.");
+        //}
 
         int unlockedLevels = PlayerPrefs.GetInt(UNLOCKED_LEVELS_KEY, 1);
 

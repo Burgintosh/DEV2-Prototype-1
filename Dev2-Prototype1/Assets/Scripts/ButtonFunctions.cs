@@ -165,8 +165,8 @@ public class ButtonFunctions : MonoBehaviour
                 Resolution resolution = availableResolutions[resolutionIndex];
                 Screen.SetResolution(resolution.width, resolution.height, pendingFullscreen);
             }
-            else
-                Debug.Log("No available resolutions found - (ButtonFunctions.ApplySettings())");
+            //else
+            //    Debug.Log("No available resolutions found - (ButtonFunctions.ApplySettings())");
         }
         if (Camera.main != null)
         {
@@ -177,18 +177,18 @@ public class ButtonFunctions : MonoBehaviour
                 camController.SetCameraShake(pendingCameraShake);
             }
         }
-        else
-            Debug.Log("Camera doesn't exist??? (ButtonFunctions.ApplySettings())");
+        //else
+        //    Debug.Log("Camera doesn't exist??? (ButtonFunctions.ApplySettings())");
 
         if (MusicManager.Instance != null)
             MusicManager.Instance.SetMasterVolume(pendingMusicVol);
-        else
-            Debug.Log("Music Manager doesn't exist yet (ButtonFunctions.ApplySettings())");
+        //else
+        //    Debug.Log("Music Manager doesn't exist yet (ButtonFunctions.ApplySettings())");
 
         if (SoundManager.Instance != null)
             SoundManager.Instance.masterSFXVol = pendingSFXVol;
-        else
-            Debug.Log("Sound Manager doesn't exist yet (ButtonFunctions.ApplySettings())");
+        //else
+        //    Debug.Log("Sound Manager doesn't exist yet (ButtonFunctions.ApplySettings())");
 
     }
     public void ApplyAndSaveSettings()
@@ -206,12 +206,12 @@ public class ButtonFunctions : MonoBehaviour
         PlayerPrefs.SetInt(FULLSCREEN_KEY, pendingFullscreenInt);
         PlayerPrefs.Save();
 
-        Debug.Log("Settings Applied and Saved! (ButtonFunctions.ApplyAndSaveSettings())");
+        //Debug.Log("Settings Applied and Saved! (ButtonFunctions.ApplyAndSaveSettings())");
     }
 
     public void UpdateSensitivity(float sens)
     {
-        Debug.Log($"Slider moved! New Sensitivity is: {sens} - ButtonFunctions.UpdateSensitivity(float sens))");
+        //Debug.Log($"Slider moved! New Sensitivity is: {sens} - ButtonFunctions.UpdateSensitivity(float sens))");
 
         pendingSens = sens;
     }
@@ -222,33 +222,33 @@ public class ButtonFunctions : MonoBehaviour
 
     public void UpdateMusicVolume(float vol)
     {
-        Debug.Log($"Slider moved! New Music Volume is: {vol} - ButtonFunctions.UpdateMusicVolume(float vol)");
+        //Debug.Log($"Slider moved! New Music Volume is: {vol} - ButtonFunctions.UpdateMusicVolume(float vol)");
 
         pendingMusicVol = vol;
     }
 
     public void UpdateSFXVolume(float vol)
     {
-        Debug.Log($"Slider moved! New Music Volume is: {vol} - UpdateSFXVolume(float vol)");
+        //Debug.Log($"Slider moved! New Music Volume is: {vol} - UpdateSFXVolume(float vol)");
 
         pendingSFXVol = vol;
     }
 
     public void UpdateCameraShakeToggle(bool isEnabled)
     {
-        Debug.Log($"Camera Shake Toggle! New toggle state is: {isEnabled} - UpdateCameraShakeToggle(bool isEnabled)");
+        //Debug.Log($"Camera Shake Toggle! New toggle state is: {isEnabled} - UpdateCameraShakeToggle(bool isEnabled)");
         
         pendingCameraShake = isEnabled;
     }
     public void UpdateResolution(int resolutionIndex)
     {
-        Debug.Log($"Resolution changed! New index is: {resolutionIndex} - UpdateResolution(int resolutionIndex)");
+        //Debug.Log($"Resolution changed! New index is: {resolutionIndex} - UpdateResolution(int resolutionIndex)");
         
         pendingResolutionIndex = resolutionIndex;
     }
     public void UpdateFullscreenToggle(bool isEnabled)
     {
-        Debug.Log($"Fullscreen Toggle! New state: {isEnabled}");
+        //Debug.Log($"Fullscreen Toggle! New state: {isEnabled}");
         
         pendingFullscreen = isEnabled;
     }

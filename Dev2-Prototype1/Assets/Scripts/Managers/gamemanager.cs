@@ -194,7 +194,7 @@ public class gamemanager : MonoBehaviour
         {
             PlayerPrefs.SetInt(UNLOCKED_LEVELS_KEY, currentBuildIndex + 1);
             PlayerPrefs.Save();
-            Debug.Log($"Level Completed! Unlocked Level {currentBuildIndex + 1}");
+            //Debug.Log($"Level Completed! Unlocked Level {currentBuildIndex + 1}");
         }
 
         if(MusicManager.Instance != null)

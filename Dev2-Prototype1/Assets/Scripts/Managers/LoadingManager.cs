@@ -71,11 +71,11 @@ public class LoadingManager : MonoBehaviour
     {
         if (string.IsNullOrEmpty(sceneName))
         {
-            Debug.LogWarning("LoadingManager: StartLoading called with empty sceneName.");
+            //Debug.LogWarning("LoadingManager: StartLoading called with empty sceneName.");
             yield break;
         }
 
-        Debug.Log($"LoadingManager: begin LoadSceneAsync('{sceneName}')");
+        //Debug.Log($"LoadingManager: begin LoadSceneAsync('{sceneName}')");
         currentAsyncOperation = SceneManager.LoadSceneAsync(sceneName);
         currentAsyncOperation.allowSceneActivation = false;
 
@@ -92,7 +92,7 @@ public class LoadingManager : MonoBehaviour
         if (fillImage != null && fillImage.gameObject.activeInHierarchy)
             fillImage.fillAmount = 1f;
 
-        Debug.Log("LoadingManager: reached 0.9f.");
+        //Debug.Log("LoadingManager: reached 0.9f.");
 
         //yield return new WaitForSeconds(promptDelay);
         yield return new WaitForSeconds(0.25f);
@@ -104,7 +104,7 @@ public class LoadingManager : MonoBehaviour
 
         yield return new WaitForSeconds(0.25f);
 
-        Debug.Log("After allowing activation.");
+        //Debug.Log("After allowing activation.");
 
         //while (currentAsyncOperation != null && !currentAsyncOperation.isDone)
         //    yield return null;
@@ -114,10 +114,10 @@ public class LoadingManager : MonoBehaviour
 
         if (loadingCanvas != null)
             loadingCanvas.gameObject.SetActive(false);
-        Debug.Log("After deactivating loadingCanvas.");
+        //Debug.Log("After deactivating loadingCanvas.");
 
         currentAsyncOperation = null;
         loadCoroutine = null;
-        Debug.Log("End of coroutine.");
+        //Debug.Log("End of coroutine.");
     }
 }

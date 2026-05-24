@@ -25,7 +25,7 @@ public class PlacedBuildable : MonoBehaviour
     {
         if(_CurrencyManager == null)
         {
-            Debug.LogWarning("[PlacedBuildable] CurrencyManager is null, cannot sell buildable");
+            //Debug.LogWarning("[PlacedBuildable] CurrencyManager is null, cannot sell buildable");
             return;
         }
 
