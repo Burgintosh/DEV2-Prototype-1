@@ -118,7 +118,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5611731690819867297, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
       propertyPath: refundAmount
-      value: 190
+      value: 150
       objectReference: {fileID: 0}
     - target: {fileID: 7446449916503166452, guid: 52b1759bda03664469c2d9f1dd923aa4, type: 3}
       propertyPath: m_Radius

@@ -566,8 +566,8 @@ MonoBehaviour:
     buildableType: 1
     placedPrefab: {fileID: 319267426176987478, guid: 72355e6816c3283409e56714101bf732, type: 3}
     placedPreview: {fileID: 2426556358575220823, guid: a991059d58302e747bac88fc4b67b27d, type: 3}
-    cost: 400
-    refundAmount: 300
+    cost: 300
+    refundAmount: 230
     placementRadius: 1.5
     previewYOffset: 0.1
     placementMode: 0
@@ -577,8 +577,8 @@ MonoBehaviour:
     buildableType: 1
     placedPrefab: {fileID: 1534779369061112111, guid: 8a804997e12da654181bf441745f6e3d, type: 3}
     placedPreview: {fileID: 632976947485097763, guid: 14fc7a6fc36a4f74d84af104eb33e6fc, type: 3}
-    cost: 350
-    refundAmount: 260
+    cost: 300
+    refundAmount: 230
     placementRadius: 1.5
     previewYOffset: 0.1
     placementMode: 0
@@ -599,8 +599,8 @@ MonoBehaviour:
     buildableType: 3
     placedPrefab: {fileID: 6947171205992848790, guid: 10c1470a9096d5844a5cd83bd28d13fc, type: 3}
     placedPreview: {fileID: 5422685985442932065, guid: 9a7e1e6797f10d943a60bb08c59d0fae, type: 3}
-    cost: 250
-    refundAmount: 190
+    cost: 200
+    refundAmount: 150
     placementRadius: 1.5
     previewYOffset: 0.1
     placementMode: 1
@@ -621,8 +621,8 @@ MonoBehaviour:
     buildableType: 1
     placedPrefab: {fileID: 8248692391061687236, guid: 43c0ea4f2534f9f43ad9fce7891f7af8, type: 3}
     placedPreview: {fileID: 1860892769864426556, guid: e54064b482fbcb947bd5e128e5a9d93c, type: 3}
-    cost: 250
-    refundAmount: 190
+    cost: 200
+    refundAmount: 150
     placementRadius: 1.5
     previewYOffset: 0.1
     placementMode: 0

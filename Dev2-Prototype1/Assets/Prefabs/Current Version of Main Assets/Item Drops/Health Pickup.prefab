@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92e577c038c27cc42be57d1b85a14835, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EssencePickup
-  Amount: 10
+  Amount: 15
   Type: 0
   PickupEffect: {fileID: 0}
   temporary: 1

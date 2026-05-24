@@ -106,6 +106,8 @@ MonoBehaviour:
   DropTables:
   - itemDrop: {fileID: 6304703340568334801, guid: 58ac72b5e61a7c744a9a9a8546364bfd, type: 3}
     Odds: 0.2
+  - itemDrop: {fileID: 3220594065194402282, guid: cc2bda5c49911aa4299ed70848eef995, type: 3}
+    Odds: 0.3
   showSlowLogs: 1
   slowColor: {r: 0.45, g: 0.85, b: 1, a: 1}
   slowHitVFX: {fileID: 198856239026640498, guid: 9bba9cf244c53c5439505dfc96fdd11c, type: 3}

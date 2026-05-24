@@ -5131,7 +5131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlacedBuildable
   buildableType: 2
-  refundAmount: 100
+  refundAmount: 75
 --- !u!82 &1749103141521226954
 AudioSource:
   m_ObjectHideFlags: 0

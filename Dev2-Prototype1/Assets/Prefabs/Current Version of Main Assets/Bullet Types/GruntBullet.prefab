@@ -74,7 +74,7 @@ MonoBehaviour:
   showDebugLogs: 0
   type: 0
   rb: {fileID: 351387103369517232}
-  damageAmount: 7
+  damageAmount: 2
   damageRate: 0.1
   damageMult: 1
   bulletSpeed: 25

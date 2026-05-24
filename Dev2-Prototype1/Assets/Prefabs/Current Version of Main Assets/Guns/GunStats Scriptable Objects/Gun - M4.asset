@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   prefab: {fileID: 2231762581175279447, guid: e8205546f03528c4b81b629a4a0ab07c, type: 3}
   weaponName: M4
-  shootDamage: 2
+  shootDamage: 3
   shootDist: 1000
   shootRate: 0.3
   magazineSize: 30

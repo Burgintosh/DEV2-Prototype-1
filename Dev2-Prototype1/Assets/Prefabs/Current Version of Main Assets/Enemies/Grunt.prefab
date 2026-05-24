@@ -356,7 +356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
   enemyShootVol: 0.5
   enemyShootSound: {fileID: -790006612505734579}
-  maxHP: 3
+  maxHP: 4
   model: {fileID: 2433404916844112132}
   agent: {fileID: -6413678226851917051}
   bullet: {fileID: 2258754227522639646, guid: a6742b5978b24e54797702fc124d1909, type: 3}
@@ -374,6 +374,8 @@ MonoBehaviour:
   DropTables:
   - itemDrop: {fileID: 6312263914574599120, guid: 6ab0deb21545a4a439e4363fa19000ff, type: 3}
     Odds: 0.1
+  - itemDrop: {fileID: 3220594065194402282, guid: cc2bda5c49911aa4299ed70848eef995, type: 3}
+    Odds: 0.3
   showSlowLogs: 1
   slowColor: {r: 0.45, g: 0.85, b: 1, a: 1}
   slowHitVFX: {fileID: 198856239026640498, guid: 9bba9cf244c53c5439505dfc96fdd11c, type: 3}
