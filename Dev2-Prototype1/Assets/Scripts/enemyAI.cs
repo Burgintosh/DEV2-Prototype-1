@@ -140,13 +140,13 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
         //    //Debug.Log("After Reset: " + agent.pathStatus);
         //    shootTimer = 0;
         //}
-        else
-        {
-            if (currTarget != null && !agent.SetDestination(currTarget.transform.position))
-            {
-                Debug.Log("RUH ROH RAGGY I CAN'T FIND A NEXUS but in else");
-            }
-        }
+        //else
+        //{
+        //    if (currTarget != null && !agent.SetDestination(currTarget.transform.position))
+        //    {
+        //        Debug.Log("RUH ROH RAGGY I CAN'T FIND A NEXUS but in else");
+        //    }
+        //}
     }
 
     bool canSeePlayer() // 
@@ -155,7 +155,7 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
         angleToPlayer = Vector3.Angle(playerDir, transform.forward);
 
 
-        Debug.DrawRay(transform.position, playerDir);
+        //Debug.DrawRay(transform.position, playerDir);
 
         RaycastHit hit;
         if (Physics.Raycast(transform.position, playerDir, out hit))
@@ -245,7 +245,7 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
                 {
                     float chance = Random.Range(0, 101);
                     float toBeat = 100 - 100 * DropTables[i].Odds;
-                    Debug.Log(chance + "toBeat: " + toBeat);
+                    //Debug.Log(chance + "toBeat: " + toBeat);
                     if ( chance >= toBeat)
                     { 
                         Vector3 DropOffset = Random.insideUnitSphere * 2;
@@ -313,10 +313,10 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
         float speedMult = 1f - (_SlowPercent / 100f);
         agent.speed = origAgentSpeed * speedMult;
 
-        if (showSlowLogs)
-        {
-            Debug.Log(gameObject.name + " slowed by " + _SlowPercent + "% for " + _SlowDuration + " seconds.", gameObject);
-        }
+        //if (showSlowLogs)
+        //{
+        //    Debug.Log(gameObject.name + " slowed by " + _SlowPercent + "% for " + _SlowDuration + " seconds.", gameObject);
+        //}
 
         yield return new WaitForSeconds(_SlowDuration);
 
@@ -325,10 +325,10 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
         slowCoroutine = null;
         SetModelColor(colorOrig);
 
-        if (showSlowLogs)
-        {
-            Debug.Log(gameObject.name + " slow ended.", gameObject);
-        }
+        //if (showSlowLogs)
+        //{
+        //    Debug.Log(gameObject.name + " slow ended.", gameObject);
+        //}
     }
 
     void ResetSlowStatus()
@@ -431,7 +431,7 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
         angleToNexus = Vector3.Angle(nexusDir, transform.forward);
 
 
-        Debug.DrawRay(transform.position, nexusDir);
+        //Debug.DrawRay(transform.position, nexusDir);
 
         RaycastHit hit;
         if (Physics.Raycast(transform.position, nexusDir, out hit))
@@ -481,7 +481,7 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
         }
         if(currTarget == null)
         {
-            Debug.Log("No Path Found");
+            //Debug.Log("No Path Found");
             return;
         }
     }
@@ -512,10 +512,10 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
             // Warp the agent to the actual sampled position on the mesh
             agent.Warp(hit.position);
         }
-        else
-        {
-            Debug.LogWarning("No NavMesh found near agent position!");
-        }
+        //else
+        //{
+        //    Debug.LogWarning("No NavMesh found near agent position!");
+        //}
     }
     Nexus LowHealthSearch()
     {

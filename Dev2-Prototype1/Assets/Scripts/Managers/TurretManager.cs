@@ -8,7 +8,7 @@ public class TurretManager : MonoBehaviour
 
     [SerializeField] ObjectPoolManager poolManager;
     [SerializeField] GameObject turretPrefab;
-    [SerializeField] bool showDebugLogs = true;
+    //[SerializeField] bool showDebugLogs = false;
 
     List<PooledTurret> activeTurrets = new List<PooledTurret>();
 
@@ -31,7 +31,7 @@ public class TurretManager : MonoBehaviour
 
     private void Start()
     {
-        ValidateSetup();
+        //ValidateSetup();
     }
 
     public PooledTurret BuildTurret(Vector3 _Pos, Quaternion _Rot)
@@ -105,30 +105,30 @@ public class TurretManager : MonoBehaviour
         return activeTurrets;
     }
 
-    void ValidateSetup()
-    {
-        if(poolManager == null)
-        {
-            LogWarning("Pool Manager is not assigned");
-        }
+    //void ValidateSetup()
+    //{
+    //    if (poolManager == null)
+    //    {
+    //        LogWarning("Pool Manager is not assigned");
+    //    }
 
-        if(turretPrefab == null)
-        {
-            LogWarning("Turret prefab is not assigned");
-        }
+    //    if (turretPrefab == null)
+    //    {
+    //        LogWarning("Turret prefab is not assigned");
+    //    }
 
-        if(poolManager != null && turretPrefab != null && !poolManager.HasPoolForPrefab(turretPrefab))
-        {
-            LogWarning("No pool exists for the turret prefab");
-        }
-    }
+    //    if (poolManager != null && turretPrefab != null && !poolManager.HasPoolForPrefab(turretPrefab))
+    //    {
+    //        LogWarning("No pool exists for the turret prefab");
+    //    }
+    //}
 
     void LogWarning(string _Msg)
     {
-        if (showDebugLogs)
-        {
-            Debug.LogWarning($"[TurretManager] {_Msg}", this);
-        }
+        //if (showDebugLogs)
+        //{
+        //    Debug.LogWarning($"[TurretManager] {_Msg}", this);
+        //}
     }
 
 

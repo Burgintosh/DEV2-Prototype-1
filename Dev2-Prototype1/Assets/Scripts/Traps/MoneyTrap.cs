@@ -26,7 +26,7 @@ public class MoneyTrap : MonoBehaviour
     [SerializeField] Transform moneyPayoutVFXPos;
 
     [Header("----- Debug -----")]
-    [SerializeField] bool showDebugLogs = true;
+    //[SerializeField] bool showDebugLogs = false;
 
     Coroutine payCoroutine;
     bool isPayingOut;
@@ -43,11 +43,11 @@ public class MoneyTrap : MonoBehaviour
         if (WaveManager.HasFirstWaveStarted)
         {
             TryStartPayingPlayer();
-
-        }else if (showDebugLogs)
-        {
-            Debug.Log("[MoneyTrap] Waiting for first wave to start", this);
         }
+        //else if (showDebugLogs)
+        //{
+        //    Debug.Log("[MoneyTrap] Waiting for first wave to start", this);
+        //}
 
     }
 
@@ -62,10 +62,10 @@ public class MoneyTrap : MonoBehaviour
     {
         if(currencyManager != null)
         {
-            if (showDebugLogs)
-            {
-                Debug.Log("[MoneyTrap] CurrencyManager was already assigned", this);
-            }
+            //if (showDebugLogs)
+            //{
+            //    Debug.Log("[MoneyTrap] CurrencyManager was already assigned", this);
+            //}
 
             return;
         }
@@ -75,10 +75,10 @@ public class MoneyTrap : MonoBehaviour
             currencyManager = gamemanager.instance.currencyManager;
         }
 
-        if (showDebugLogs)
-        {
-            Debug.Log("[MoneyTrap] CurrencyManager Found!");
-        }
+        //if (showDebugLogs)
+        //{
+        //    Debug.Log("[MoneyTrap] CurrencyManager Found!");
+        //}
 
     }
 
@@ -103,10 +103,10 @@ public class MoneyTrap : MonoBehaviour
 
         payCoroutine = StartCoroutine(PayPlayerLoop());
 
-        if (showDebugLogs)
-        {
-            Debug.Log("[MoneyTrap] Started paying player. At interval: " + GetCurrentPayInterval(), this);
-        }
+        //if (showDebugLogs)
+        //{
+        //    Debug.Log("[MoneyTrap] Started paying player. At interval: " + GetCurrentPayInterval(), this);
+        //}
 
     }
 
@@ -122,10 +122,10 @@ public class MoneyTrap : MonoBehaviour
         StopCoroutine(payCoroutine);
         payCoroutine = null;
 
-        if (showDebugLogs)
-        {
-            Debug.Log("[MoneyTrap] Stopping playing the player", this);
-        }
+        //if (showDebugLogs)
+        //{
+        //    Debug.Log("[MoneyTrap] Stopping playing the player", this);
+        //}
 
     }
 
@@ -146,25 +146,25 @@ public class MoneyTrap : MonoBehaviour
     {
         if(currencyManager == null)
         {
-            Debug.LogWarning("[Money Trap] Currency manager is null", this);
+            //Debug.LogWarning("[Money Trap] Currency manager is null", this);
             return;
         }
 
         int amountToPay = GetCurrentAmountPerPay();
 
-        if (showDebugLogs)
-        {
-            Debug.Log("[MoneyTrap] Paying player: " + amountToPay, this);
-        }
+        //if (showDebugLogs)
+        //{
+        //    Debug.Log("[MoneyTrap] Paying player: " + amountToPay, this);
+        //}
 
         currencyManager.AddCurrency(amountToPay);
 
         PlayPayoutFeedback();
 
-        if (showDebugLogs)
-        {
-            Debug.Log("[MoneyTrap] Player currency after payout: " + currencyManager.GetCurrentCurrency(), this);
-        }
+        //if (showDebugLogs)
+        //{
+        //    Debug.Log("[MoneyTrap] Player currency after payout: " + currencyManager.GetCurrentCurrency(), this);
+        //}
     }
 
     public int GetCurrentAmountPerPay()
@@ -199,19 +199,19 @@ public class MoneyTrap : MonoBehaviour
     {
         if(moneyAudioSource == null)
         {
-            Debug.LogWarning("[MoneyTrap] Money AudioSource is missing", this);
+            //Debug.LogWarning("[MoneyTrap] Money AudioSource is missing", this);
             return;
         }
 
         if(moneyPayoutAudioClip == null)
         {
-            Debug.LogWarning("[MoneyTrap] Money payout AudioClip is missing", this);
+            //Debug.LogWarning("[MoneyTrap] Money payout AudioClip is missing", this);
             return;
         }
 
         if(SoundManager.Instance == null)
         {
-            Debug.LogWarning("[Money Trap] SoundManager instance is missing.", this);
+            //Debug.LogWarning("[Money Trap] SoundManager instance is missing.", this);
             return;
         }
 
@@ -234,6 +234,6 @@ public class MoneyTrap : MonoBehaviour
         moneyPayoutVFX.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
         moneyPayoutVFX.Play(true);
 
-        Debug.Log("[MoneyTrap] Playing payout VFX at: " + moneyPayoutVFX.transform.position, this);
+        //Debug.Log("[MoneyTrap] Playing payout VFX at: " + moneyPayoutVFX.transform.position, this);
     }
 }

@@ -125,7 +125,7 @@ public class DamageBuffTower : MonoBehaviour
             buffBeams[buffableTower] = beamObj;
         }
 
-        DebugBuff("Added damage buff to: " + _Other.name + " | Buff percent: +" + appliedPercent + "%");
+        //DebugBuff("Added damage buff to: " + _Other.name + " | Buff percent: +" + appliedPercent + "%");
     }
 
     void TryRemoveBuff(Collider _Other)
@@ -156,7 +156,7 @@ public class DamageBuffTower : MonoBehaviour
 
         RemoveBeam(buffableTower);
 
-        DebugBuff("Removed damage buff: " + _Other.name + " | Buff percent -" + appliedPercent + "%");
+        //DebugBuff("Removed damage buff: " + _Other.name + " | Buff percent -" + appliedPercent + "%");
     }
 
     GameObject CreateBeamToTower(MonoBehaviour _Tower)

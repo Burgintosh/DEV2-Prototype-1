@@ -27,8 +27,8 @@ public class GatlingTowerAI : MonoBehaviour, IBuffableTower
     [SerializeField] SoundCategory gatlingBulletSoundCategory = SoundCategory.Trap;
 
     [Header("----- Debug -----")]
-    [SerializeField] bool showBuffDebugLog = true;
-    [SerializeField] bool showDebugLog = true;
+    //[SerializeField] bool showBuffDebugLog = true;
+    //[SerializeField] bool showDebugLog = true;
 
     Color colorOrig;
 
@@ -169,7 +169,7 @@ public class GatlingTowerAI : MonoBehaviour, IBuffableTower
     {
         if (other.CompareTag("Enemy"))
         {
-            DebugGatling("Trigger entered by: " +  other.name);
+            //DebugGatling("Trigger entered by: " +  other.name);
 
             if (!enemiesInRange.Contains(other.transform))
             {
@@ -187,7 +187,7 @@ public class GatlingTowerAI : MonoBehaviour, IBuffableTower
     {
         if (other.CompareTag("Enemy"))
         {
-            DebugGatling("Trigger exited by: " + other.name);
+            //DebugGatling("Trigger exited by: " + other.name);
 
             enemiesInRange.Remove(other.transform);
 
@@ -232,7 +232,7 @@ public class GatlingTowerAI : MonoBehaviour, IBuffableTower
             ResetGatlingRamp();
         }
 
-        DebugBuff("Changed target. Keeping ramp: " + keepRamp);
+        //DebugBuff("Changed target. Keeping ramp: " + keepRamp);
     }
 
     void ResetGatlingRamp()
@@ -264,7 +264,7 @@ public class GatlingTowerAI : MonoBehaviour, IBuffableTower
 
         if(bullet == null || shootPos == null)
         {
-            DebugGatling("Missing bullet or shootPos");
+            //DebugGatling("Missing bullet or shootPos");
             return;
         }
 
@@ -293,31 +293,31 @@ public class GatlingTowerAI : MonoBehaviour, IBuffableTower
         if(bulletDam != null)
         {
             bulletDam.SetDamMult(GetDamMult());
-            DebugBuff("Just spawned Gatling Bullet with mult: " + GetDamMult());
+            //DebugBuff("Just spawned Gatling Bullet with mult: " + GetDamMult());
         }
-        else
-        {
-            DebugBuff("Spawned Gatling bullet has no damage script");
-        }
+        //else
+        //{
+        //    DebugBuff("Spawned Gatling bullet has no damage script");
+        //}
     }
 
     void PlayGatlingBulletSFX()
     {
         if(SoundManager.Instance == null)
         {
-            DebugGatling("Missing SoundManager");
+            //DebugGatling("Missing SoundManager");
             return;
         }
 
         if(shootAudioSrc == null)
         {
-            DebugGatling("Missing AudioSource");
+            //DebugGatling("Missing AudioSource");
             return;
         }
 
         if(gatlingBulletShotAudio == null && shootAudioSrc == null)
         {
-            DebugGatling("Missing gatling bullet audioclip");
+            //DebugGatling("Missing gatling bullet audioclip");
             return;
         }
 
@@ -335,7 +335,7 @@ public class GatlingTowerAI : MonoBehaviour, IBuffableTower
 
         Vector3 gunDir = targetPos - pivotPos.position;
 
-        Debug.DrawRay(pivotPos.position, gunDir, Color.red);
+        //Debug.DrawRay(pivotPos.position, gunDir, Color.red);
 
         if(gunDir == Vector3.zero)
         {
@@ -397,7 +397,7 @@ public class GatlingTowerAI : MonoBehaviour, IBuffableTower
         totalDamageBuffPercent += _Percent;
         totalDamageBuffPercent = Mathf.Max(0f, totalDamageBuffPercent);
 
-        DebugBuff("Removed damage buff: " + _Percent + "% | Total Damage Buff: " + totalDamageBuffPercent + "% | Multiplier: " + GetDamMult());
+        //DebugBuff("Removed damage buff: " + _Percent + "% | Total Damage Buff: " + totalDamageBuffPercent + "% | Multiplier: " + GetDamMult());
     }
 
     public void RemoveDamageBuff(float _Percent)
@@ -405,7 +405,7 @@ public class GatlingTowerAI : MonoBehaviour, IBuffableTower
         totalDamageBuffPercent -= _Percent;
         totalDamageBuffPercent = Mathf.Max(0f, totalDamageBuffPercent);
 
-        DebugBuff("Removed damage buff: -" + _Percent + "% | Total Damage Buff: " + totalDamageBuffPercent + "% | Multiplier: " + GetDamMult());
+        //DebugBuff("Removed damage buff: -" + _Percent + "% | Total Damage Buff: " + totalDamageBuffPercent + "% | Multiplier: " + GetDamMult());
     }
 
     void ClearDamBuff()
@@ -420,18 +420,18 @@ public class GatlingTowerAI : MonoBehaviour, IBuffableTower
 
     void DebugBuff(string _MSG)
     {
-        if (showBuffDebugLog)
-        {
-            Debug.Log("Gatling Buff: " + gameObject.name + " " + _MSG, gameObject);
-        }
+        //if (showBuffDebugLog)
+        //{
+        //    Debug.Log("Gatling Buff: " + gameObject.name + " " + _MSG, gameObject);
+        //}
     }
 
     void DebugGatling(string _MSG)
     {
-        if (showDebugLog)
-        {
-            Debug.Log("GatlingTowerAI: " + gameObject.name + " " + _MSG, gameObject);
-        }
+        //if (showDebugLog)
+        //{
+        //    Debug.Log("GatlingTowerAI: " + gameObject.name + " " + _MSG, gameObject);
+        //}
     }
 
     public int getCost()

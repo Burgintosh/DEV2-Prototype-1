@@ -4,8 +4,8 @@ using UnityEngine;
 public class SniperTowerAI : MonoBehaviour, IBuffableTower
 {
     [Header("----- Debug Settings -----")]
-    [SerializeField] bool showBuffDebugLog = true;
-    [SerializeField] bool showDebugLog;
+    //[SerializeField] bool showBuffDebugLog = false;
+    //[SerializeField] bool showDebugLog;
 
     [Header("----- Gen Settings -----")]
     [SerializeField] int cost = 200;
@@ -154,7 +154,7 @@ public class SniperTowerAI : MonoBehaviour, IBuffableTower
                 return true;
             }
 
-            DebugSniper("LOS is blocked by: " + hit.collider.name);
+            //DebugSniper("LOS is blocked by: " + hit.collider.name);
 
             return false;
         }
@@ -188,7 +188,7 @@ public class SniperTowerAI : MonoBehaviour, IBuffableTower
     {
         if(ignoreTriggerCollidersForTargeting && other.isTrigger)
         {
-            DebugSniper("Ignored trigger collider entering range: " + other.name);
+            //DebugSniper("Ignored trigger collider entering range: " + other.name);
             return;
         }
 
@@ -199,7 +199,7 @@ public class SniperTowerAI : MonoBehaviour, IBuffableTower
             return;
         }
 
-        DebugSniper("Sniper rang col entered by enemy: " + enemy.name);
+        //DebugSniper("Sniper rang col entered by enemy: " + enemy.name);
 
         if(!enemiesInRange.Contains(enemy))
         {
@@ -216,7 +216,7 @@ public class SniperTowerAI : MonoBehaviour, IBuffableTower
     {
         if(ignoreTriggerCollidersForTargeting && other.isTrigger)
         {
-            DebugSniper("Ignored trigger col exiting range: " + other.name);
+            //DebugSniper("Ignored trigger col exiting range: " + other.name);
             return;
         }
 
@@ -227,7 +227,7 @@ public class SniperTowerAI : MonoBehaviour, IBuffableTower
             return;
         }
 
-        DebugSniper("Sniper col exited by enemy: " + enemy.name);
+        //DebugSniper("Sniper col exited by enemy: " + enemy.name);
 
         enemiesInRange.Remove(enemy);
 
@@ -266,7 +266,7 @@ public class SniperTowerAI : MonoBehaviour, IBuffableTower
 
         if(bullet == null || shootPos == null)
         {
-            DebugSniper("Missing bullet or shootPos");
+            //DebugSniper("Missing bullet or shootPos");
             return;
         }
 
@@ -291,12 +291,12 @@ public class SniperTowerAI : MonoBehaviour, IBuffableTower
         if(sniperBullet != null)
         {
             sniperBullet.Init(enemyPos, damAmount, GetDamMult());
-            DebugSniper("Fired sniper projectile at " + enemyPos.name);
+            //DebugSniper("Fired sniper projectile at " + enemyPos.name);
         }
-        else
-        {
-            Debug.LogWarning("Sniper bullet prefab is missing SniperBullet script", spawnedBullet);
-        }
+        //else
+        //{
+        //    Debug.LogWarning("Sniper bullet prefab is missing SniperBullet script", spawnedBullet);
+        //}
     }
 
     void rotGun()
@@ -309,7 +309,7 @@ public class SniperTowerAI : MonoBehaviour, IBuffableTower
         Vector3 targetPos = GetTargetPos();
         Vector3 gunDir = targetPos - pivotPos.position;
 
-        Debug.DrawRay(pivotPos.position, gunDir, Color.red);
+        //Debug.DrawRay(pivotPos.position, gunDir, Color.red);
 
         if(gunDir == Vector3.zero)
         {
@@ -388,7 +388,7 @@ public class SniperTowerAI : MonoBehaviour, IBuffableTower
         totalDamBuffPercent += _Percent;
         totalDamBuffPercent = Mathf.Max(0f, totalDamBuffPercent);
 
-        DebugBuff("Added damage buff +" + _Percent + "% | Total Damage Buff" + totalDamBuffPercent + "% | Mult: " + GetDamMult());
+        //DebugBuff("Added damage buff +" + _Percent + "% | Total Damage Buff" + totalDamBuffPercent + "% | Mult: " + GetDamMult());
     }
 
     public void RemoveDamageBuff(float _Percent)
@@ -396,7 +396,7 @@ public class SniperTowerAI : MonoBehaviour, IBuffableTower
         totalDamBuffPercent -= _Percent;
         totalDamBuffPercent = Mathf.Max(0f, totalDamBuffPercent);
 
-        DebugBuff("Removed damage buff -" + _Percent + "% | Total Damage Buff" + totalDamBuffPercent + "% | Mult: " + GetDamMult());
+        //DebugBuff("Removed damage buff -" + _Percent + "% | Total Damage Buff" + totalDamBuffPercent + "% | Mult: " + GetDamMult());
     }
 
     void PlaySniperShootSFX()
@@ -408,7 +408,7 @@ public class SniperTowerAI : MonoBehaviour, IBuffableTower
 
         if(audioSrc == null)
         {
-            DebugSniper("Tried to play sniper shoot SFX but AudioSource is missing");
+            //DebugSniper("Tried to play sniper shoot SFX but AudioSource is missing");
             return;
         }
 
@@ -425,17 +425,17 @@ public class SniperTowerAI : MonoBehaviour, IBuffableTower
 
     void DebugBuff(string _MSG)
     {
-        if (showBuffDebugLog)
-        {
-            Debug.Log("SniperBuffLog: " + gameObject.name + " " + _MSG, gameObject);
-        }
+        //if (showBuffDebugLog)
+        //{
+        //    //Debug.Log("SniperBuffLog: " + gameObject.name + " " + _MSG, gameObject);
+        //}
     }
 
     void DebugSniper(string _MSG)
     {
-        if (showDebugLog)
-        {
-            Debug.Log("SniperTowerLog: " + gameObject.name + " " + _MSG, gameObject);
-        }
+        //if (showDebugLog)
+        //{
+        //    //Debug.Log("SniperTowerLog: " + gameObject.name + " " + _MSG, gameObject);
+        //}
     }
 }

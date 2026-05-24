@@ -202,7 +202,7 @@ public class Weapon : MonoBehaviour
 
         if(audioSource == null)
         {
-            Debug.LogWarning("Weapon is missing an AudioSource: " + data.weaponName);
+            //Debug.LogWarning("Weapon is missing an AudioSource: " + data.weaponName);
             return;
         }
 

@@ -33,19 +33,19 @@ public class ObjectPoolManager : MonoBehaviour
         {
             if(currConfig.prefab == null)
             {
-                LogWarning("Pool config is missing an enemy prefab");
+                //LogWarning("Pool config is missing an enemy prefab");
                 continue;
             }
 
             if (configLookup.ContainsKey(currConfig.prefab))
             {
-                LogWarning("Duplicate pool config found for the current prefab");
+                //LogWarning("Duplicate pool config found for the current prefab");
                 continue;
             }
 
             if(currConfig.initPoolSize < 1)
             {
-                LogWarning("The pool size is less than 1 silly fix it");
+                //LogWarning("The pool size is less than 1 silly fix it");
                 continue;
             }
 
@@ -88,13 +88,13 @@ public class ObjectPoolManager : MonoBehaviour
     {
         if(_Prefab == null)
         {
-            LogWarning("Tried to get from a pool with null prefab");
+            //LogWarning("Tried to get from a pool with null prefab");
             return null;
         }
 
         if (!pools.ContainsKey(_Prefab))
         {
-            LogWarning("No pool exists for the current prefab");
+            //LogWarning("No pool exists for the current prefab");
             return null;
         }
 
@@ -104,12 +104,12 @@ public class ObjectPoolManager : MonoBehaviour
 
             if(config != null && config.canExpand)
             {
-                LogWarning("Pool expaned for prefab");
+                //LogWarning("Pool expaned for prefab");
                 CreateAndStoreInstance(_Prefab);
             }
             else
             {
-                LogWarning("Pool is empty and cannot expand");
+                //LogWarning("Pool is empty and cannot expand");
                 return null;
             }
         }
@@ -125,13 +125,13 @@ public class ObjectPoolManager : MonoBehaviour
     {
         if(_PooledObject == null)
         {
-            LogWarning("Tried to return null object to pool");
+            //LogWarning("Tried to return null object to pool");
             return;
         }
 
         if (!instanceToPrefab.ContainsKey(_PooledObject))
         {
-            LogWarning("Returned object is not tracked by this pool");
+            //LogWarning("Returned object is not tracked by this pool");
             _PooledObject.gameObject.SetActive(false);
             return;
         }

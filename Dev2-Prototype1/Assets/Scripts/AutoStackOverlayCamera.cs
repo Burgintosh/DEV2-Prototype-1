@@ -21,9 +21,9 @@ public class AutoStackOverlayCamera : MonoBehaviour
             if (!mainCamData.cameraStack.Contains(cam))
                 mainCamData.cameraStack.Add(cam);
         }
-        else
-        {
-            Debug.LogWarning("No Main Camera found! Overlay Camera couldn't be stacked.");
-        }
+        //else
+        //{
+        //    Debug.LogWarning("No Main Camera found! Overlay Camera couldn't be stacked.");
+        //}
     }
 }

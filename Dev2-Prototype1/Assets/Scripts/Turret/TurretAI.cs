@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class TurretAI : MonoBehaviour, IDamage, IBuffableTower
 {
     [Header("----- Buff Settings -----")]
-    [SerializeField] bool showBuffDebugLog = true;
+    [SerializeField] bool showBuffDebugLog = false;
 
     float totalDamageBuffPercent;
 
@@ -176,7 +176,7 @@ public class TurretAI : MonoBehaviour, IDamage, IBuffableTower
 
         if(ignoreTriggerColForTarget && other.isTrigger)
         {
-            Debug.Log("Turret ignored trigger collider entering range: " + other.name);
+            //Debug.Log("Turret ignored trigger collider entering range: " + other.name);
             return;
         }
 
@@ -184,11 +184,11 @@ public class TurretAI : MonoBehaviour, IDamage, IBuffableTower
 
         if(enemy == null)
         {
-            DebugBuff("Collider entered range but no Enemy root was found: " + other.name);
+            //DebugBuff("Collider entered range but no Enemy root was found: " + other.name);
             return;
         }
 
-        Debug.Log($"Turret trigger entered by enemy: {enemy.name}");
+        //Debug.Log($"Turret trigger entered by enemy: {enemy.name}");
 
         if (!enemiesInRange.Contains(enemy))
         {
@@ -210,7 +210,7 @@ public class TurretAI : MonoBehaviour, IDamage, IBuffableTower
 
         if(ignoreTriggerColForTarget && other.isTrigger)
         {
-            Debug.Log("Turret ignored trigger collider exiting range: " + other.name);
+            //Debug.Log("Turret ignored trigger collider exiting range: " + other.name);
             return;
         }
 
@@ -221,7 +221,7 @@ public class TurretAI : MonoBehaviour, IDamage, IBuffableTower
             return;
         }
 
-        Debug.Log($"Turret trigger exited by enemy: {enemy.name}");
+        //Debug.Log($"Turret trigger exited by enemy: {enemy.name}");
 
         enemiesInRange.Remove(enemy);
 
@@ -263,7 +263,7 @@ public class TurretAI : MonoBehaviour, IDamage, IBuffableTower
         {
             GameObject spawnedBullet = Instantiate(bullet, shootPos.position, gunPivot.rotation);
 
-            Debug.DrawRay(shootPos.position, gunPivot.forward * 100f, Color.yellow, 1f);
+            //Debug.DrawRay(shootPos.position, gunPivot.forward * 100f, Color.yellow, 1f);
 
             damage bulletDamage = spawnedBullet.GetComponent<damage>();
 
@@ -276,12 +276,12 @@ public class TurretAI : MonoBehaviour, IDamage, IBuffableTower
             {
                 bulletDamage.SetDamMult(GetDamMult());
 
-                DebugBuff("Spawned bullet with damage multiplier of: " + GetDamMult());
+                //DebugBuff("Spawned bullet with damage multiplier of: " + GetDamMult());
             }
-            else
-            {
-                DebugBuff("Spawned bullet has no damage script");
-            }
+            //else
+            //{
+            //    DebugBuff("Spawned bullet has no damage script");
+            //}
 
         }
     }
@@ -296,7 +296,7 @@ public class TurretAI : MonoBehaviour, IDamage, IBuffableTower
         Vector3 targetPos = GetTargetPoint();
         Vector3 gunDir = targetPos - gunPivot.position;
 
-        Debug.DrawRay(gunPivot.position, gunDir, Color.red);
+        //Debug.DrawRay(gunPivot.position, gunDir, Color.red);
 
         if(gunDir == Vector3.zero)
         {
@@ -368,7 +368,7 @@ public class TurretAI : MonoBehaviour, IDamage, IBuffableTower
         totalDamageBuffPercent += _Percent;
         totalDamageBuffPercent = Mathf.Max(0f, totalDamageBuffPercent);
 
-        DebugBuff("Added damage buff: " + _Percent + "% | Total Damage Buff: " +  totalDamageBuffPercent + "% | Multiplier: " + GetDamMult());
+        //DebugBuff("Added damage buff: " + _Percent + "% | Total Damage Buff: " +  totalDamageBuffPercent + "% | Multiplier: " + GetDamMult());
     }
 
     public void RemoveDamageBuff(float _Percent)
@@ -376,7 +376,7 @@ public class TurretAI : MonoBehaviour, IDamage, IBuffableTower
         totalDamageBuffPercent -= _Percent;
         totalDamageBuffPercent = Mathf.Max(0f, totalDamageBuffPercent);
 
-        DebugBuff("Removed damage buff: -" + _Percent + "% | Total damage Buff: " + totalDamageBuffPercent + "% | Multiplier: " + GetDamMult());
+        //DebugBuff("Removed damage buff: -" + _Percent + "% | Total damage Buff: " + totalDamageBuffPercent + "% | Multiplier: " + GetDamMult());
     }
 
     void ClearDamageBuffs()
@@ -398,7 +398,7 @@ public class TurretAI : MonoBehaviour, IDamage, IBuffableTower
 
         if(audioSrc == null)
         {
-            Debug.LogWarning("Turret tried to play audio but it has no src");
+            //Debug.LogWarning("Turret tried to play audio but it has no src");
             return;
         }
 
@@ -417,7 +417,7 @@ public class TurretAI : MonoBehaviour, IDamage, IBuffableTower
     {
         if (showBuffDebugLog)
         {
-            Debug.Log("Turret Buff: " + gameObject.name + _MSG, gameObject);
+            //Debug.Log("Turret Buff: " + gameObject.name + _MSG, gameObject);
         }
     }
 

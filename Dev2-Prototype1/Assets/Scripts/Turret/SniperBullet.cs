@@ -14,7 +14,7 @@ public class SniperBullet : MonoBehaviour
     [SerializeField] [Range(0f, 1f)] float hitSFXVol;
 
     [Header("----- Debug Settings -----")]
-    [SerializeField] bool showDebugLog;
+    //[SerializeField] bool showDebugLog;
 
     Transform target;
     IDamage targetDam;
@@ -117,7 +117,7 @@ public class SniperBullet : MonoBehaviour
             int finalDam = Mathf.Max(0, Mathf.RoundToInt(damAmount * damMult));
             targetDam.takeDamage(finalDam);
 
-            DebugSniperBullet("Hit for " + finalDam);
+            //DebugSniperBullet("Hit for " + finalDam);
         }
 
         if(hitVFX != null)
@@ -151,7 +151,7 @@ public class SniperBullet : MonoBehaviour
 
         if(audioSrc == null)
         {
-            DebugSniperBullet("Attempted to play sniper bullet impact SFX but AudioSource was missing");
+            //DebugSniperBullet("Attempted to play sniper bullet impact SFX but AudioSource was missing");
             return;
         }
 
@@ -184,9 +184,9 @@ public class SniperBullet : MonoBehaviour
 
     void DebugSniperBullet(string _MSG)
     {
-        if (showDebugLog)
-        {
-            Debug.Log("SniperBullet: " + gameObject.name + " " + _MSG, gameObject);
-        }
+        //if (showDebugLog)
+        //{
+        //    Debug.Log("SniperBullet: " + gameObject.name + " " + _MSG, gameObject);
+        //}
     }
 }

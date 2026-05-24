@@ -38,7 +38,7 @@ public class damage : MonoBehaviour
     [SerializeField] float screenShakeFreq = 20f;
 
     [Header("Debug")]
-    [SerializeField] public bool showDebugLogs;
+    //[SerializeField] public bool showDebugLogs;
 
     HashSet<IDamage> targetsToDam = new HashSet<IDamage>();
 
@@ -74,11 +74,11 @@ public class damage : MonoBehaviour
             return;
         }
 
-        DebugDam("OnTriggerEnter touched: " + other.name + " | Layer: " + LayerMask.LayerToName(other.gameObject.layer) + " | Tage: " + other.tag + " | isTrigger: " + other.isTrigger);
+        //DebugDam("OnTriggerEnter touched: " + other.name + " | Layer: " + LayerMask.LayerToName(other.gameObject.layer) + " | Tage: " + other.tag + " | isTrigger: " + other.isTrigger);
 
         if (other.isTrigger && ignoreTriggerCollision) // A trigger can enter another trigger so need this to not do anything with that or something
         {
-            DebugDam("Ignored cause: " + other.name + " is a trigger collider and/or Ignore Trigger Colliders is ON");
+            //DebugDam("Ignored cause: " + other.name + " is a trigger collider and/or Ignore Trigger Colliders is ON");
             return;
         }
 
@@ -90,7 +90,7 @@ public class damage : MonoBehaviour
 
             if(slowable != null)
             {
-                DebugDam("Applying slow to " + other.name + " | Slow Percent: " + slowPercent + " | Duration: " + slowDuration);
+                //DebugDam("Applying slow to " + other.name + " | Slow Percent: " + slowPercent + " | Duration: " + slowDuration);
                 slowable.ApplySlow(slowPercent, slowDuration);
             }
         }
@@ -99,7 +99,7 @@ public class damage : MonoBehaviour
         {
             int finalDamage = GetFinalDam();
 
-            DebugDam("Damaging " + other.name + " for " + finalDamage + " | Base Damage: " + damageAmount + " | Multiplier: " + damageMult);
+            //DebugDam("Damaging " + other.name + " for " + finalDamage + " | Base Damage: " + damageAmount + " | Multiplier: " + damageMult);
 
             dmg.takeDamage(finalDamage);
         }
@@ -130,11 +130,11 @@ public class damage : MonoBehaviour
             return;
         }
 
-        DebugDam("OnTriggerStay touching: " + other.name + " | Layer: " + LayerMask.LayerToName(other.gameObject.layer) + " | Tage: " + other.tag + " | isTrigger: " + other.isTrigger);
+        //DebugDam("OnTriggerStay touching: " + other.name + " | Layer: " + LayerMask.LayerToName(other.gameObject.layer) + " | Tage: " + other.tag + " | isTrigger: " + other.isTrigger);
 
         if (other.isTrigger && ignoreTriggerCollision)
         {
-            DebugDam("Ignored cuase: " + other.name + " is a trigger collider and/or Ignore Trigger Colliders is ON");
+            //DebugDam("Ignored cuase: " + other.name + " is a trigger collider and/or Ignore Trigger Colliders is ON");
             return;
         }
 
@@ -142,13 +142,13 @@ public class damage : MonoBehaviour
 
         if(dmg == null)
         {
-            DebugDam("No IDamage found on " + other.name + " or it's parents");
+            //DebugDam("No IDamage found on " + other.name + " or it's parents");
             return;
         }
 
         if(type == damageType.DOT && !targetsToDam.Contains(dmg))
         {
-            DebugDam("Starting DOT damage on " + other.name + " for " + damageAmount);
+            //DebugDam("Starting DOT damage on " + other.name + " for " + damageAmount);
             StartCoroutine(damageOther(dmg));
         }
     }
@@ -188,7 +188,7 @@ public class damage : MonoBehaviour
 
             damTargets.Add(dmg);
 
-            DebugDam("Explosion damaged " + hits[i].name + " for " + finalExploDam);
+            //DebugDam("Explosion damaged " + hits[i].name + " for " + finalExploDam);
 
             dmg.takeDamage(finalExploDam);
         }
@@ -263,7 +263,7 @@ public class damage : MonoBehaviour
 
         if(audioSrc == null)
         {
-            DebugDam("Tried to play dam SFX but AudioSource is missing.");
+            //DebugDam("Tried to play dam SFX but AudioSource is missing.");
             return;
         }
 
@@ -289,7 +289,7 @@ public class damage : MonoBehaviour
 
         if(mainCam == null)
         {
-            DebugDam("No Main Camera found for screenshake");
+            //DebugDam("No Main Camera found for screenshake");
             return;
         }
 
@@ -309,7 +309,7 @@ public class damage : MonoBehaviour
 
         if(camController == null)
         {
-            DebugDam("Main Camera has no cameraController for screen shake");
+            //DebugDam("Main Camera has no cameraController for screen shake");
             return;
         }
 
@@ -323,7 +323,7 @@ public class damage : MonoBehaviour
     {
         targetsToDam.Add(d);
         int finalDamage = GetFinalDam();
-        DebugDam("DOT damage applied for " + finalDamage + " | Base Damage: " + damageAmount + " | Multiplier: " + damageMult);
+        //DebugDam("DOT damage applied for " + finalDamage + " | Base Damage: " + damageAmount + " | Multiplier: " + damageMult);
         d.takeDamage(finalDamage);
         yield return new WaitForSeconds(damageRate);
         targetsToDam.Remove(d);
@@ -333,7 +333,7 @@ public class damage : MonoBehaviour
     {
         damageMult = Mathf.Max(0f, _Mult);
 
-        DebugDam("Damage mult set to: " + damageMult);
+        //DebugDam("Damage mult set to: " + damageMult);
     }
 
     int GetFinalDam()
@@ -348,10 +348,10 @@ public class damage : MonoBehaviour
 
     void DebugDam(string _MSG)
     {
-        if (showDebugLogs)
-        {
-            Debug.Log("[Damage Script: " + gameObject.name + "] "+  _MSG, gameObject);
-        }
+        //if (showDebugLogs)
+        //{
+        //    Debug.Log("[Damage Script: " + gameObject.name + "] "+  _MSG, gameObject);
+        //}
     }
 
     void SpawnHitEffect(Vector3 _HitPos, Quaternion _HitRot)

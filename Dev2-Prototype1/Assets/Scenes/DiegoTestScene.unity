@@ -17209,6 +17209,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5818386542145438867, guid: 211c33f7fea9cee44a1ba0335b64b2e7, type: 3}
     - target: {fileID: 3427337961618742575, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
+      propertyPath: waves.Array.data[1].groups.Array.data[2].spawnEntries.Array.data[0].enemyPrefab
+      value: 
+      objectReference: {fileID: 8343792541496309258, guid: e05fc7a4fa8be304fbf72feb0c743dcc, type: 3}
+    - target: {fileID: 3427337961618742575, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
       propertyPath: waves.Array.data[1].groups.Array.data[2].spawnEntries.Array.data[1].enemyPrefab
       value: 
       objectReference: {fileID: 5818386542145438867, guid: 211c33f7fea9cee44a1ba0335b64b2e7, type: 3}
@@ -17475,6 +17479,18 @@ PrefabInstance:
     - target: {fileID: 5362338115484872620, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
       propertyPath: m_Name
       value: Managers (Real)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9014203663057156109, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 42.29
+      objectReference: {fileID: 0}
+    - target: {fileID: 9014203663057156109, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.154
+      objectReference: {fileID: 0}
+    - target: {fileID: 9014203663057156109, guid: 3a922320818f7bf4d8fa5132fdd91fc3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -25.06
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

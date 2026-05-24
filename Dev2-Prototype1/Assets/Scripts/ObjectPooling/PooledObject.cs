@@ -23,7 +23,7 @@ public class PooledObject : MonoBehaviour
     {
         if(owningPoolManager == null)
         {
-            Debug.LogWarning($"{name} has no owning pool manager");
+            //Debug.LogWarning($"{name} has no owning pool manager");
             gameObject.SetActive(false);
             return;
         }

@@ -13,7 +13,7 @@ public class WaveManager : MonoBehaviour
     [SerializeField] KeyCode startWaveKey = KeyCode.J;
     [SerializeField] float timeBetweenWaves = 10f;
     [SerializeField] bool allowEarlyWaveStart = true;
-    [SerializeField] bool showDebugLogs = false;
+    //[SerializeField] bool showDebugLogs = false;
     [SerializeField] bool playGameplayMusicOnFirstWave = true;
 
     int currentWaveIndex = -1;
@@ -37,7 +37,7 @@ public class WaveManager : MonoBehaviour
 
     private void Start()
     {
-        ValidateSetupAsStartup();
+        //ValidateSetupAsStartup();
         UpdateUI();
         ShowInitialPrompt();
     }
@@ -316,25 +316,25 @@ public class WaveManager : MonoBehaviour
     {
         if(waves == null)
         {
-            LogWarning("Wave is null");
+            //LogWarning("Wave is null");
             return false;
         }
 
         if(poolManager == null)
         {
-            LogWarning("Pool Manager is missing (null):");
+            //LogWarning("Pool Manager is missing (null):");
             return false;
         }
 
         if(_Wave.groups == null || _Wave.groups.Count == 0)
         {
-            LogWarning("Wave has no groups");
+            //LogWarning("Wave has no groups");
             return false;
         }
 
         if(_Wave.startTime < 0f)
         {
-            LogWarning("Wave start time was set below 0 this is invalid");
+            //LogWarning("Wave start time was set below 0 this is invalid");
             return false;
         }
 
@@ -342,19 +342,19 @@ public class WaveManager : MonoBehaviour
         {
             if(currGroup.spawnCenterPos == null)
             {
-                LogWarning("Group is missing a spawn center pos");
+                //LogWarning("Group is missing a spawn center pos");
                 return false;
             }
 
             if(currGroup.spawnInterval < 0f)
             {
-                LogWarning("Group has invalid spawn interval");
+                //LogWarning("Group has invalid spawn interval");
                 return false;
             }
 
             if(currGroup.spawnEntries == null || currGroup.spawnEntries.Count == 0)
             {
-                LogWarning("Group has no spawn entries");
+               //LogWarning("Group has no spawn entries");
                 return false;
             }
 
@@ -362,21 +362,21 @@ public class WaveManager : MonoBehaviour
             {
                 if(currEntry.enemyPrefab == null)
                 {
-                    LogWarning("Group has a spawn entry with no prefab");
+                    //LogWarning("Group has a spawn entry with no prefab");
                     return false;
                 }
 
                 if(currEntry.count <= 0)
                 {
-                    LogWarning("Group has a spawn entry with count <= 0");
+                    //LogWarning("Group has a spawn entry with count <= 0");
                     return false;
                 }
 
-                if (!poolManager.HasPoolForPrefab(currEntry.enemyPrefab))
-                {
-                    LogWarning("No pool exists for prefab");
+                //if (!poolManager.HasPoolForPrefab(currEntry.enemyPrefab))
+                //{
+                //    LogWarning("No pool exists for prefab");
 
-                }
+                //}
             }
         }
 
@@ -407,10 +407,10 @@ public class WaveManager : MonoBehaviour
 
     void LogWarning(string _Msg)
     {
-        if (showDebugLogs)
-        {
-            Debug.LogWarning($"[WaveManager] {_Msg}", this);
-        }
+        //if (showDebugLogs)
+        //{
+        //    Debug.LogWarning($"[WaveManager] {_Msg}", this);
+        //}
     }
 
 }

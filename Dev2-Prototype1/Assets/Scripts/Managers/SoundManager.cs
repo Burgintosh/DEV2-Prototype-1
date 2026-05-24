@@ -79,7 +79,7 @@ public class SoundManager : MonoBehaviour
     {
         if(audioSource == null)
         {
-            Debug.LogWarning("Tried to play a sound, but AudioSource was missing.");
+            //Debug.LogWarning("Tried to play a sound, but AudioSource was missing.");
             return;
         }
 
@@ -90,7 +90,7 @@ public class SoundManager : MonoBehaviour
 
         if(clip == null)
         {
-            Debug.LogWarning("Tried to play a sound, but no AudioClip was assigned.");
+            //Debug.LogWarning("Tried to play a sound, but no AudioClip was assigned.");
             return;
         }
 

@@ -17,9 +17,7 @@ public class MouseHover : MonoBehaviour
     {
         //renderer.material.color = Color.black;
         colorOrig = buttonImage.color;
-        
     }
-
     private void OnMouseEnter()
     {
         buttonImage.color = colorHover;
@@ -27,11 +25,5 @@ public class MouseHover : MonoBehaviour
     private void OnMouseExit()
     {
         buttonImage.color = colorOrig;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

@@ -182,7 +182,7 @@ public class SpikeTrap : MonoBehaviour
 
         if(spikeAudioSource == null)
         {
-            Debug.LogWarning("[SpikeTrap] Attempted to play spike sound but AudioSource is missing");
+            //Debug.LogWarning("[SpikeTrap] Attempted to play spike sound but AudioSource is missing");
             return;
         }
 
@@ -192,7 +192,7 @@ public class SpikeTrap : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("[SpikeTrap] SoundManager is missing");
+            //Debug.LogWarning("[SpikeTrap] SoundManager is missing");
             spikeAudioSource.PlayOneShot(_TrapSound, Mathf.Clamp01(spikeAudioVol));
         }
     }
@@ -206,7 +206,7 @@ public class SpikeTrap : MonoBehaviour
 
         if(hitVFXSpawnPos == null)
         {
-            Debug.LogWarning("Hit spawn pos is missing", this);
+            //Debug.LogWarning("Hit spawn pos is missing", this);
             return;
         }
 
