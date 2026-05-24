@@ -1387,8 +1387,6 @@ MonoBehaviour:
   gatlingBulletShotAudio: {fileID: 8300000, guid: 4fa32e57987ad0c4aa8b51f6aeb05927, type: 3}
   gatlingBulletVol: 1
   gatlingBulletSoundCategory: 5
-  showBuffDebugLog: 1
-  showDebugLog: 1
 --- !u!114 &1814918276992453451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3563,7 +3561,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 68
+  m_VersionIndex: 80
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -4419,7 +4417,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 40891029139212222, guid: 5fda5edb4bea17f45931b7254924291c, type: 3}
       propertyPath: m_VersionIndex
-      value: 158
+      value: 170
       objectReference: {fileID: 0}
     - target: {fileID: 290614318358645389, guid: 5fda5edb4bea17f45931b7254924291c, type: 3}
       propertyPath: m_Enabled
@@ -4427,7 +4425,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 290614318358645389, guid: 5fda5edb4bea17f45931b7254924291c, type: 3}
       propertyPath: m_VersionIndex
-      value: 209
+      value: 221
       objectReference: {fileID: 0}
     - target: {fileID: 1561935920293731558, guid: 5fda5edb4bea17f45931b7254924291c, type: 3}
       propertyPath: m_Layer
@@ -4775,7 +4773,9 @@ PrefabInstance:
       value: 300
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1976520687356353731, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
+    - {fileID: 7656832322071815138, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7828719983937996581, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
       insertIndex: 16
