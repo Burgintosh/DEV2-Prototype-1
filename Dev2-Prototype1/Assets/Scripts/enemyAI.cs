@@ -53,7 +53,7 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
     float stoppingDistOrig;
 
     [Header("----- Slow Settings -----")]
-    [SerializeField] bool showSlowLogs = true;
+    //[SerializeField] bool showSlowLogs = true;
 
     [SerializeField] Color slowColor = new Color(0.45f, 0.85f, 1f, 1f);
     [SerializeField] ParticleSystem slowHitVFX;
@@ -144,7 +144,7 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
         {
             if (currTarget != null && !agent.SetDestination(currTarget.transform.position))
             {
-                Debug.Log("RUH ROH RAGGY I CAN'T FIND A NEXUS but in else");
+               // Debug.Log("RUH ROH RAGGY I CAN'T FIND A NEXUS but in else");
             }
         }
     }
