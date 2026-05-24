@@ -47,13 +47,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98a1ca4addabea948ad7e3fa13651f5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::damage
+  applySlow: 0
+  slowPercent: 50
+  slowDuration: 3
+  explodeOnImpact: 0
+  exploRadius: 3
+  exploDam: 10
+  exploDamMask:
+    serializedVersion: 2
+    m_Bits: 0
+  exploVFX: {fileID: 0}
+  ignoreTriggerCollision: 1
+  exploDelay: 0.25
+  audioSrc: {fileID: 0}
+  impactSFX: {fileID: 0}
+  exploSFX: {fileID: 0}
+  impactSFXVol: 1
+  exploSFXVol: 1
+  shakeCamOnExplo: 1
+  screenShakeRad: 8
+  screenShakeDur: 0.2
+  screenShakeMag: 2
+  screenShakeFreq: 20
+  showDebugLogs: 0
   type: 0
   rb: {fileID: 3122287168204076774}
-  damageAmount: 1
+  damageAmount: 5
   damageRate: 0.5
+  damageMult: 1
   bulletSpeed: 20
   bulletDestroyTime: 1
   hitEffect: {fileID: 0}
+  hitEffectDestroyDelay: 0.25
 --- !u!135 &1153257313790945471
 SphereCollider:
   m_ObjectHideFlags: 0

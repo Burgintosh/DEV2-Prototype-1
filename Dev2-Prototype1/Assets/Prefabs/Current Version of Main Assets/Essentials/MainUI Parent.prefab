@@ -1577,7 +1577,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -195.83838, y: 58.337738}
+  m_AnchoredPosition: {x: -195.83838, y: 58.33777}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8083249829179345428
@@ -3563,7 +3563,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 56
+  m_VersionIndex: 62
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -4419,7 +4419,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 40891029139212222, guid: 5fda5edb4bea17f45931b7254924291c, type: 3}
       propertyPath: m_VersionIndex
-      value: 146
+      value: 152
       objectReference: {fileID: 0}
     - target: {fileID: 290614318358645389, guid: 5fda5edb4bea17f45931b7254924291c, type: 3}
       propertyPath: m_Enabled
@@ -4427,7 +4427,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 290614318358645389, guid: 5fda5edb4bea17f45931b7254924291c, type: 3}
       propertyPath: m_VersionIndex
-      value: 197
+      value: 203
       objectReference: {fileID: 0}
     - target: {fileID: 1561935920293731558, guid: 5fda5edb4bea17f45931b7254924291c, type: 3}
       propertyPath: m_Layer
