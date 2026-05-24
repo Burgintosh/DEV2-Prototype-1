@@ -141,12 +141,12 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
         //    shootTimer = 0;
         //}
         //else
-        //{
-        //    if (currTarget != null && !agent.SetDestination(currTarget.transform.position))
-        //    {
-        //        Debug.Log("RUH ROH RAGGY I CAN'T FIND A NEXUS but in else");
-        //    }
-        //}
+        {
+            if (currTarget != null && !agent.SetDestination(currTarget.transform.position))
+            {
+                Debug.Log("RUH ROH RAGGY I CAN'T FIND A NEXUS but in else");
+            }
+        }
     }
 
     bool canSeePlayer() // 
