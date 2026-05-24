@@ -204,7 +204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlacedBuildable
   buildableType: 0
-  refundAmount: 50
+  refundAmount: 151
 --- !u!1 &7992415526053101552
 GameObject:
   m_ObjectHideFlags: 0

@@ -5002,7 +5002,7 @@ MonoBehaviour:
   laserLine: {fileID: 8261503888860104705}
   laserStartPos: {fileID: 343288368800901169}
   laserMaxDist: 25
-  damage: 1
+  damage: 4
   damageRate: 0.25
   laserAudioSrc: {fileID: 1749103141521226954}
   laserVolScale: 0.5

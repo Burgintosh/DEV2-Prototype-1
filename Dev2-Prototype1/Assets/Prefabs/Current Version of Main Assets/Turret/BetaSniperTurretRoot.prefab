@@ -3825,7 +3825,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlacedBuildable
   buildableType: 0
-  refundAmount: 200
+  refundAmount: 560
 --- !u!54 &7969653949439675992
 Rigidbody:
   m_ObjectHideFlags: 0
