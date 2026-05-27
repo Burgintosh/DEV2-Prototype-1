@@ -590,7 +590,7 @@ MonoBehaviour:
     placedPreview: {fileID: 6804340040020443370, guid: f4b5427b6023c1d4e88ae71a1c450f30, type: 3}
     cost: 100
     refundAmount: 75
-    placementRadius: 1.5
+    placementRadius: 0.5
     previewYOffset: 0.1
     placementMode: 1
     surfaceRotOffset: {x: 180, y: 0, z: 0}
