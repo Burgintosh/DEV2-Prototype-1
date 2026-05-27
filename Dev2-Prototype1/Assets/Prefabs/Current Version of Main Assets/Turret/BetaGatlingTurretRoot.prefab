@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 2682204550682687316}
   - component: {fileID: 1517456982437742011}
   - component: {fileID: 2099019301088196617}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Turret_08_Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -251,7 +251,7 @@ GameObject:
   - component: {fileID: 3216705896803467039}
   - component: {fileID: 7884999322665082875}
   - component: {fileID: 957829655039563086}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Turret_08_MainGun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -442,8 +442,6 @@ MonoBehaviour:
   gatlingBulletShotAudio: {fileID: 8300000, guid: 4fa32e57987ad0c4aa8b51f6aeb05927, type: 3}
   gatlingBulletVol: 1
   gatlingBulletSoundCategory: 5
-  showBuffDebugLog: 1
-  showDebugLog: 1
 --- !u!114 &5107159288173950689
 MonoBehaviour:
   m_ObjectHideFlags: 0
