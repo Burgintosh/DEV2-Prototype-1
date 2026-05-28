@@ -150,8 +150,6 @@ public class Weapon : MonoBehaviour
     }
     private IEnumerator MagReloadFallback() // This is just for mag-fed guns now
     {
-
-
         //if (animator != null)
         //{
 
