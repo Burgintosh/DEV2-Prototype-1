@@ -609,9 +609,9 @@ public class playerController : MonoBehaviour, IDamage, IPickup
             }
             controller.transform.position = gamemanager.instance.playerSpawnPos.transform.position;
             Physics.SyncTransforms();
-            if(currentWeapon != null)
+            for (int i = 0; i < weaponModels.Count; ++i)
             {
-                currentWeapon.StartReload();
+                weaponModels[i].data.bulletsLeft = weaponModels[i].data.magazineSize;
             }
             if(HPOrig != 0)
             {
