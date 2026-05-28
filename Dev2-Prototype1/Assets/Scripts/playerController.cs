@@ -87,6 +87,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
 
     float hurtSoundTimer;
     Camera playerCamRef;
+    Color HPBarColor;
 
     public event Action<Weapon> OnWeaponChanged;
     public event Action<int> OnHPChanged;
@@ -146,6 +147,10 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         OnHPChanged?.Invoke(HP);
         hurtSoundTimer = 0f;
         playerCamRef = Camera.main;
+        if(gamemanager.instance != null)
+        {
+             HPBarColor = gamemanager.instance.playerHPBar.color;
+        }
     }
 
     void Update()
@@ -638,7 +643,6 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     }
     IEnumerator HealEffect()
     {
-        Color HPBarColor = gamemanager.instance.playerHPBar.color;
         gamemanager.instance.playerHPBar.color = Color.green;
         gamemanager.instance.playerHPNum.color = Color.green;
         yield return new WaitForSeconds(0.1f);
