@@ -222,6 +222,9 @@ public class Weapon : MonoBehaviour
         data.canShootShotgun = true; // Only matters for Shotgun
     }
    
-
+    public void AmmoUIUpdate() // Manually send the OnAmmoChange event so the ammo pickup method from player can update the ammo UI
+    {
+        OnAmmoChange?.Invoke(data.bulletsLeft);
+    }
 }
 

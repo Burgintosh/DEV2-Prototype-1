@@ -609,11 +609,12 @@ public class playerController : MonoBehaviour, IDamage, IPickup
             }
             controller.transform.position = gamemanager.instance.playerSpawnPos.transform.position;
             Physics.SyncTransforms();
-            for (int i = 0; i < weaponModels.Count; ++i)
-            {
-                weaponModels[i].data.bulletsLeft = weaponModels[i].data.magazineSize;
-            }
-            if(HPOrig != 0)
+            //for (int i = 0; i < weaponModels.Count; ++i)
+            //{
+            //    weaponModels[i].data.bulletsLeft = weaponModels[i].data.magazineSize;
+            //}
+            RefillAllGuns();
+            if (HPOrig != 0)
             {
                 HP = HPOrig;
             }
@@ -644,5 +645,15 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         yield return new WaitForSeconds(0.1f);
         gamemanager.instance.playerHPBar.color = HPBarColor;
         gamemanager.instance.playerHPNum.color = HPBarColor;
+    }
+
+    public void RefillAllGuns()
+    {
+        for (int i = 0; i < weaponModels.Count; ++i)
+        {
+            weaponModels[i].data.bulletsLeft = weaponModels[i].data.magazineSize;
+        }
+        if(weaponModels.Count > 0)
+            currentWeapon.AmmoUIUpdate();
     }
 }
