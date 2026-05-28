@@ -34,7 +34,9 @@ public class EssencePickup : MonoBehaviour
                 case EssenceType.PLAYERAMMO:
                     if (gamemanager.instance.playerScript.GetCurrentWeapon().isActiveAndEnabled)
                     {
-                        gamemanager.instance.playerScript.GetCurrentWeapon().StartReload();
+                        Debug.Log("Weapon is active, jkust won't reload");
+                        gamemanager.instance.playerScript.RefillAllGuns();
+                        //gamemanager.instance.playerScript.GetCurrentWeapon().data.bulletsLeft = gamemanager.instance.playerScript.GetCurrentWeapon().data.magazineSize;
                     }
                     break;
                 case EssenceType.UPGRADEMATERIAL:
