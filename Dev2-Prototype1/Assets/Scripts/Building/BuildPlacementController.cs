@@ -49,6 +49,7 @@ public class BuildPlacementController : MonoBehaviour
 
     bool previewModeActive;
     bool currentPlacementValid;
+    bool currentCanRotPreview;
 
     float currentPreviewYaw;
 
@@ -113,12 +114,12 @@ public class BuildPlacementController : MonoBehaviour
         if (IsPreviewMode()) // Added check to only allow scrolling when in preview mode, allows scrolling between builds & guns in their respective modes
             HandleScrollSelection();
 
+        UpdatePreview();
+
         if (Input.GetKeyDown(rotatePreviewKey))
         {
             RotatePreview();
         }
-
-        UpdatePreview();
 
         if(Input.GetKeyDown(confirmBuildKey))
         {
@@ -143,11 +144,24 @@ public class BuildPlacementController : MonoBehaviour
 
     void RotatePreview()
     {
+        if (!currentCanRotPreview)
+        {
+            PlayBuildFeedbackSFX(failedBuildableSFX);
+            return;
+        }
+
         currentPreviewYaw += rotateAngle;
 
         if(currentPreviewYaw >= 360f)
         {
             currentPreviewYaw -= 360f;
+        }
+
+        currentPlacementRot = GetPlacementRot(currentSurfaceNormal);
+
+        if(previewInstance != null && previewInstance.activeSelf)
+        {
+            previewInstance.transform.rotation = currentPlacementRot;
         }
 
         PlayBuildFeedbackSFX(rotBuildableSFX);
@@ -330,6 +344,9 @@ public class BuildPlacementController : MonoBehaviour
 
     void UpdatePreview()
     {
+        currentCanRotPreview = false;
+        currentPlacementValid = false;
+
         if(previewInstance == null || currBuildable == null)
         {
             return;
@@ -377,6 +394,8 @@ public class BuildPlacementController : MonoBehaviour
 
         // Checking cost
         bool canAfford = gamemanager.instance.currencyManager.canBuy(currBuildable.cost);
+
+        currentCanRotPreview = buildTypeAllowed && withinBuildDist;
 
         currentPlacementValid = buildTypeAllowed && withinBuildDist && !overlapsBlockedObject && canAfford;
         currentPlacementPos = placementPos;

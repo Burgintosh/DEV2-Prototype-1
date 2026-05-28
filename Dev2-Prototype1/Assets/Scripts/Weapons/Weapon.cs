@@ -47,9 +47,21 @@ public class Weapon : MonoBehaviour
     public void FireWeapon()
     {
         if (data.isReloading)
-            StopReload(true); // cancel reload for shotgun.
-
-        if (data.shootClip != null)
+        {
+            if (data.isSingleShellReload)
+            {
+                // interrupt reload and proceed to fire for shotgun
+                StopReload(true);
+            }
+            else
+            {
+                // stops shooting during reload on mag-fed guns
+                if (data.emptyClip != null)
+                    PlayGunSoundWithVolume(data.emptyClip, data.emptyClickVol);
+                return;
+            }
+        }
+            if (data.shootClip != null)
             PlayGunSoundWithVolume(data.shootClip, data.shootVol);
 
         if (muzzleEffect != null)
@@ -117,18 +129,32 @@ public class Weapon : MonoBehaviour
         }
         else
         {
-            StartCoroutine(MagReload());
+
+            if (animator != null)
+            {
+                animator.SetTrigger("RELOAD");
+                // Note: Add an Animation Event at the end of the reload clip that calls FinishMagReload()
+            }
+            else
+            {
+                StartCoroutine(MagReloadFallback());
+            }
         }
     }
-    private IEnumerator MagReload() // This is just for mag-fed guns now
+    public void FinishMagReload()
     {
+        // Refill magazine
+        data.bulletsLeft = data.magazineSize;
+        OnAmmoChange?.Invoke(data.bulletsLeft);
+        data.isReloading = false;
+    }
+    private IEnumerator MagReloadFallback() // This is just for mag-fed guns now
+    {
+        //if (animator != null)
+        //{
 
-
-        if (animator != null)
-        {
-
-            animator.SetTrigger("RELOAD");
-        }
+        //    animator.SetTrigger("RELOAD");
+        //}
 
         yield return new WaitForSeconds(data.reloadTime);
 
@@ -185,7 +211,8 @@ public class Weapon : MonoBehaviour
     }
     public bool canShoot()
     {
-        return data.bulletsLeft > 0;
+        return data.bulletsLeft > 0 && (!data.isReloading || data.isSingleShellReload);
+        //return data.bulletsLeft > 0;
     }
 
     public void PlayGunSound(AudioClip _Clip)
@@ -222,6 +249,8 @@ public class Weapon : MonoBehaviour
         data.canShootShotgun = true; // Only matters for Shotgun
     }
    
-
+    public void AmmoUIUpdate() // Manually send the OnAmmoChange event so the ammo pickup method from player can update the ammo UI
+    {
+        OnAmmoChange?.Invoke(data.bulletsLeft);
+    }
 }
-

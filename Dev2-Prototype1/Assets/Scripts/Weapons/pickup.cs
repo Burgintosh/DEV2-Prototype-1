@@ -9,6 +9,16 @@ public class pickup : MonoBehaviour
     {
         IPickup pik = other.GetComponent<IPickup>();
 
+        playerController pc = gamemanager.instance.playerScript;
+
+        if (pc.HasWeapon(gun))
+        {
+            pc.RefillWeapon(gun);
+            Destroy(gameObject);
+            return;
+        }
+
+
         if (pik != null)
         {
             gun.bulletsLeft = gun.magazineSize;
