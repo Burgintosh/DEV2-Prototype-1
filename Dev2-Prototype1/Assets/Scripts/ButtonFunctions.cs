@@ -38,6 +38,7 @@ public class ButtonFunctions : MonoBehaviour
     private bool pendingCameraShake;
 
     private Resolution[] availableResolutions;
+    private List<Resolution> displayedResolutions = new List<Resolution>();
     private int pendingResolutionIndex;
     private bool pendingFullscreen;
 
@@ -256,23 +257,55 @@ public class ButtonFunctions : MonoBehaviour
     private void PopulateResolutionDropdown()
     {
         if (IsRunningOnWebGL()) return;
+        Resolution[] raw = Screen.resolutions;
 
-        availableResolutions = Screen.resolutions;
-        if (availableResolutions == null || availableResolutions.Length == 0)
+        if (raw == null || raw.Length == 0)
         {
-            // Fallback: create at least current resolution
-            Resolution defaultResolution = Screen.currentResolution;
-            availableResolutions = new Resolution[] { defaultResolution };
+            // Fallback to create at least current resolution
+            availableResolutions = new Resolution[] { Screen.currentResolution };
+            displayedResolutions = new List<Resolution>(availableResolutions);
         }
+        else
+        {
+            Resolution current = Screen.currentResolution;
+            var resolutionDict = new Dictionary<string, Resolution>(); // For getting one of each resolution (to omit refresh rate)
+
+            foreach (Resolution res in raw)
+            {
+                string key = $"{res.width}x{res.height}";
+                if (!resolutionDict.TryGetValue(key, out Resolution existing))
+                {
+                    resolutionDict[key] = res;
+                    continue;
+                }
+                if (res.width == current.width && res.height == current.height)
+                {
+                    resolutionDict[key] = res;
+                    continue;
+                }
+            }
+            displayedResolutions = new List<Resolution>(resolutionDict.Values);
+
+            // Sort by width then height (descending)
+            displayedResolutions.Sort((resA, resB) =>
+            {
+                int temp = resB.width.CompareTo(resA.width);
+                if (temp != 0) return temp;
+                return resB.height.CompareTo(resA.height);
+            });
+
+            availableResolutions = displayedResolutions.ToArray();
+        }
+
 
         if (resolutionDropdown != null)
         {
             resolutionDropdown.ClearOptions();
             List<string> options = new List<string>();
-            for (int i = 0; i < availableResolutions.Length; ++i)
+            for (int i = 0; i < availableResolutions.Length; i++)
             {
-                Resolution resolution = availableResolutions[i];
-                options.Add(string.Format("{0} x {1}", resolution.width, resolution.height));
+                Resolution r = availableResolutions[i];
+                options.Add(string.Format("{0} x {1}", r.width, r.height));
             }
             resolutionDropdown.AddOptions(options);
         }
