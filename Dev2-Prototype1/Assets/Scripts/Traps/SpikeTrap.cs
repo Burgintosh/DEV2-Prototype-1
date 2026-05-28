@@ -80,6 +80,11 @@ public class SpikeTrap : MonoBehaviour
             return;
         }
 
+        if (!other.CompareTag("Enemy"))
+        {
+            return;
+        }
+
         IDamage dmg = other.GetComponent<IDamage>();
 
         if(dmg == null)

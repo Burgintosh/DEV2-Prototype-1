@@ -32,11 +32,6 @@ public class CreditsScroller : MonoBehaviour
         {
             FinishCredits();
         }
-
-        if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.Space))
-        {
-            FinishCredits();
-        }
     }
 
     private void FinishCredits()

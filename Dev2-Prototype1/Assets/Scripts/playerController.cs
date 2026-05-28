@@ -16,7 +16,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     [SerializeField] LayerMask ignoreLayer;
 
     [Header("General Stats")]
-    [Range(1, 200)] [SerializeField] int HP;
+    [Range(1, 200)][SerializeField] int HP;
     int HPOrig;
 
 
@@ -29,7 +29,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     private Weapon currentWeapon;
     int currentWeaponIndex = 0;
     float shootTimer;
-   
+
 
     [Header("Dash")]
     [SerializeField] float dashSpeed;
@@ -50,12 +50,12 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     int jumpCount;
 
     [Header("New Movement Stats")]
-    [Range(50, 200)] [SerializeField] float acceleration = 75f; // Default 75
-    [Range(100, 300)] [SerializeField] float airAcceleration = 150f; // Default 150
-    [Range(1, 30)] [SerializeField] float groundFriction = 25f; // Default 25
-    [Range(0.1f, 0.5f)] [SerializeField] float jumpBuffer = 0.4f; // Default 0.4
+    [Range(50, 200)][SerializeField] float acceleration = 75f; // Default 75
+    [Range(100, 300)][SerializeField] float airAcceleration = 150f; // Default 150
+    [Range(1, 30)][SerializeField] float groundFriction = 25f; // Default 25
+    [Range(0.1f, 0.5f)][SerializeField] float jumpBuffer = 0.4f; // Default 0.4
     [Range(0.1f, 0.3f)][SerializeField] float coyoteTime = 0.15f; // 0.15
-    [Range(0f, 10f)] [SerializeField] float airSpeedCap = 1f; // Default 1 (0 for no cap)
+    [Range(0f, 10f)][SerializeField] float airSpeedCap = 1f; // Default 1 (0 for no cap)
     float jumpBufferTimer;
     float coyoteTimer;
 
@@ -143,7 +143,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
             currentWeaponIndex = -1;
             SwitchWeapon(0);
         }
-        
+
         OnHPChanged?.Invoke(HP);
         hurtSoundTimer = 0f;
         playerCamRef = Camera.main;
@@ -174,7 +174,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
             shoot();
         }
 
-        if(currentWeapon != null && currentWeapon.gameObject.activeInHierarchy && reloadAction.action.WasPressedThisFrame())
+        if (currentWeapon != null && currentWeapon.gameObject.activeInHierarchy && reloadAction.action.WasPressedThisFrame())
         {
             if (!currentWeapon.data.isReloading && currentWeapon.canReload())
             {
@@ -246,7 +246,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     {
         Vector3 currentHorizontalVel = new Vector3(playerVel.x, 0, playerVel.z);
         float currentSpeed = Vector3.Dot(currentHorizontalVel, wishDir);
-        
+
         float addSpeed = wishSpeed - currentSpeed;
         if (addSpeed <= 0)
         {
@@ -265,7 +265,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         Vector3 currentHorizontalVel = new Vector3(playerVel.x, 0, playerVel.z);
         float currentSpeed = currentHorizontalVel.magnitude;
 
-        if(currentSpeed < 0.1f)
+        if (currentSpeed < 0.1f)
         {
             playerVel.x = 0;
             playerVel.z = 0;
@@ -305,7 +305,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
                 Accelerate(wishDir, airSpeedCap, airAcceleration);
             }
 
-                //controller.Move(moveDir.normalized * speed * Time.deltaTime);
+            //controller.Move(moveDir.normalized * speed * Time.deltaTime);
         }
         else
         {
@@ -316,7 +316,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
 
             dashTimer -= Time.deltaTime;
 
-            if(dashTimer <= 0f)
+            if (dashTimer <= 0f)
             {
                 isDashing = false;
             }
@@ -344,26 +344,26 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         jump();
         ApplyHorizontalMovement();
 
-        
+
         controller.Move(playerVel * Time.deltaTime);
-        
+
     }
 
 
     void jump()
     {
         //jump jump
-        if(jumpAction.action.WasPressedThisFrame() && jumpCount < jumpMax)
+        if (jumpAction.action.WasPressedThisFrame() && jumpCount < jumpMax)
         {
             jumpBufferTimer = jumpBuffer;
             //playerVel.y = jumpSpeed;
             //jumpCount++;
         }
         //if(jumpBufferTimer > 0 && controller.isGrounded) // only works for single jump
-        if(jumpBufferTimer > 0 && coyoteTimer > 0) // only works for single jump
+        if (jumpBufferTimer > 0 && coyoteTimer > 0) // only works for single jump
         {
             PlayRandomJumpSound();
-                
+
             playerVel.y = jumpSpeed;
             jumpCount = 1;
             jumpBufferTimer = 0;
@@ -394,7 +394,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         else if (Input.GetAxis("Mouse ScrollWheel") > 0 && currentWeaponIndex < weaponModels.Count - 1)
         {
             SwitchWeapon(currentWeaponIndex + 1);
-            
+
         }
         else if (Input.GetAxis("Mouse ScrollWheel") < 0 && currentWeaponIndex > 0)
         {
@@ -432,20 +432,20 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         }
         shootTimer = 0;
 
-        if(currentWeapon != null)
+        if (currentWeapon != null)
         {
-            if(currentWeapon.canShoot())
+            if (currentWeapon.canShoot())
             {
                 currentWeapon.FireWeapon();
                 Camera.main.GetComponent<cameraController>().Shake(currentWeapon.data.cameraShakeDuration, currentWeapon.data.cameraShakeMagnitude, currentWeapon.data.cameraShakeFrequency);
             }
-                
+
             else
             {
                 currentWeapon.GunClick();
             }
         }
-        
+
         //RaycastHit hit;
         //if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out hit, currentWeapon.shootDist, ~ignoreLayer))
         //{
@@ -484,7 +484,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
 
         Camera.main.GetComponent<cameraController>().Shake(0.35f, 3.5f);
 
-        if(hurtSoundTimer <= 0) 
+        if (hurtSoundTimer <= 0)
         {
             PlayRandomHurtSound();
             hurtSoundTimer = hurtSoundCooldown;
@@ -524,7 +524,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
                 break;
         }
 
-        if(jumpSound != null)
+        if (jumpSound != null)
         {
             SoundManager.Instance.PlayWithRandomPitch(jumpSound, playerJumpVol, SoundCategory.Player);
         }
@@ -532,7 +532,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
 
     void PlayRandomHurtSound()
     {
-        if(SoundManager.Instance == null)
+        if (SoundManager.Instance == null)
         {
             return;
         }
@@ -567,7 +567,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
                 break;
         }
 
-        if(hurtSound != null)
+        if (hurtSound != null)
         {
             SoundManager.Instance.PlayWithRandomPitch(hurtSound, playerHurtVol, SoundCategory.Player);
         }
@@ -596,7 +596,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     public void HealPlayer(int amount)
     {
         HP += amount;
-        if(HP > HPOrig)
+        if (HP > HPOrig)
         {
             HP = HPOrig;
         }
@@ -605,20 +605,21 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if(scene.name != "MainMenu")
+        if (scene.name != "MainMenu")
         {
             SwitchWeapon(0);
-            if(playerCamRef != null)
+            if (playerCamRef != null)
             {
                 playerCamRef.GetComponent<AudioListener>().enabled = true;
             }
             controller.transform.position = gamemanager.instance.playerSpawnPos.transform.position;
             Physics.SyncTransforms();
-            if(currentWeapon != null)
-            {
-                currentWeapon.StartReload();
-            }
-            if(HPOrig != 0)
+            //for (int i = 0; i < weaponModels.Count; ++i)
+            //{
+            //    weaponModels[i].data.bulletsLeft = weaponModels[i].data.magazineSize;
+            //}
+            RefillAllGuns();
+            if (HPOrig != 0)
             {
                 HP = HPOrig;
             }
@@ -626,7 +627,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         }
         else
         {
-            if(playerCamRef != null)
+            if (playerCamRef != null)
             {
                 playerCamRef.GetComponent<AudioListener>().enabled = false;
             }
@@ -635,7 +636,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     private void OnSceneUnloaded(Scene scene)
     {
         SwitchWeapon(0);
-        if(scene.name != "MainMenu")
+        if (scene.name != "MainMenu")
         {
             UniversalAdditionalCameraData data = Camera.main.GetUniversalAdditionalCameraData();
             data.cameraStack.RemoveAt(data.cameraStack.Count - 1);
@@ -648,5 +649,48 @@ public class playerController : MonoBehaviour, IDamage, IPickup
         yield return new WaitForSeconds(0.1f);
         gamemanager.instance.playerHPBar.color = HPBarColor;
         gamemanager.instance.playerHPNum.color = HPBarColor;
+    }
+
+    public void RefillAllGuns()
+    {
+        for (int i = 0; i < weaponModels.Count; ++i)
+        {
+            weaponModels[i].data.bulletsLeft = weaponModels[i].data.magazineSize;
+        }
+        if (weaponModels.Count > 0)
+            currentWeapon.AmmoUIUpdate();
+    }
+
+    public Weapon FindWeapon(WeaponData weaponData)
+    {
+        if (weaponData == null) return null;
+
+        for (int i = 0; i < weaponModels.Count; ++i)
+        {
+            Weapon heldWeapon = weaponModels[i];
+            if (heldWeapon == null || heldWeapon.data == null) continue;
+
+            if (!string.IsNullOrEmpty(weaponData.weaponName) && weaponData.weaponName == heldWeapon.data.weaponName)
+                return heldWeapon;
+
+            if (weaponData.prefab != null && heldWeapon.data.prefab == weaponData.prefab)
+                return heldWeapon;
+        }
+        return null;
+    }
+    public bool HasWeapon(WeaponData weaponData)
+    {
+        return FindWeapon(weaponData) != null;
+    }
+    public void RefillWeapon(WeaponData weaponData)
+    {
+        Weapon heldWeapon = FindWeapon(weaponData);
+        if (heldWeapon == null) return;
+
+        heldWeapon.data.bulletsLeft = heldWeapon.data.magazineSize;
+        heldWeapon.AmmoUIUpdate();
+
+        if (heldWeapon == currentWeapon)
+            OnWeaponChanged?.Invoke(currentWeapon);
     }
 }
