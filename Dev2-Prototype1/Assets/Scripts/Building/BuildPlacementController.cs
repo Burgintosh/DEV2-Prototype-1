@@ -390,7 +390,10 @@ public class BuildPlacementController : MonoBehaviour
 
         bool buildTypeAllowed = buildArea.AllowsBuildType(currBuildable.buildableType);
         bool withinBuildDist = IsWithinBuildDist(placementPos);
-        bool overlapsBlockedObject = IsPlacementBlocked(placementPos, hit.collider, buildArea);
+
+        Quaternion placeRot = GetPlacementRot(surfaceNormal);
+
+        bool overlapsBlockedObject = IsPlacementBlocked(placementPos, placeRot, hit.collider, buildArea);
 
         // Checking cost
         bool canAfford = gamemanager.instance.currencyManager.canBuy(currBuildable.cost);
@@ -400,7 +403,7 @@ public class BuildPlacementController : MonoBehaviour
         currentPlacementValid = buildTypeAllowed && withinBuildDist && !overlapsBlockedObject && canAfford;
         currentPlacementPos = placementPos;
         currentSurfaceNormal = surfaceNormal;
-        currentPlacementRot = GetPlacementRot(surfaceNormal);
+        currentPlacementRot = placeRot;
 
         previewInstance.SetActive(true);
         previewInstance.transform.position = placementPos;
@@ -472,7 +475,7 @@ public class BuildPlacementController : MonoBehaviour
         return Vector3.Distance(playerPos.position, _PlacementPos) <= maxBuildDist;
     }
 
-    bool IsPlacementBlocked(Vector3 _PlacementPos, Collider _HitCollider, BuildArea _CurrBuildArea)
+    bool IsPlacementBlocked(Vector3 _PlacementPos, Quaternion _PlacementRot, Collider _HitCollider, BuildArea _CurrBuildArea)
     {
         Collider[] allHits = Physics.OverlapSphere(_PlacementPos, currBuildable.placementRadius, placementBlockMask, QueryTriggerInteraction.Ignore);
 
@@ -503,6 +506,42 @@ public class BuildPlacementController : MonoBehaviour
             }
 
             return true;
+        }
+
+        if (currBuildable.useExtraPlacementCheck)
+        {
+            Vector3 extraCheckPos = _PlacementPos + (_PlacementRot * currBuildable.extraPlacementOffset);
+
+            Collider[] extraHits = Physics.OverlapSphere(extraCheckPos, currBuildable.extraPlacementCheckRad, placementBlockMask, QueryTriggerInteraction.Ignore);
+
+            for(int i = 0; i < extraHits.Length; i++)
+            {
+                Collider currHit = extraHits[i];
+
+                if(currHit == null)
+                {
+                    continue;
+                }
+
+                if(currHit == _HitCollider)
+                {
+                    continue;
+                }
+
+                BuildArea hitBuildArea = currHit.GetComponentInParent<BuildArea>();
+
+                if(hitBuildArea != null && hitBuildArea == _CurrBuildArea)
+                {
+                    continue;
+                }
+
+                if (previewInstance != null && currHit.transform.IsChildOf(previewInstance.transform))
+                {
+                    continue;
+                }
+
+                return true;
+            }
         }
 
         return false;
