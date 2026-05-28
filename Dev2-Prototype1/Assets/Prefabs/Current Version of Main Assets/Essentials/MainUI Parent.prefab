@@ -3561,7 +3561,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 80
+  m_VersionIndex: 68
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -4417,7 +4417,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 40891029139212222, guid: 5fda5edb4bea17f45931b7254924291c, type: 3}
       propertyPath: m_VersionIndex
-      value: 170
+      value: 158
       objectReference: {fileID: 0}
     - target: {fileID: 290614318358645389, guid: 5fda5edb4bea17f45931b7254924291c, type: 3}
       propertyPath: m_Enabled
@@ -4425,7 +4425,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 290614318358645389, guid: 5fda5edb4bea17f45931b7254924291c, type: 3}
       propertyPath: m_VersionIndex
-      value: 221
+      value: 209
       objectReference: {fileID: 0}
     - target: {fileID: 1561935920293731558, guid: 5fda5edb4bea17f45931b7254924291c, type: 3}
       propertyPath: m_Layer
@@ -4767,6 +4767,10 @@ PrefabInstance:
     - target: {fileID: 8300453926372397461, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
       propertyPath: m_SizeDelta.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8671799128102769181, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8963395741731848051, guid: 24186cfed3820fb48854fa1ded0ccb82, type: 3}
       propertyPath: startingCurrency
