@@ -423,6 +423,7 @@ public class EnemyAI : MonoBehaviour, IDamage, ISlowable
             agent.velocity = Vector3.zero;
             agent.Warp(transform.position);
         }
+        currentlyRetargeting = false;
     }
     bool canSeeNexus()
     {
