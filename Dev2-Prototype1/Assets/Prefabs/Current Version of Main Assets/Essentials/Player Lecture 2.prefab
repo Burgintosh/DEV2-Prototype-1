@@ -547,6 +547,9 @@ MonoBehaviour:
     cost: 150
     refundAmount: 110
     placementRadius: 1.5
+    useExtraPlacementCheck: 1
+    extraPlacementOffset: {x: 0, y: 0, z: 3}
+    extraPlacementCheckRad: 1
     previewYOffset: 0.1
     placementMode: 0
     surfaceRotOffset: {x: 0, y: 0, z: 0}
@@ -558,6 +561,9 @@ MonoBehaviour:
     cost: 750
     refundAmount: 560
     placementRadius: 2.5
+    useExtraPlacementCheck: 1
+    extraPlacementOffset: {x: 0, y: 0, z: 4}
+    extraPlacementCheckRad: 2.5
     previewYOffset: 0.1
     placementMode: 0
     surfaceRotOffset: {x: 0, y: 0, z: 0}
@@ -569,6 +575,9 @@ MonoBehaviour:
     cost: 300
     refundAmount: 230
     placementRadius: 1.5
+    useExtraPlacementCheck: 1
+    extraPlacementOffset: {x: 0, y: 0, z: 0}
+    extraPlacementCheckRad: 3.2
     previewYOffset: 0.1
     placementMode: 0
     surfaceRotOffset: {x: 0, y: 0, z: 0}
@@ -580,6 +589,9 @@ MonoBehaviour:
     cost: 300
     refundAmount: 230
     placementRadius: 1.5
+    useExtraPlacementCheck: 1
+    extraPlacementOffset: {x: 0, y: 0, z: 3.1}
+    extraPlacementCheckRad: 2
     previewYOffset: 0.1
     placementMode: 0
     surfaceRotOffset: {x: 0, y: 0, z: 0}
@@ -591,6 +603,9 @@ MonoBehaviour:
     cost: 100
     refundAmount: 75
     placementRadius: 0.5
+    useExtraPlacementCheck: 0
+    extraPlacementOffset: {x: 0, y: 0, z: 0}
+    extraPlacementCheckRad: 0.5
     previewYOffset: 0.1
     placementMode: 1
     surfaceRotOffset: {x: 180, y: 0, z: 0}
@@ -602,6 +617,9 @@ MonoBehaviour:
     cost: 200
     refundAmount: 150
     placementRadius: 1.5
+    useExtraPlacementCheck: 0
+    extraPlacementOffset: {x: 0, y: 0, z: 0}
+    extraPlacementCheckRad: 0.5
     previewYOffset: 0.1
     placementMode: 1
     surfaceRotOffset: {x: 180, y: 0, z: 0}
@@ -613,6 +631,9 @@ MonoBehaviour:
     cost: 150
     refundAmount: 151
     placementRadius: 1.5
+    useExtraPlacementCheck: 0
+    extraPlacementOffset: {x: 0, y: 0, z: 0}
+    extraPlacementCheckRad: 0.5
     previewYOffset: 0.1
     placementMode: 0
     surfaceRotOffset: {x: 0, y: 0, z: 0}
@@ -624,6 +645,9 @@ MonoBehaviour:
     cost: 200
     refundAmount: 150
     placementRadius: 1.5
+    useExtraPlacementCheck: 0
+    extraPlacementOffset: {x: 0, y: 0, z: 0}
+    extraPlacementCheckRad: 0.5
     previewYOffset: 0.1
     placementMode: 0
     surfaceRotOffset: {x: 0, y: 0, z: 0}
@@ -639,7 +663,7 @@ MonoBehaviour:
     m_Bits: 512
   placementBlockMask:
     serializedVersion: 2
-    m_Bits: 34816
+    m_Bits: 34824
   validColor: {r: 0, g: 0, b: 1, a: 1}
   invalidColor: {r: 1, g: 0, b: 0, a: 1}
   buildFeedbackAudioSource: {fileID: 4323198515979075238}

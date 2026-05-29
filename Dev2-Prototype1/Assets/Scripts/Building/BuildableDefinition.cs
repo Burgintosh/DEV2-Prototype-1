@@ -13,6 +13,9 @@ public class BuildableDefinition
     public int cost;
     public int refundAmount = 100;
     public float placementRadius = 1f;
+    public bool useExtraPlacementCheck;
+    public Vector3 extraPlacementOffset = Vector3.zero;
+    public float extraPlacementCheckRad = 0.5f;
     public float previewYOffset = 0f;
     public BuildPlacementMode placementMode = BuildPlacementMode.Flat;
     public Vector3 surfaceRotOffset;

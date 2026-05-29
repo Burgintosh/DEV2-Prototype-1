@@ -14,6 +14,15 @@ public class GatlingTowerAI : MonoBehaviour, IBuffableTower
     [SerializeField] int faceRotSpeed = 8;
     [SerializeField] int FOV = 360;
 
+    [Header("----- LOS -----")]
+    [SerializeField] LayerMask LOSMask;
+    [SerializeField] bool showLOSDebug;
+
+    [Header("----- Targeting -----")]
+    [SerializeField] float retargetRate = 0.2f;
+    [SerializeField] float targetSwitchBuffer = 0.5f;
+    [SerializeField] float minTargetDist = 1f;
+
     [Header("----- Gatling Settings -----")]
     [SerializeField] float baseShootRate = 0.12f;
     [SerializeField] float rampedShootRate = 0.05f;
@@ -33,6 +42,8 @@ public class GatlingTowerAI : MonoBehaviour, IBuffableTower
     Color colorOrig;
 
     float totalDamageBuffPercent;
+
+    float retargetTimer;
 
     float shootTimer;
     float rampUpTimer;
@@ -70,12 +81,20 @@ public class GatlingTowerAI : MonoBehaviour, IBuffableTower
 
         CleanEnemyList();
 
-        if (!IsValidTarget(enemyPos))
+        retargetTimer += Time.deltaTime;
+
+        if (!IsValidTarget(enemyPos) || IsTooCloseToTarget(enemyPos) || !HasLineOfSight(enemyPos))
         {
             ChangeTarget(FindNextTarget());
+            retargetTimer = 0f;
+        }
+        else if(retargetTimer >= retargetRate)
+        {
+            TrySwitchToBetterTarget();
+            retargetTimer = 0f;
         }
 
-        if(enemyPos == null)
+        if (enemyPos == null)
         {
             ResetGatlingRamp();
             return;
@@ -106,6 +125,7 @@ public class GatlingTowerAI : MonoBehaviour, IBuffableTower
 
     private void OnDisable()
     {
+        retargetTimer = 0f;
         ClearDamBuff();
         ResetGatlingRamp();
         enemiesInRange.Clear();
@@ -133,6 +153,18 @@ public class GatlingTowerAI : MonoBehaviour, IBuffableTower
         return true;
     }
 
+    bool IsTooCloseToTarget(Transform _Target)
+    {
+        if(_Target == null)
+        {
+            return true;
+        }
+
+        float dist = Vector3.Distance(transform.position, _Target.position);
+
+        return dist < minTargetDist;
+    }
+
     float GetCurrentShootRate()
     {
         if(rampUpTimer >= timeTilRampUp)
@@ -150,11 +182,43 @@ public class GatlingTowerAI : MonoBehaviour, IBuffableTower
             return false;
         }
 
+        Vector3 targetPos = GetTargetPos(enemyPos);
+        enemyDir = targetPos - transform.position;
+
         angleToEnemy = Vector3.Angle(enemyDir, transform.forward);
 
-        if(angleToEnemy <= FOV)
+        if(angleToEnemy > FOV)
         {
-            return true;
+            return false;
+        }
+
+        return HasLineOfSight(enemyPos);
+    }
+
+    bool HasLineOfSight(Transform _Target)
+    {
+        if (_Target == null || shootPos == null)
+        {
+            return false;
+        }
+
+        Vector3 startPos = shootPos.position;
+        Vector3 targetPos = GetTargetPos(_Target);
+        Vector3 dirToTarget = targetPos - startPos;
+
+        if (dirToTarget == Vector3.zero)
+        {
+            return false;
+        }
+
+        float distToTarget = dirToTarget.magnitude;
+
+        if(Physics.Raycast(startPos, dirToTarget.normalized, out RaycastHit hit, distToTarget, LOSMask, QueryTriggerInteraction.Ignore))
+        {
+            Transform hitRoot = hit.collider.transform.root;
+            Transform targetRoot = _Target.root;
+
+            return hitRoot == targetRoot;
         }
 
         return false;
@@ -200,17 +264,62 @@ public class GatlingTowerAI : MonoBehaviour, IBuffableTower
 
     Transform FindNextTarget()
     {
+        Transform bestTarget = null;
+        float closestDist = Mathf.Infinity;
+
         for (int i = 0; i < enemiesInRange.Count; i++)
         {
             Transform target = enemiesInRange[i];
 
-            if(target != null && target.gameObject.activeInHierarchy)
+            if (!IsValidTarget(target))
             {
-                return target;
+                continue;
+            }
+
+            if (IsTooCloseToTarget(target))
+            {
+                continue;
+            }
+
+            if (!HasLineOfSight(target))
+            {
+                continue;
+            }
+
+            float dist = Vector3.Distance(transform.position, target.position);
+
+            if(dist < closestDist)
+            {
+                closestDist = dist;
+                bestTarget = target;
             }
         }
 
-        return null;
+        return bestTarget;
+    }
+
+    void TrySwitchToBetterTarget()
+    {
+        Transform bestTarget = FindNextTarget();
+
+        if(bestTarget == null)
+        {
+            return;
+        }
+
+        if(bestTarget == enemyPos)
+        {
+            return;
+        }
+
+        float currTargetDist = Vector3.Distance(transform.position, enemyPos.position);
+        float bestTargetDist = Vector3.Distance(transform.position, bestTarget.position);
+
+        if(bestTargetDist + targetSwitchBuffer < currTargetDist)
+        {
+            ChangeTarget(bestTarget);
+        }
+
     }
 
     void ChangeTarget(Transform _NewTarget)
@@ -378,6 +487,7 @@ public class GatlingTowerAI : MonoBehaviour, IBuffableTower
 
     public void ResetTurretState()
     {
+        retargetTimer = 0f;
         shootTimer = 0f;
         rampUpTimer = 0f;
         angleToEnemy = 0f;
