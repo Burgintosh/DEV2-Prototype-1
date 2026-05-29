@@ -438,6 +438,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 10880
   showLOSDebug: 0
+  retargetRate: 0.2
+  targetSwitchBuffer: 0.5
+  minTargetDist: 3
   baseShootRate: 0.2
   rampedShootRate: 0.1
   timeTilRampUp: 3
