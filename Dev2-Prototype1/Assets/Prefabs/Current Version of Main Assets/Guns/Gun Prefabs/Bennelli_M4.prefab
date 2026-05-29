@@ -56,7 +56,7 @@ MonoBehaviour:
   audioSource: {fileID: 2299474633485490789}
   ignoreLayer:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 4104
   muzzleEffect: {fileID: 2032338315701192724}
 --- !u!82 &2299474633485490789
 AudioSource:
