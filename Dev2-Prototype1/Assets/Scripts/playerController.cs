@@ -122,6 +122,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
 
     void Start()
     {
+        controller.enabled = true;
         HPOrig = HP;
         spawnPlayer();
 
@@ -325,7 +326,10 @@ public class playerController : MonoBehaviour, IDamage, IPickup
 
     void movement()
     {
-
+        if(controller.enabled == false)
+        {
+            return;
+        }
         if (controller.isGrounded)
         {
             jumpCount = 0;
@@ -607,6 +611,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
     {
         if (scene.name != "MainMenu")
         {
+            controller.enabled = true;
             SwitchWeapon(0);
             if (playerCamRef != null)
             {
@@ -631,6 +636,7 @@ public class playerController : MonoBehaviour, IDamage, IPickup
             {
                 playerCamRef.GetComponent<AudioListener>().enabled = false;
             }
+            controller.enabled = false;
         }
     }
     private void OnSceneUnloaded(Scene scene)

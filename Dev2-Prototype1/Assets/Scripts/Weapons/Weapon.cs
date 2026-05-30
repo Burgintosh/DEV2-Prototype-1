@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Weapon : MonoBehaviour
 {
@@ -46,6 +47,11 @@ public class Weapon : MonoBehaviour
 
     public void FireWeapon()
     {
+        Scene scene = SceneManager.GetActiveScene();
+        if(scene.name == "MainMenu")
+        {
+            return;
+        }
         if (data.isReloading)
         {
             if (data.isSingleShellReload)
