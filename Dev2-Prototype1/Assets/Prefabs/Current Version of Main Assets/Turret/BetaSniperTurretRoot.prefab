@@ -3750,8 +3750,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 533b8e419535d4e4e9114bc7bc61a59d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SniperTowerAI
-  showBuffDebugLog: 1
-  showDebugLog: 1
   cost: 200
   model: {fileID: 5642652020529157005}
   bullet: {fileID: 3309668671801036650, guid: f58b9011dd2bd1c4d80e484cc86187ef, type: 3}
@@ -3788,7 +3786,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 45
+  m_Radius: 50
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!114 &7444634190494095768
 MonoBehaviour:
@@ -3803,7 +3801,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BuildableRangeDisplay
   rangeSrc: 1
-  manualRadius: 45
+  manualRadius: 50
   rangeCollider: {fileID: 1440442549845406895}
   rangeColor: {r: 0, g: 0.7, b: 1, a: 0.25}
   rangeMat: {fileID: 2100000, guid: e06ae0244c527fb4e8bdfba0e5af2426, type: 2}
@@ -6340,7 +6338,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -5.673889, y: 1.445, z: -18.807526}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6046199643579970322}
