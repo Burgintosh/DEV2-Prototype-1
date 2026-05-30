@@ -99,6 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
   enemyShootVol: 0.5
+  enemyShootSound: {fileID: 0}
   maxHP: 10
   model: {fileID: 9188967603710821267}
   agent: {fileID: 3830377286536521191}
@@ -115,7 +116,6 @@ MonoBehaviour:
   targetPriority: 0
   currencyDrop: 10
   DropTables: []
-  showSlowLogs: 1
   slowColor: {r: 0.45, g: 0.85, b: 1, a: 1}
   slowHitVFX: {fileID: 198856239026640498, guid: 9bba9cf244c53c5439505dfc96fdd11c, type: 3}
   slowVFXDestroyBuffer: 0
@@ -128,7 +128,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1418558908956423061}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 1
   m_Speed: 6
   m_Acceleration: 8
   avoidancePriority: 50

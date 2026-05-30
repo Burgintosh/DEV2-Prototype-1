@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6096079266528459120}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Gun Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -108,7 +108,6 @@ MonoBehaviour:
     Odds: 0.2
   - itemDrop: {fileID: 3220594065194402282, guid: cc2bda5c49911aa4299ed70848eef995, type: 3}
     Odds: 0.3
-  showSlowLogs: 1
   slowColor: {r: 0.45, g: 0.85, b: 1, a: 1}
   slowHitVFX: {fileID: 198856239026640498, guid: 9bba9cf244c53c5439505dfc96fdd11c, type: 3}
   slowVFXDestroyBuffer: 0
@@ -121,7 +120,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 206251657112247229}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 1
   m_Speed: 4.5
   m_Acceleration: 32
   avoidancePriority: 50
@@ -382,7 +381,7 @@ GameObject:
   - component: {fileID: 3943090957946291467}
   - component: {fileID: 5943886279532998091}
   - component: {fileID: 3983498767401007417}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Gun Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -473,7 +472,7 @@ GameObject:
   - component: {fileID: 3977947178189787968}
   - component: {fileID: 8690271547699967166}
   - component: {fileID: 7637992391204624624}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -561,7 +560,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 731632831942219043}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Shoot Pos
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7841388923139636930}
   - component: {fileID: 4651505604208564052}
   - component: {fileID: 3752963646637474147}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 999747983065233003}
   - component: {fileID: 2172791547706282082}
   - component: {fileID: 7432759891427799644}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GunHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -237,7 +237,7 @@ GameObject:
   - component: {fileID: 6170748944638679524}
   - component: {fileID: 6522832568443491291}
   - component: {fileID: 1817174864987770130}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Face
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -406,7 +406,6 @@ MonoBehaviour:
   screenShakeDur: 0.2
   screenShakeMag: 2
   screenShakeFreq: 20
-  showDebugLogs: 0
   type: 2
   rb: {fileID: 0}
   damageAmount: 10
@@ -493,7 +492,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.99999964, y: 8.634704, z: 0.99999964}
-  m_Center: {x: 0, y: 3.8173516, z: 0}
+  m_Center: {x: 0, y: 4, z: 0}
 --- !u!1 &5062964200378589267
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,7 +502,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4347607510808059561}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ShootPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -615,7 +614,6 @@ MonoBehaviour:
     Odds: 0.5
   - itemDrop: {fileID: 6304703340568334801, guid: 58ac72b5e61a7c744a9a9a8546364bfd, type: 3}
     Odds: 0.25
-  showSlowLogs: 1
   slowColor: {r: 0.45, g: 0.85, b: 1, a: 1}
   slowHitVFX: {fileID: 198856239026640498, guid: 9bba9cf244c53c5439505dfc96fdd11c, type: 3}
   slowVFXDestroyBuffer: 0
@@ -628,7 +626,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 5818386542145438867}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.75
+  m_Radius: 1
   m_Speed: 4
   m_Acceleration: 15
   avoidancePriority: 50
@@ -873,7 +871,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3684975558054409633}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GunPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}

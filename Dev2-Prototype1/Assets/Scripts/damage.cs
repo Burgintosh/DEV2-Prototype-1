@@ -146,7 +146,7 @@ public class damage : MonoBehaviour
             return;
         }
 
-        if(type == damageType.DOT && !targetsToDam.Contains(dmg))
+        if(gameObject.activeInHierarchy == true && type == damageType.DOT && !targetsToDam.Contains(dmg))
         {
             //DebugDam("Starting DOT damage on " + other.name + " for " + damageAmount);
             StartCoroutine(damageOther(dmg));
