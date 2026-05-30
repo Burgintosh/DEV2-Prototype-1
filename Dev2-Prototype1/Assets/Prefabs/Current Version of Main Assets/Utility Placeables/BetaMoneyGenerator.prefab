@@ -81,8 +81,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17a1d1dc352208c41816c8cd7dfcdd83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MoneyTrap
-  amountPerPayout: 5
-  payoutInterval: 5
+  amountPerPayout: 50
+  payoutInterval: 4
   minSecondsBetweenPayout: 0.1
   amountPerPayoutMult: 1
   payoutIntervalMult: 1
@@ -93,7 +93,6 @@ MonoBehaviour:
   moneySoundCategory: 5
   moneyPayoutVFX: {fileID: 4168325499488894824}
   moneyPayoutVFXPos: {fileID: 1629469612969189551}
-  showDebugLogs: 1
 --- !u!82 &7653936344981579694
 AudioSource:
   m_ObjectHideFlags: 0
